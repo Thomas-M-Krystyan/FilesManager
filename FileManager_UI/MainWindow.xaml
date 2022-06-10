@@ -1,7 +1,7 @@
 ﻿<Window x:Class="FileManager_UI.MainWindow"
         Title="MainWindow"
         Height="450"
-        Width="810"
+        Width="815"
         ResizeMode="NoResize"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -207,39 +207,25 @@
                          GotFocus="PrependAppendTextBox_Focus"/>
             </Grid>
         </Border>
-        
-        <!-- Global buttons -->
-        <Border Margin="695,404,10,10">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="50px" />
-                    <ColumnDefinition Width="5px" />
-                    <ColumnDefinition Width="50px" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                
-                <Button x:Name="ClearListButton"
-                        Grid.Column="0"
-                        Grid.Row="0"
-                        Content="Clear"
-                        Width="50"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Click="ClearButton_Click"
-                        ToolTip="INFO: Clears loaded files and all values from methods"/>
 
-                <Button x:Name="ProcessButton"
-                        Grid.Column="2"
-                        Grid.Row="0"
-                        Content="Process"
-                        Width="50"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Click="ProcessButton_Click"
-                        ToolTip="INFO: Starts processing given files based on a selected method" />
-            </Grid>
-        </Border>
+        <!-- Global buttons -->
+        <Button x:Name="ClearListButton"
+                Content="Reset"
+                Width="50"
+                Margin="0,0,65,10"
+                Background="#FFDAB9B9"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Click="ResetButton_Click"
+                ToolTip="INFO: Clears loaded files and all values from methods" />
+
+        <Button x:Name="ProcessButton"
+                Content="Process"
+                Width="50"
+                Margin="0,0,10,10"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Click="ProcessButton_Click"
+                ToolTip="INFO: Starts processing given files based on a selected method" />
     </Grid>
 </Window>

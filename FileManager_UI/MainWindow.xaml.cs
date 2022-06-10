@@ -1,5 +1,8 @@
 ﻿using FileManager_Logic;
+using FileManager_UI.ExtensionMethods;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -7,7 +10,11 @@ namespace FileManager_UI
 {
     public partial class MainWindow : Window
     {
+        #region Fields
+        private readonly IList<RadioButton> _radioButtons = new List<RadioButton>();
+
         private bool _isAnyMethodSelected;
+        #endregion
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
@@ -15,6 +22,8 @@ namespace FileManager_UI
         public MainWindow()
         {
             InitializeComponent();
+
+            RegisterRadioButtons();
         }
 
         /// <summary>
@@ -53,7 +62,7 @@ namespace FileManager_UI
         /// <summary>
         /// Clears list of files and any methods values.
         /// </summary>
-        private void ClearButton_Click(object sender, RoutedEventArgs @event)
+        private void ResetButton_Click(object sender, RoutedEventArgs @event)
         {
             ClearFilesList();
 
@@ -121,6 +130,28 @@ namespace FileManager_UI
             _ = result.IsSuccess
                 ? MessageBox.Show("All files were renamed!", result.Message, MessageBoxButton.OK, MessageBoxImage.Information)
                 : MessageBox.Show(result.Message, "Renaming error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        /// <summary>
+        /// Populates collection of all available <see cref="RadioButton"/>s.
+        /// </summary>
+        private void RegisterRadioButtons()
+        {
+            this._radioButtons.Add(this.StartNumberRadioButton);
+            this._radioButtons.Add(this.PrependAppendRadioButton);
+        }
+
+        /// <summary>
+        /// Deactivates all radio buttons except the provided one.
+        /// </summary>
+        private void ResetAllRadioButtonsExcept(RadioButton excludedRadioButton)
+        {
+            RadioButton[] radioButtonsToDeactivate = this._radioButtons.Where(button => button != excludedRadioButton)
+                                                                       .ToArray();
+            foreach (RadioButton button in radioButtonsToDeactivate)
+            {
+                button.Deactivate();
+            }
         }
         #endregion
     }

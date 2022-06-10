@@ -28,6 +28,10 @@ namespace FileManager_UI
                 UpdateNameOnList(fileItem, result.NewFilePath);
             }
 
+            // Reset input fields
+            this.PrependName.Text = String.Empty;
+            this.AppendName.Text = String.Empty;
+
             DisplayPopup(result);
         }
 
@@ -39,6 +43,8 @@ namespace FileManager_UI
         {
             this.PrependAppendRadioButton.Activate();
             this._isAnyMethodSelected = true;
+
+            ResetAllRadioButtonsExcept(this.PrependAppendRadioButton);
         }
 
         /// <summary>

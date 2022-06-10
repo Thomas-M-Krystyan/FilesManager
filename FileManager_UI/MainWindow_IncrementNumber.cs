@@ -66,6 +66,8 @@ namespace FileManager_UI
         {
             this.StartNumberRadioButton.Activate();
             this._isAnyMethodSelected = true;
+
+            ResetAllRadioButtonsExcept(this.StartNumberRadioButton);
         }
 
         /// <summary>
