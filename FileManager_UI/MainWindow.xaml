@@ -33,11 +33,12 @@
                HorizontalAlignment="Left"
                VerticalAlignment="Top" />
 
-        <!-- Renaming files -->
+        <!-- Renaming files (incremented number) -->
         <Label Content="Start number:"
                Margin="625,41,0,0"
                HorizontalAlignment="Left"
-               VerticalAlignment="Top" />
+               VerticalAlignment="Top"
+               ToolTip="Rename given files using incremented start number" />
 
         <TextBox x:Name="startingNumber"
                  Width="30"
@@ -46,6 +47,7 @@
                  HorizontalAlignment="Left"
                  VerticalAlignment="Top" />
         
+        <!-- Global buttons -->
         <Button x:Name="clearButton"
                 Content="Clear"
                 Width="50"
