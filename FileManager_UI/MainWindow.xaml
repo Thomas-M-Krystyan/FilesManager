@@ -36,8 +36,11 @@
 
         <!-- Renaming files (incremented number) -->
         <Border Margin="560,40,0,0"
+                Padding="2,0,2,0"
                 HorizontalAlignment="Left"
-                VerticalAlignment="Top">
+                VerticalAlignment="Top"
+                BorderThickness="1px"
+                BorderBrush="LightGray">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="15px"/>
@@ -119,22 +122,37 @@
         </Border>
 
         <!-- Global buttons -->
-        <Button x:Name="ClearListButton"
-                Content="Clear"
-                Width="50"
-                Margin="0,0,65,10"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Click="ClearButton_Click"
-                ToolTip="INFO: Clears loaded files and all values from methods"/>
+        <Border Margin="695,404,10,10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50px" />
+                    <ColumnDefinition Width="5px" />
+                    <ColumnDefinition Width="50px" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                
+                <Button x:Name="ClearListButton"
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        Content="Clear"
+                        Width="50"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Click="ClearButton_Click"
+                        ToolTip="INFO: Clears loaded files and all values from methods"/>
 
-        <Button x:Name="ProcessButton"
-                Content="Process"
-                Width="50"
-                Margin="0,0,10,10"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Click="ProcessButton_Click"
-                ToolTip="INFO: Starts processing given files based on a selected method" />
+                <Button x:Name="ProcessButton"
+                        Grid.Column="2"
+                        Grid.Row="0"
+                        Content="Process"
+                        Width="50"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Click="ProcessButton_Click"
+                        ToolTip="INFO: Starts processing given files based on a selected method" />
+            </Grid>
+        </Border>
     </Grid>
 </Window>
