@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+
+    <!-- Change the name of the output .exe file -->
+    <AssemblyName>FileManager</AssemblyName>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FileManager_Logic\FileManager_Logic.csproj" />
+  </ItemGroup>
+
+</Project>
