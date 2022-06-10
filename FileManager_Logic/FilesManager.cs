@@ -17,7 +17,7 @@ namespace FileManager_Logic
 
         // Regex patterns
         private const string InvalidCharactersPatter = "[\\/:*?\"<>|]";
-        private static readonly string FilePathPattern = $@"^(?<{PathGroup}>.+\\)(?<{NameGroup}>\w+)(?<{ExtensionGroup}>\.[aA-zZ0-9]{{1,4}})$";
+        private static readonly string FilePathPattern = $@"(?<{PathGroup}>.+\\)(?<{NameGroup}>\S+)(?<{ExtensionGroup}>\.[aA-zZ0-9]\w+)";
         #endregion
 
         /// <summary>
