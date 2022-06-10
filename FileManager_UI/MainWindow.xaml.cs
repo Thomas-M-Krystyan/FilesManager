@@ -1,4 +1,5 @@
 ﻿using FileManager_Logic;
+using FileManager_UI.ExtensionMethods;
 using System;
 using System.Globalization;
 using System.IO;
@@ -9,6 +10,8 @@ namespace FileManager_UI
 {
     public partial class MainWindow : Window
     {
+        private bool _isAnyMethodSelected;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -54,9 +57,17 @@ namespace FileManager_UI
 
         private void ProcessButton_Click(object sender, RoutedEventArgs @event)
         {
-            if (this.StartNumberRadioButton.IsChecked ?? false)
+            // Validate if any radio button of a method is selected
+            if (!this._isAnyMethodSelected)
             {
-                RenameWithIncrementedNumber();
+                _ = MessageBox.Show("No renaming method was selected.", "Invalid operation", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else
+            {
+                if (this.StartNumberRadioButton.IsChecked ?? false)
+                {
+                    RenameWithIncrementedNumber();
+                }
             }
         }
         #endregion
@@ -76,8 +87,9 @@ namespace FileManager_UI
             }
             else
             {
-                // Validate input value
-                if (UInt16.TryParse(this.StartingNumber.Text, out ushort startNumber))
+                // Validate input value (cannot be converted or it's too large)
+                if (UInt16.TryParse(this.StartingNumber.Text, out ushort startNumber) &&
+                    startNumber - this.FilesList.Items.Count <= UInt16.MaxValue)
                 {
                     foreach (ListBoxItem fileItem in this.FilesList.Items)
                     {
@@ -117,7 +129,7 @@ namespace FileManager_UI
         /// </summary>
         private void StartingInputField_Focus(object sender, RoutedEventArgs @event)
         {
-            this.StartNumberRadioButton.IsChecked = true;
+            this.StartNumberRadioButton.Activate(ref this._isAnyMethodSelected);
         }
 
         /// <summary>
@@ -125,7 +137,7 @@ namespace FileManager_UI
         /// </summary>
         private void PostfixInputField_Focus(object sender, RoutedEventArgs @event)
         {
-            this.StartNumberRadioButton.IsChecked = true;
+            this.StartNumberRadioButton.Activate(ref this._isAnyMethodSelected);
         }
 
         /// <summary>
@@ -133,7 +145,7 @@ namespace FileManager_UI
         /// </summary>
         private void ClearIncrementedNumber()
         {
-            this.StartNumberRadioButton.IsChecked = false;
+            this.StartNumberRadioButton.Deactivate(ref this._isAnyMethodSelected);
             this.StartingNumber.Text = String.Empty;
         }
         #endregion
