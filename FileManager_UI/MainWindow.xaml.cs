@@ -5,8 +5,6 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 
-#pragma warning disable CA1707  // Allow underscores in namespaces
-
 namespace FileManager_UI
 {
     public partial class MainWindow : Window
@@ -20,8 +18,7 @@ namespace FileManager_UI
         {
             if (@event.Data.GetDataPresent(DataFormats.FileDrop))
             {
-                // Clear the list
-                this.FilesList.Items.Clear();
+                ClearFilesList();
 
                 // Load dropped files
                 string[] droppedFilesPaths = @event.Data.GetData(format: DataFormats.FileDrop, autoConvert: true) as string[];
@@ -49,8 +46,7 @@ namespace FileManager_UI
         #region Global buttons
         private void ClearButton_Click(object sender, RoutedEventArgs @event)
         {
-            // Clear the list
-            this.FilesList.Items.Clear();
+            ClearFilesList();
 
             // Cleanup input sections
             ClearIncrementedNumber();
@@ -66,6 +62,9 @@ namespace FileManager_UI
         #endregion
 
         #region Rename with incremented number
+        /// <summary>
+        /// Renames given files using incremented start number.
+        /// </summary>
         private void RenameWithIncrementedNumber()
         {
             (bool IsSuccess, string Message, string NewFilePath) result = (false, String.Empty, String.Empty);
@@ -88,8 +87,7 @@ namespace FileManager_UI
                         // Validate renaming result
                         if (!result.IsSuccess)
                         {
-                            // Clear the list
-                            this.FilesList.Items.Clear();
+                            ClearFilesList();
 
                             break;
                         }
@@ -114,15 +112,39 @@ namespace FileManager_UI
                 : MessageBox.Show(result.Message, "Renaming error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
-        private void ResetStartInput_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Selects the radio button when this input text field is activated (on focus).
+        /// </summary>
+        private void StartingInputField_Focus(object sender, RoutedEventArgs @event)
+        {
+            this.StartNumberRadioButton.IsChecked = true;
+        }
+
+        /// <summary>
+        /// Resets the input text field when button is pressed.
+        /// </summary>
+        private void ResetStartInputButton_Click(object sender, RoutedEventArgs @event)
         {
             this.StartingNumber.Text = String.Empty;
         }
 
+        /// <summary>
+        /// Clears radio button and input text field.
+        /// </summary>
         private void ClearIncrementedNumber()
         {
             this.StartNumberRadioButton.IsChecked = false;
             this.StartingNumber.Text = String.Empty;
+        }
+        #endregion
+
+        #region Helper methods
+        /// <summary>
+        /// Clears the list of dropped files.
+        /// </summary>
+        private void ClearFilesList()
+        {
+            this.FilesList.Items.Clear();
         }
         #endregion
     }

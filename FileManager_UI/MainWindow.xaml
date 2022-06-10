@@ -70,7 +70,8 @@
                          VerticalContentAlignment="Center"
                          TextWrapping="Wrap"
                          HorizontalAlignment="Left"
-                         VerticalAlignment="Center" />
+                         VerticalAlignment="Center"
+                         GotFocus="StartingInputField_Focus"/>
 
                 <Button x:Name="ResetStartInputButton"
                         Grid.Column="3"
@@ -81,7 +82,7 @@
                         Margin="5,0,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Click="ResetStartInput_Click" />
+                        Click="ResetStartInputButton_Click" />
             </Grid>
         </Border>
 
