@@ -2,6 +2,9 @@ using FileManager_Logic;
 using NUnit.Framework;
 using System;
 
+#pragma warning disable CA1707   // Allow underscores in tests names
+#pragma warning disable IDE0130  // Allow underscores in namespaces
+
 namespace FileManager_Tests
 {
     public class FileManagerTests

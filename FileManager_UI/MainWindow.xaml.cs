@@ -1,8 +1,11 @@
 ﻿using FileManager_Logic;
 using System;
+using System.Globalization;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+
+#pragma warning disable CA1707  // Allow underscores in namespaces
 
 namespace FileManager_UI
 {
@@ -18,8 +21,8 @@ namespace FileManager_UI
             if (@event.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 // Clear the list
-                this.filesList.Items.Clear();
-                
+                this.FilesList.Items.Clear();
+
                 // Load dropped files
                 string[] droppedFilesPaths = @event.Data.GetData(format: DataFormats.FileDrop, autoConvert: true) as string[];
 
@@ -33,7 +36,7 @@ namespace FileManager_UI
                         listBoxItem.Content = Path.GetFileName(filePath);
                         listBoxItem.ToolTip = filePath;
 
-                        _ = this.filesList.Items.Add(listBoxItem);
+                        _ = this.FilesList.Items.Add(listBoxItem);
                     }
                     else
                     {
@@ -43,27 +46,41 @@ namespace FileManager_UI
             }
         }
 
+        #region Global buttons
         private void ClearButton_Click(object sender, RoutedEventArgs @event)
         {
             // Clear the list
-            this.filesList.Items.Clear();
+            this.FilesList.Items.Clear();
+
+            // Cleanup input sections
+            ClearIncrementedNumber();
         }
 
         private void ProcessButton_Click(object sender, RoutedEventArgs @event)
         {
+            if (this.StartNumberRadioButton.IsChecked ?? false)
+            {
+                RenameWithIncrementedNumber();
+            }
+        }
+        #endregion
+
+        #region Rename with incremented number
+        private void RenameWithIncrementedNumber()
+        {
             (bool IsSuccess, string Message, string NewFilePath) result = (false, String.Empty, String.Empty);
 
             // Validate null or empty input
-            if (String.IsNullOrWhiteSpace(this.startingNumber.Text))
+            if (String.IsNullOrWhiteSpace(this.StartingNumber.Text))
             {
                 result = (false, "Provide \"Start number\".", String.Empty);
             }
             else
             {
                 // Validate input value
-                if (UInt16.TryParse(this.startingNumber.Text, out ushort startNumber))
+                if (UInt16.TryParse(this.StartingNumber.Text, out ushort startNumber))
                 {
-                    foreach (ListBoxItem fileItem in this.filesList.Items)
+                    foreach (ListBoxItem fileItem in this.FilesList.Items)
                     {
                         // Process renaming of the file
                         result = FilesManager.ReplaceFile(fileItem, startNumber++);
@@ -72,7 +89,7 @@ namespace FileManager_UI
                         if (!result.IsSuccess)
                         {
                             // Clear the list
-                            this.filesList.Items.Clear();
+                            this.FilesList.Items.Clear();
 
                             break;
                         }
@@ -83,11 +100,11 @@ namespace FileManager_UI
                     }
 
                     // Set the last number as the new start number
-                    this.startingNumber.Text = startNumber.ToString();
+                    this.StartingNumber.Text = startNumber.ToString(CultureInfo.InvariantCulture);
                 }
                 else
                 {
-                    result = (false, $"Invalid \"Start number\": {this.startingNumber.Text}.", String.Empty);
+                    result = (false, $"Invalid \"Start number\": {this.StartingNumber.Text}.", String.Empty);
                 }
             }
 
@@ -96,5 +113,17 @@ namespace FileManager_UI
                 ? MessageBox.Show("All files were renamed!", result.Message, MessageBoxButton.OK, MessageBoxImage.Information)
                 : MessageBox.Show(result.Message, "Renaming error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
+
+        private void ResetStartInput_Click(object sender, RoutedEventArgs e)
+        {
+            this.StartingNumber.Text = String.Empty;
+        }
+
+        private void ClearIncrementedNumber()
+        {
+            this.StartNumberRadioButton.IsChecked = false;
+            this.StartingNumber.Text = String.Empty;
+        }
+        #endregion
     }
 }

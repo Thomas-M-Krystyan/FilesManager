@@ -3,6 +3,9 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
 
+#pragma warning disable CA1707   // Allow underscores in namespaces
+#pragma warning disable IDE0130  // Allow underscores in namespaces
+
 namespace FileManager_Logic
 {
     public static class FilesManager

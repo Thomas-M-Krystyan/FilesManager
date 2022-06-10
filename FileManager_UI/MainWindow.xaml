@@ -6,16 +6,16 @@
         mc:Ignorable="d"
         Title="MainWindow"
         Height="450"
-        Width="800">
+        Width="810">
     <Grid>
         <!-- ################################# -->
         <!-- ###  LEFT PART OF THE SCREEN  ### -->
         <!-- ################################# -->
 
         <!-- List of loaded files -->
-        <ListBox x:Name="filesList"
+        <ListBox x:Name="FilesList"
                  Height="400"
-                 Width="600"
+                 Width="590"
                  Margin="10,0,0,0"
                  HorizontalAlignment="Left"
                  VerticalAlignment="Top"
@@ -27,28 +27,65 @@
         <!-- ################################## -->
 
         <!-- Group label -->
-        <Label Content="Rename files"
+        <Label Content="RENAME FILES"
                FontWeight="Bold"
                Margin="625,10,0,0"
                HorizontalAlignment="Left"
                VerticalAlignment="Top" />
 
         <!-- Renaming files (incremented number) -->
-        <Label Content="Start number:"
-               Margin="625,41,0,0"
-               HorizontalAlignment="Left"
-               VerticalAlignment="Top"
-               ToolTip="Rename given files using incremented start number" />
+        <Border Height="25"
+                Width="180"
+                Margin="610,39,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="15px"/>
+                    <ColumnDefinition Width="85px"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <RadioButton x:Name="StartNumberRadioButton"
+                             Grid.Column="0"
+                             Content=""
+                             Height="14"
+                             Width="15"
+                             HorizontalAlignment="Left"
+                             VerticalAlignment="Center" />
 
-        <TextBox x:Name="startingNumber"
-                 Width="30"
-                 Margin="712,45,0,0"
-                 TextWrapping="Wrap"
-                 HorizontalAlignment="Left"
-                 VerticalAlignment="Top" />
-        
+                <Label Content="Start number:"
+                       Grid.Column="1"
+                       Height="25"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       ToolTip="Rename given files using incremented start number" />
+
+                <TextBox x:Name="StartingNumber"
+                         Grid.Column="2"
+                         Height="20"
+                         Width="35"
+                         VerticalContentAlignment="Center"
+                         TextWrapping="Wrap"
+                         HorizontalAlignment="Left"
+                         VerticalAlignment="Center" />
+
+                <Button x:Name="ResetStartInputButton"
+                        Grid.Column="3"
+                        Content="Reset"
+                        FontSize="11"
+                        Height="20"
+                        Width="35"
+                        Margin="5,0,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Click="ResetStartInput_Click" />
+            </Grid>
+        </Border>
+
         <!-- Global buttons -->
-        <Button x:Name="clearButton"
+        <Button x:Name="ClearListButton"
                 Content="Clear"
                 Width="50"
                 Margin="0,0,65,10"
@@ -56,7 +93,7 @@
                 VerticalAlignment="Bottom"
                 Click="ClearButton_Click" />
 
-        <Button x:Name="processButton"
+        <Button x:Name="ProcessButton"
                 Content="Process"
                 Width="50"
                 Margin="0,0,10,10"
