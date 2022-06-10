@@ -14,4 +14,8 @@
     <ProjectReference Include="..\FileManager_Logic\FileManager_Logic.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+
 </Project>
