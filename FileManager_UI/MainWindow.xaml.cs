@@ -82,7 +82,7 @@ namespace FileManager_UI
                     foreach (ListBoxItem fileItem in this.FilesList.Items)
                     {
                         // Process renaming of the file
-                        result = FilesManager.ReplaceFile(fileItem, startNumber++);
+                        result = FilesManager.ReplaceFile(fileItem, startNumber++, this.NamePostfix.Text);
 
                         // Validate renaming result
                         if (!result.IsSuccess)
@@ -121,11 +121,11 @@ namespace FileManager_UI
         }
 
         /// <summary>
-        /// Resets the input text field when button is pressed.
+        /// Selects the radio button when this input text field is activated (on focus).
         /// </summary>
-        private void ResetStartInputButton_Click(object sender, RoutedEventArgs @event)
+        private void PostfixInputField_Focus(object sender, RoutedEventArgs @event)
         {
-            this.StartingNumber.Text = String.Empty;
+            this.StartNumberRadioButton.IsChecked = true;
         }
 
         /// <summary>

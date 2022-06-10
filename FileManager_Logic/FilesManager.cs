@@ -31,12 +31,12 @@ namespace FileManager_Logic
         /// <summary>
         /// Change the name of a given file by replacing it with incremented numbers.
         /// </summary>
-        public static (bool IsSuccess, string Message, string NewFilePath) ReplaceFile(ListBoxItem fileItem, ushort number)
+        public static (bool IsSuccess, string Message, string NewFilePath) ReplaceFile(ListBoxItem fileItem, ushort number, string postfix)
         {
             try
             {
                 string oldFilePath = fileItem.ToolTip as string;
-                string newFilePath = RenameFile(oldFilePath, number);
+                string newFilePath = RenameFile(oldFilePath, number, postfix);
 
                 File.Move(oldFilePath, newFilePath);
 
@@ -48,7 +48,7 @@ namespace FileManager_Logic
             }
         }
 
-        internal static string RenameFile(string filePath, ushort startNumber)
+        internal static string RenameFile(string filePath, ushort startNumber, string postfix)
         {
             if (String.IsNullOrWhiteSpace(filePath))
             {
@@ -57,8 +57,10 @@ namespace FileManager_Logic
 
             Match match = Regex.Match(filePath, FilePathPattern);
 
+            string validPostfix = String.IsNullOrWhiteSpace(postfix) ? String.Empty : postfix;
+
             return match.Success
-                ? Path.Combine(match.Groups[PathGroup].Value, $"{startNumber++}{match.Groups[ExtensionGroup].Value}")
+                ? Path.Combine(match.Groups[PathGroup].Value, $"{startNumber++}{validPostfix}{match.Groups[ExtensionGroup].Value}")
                 : String.Empty;
         }
     }

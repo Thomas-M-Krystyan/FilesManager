@@ -17,10 +17,27 @@ namespace FileManager_Tests
             const string ResultFilePath = @"C:\Drive\Folder\7.jpg";
 
             // Act
-            string actualFilePath = FilesManager.RenameFile(TestFilePath, 7);
+            string actualFilePath = FilesManager.RenameFile(TestFilePath, 7, String.Empty);
 
             // Assert
             Assert.That(actualFilePath, Is.EqualTo(ResultFilePath));
+        }
+
+        [TestCase("", "")]
+        [TestCase(" ", "")]
+        [TestCase(null, "")]
+        [TestCase("X", "X")]  // No path
+        public void CheckIfMethod_RenameFile_ForValidPath_AndSuffix_AddsPostfixToChangedName(string testPostfix, string expectedPostfix)
+        {
+            // Arrange
+            const string TestFilePath = @"C:\Drive\Folder\Subfolder\1.jpg";
+            string expectedFilePath = @$"C:\Drive\Folder\Subfolder\4{expectedPostfix}.jpg";
+
+            // Act
+            string actualFilePath = FilesManager.RenameFile(TestFilePath, 4, testPostfix);
+
+            // Assert
+            Assert.That(actualFilePath, Is.EqualTo(expectedFilePath));
         }
 
         [TestCase("")]
@@ -31,7 +48,7 @@ namespace FileManager_Tests
         public void CheckIfMethod_RenameFile_ForInvalidPath_ReturnsEmptyString(string testPath)
         {
             // Act
-            string actualFilePath = FilesManager.RenameFile(testPath, 9);
+            string actualFilePath = FilesManager.RenameFile(testPath, 9, String.Empty);
 
             // Assert
             Assert.That(actualFilePath, Is.EqualTo(String.Empty));
