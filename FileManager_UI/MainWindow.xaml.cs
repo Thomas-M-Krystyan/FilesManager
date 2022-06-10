@@ -69,10 +69,15 @@ namespace FileManager_UI
         /// </summary>
         private void ProcessButton_Click(object sender, RoutedEventArgs @event)
         {
-            // Validate if any radio button of a method is selected
-            if (!this._isAnyMethodSelected)
+            // Validate if there are any files on the list
+            if (this.FilesList.Items.Count == 0)
             {
-                _ = MessageBox.Show("No renaming method was selected.", "Invalid operation", MessageBoxButton.OK, MessageBoxImage.Warning);
+                _ = MessageBox.Show("The list of files is empty.", "Missing files", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            // Validate if any radio button of a method is selected
+            else if (!this._isAnyMethodSelected)
+            {
+                _ = MessageBox.Show("No renaming method was selected.", "Nothing selected", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             else
             {
