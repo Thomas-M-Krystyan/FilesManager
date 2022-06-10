@@ -46,8 +46,11 @@ namespace FileManager_UI
                         fileItem.ToolTip = result.NewFilePath;
                     }
 
-                    // Set the last number as the new start number
-                    this.StartingNumber.Text = startNumber.ToString(CultureInfo.InvariantCulture);
+                    if (result.IsSuccess)
+                    {
+                        // Set the last number as the new start number
+                        this.StartingNumber.Text = startNumber.ToString(CultureInfo.InvariantCulture);
+                    }
                 }
                 else
                 {
