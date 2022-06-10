@@ -121,7 +121,7 @@ namespace FileManager_UI
         {
             return FilesManager.ContainsIllegalCharacters(out string invalidValue, textInputs)
                 ? (false, $"The given value contains illegal characters \"{invalidValue}\"", String.Empty)
-                : default;
+                : (true, String.Empty, String.Empty);  // Only the first value is important
         }
 
         /// <summary>
