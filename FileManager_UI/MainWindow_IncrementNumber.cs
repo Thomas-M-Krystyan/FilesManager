@@ -2,7 +2,6 @@
 using FileManager_UI.ExtensionMethods;
 using System;
 using System.Globalization;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -11,7 +10,7 @@ namespace FileManager_UI
     public partial class MainWindow
     {
         /// <summary>
-        /// Renames given files using incremented start number.
+        /// Renames given files using incremented start number and optional postfix.
         /// </summary>
         private void RenameWithIncrementedNumber()
         {
@@ -31,7 +30,7 @@ namespace FileManager_UI
                     foreach (ListBoxItem fileItem in this.FilesList.Items)
                     {
                         // Process renaming of the file
-                        result = FilesManager.ReplaceFile(fileItem, startNumber++, this.NamePostfix.Text);
+                        result = FilesManager.ReplaceWithNumber(fileItem.ToolTip as string, startNumber++, this.NamePostfix.Text);
 
                         // Validate renaming result
                         if (!result.IsSuccess)
@@ -41,9 +40,7 @@ namespace FileManager_UI
                             break;
                         }
 
-                        // Update names and paths of the files on the list
-                        fileItem.Content = Path.GetFileName(result.NewFilePath);
-                        fileItem.ToolTip = result.NewFilePath;
+                        UpdateNameOnList(fileItem, result.NewFilePath);
                     }
 
                     if (result.IsSuccess)
@@ -58,12 +55,10 @@ namespace FileManager_UI
                 }
             }
 
-            // Display popup message
-            _ = result.IsSuccess
-                ? MessageBox.Show("All files were renamed!", result.Message, MessageBoxButton.OK, MessageBoxImage.Information)
-                : MessageBox.Show(result.Message, "Renaming error", MessageBoxButton.OK, MessageBoxImage.Error);
+            DisplayPopup(result);
         }
 
+        #region Events
         /// <summary>
         /// Activates this method <see cref="RadioButton"/>.
         /// </summary>
@@ -88,14 +83,19 @@ namespace FileManager_UI
         {
             StartNumberRadioButton_Checked(sender, @event);
         }
+        #endregion
 
+        #region Cleanup
         /// <summary>
         /// Clears radio button and input text field.
         /// </summary>
         private void ClearIncrementedNumber()
         {
             this.StartNumberRadioButton.Deactivate();
+
             this.StartingNumber.Text = String.Empty;
+            this.NamePostfix.Text = String.Empty;
         }
+        #endregion
     }
 }

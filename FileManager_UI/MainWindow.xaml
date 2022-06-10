@@ -45,9 +45,9 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="15px"/>
                     <ColumnDefinition Width="85px"/>
-                    <ColumnDefinition Width="35"/>
+                    <ColumnDefinition Width="25"/>
                     <ColumnDefinition Width="55"/>
-                    <ColumnDefinition Width="35"/>
+                    <ColumnDefinition Width="45"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -57,7 +57,7 @@
                 <!-- 1st row -->
                 <Label Grid.Column="0" Grid.ColumnSpan="5"
                        Grid.Row="0"
-                       Content="Method: Incremented number + postfix"
+                       Content="Incremented number + postfix"
                        FontSize="9px"
                        FontWeight="Bold"
                        Margin="-3,0,0,0"
@@ -89,7 +89,7 @@
                          Grid.Column="2"
                          Grid.Row="1"
                          Height="20"
-                         Width="35"
+                         Width="25"
                          VerticalContentAlignment="Center"
                          TextWrapping="Wrap"
                          HorizontalAlignment="Left"
@@ -111,7 +111,7 @@
                          Grid.Column="4"
                          Grid.Row="1"
                          Height="20"
-                         Width="35"
+                         Width="45"
                          VerticalContentAlignment="Center"
                          TextWrapping="Wrap"
                          HorizontalAlignment="Left"
@@ -121,6 +121,93 @@
             </Grid>
         </Border>
 
+        <!-- Renaming files (prepend and/or appended text) -->
+        <Border Margin="560,95,0,0"
+                Padding="2,0,2,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                BorderThickness="1px"
+                BorderBrush="LightGray">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="15px"/>
+                    <ColumnDefinition Width="60px"/>
+                    <ColumnDefinition Width="45"/>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="45"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- 1st row -->
+                <Label Grid.Column="0" Grid.ColumnSpan="5"
+                       Grid.Row="0"
+                       Content="Prepend / append text"
+                       FontSize="9px"
+                       FontWeight="Bold"
+                       Margin="-3,0,0,0"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top" />
+
+                <!-- 2nd row -->
+                <RadioButton x:Name="PrependAppendRadioButton"
+                             Grid.Column="0"
+                             Grid.Row="1"
+                             Content=""
+                             Height="14"
+                             Width="15"
+                             HorizontalAlignment="Left"
+                             VerticalAlignment="Center"
+                             ToolTip="INFO: Select to activate this method"
+                             Checked="PrependAppendRadioButtonRadioButton_Checked" />
+
+                <Label Content="Prepend:"
+                       Grid.Column="1"
+                       Grid.Row="1"
+                       Height="25"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       ToolTip="INFO: Add a text at the beginning of the file name"
+                       MouseLeftButtonDown="PrependAppendLabel_Clicked" />
+
+                <TextBox x:Name="PrependName"
+                         Grid.Column="2"
+                         Grid.Row="1"
+                         Height="20"
+                         Width="45"
+                         VerticalContentAlignment="Center"
+                         TextWrapping="Wrap"
+                         HorizontalAlignment="Left"
+                         VerticalAlignment="Center"
+                         ToolTip="TIP: Cannot be empty or contain only whitespaces"
+                         GotFocus="PrependAppendTextBox_Focus"/>
+
+                <Label Content="Append:"
+                       Grid.Column="3"
+                       Grid.Row="1"
+                       Height="25"
+                       Margin="3,0,0,0"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       ToolTip="INFO: Add a text at the end of the file name"
+                       MouseLeftButtonDown="PrependAppendLabel_Clicked" />
+
+                <TextBox x:Name="AppendName"
+                         Grid.Column="4"
+                         Grid.Row="1"
+                         Height="20"
+                         Width="45"
+                         VerticalContentAlignment="Center"
+                         TextWrapping="Wrap"
+                         HorizontalAlignment="Left"
+                         VerticalAlignment="Center"
+                         ToolTip="TIP: Cannot be empty or contain only whitespaces"
+                         GotFocus="PrependAppendTextBox_Focus"/>
+            </Grid>
+        </Border>
+        
         <!-- Global buttons -->
         <Border Margin="695,404,10,10">
             <Grid>

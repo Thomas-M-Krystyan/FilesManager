@@ -34,7 +34,7 @@ namespace FileManager_UI
                 {
                     ListBoxItem listBoxItem = new();
 
-                    if (FilesManager.IsValidFileType(filePath))
+                    if (FilesManager.HasValidExtension(filePath))  // Ignore folders and files with non-standard extensions
                     {
                         listBoxItem.Content = Path.GetFileName(filePath);
                         listBoxItem.ToolTip = filePath;
@@ -59,6 +59,7 @@ namespace FileManager_UI
 
             // Cleanup input sections
             ClearIncrementedNumber();
+            ClearPrependAppend();
 
             // Clear flags
             this._isAnyMethodSelected = false;
@@ -86,6 +87,10 @@ namespace FileManager_UI
                 {
                     RenameWithIncrementedNumber();
                 }
+                else if (this.PrependAppendRadioButton.IsChecked ?? false)
+                {
+                    RenameWithPrependAndAppendedText();
+                }
             }
         }
         #endregion
@@ -97,6 +102,25 @@ namespace FileManager_UI
         private void ClearFilesList()
         {
             this.FilesList.Items.Clear();
+        }
+
+        /// <summary>
+        /// Updates name and path of the given file on the <see cref="ItemCollection"/> list.
+        /// </summary>
+        private static void UpdateNameOnList(ListBoxItem fileItem, string newFilePath)
+        {
+            fileItem.Content = Path.GetFileName(newFilePath);
+            fileItem.ToolTip = newFilePath;
+        }
+
+        /// <summary>
+        /// Displays a proper <see cref="MessageBox"/> popup with feedback information.
+        /// </summary>
+        private static void DisplayPopup((bool IsSuccess, string Message, string NewFilePath) result)
+        {
+            _ = result.IsSuccess
+                ? MessageBox.Show("All files were renamed!", result.Message, MessageBoxButton.OK, MessageBoxImage.Information)
+                : MessageBox.Show(result.Message, "Renaming error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         #endregion
     }

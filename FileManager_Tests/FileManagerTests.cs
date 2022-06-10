@@ -17,7 +17,7 @@ namespace FileManager_Tests
             const string ResultFilePath = @"C:\Drive\Folder\7.jpg";
 
             // Act
-            string actualFilePath = FilesManager.RenameFile(TestFilePath, 7, String.Empty);
+            string actualFilePath = FilesManager.GetNumberIncrementedName(TestFilePath, 7, String.Empty);
 
             // Assert
             Assert.That(actualFilePath, Is.EqualTo(ResultFilePath));
@@ -34,7 +34,7 @@ namespace FileManager_Tests
             string expectedFilePath = @$"C:\Drive\Folder\Subfolder\4{expectedPostfix}.jpg";
 
             // Act
-            string actualFilePath = FilesManager.RenameFile(TestFilePath, 4, testPostfix);
+            string actualFilePath = FilesManager.GetNumberIncrementedName(TestFilePath, 4, testPostfix);
 
             // Assert
             Assert.That(actualFilePath, Is.EqualTo(expectedFilePath));
@@ -48,7 +48,7 @@ namespace FileManager_Tests
         public void CheckIfMethod_RenameFile_ForInvalidPath_ReturnsEmptyString(string testPath)
         {
             // Act
-            string actualFilePath = FilesManager.RenameFile(testPath, 9, String.Empty);
+            string actualFilePath = FilesManager.GetNumberIncrementedName(testPath, 9, String.Empty);
 
             // Assert
             Assert.That(actualFilePath, Is.EqualTo(String.Empty));

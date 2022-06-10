@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
-using System.Windows.Controls;
 
 #pragma warning disable CA1707   // Allow underscores in namespaces
 #pragma warning disable IDE0130  // Allow underscores in namespaces
@@ -10,6 +9,7 @@ namespace FileManager_Logic
 {
     public static class FilesManager
     {
+        #region Fields
         // Group names
         private const string PathGroup = nameof(PathGroup);
         private const string NameGroup = nameof(NameGroup);
@@ -17,26 +17,78 @@ namespace FileManager_Logic
 
         // Regex pattern
         private static readonly string FilePathPattern = $@"^(?<{PathGroup}>.+\\)(?<{NameGroup}>\w+)(?<{ExtensionGroup}>\.[aA-zZ0-9]{{1,4}})$";
+        #endregion
 
         /// <summary>
         /// Determines whether the provided file has a valid extension.
         /// </summary>
-        public static bool IsValidFileType(string dropFilePath)
+        public static bool HasValidExtension(string dropFilePath)
         {
-            string filePath = Path.GetExtension(dropFilePath);
+            string fileExtension = Path.GetExtension(dropFilePath);
 
-            return filePath.Contains(".jpg") || filePath.Contains(".jpeg") || filePath.Contains(".png");
+            const int fileExtensionMinLength = 1;
+            const int fileExtensionMaxLength = 4;
+
+            return fileExtension.Contains(".") &&
+                   fileExtension.Length > fileExtensionMinLength &&
+                   fileExtension.Length <= 1 + fileExtensionMaxLength;  // File extension length + dot
         }
 
         /// <summary>
-        /// Change the name of a given file by replacing it with incremented numbers.
+        /// Changes the name of a given file by replacing it with incremented numbers (and optional postfix after number).
         /// </summary>
-        public static (bool IsSuccess, string Message, string NewFilePath) ReplaceFile(ListBoxItem fileItem, ushort number, string postfix)
+        public static (bool IsSuccess, string Message, string NewFilePath) ReplaceWithNumber(string oldFilePath, ushort number, string postfix)
+        {
+            return RenameFile(oldFilePath, () => GetNumberIncrementedName(oldFilePath, number, postfix));
+        }
+
+        /// <summary>
+        /// Changes the name of a given file by:
+        /// <para>
+        ///   - prepending a text before the original file name and / or
+        /// </para>
+        /// <para>
+        ///   - appending a text after the original file name but before its extension.
+        /// </para>
+        /// </summary>
+        public static (bool IsSuccess, string Message, string NewFilePath) EnrichWithPrependAndAppend(string oldFilePath, string textToPrepend, string textToAppend)
+        {
+            return RenameFile(oldFilePath, () => GetPrpendedAndAppendedName(oldFilePath, textToPrepend, textToAppend));
+        }
+
+        #region Rename methods
+        internal static string GetNumberIncrementedName(string filePath, ushort startNumber, string postfix)
+        {
+            bool isSuccess = IsFilePathValid(filePath, out Match match);
+
+            return isSuccess
+                ? Path.Combine(match.Groups[PathGroup].Value,                             // The original file path (ended with "/")
+                    $"{startNumber++}" +                                                  // (!) Number replacing the name of a given file
+                    $"{(String.IsNullOrWhiteSpace(postfix) ? String.Empty : postfix)}" +  // (!) Optional postfix after the incremented number
+                    $"{match.Groups[ExtensionGroup].Value}")                              // The original file extension (with dot)
+                : String.Empty;
+        }
+
+        internal static string GetPrpendedAndAppendedName(string filePath, string textToPrepend, string textToAppend)
+        {
+            bool isSuccess = IsFilePathValid(filePath, out Match match);
+
+            return isSuccess
+                ? Path.Combine(match.Groups[PathGroup].Value,                                         // The original file path (ended with "/")
+                    $"{(String.IsNullOrWhiteSpace(textToPrepend) ? String.Empty : textToPrepend)}" +  // (!) The text to be prepended
+                    $"{match.Groups[NameGroup].Value}" +                                              // The original file name
+                    $"{(String.IsNullOrWhiteSpace(textToAppend) ? String.Empty : textToAppend)}" +    // (!) The text to be appended
+                    $"{match.Groups[ExtensionGroup].Value}")                                          // The original file extension (with dot)
+                : String.Empty;
+        }
+        #endregion
+
+        #region System.IO.File
+        private static (bool IsSuccess, string Message, string NewFilePath) RenameFile(string oldFilePath, Func<string> renameMethod)
         {
             try
             {
-                string oldFilePath = fileItem.ToolTip as string;
-                string newFilePath = RenameFile(oldFilePath, number, postfix);
+                string newFilePath = renameMethod();
 
                 File.Move(oldFilePath, newFilePath);
 
@@ -47,21 +99,22 @@ namespace FileManager_Logic
                 return (false, exception.Message, String.Empty);
             }
         }
+        #endregion
 
-        internal static string RenameFile(string filePath, ushort startNumber, string postfix)
+        #region Validation
+        private static bool IsFilePathValid(string filePath, out Match match)
         {
             if (String.IsNullOrWhiteSpace(filePath))
             {
-                return String.Empty;
+                match = null;
+
+                return false;
             }
 
-            Match match = Regex.Match(filePath, FilePathPattern);
+            match = Regex.Match(filePath, FilePathPattern);
 
-            string validPostfix = String.IsNullOrWhiteSpace(postfix) ? String.Empty : postfix;
-
-            return match.Success
-                ? Path.Combine(match.Groups[PathGroup].Value, $"{startNumber++}{validPostfix}{match.Groups[ExtensionGroup].Value}")
-                : String.Empty;
+            return true;
         }
+        #endregion
     }
 }
