@@ -54,7 +54,7 @@
                 <!-- 1st row -->
                 <Label Grid.Column="0" Grid.ColumnSpan="5"
                        Grid.Row="0"
-                       Content="Method: Incremented number"
+                       Content="Method: Incremented number + postfix"
                        FontSize="9px"
                        FontWeight="Bold"
                        Margin="-3,0,0,0"
@@ -70,7 +70,8 @@
                              Width="15"
                              HorizontalAlignment="Left"
                              VerticalAlignment="Center"
-                             ToolTip="INFO: Select to activate this method" />
+                             ToolTip="INFO: Select to activate this method"
+                             Checked="StartNumberRadioButton_Checked" />
 
                 <Label Content="Start number:"
                        Grid.Column="1"
@@ -78,7 +79,8 @@
                        Height="25"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Center"
-                       ToolTip="INFO: Rename given files using an incremented start number" />
+                       ToolTip="INFO: Rename given files using an incremented start number"
+                       MouseLeftButtonDown="StartNumberLabel_Clicked" />
 
                 <TextBox x:Name="StartingNumber"
                          Grid.Column="2"
@@ -89,8 +91,8 @@
                          TextWrapping="Wrap"
                          HorizontalAlignment="Left"
                          VerticalAlignment="Center"
-                         ToolTip="TIP: Only positive numbers from range [0 - 65 535]"
-                         GotFocus="StartingInputField_Focus"/>
+                         ToolTip="TIP: Only positive numbers from the range [0 - 65 535]"
+                         GotFocus="StartNumberTextBox_Focus"/>
 
                 <Label Content="Postfix:"
                        Grid.Column="3"
@@ -99,7 +101,8 @@
                        Margin="5,0,0,0"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Center"
-                       ToolTip="INFO: Optional text to be added after the number" />
+                       ToolTip="INFO: Optional text to be added after the number"
+                       MouseLeftButtonDown="StartNumberLabel_Clicked" />
 
                 <TextBox x:Name="NamePostfix"
                          Grid.Column="4"
@@ -111,7 +114,7 @@
                          HorizontalAlignment="Left"
                          VerticalAlignment="Center"
                          ToolTip="TIP: Cannot be empty or contain only whitespaces"
-                         GotFocus="PostfixInputField_Focus"/>
+                         GotFocus="StartNumberTextBox_Focus"/>
             </Grid>
         </Border>
 

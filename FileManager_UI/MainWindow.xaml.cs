@@ -53,6 +53,9 @@ namespace FileManager_UI
 
             // Cleanup input sections
             ClearIncrementedNumber();
+
+            // Clear flags
+            this._isAnyMethodSelected = false;
         }
 
         private void ProcessButton_Click(object sender, RoutedEventArgs @event)
@@ -125,19 +128,28 @@ namespace FileManager_UI
         }
 
         /// <summary>
-        /// Selects the radio button when this input text field is activated (on focus).
+        /// Activates this method <see cref="RadioButton"/>.
         /// </summary>
-        private void StartingInputField_Focus(object sender, RoutedEventArgs @event)
+        private void StartNumberRadioButton_Checked(object sender, RoutedEventArgs @event)
         {
-            this.StartNumberRadioButton.Activate(ref this._isAnyMethodSelected);
+            this.StartNumberRadioButton.Activate();
+            this._isAnyMethodSelected = true;
         }
 
         /// <summary>
-        /// Selects the radio button when this input text field is activated (on focus).
+        /// Selects the radio button when this label was clicked.
         /// </summary>
-        private void PostfixInputField_Focus(object sender, RoutedEventArgs @event)
+        private void StartNumberLabel_Clicked(object sender, RoutedEventArgs @event)
         {
-            this.StartNumberRadioButton.Activate(ref this._isAnyMethodSelected);
+            StartNumberRadioButton_Checked(sender, @event);
+        }
+
+        /// <summary>
+        /// Selects the radio button when this input text field was activated (on focus).
+        /// </summary>
+        private void StartNumberTextBox_Focus(object sender, RoutedEventArgs @event)
+        {
+            StartNumberRadioButton_Checked(sender, @event);
         }
 
         /// <summary>
@@ -145,7 +157,7 @@ namespace FileManager_UI
         /// </summary>
         private void ClearIncrementedNumber()
         {
-            this.StartNumberRadioButton.Deactivate(ref this._isAnyMethodSelected);
+            this.StartNumberRadioButton.Deactivate();
             this.StartingNumber.Text = String.Empty;
         }
         #endregion
