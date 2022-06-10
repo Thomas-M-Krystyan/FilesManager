@@ -15,7 +15,8 @@ namespace FileManager_Logic
         private const string NameGroup = nameof(NameGroup);
         private const string ExtensionGroup = nameof(ExtensionGroup);
 
-        // Regex pattern
+        // Regex patterns
+        private const string InvalidCharactersPatter = "[\\/:*?\"<>|]";
         private static readonly string FilePathPattern = $@"^(?<{PathGroup}>.+\\)(?<{NameGroup}>\w+)(?<{ExtensionGroup}>\.[aA-zZ0-9]{{1,4}})$";
         #endregion
 
@@ -102,7 +103,7 @@ namespace FileManager_Logic
         #endregion
 
         #region Validation
-        private static bool IsFilePathValid(string filePath, out Match match)
+        internal static bool IsFilePathValid(string filePath, out Match match)
         {
             if (String.IsNullOrWhiteSpace(filePath))
             {
@@ -114,6 +115,23 @@ namespace FileManager_Logic
             match = Regex.Match(filePath, FilePathPattern);
 
             return true;
+        }
+
+        public static bool ContainsIllegalCharacters(out string invalidValue, params string[] textInputs)
+        {
+            invalidValue = String.Empty;
+
+            foreach (string text in textInputs)
+            {
+                if (Regex.IsMatch(text, InvalidCharactersPatter))
+                {
+                    invalidValue = text;
+
+                    return true;
+                }
+            }
+
+            return false;
         }
         #endregion
     }

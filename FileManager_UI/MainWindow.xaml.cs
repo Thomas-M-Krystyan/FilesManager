@@ -1,5 +1,6 @@
 ﻿using FileManager_Logic;
 using FileManager_UI.ExtensionMethods;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -111,6 +112,16 @@ namespace FileManager_UI
         private void ClearFilesList()
         {
             this.FilesList.Items.Clear();
+        }
+
+        /// <summary>
+        /// Validates if the provided text values contains illegal characters.
+        /// </summary>
+        private static (bool IsSuccess, string Message, string NewFilePath) ValidateIllegalCharacters(params string[] textInputs)
+        {
+            return FilesManager.ContainsIllegalCharacters(out string invalidValue, textInputs)
+                ? (false, $"The given value contains illegal characters \"{invalidValue}\"", String.Empty)
+                : default;
         }
 
         /// <summary>

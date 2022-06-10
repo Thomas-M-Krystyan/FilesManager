@@ -10,27 +10,32 @@ namespace FileManager_UI
     {
         private void RenameWithPrependAndAppendedText()
         {
-            (bool IsSuccess, string Message, string NewFilePath) result = (false, String.Empty, String.Empty);
+            // Validate strings which are going to be used in file name
+            (bool IsSuccess, string Message, string NewFilePath) result =
+                ValidateIllegalCharacters(this.PrependName.Text, this.AppendName.Text);
 
-            foreach (ListBoxItem fileItem in this.FilesList.Items)
+            if (result.IsSuccess)
             {
-                // Process renaming of the file
-                result = FilesManager.EnrichWithPrependAndAppend(fileItem.ToolTip as string, this.PrependName.Text, this.AppendName.Text);
-
-                // Validate renaming result
-                if (!result.IsSuccess)
+                foreach (ListBoxItem fileItem in this.FilesList.Items)
                 {
-                    ClearFilesList();
+                    // Process renaming of the file
+                    result = FilesManager.EnrichWithPrependAndAppend(fileItem.ToolTip as string, this.PrependName.Text, this.AppendName.Text);
 
-                    break;
+                    // Validate renaming result
+                    if (!result.IsSuccess)
+                    {
+                        ClearFilesList();
+
+                        break;
+                    }
+
+                    UpdateNameOnList(fileItem, result.NewFilePath);
                 }
 
-                UpdateNameOnList(fileItem, result.NewFilePath);
+                // Reset input fields
+                this.PrependName.Text = String.Empty;
+                this.AppendName.Text = String.Empty;
             }
-
-            // Reset input fields
-            this.PrependName.Text = String.Empty;
-            this.AppendName.Text = String.Empty;
 
             DisplayPopup(result);
         }

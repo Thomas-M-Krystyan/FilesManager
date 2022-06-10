@@ -14,44 +14,49 @@ namespace FileManager_UI
         /// </summary>
         private void RenameWithIncrementedNumber()
         {
-            (bool IsSuccess, string Message, string NewFilePath) result = (false, String.Empty, String.Empty);
+            // Validate strings which are going to be used in file name
+            (bool IsSuccess, string Message, string NewFilePath) result =
+                ValidateIllegalCharacters(this.NamePostfix.Text);
 
-            // Validate null or empty input
-            if (String.IsNullOrWhiteSpace(this.StartingNumber.Text))
+            if (result.IsSuccess)
             {
-                result = (false, "Provide \"Start number\".", String.Empty);
-            }
-            else
-            {
-                // Validate input value (cannot be converted or it's too large)
-                if (UInt16.TryParse(this.StartingNumber.Text, out ushort startNumber) &&
-                    startNumber - this.FilesList.Items.Count <= UInt16.MaxValue)
+                // Validate null or empty input
+                if (String.IsNullOrWhiteSpace(this.StartingNumber.Text))
                 {
-                    foreach (ListBoxItem fileItem in this.FilesList.Items)
-                    {
-                        // Process renaming of the file
-                        result = FilesManager.ReplaceWithNumber(fileItem.ToolTip as string, startNumber++, this.NamePostfix.Text);
-
-                        // Validate renaming result
-                        if (!result.IsSuccess)
-                        {
-                            ClearFilesList();
-
-                            break;
-                        }
-
-                        UpdateNameOnList(fileItem, result.NewFilePath);
-                    }
-
-                    if (result.IsSuccess)
-                    {
-                        // Set the last number as the new start number
-                        this.StartingNumber.Text = startNumber.ToString(CultureInfo.InvariantCulture);
-                    }
+                    result = (false, "Provide \"Start number\".", String.Empty);
                 }
                 else
                 {
-                    result = (false, $"Invalid \"Start number\": {this.StartingNumber.Text}.", String.Empty);
+                    // Validate input value (cannot be converted or it's too large)
+                    if (UInt16.TryParse(this.StartingNumber.Text, out ushort startNumber) &&
+                        startNumber - this.FilesList.Items.Count <= UInt16.MaxValue)
+                    {
+                        foreach (ListBoxItem fileItem in this.FilesList.Items)
+                        {
+                            // Process renaming of the file
+                            result = FilesManager.ReplaceWithNumber(fileItem.ToolTip as string, startNumber++, this.NamePostfix.Text);
+
+                            // Validate renaming result
+                            if (!result.IsSuccess)
+                            {
+                                ClearFilesList();
+
+                                break;
+                            }
+
+                            UpdateNameOnList(fileItem, result.NewFilePath);
+                        }
+
+                        if (result.IsSuccess)
+                        {
+                            // Set the last number as the new start number
+                            this.StartingNumber.Text = startNumber.ToString(CultureInfo.InvariantCulture);
+                        }
+                    }
+                    else
+                    {
+                        result = (false, $"Invalid \"Start number\": {this.StartingNumber.Text}.", String.Empty);
+                    }
                 }
             }
 
