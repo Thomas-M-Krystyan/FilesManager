@@ -9,6 +9,7 @@ namespace FileManager_Tests
 {
     public class FileManagerTests
     {
+        #region Replacing name with incremented number
         [Test]
         public void CheckIfMethod_RenameFile_ForValidPath_AndNumber_ReturnsChangedFileName()
         {
@@ -53,5 +54,8 @@ namespace FileManager_Tests
             // Assert
             Assert.That(actualFilePath, Is.EqualTo(String.Empty));
         }
+        #endregion
+
+        // TODO: Unit tests for prepend / append logic
     }
 }
