@@ -11,13 +11,16 @@ namespace FileManager_Logic
     {
         #region Fields
         // Group names
-        private const string PathGroup = nameof(PathGroup);
-        private const string NameGroup = nameof(NameGroup);
-        private const string ExtensionGroup = nameof(ExtensionGroup);
+        internal const string PathGroup = nameof(PathGroup);
+        internal const string NameGroup = nameof(NameGroup);
+        internal const string ExtensionGroup = nameof(ExtensionGroup);
+        internal const string ZerosGroup = nameof(ZerosGroup);
+        internal const string DigitsGroup = nameof(DigitsGroup);
 
         // Regex patterns
-        private const string InvalidCharactersPatter = "[\\/:*?\"<>|]";
+        internal const string InvalidCharactersPatter = @"[\/:*?""<>|]";
         internal static readonly string FilePathPattern = $@"(?<{PathGroup}>.+\\)(?<{NameGroup}>.+)(?<{ExtensionGroup}>\.[aA-zZ0-9]\w+)";
+        internal static readonly string LeadingZerosPattern = $@"(?<{ZerosGroup}>0+)?(?<{DigitsGroup}>\d+)?(?<{NameGroup}>.+)";
         #endregion
 
         /// <summary>
@@ -57,10 +60,18 @@ namespace FileManager_Logic
             return RenameFile(oldFilePath, () => GetPrependedAndAppendedName(oldFilePath, textToPrepend, textToAppend));
         }
 
-        #region Rename methods
-        internal static string GetNumberIncrementedName(string filePath, string prefix, ushort startNumber, string postfix)
+        /// <summary>
+        /// Changes the name of a given file by setting a specified amount of leading zeros before the file name.
+        /// </summary>
+        public static (bool IsSuccess, string Message, string NewFilePath) SetLeadingZeros(string oldFilePath, GroupCollection fileGroups, GroupCollection numberGroups, int zerosCount, int maxNumberLength)
         {
-            bool isSuccess = IsFilePathValid(filePath, out Match match);
+            return RenameFile(oldFilePath, () => GetLeadedZerosName(fileGroups, numberGroups, zerosCount, maxNumberLength));
+        }
+
+        #region Rename methods
+        internal static string GetNumberIncrementedName(string oldFilePath, string prefix, ushort startNumber, string postfix)
+        {
+            bool isSuccess = IsFilePathValid(oldFilePath, out Match match);
 
             return isSuccess
                 ? Path.Combine(match.Groups[PathGroup].Value,                             // The original file path (ended with "/")
@@ -71,9 +82,9 @@ namespace FileManager_Logic
                 : String.Empty;
         }
 
-        internal static string GetPrependedAndAppendedName(string filePath, string textToPrepend, string textToAppend)
+        internal static string GetPrependedAndAppendedName(string oldFilePath, string textToPrepend, string textToAppend)
         {
-            bool isSuccess = IsFilePathValid(filePath, out Match match);
+            bool isSuccess = IsFilePathValid(oldFilePath, out Match match);
 
             return isSuccess
                 ? Path.Combine(match.Groups[PathGroup].Value,                                         // The original file path (ended with "/")
@@ -82,6 +93,72 @@ namespace FileManager_Logic
                     $"{(String.IsNullOrWhiteSpace(textToAppend) ? String.Empty : textToAppend)}" +    // (!) The text to be appended
                     $"{match.Groups[ExtensionGroup].Value}")                                          // The original file extension (with dot)
                 : String.Empty;
+        }
+
+        public static (int NumberLength, GroupCollection FileGroups, GroupCollection NumberGroups) GetNumberLength(string oldFilePath)
+        {
+            const int NotFound = 0;  // There are no digits in the file name
+
+            bool isSuccess = IsFilePathValid(oldFilePath, out Match pathMatch);
+
+            if (isSuccess)
+            {
+                string fileName = pathMatch.Groups[NameGroup].Value;
+
+                Match numberMatch = Regex.Match(fileName, LeadingZerosPattern);
+                GroupCollection numberGroups = numberMatch.Groups;
+
+                return numberMatch.Success
+                    ? (numberGroups[ZerosGroup].Value.Length + numberGroups[DigitsGroup].Value.Length, pathMatch.Groups, numberGroups)
+                    : (NotFound, pathMatch.Groups, numberGroups);
+            }
+            else
+            {
+                return (NotFound, pathMatch.Groups, null);
+            }
+        }
+
+        internal static string GetLeadedZerosName(GroupCollection fileGroups, GroupCollection numberGroups, int zerosCount, int maxNumberLength)
+        {
+            return numberGroups?.Count != 0
+                ? Path.Combine(fileGroups[PathGroup].Value,                                 // The original file path (ended with "/")
+                    $"{NameWithLeadingZeros(numberGroups, zerosCount, maxNumberLength)}" +  // (!) Set the specific number of leading zeros
+                    $"{fileGroups[ExtensionGroup].Value}")                                  // The original file extension (with dot)
+                : String.Empty;
+
+            // Set enough number of zeros before numeric part of the name
+            static string NameWithLeadingZeros(GroupCollection groups, int zerosCount, int maxNumberLength)
+            {
+                if (zerosCount > 0)
+                {
+                    string zeros = groups[ZerosGroup].Value;
+                    string digits = groups[DigitsGroup].Value;
+                    int numberLength = zeros.Length + digits.Length;
+
+                    /* Add more zeroes to shorter number to make all of them the same size:
+                      
+                       REQUEST:
+                         "Add 1 more zero to numbers 10 & 100"
+                      
+                       NOTE: Zero will be added to number 100 since this is the longest number in the given
+                             sequence => 0100, and number 10 will be compensated => 0010 to have equal length
+                      
+                       RESULT:
+                         0010 & 0100
+                    */
+                    if (numberLength < maxNumberLength)
+                    {
+                        int difference = maxNumberLength - numberLength;
+                        zerosCount += difference;
+                    }
+
+                    string leadingZeros = $"{new string('0', zerosCount)}{digits}";
+
+                    return $"{leadingZeros}{groups[NameGroup].Value}";
+                }
+
+                return String.Empty;
+            }
         }
         #endregion
 

@@ -16,9 +16,9 @@ namespace FileManager_UI
 
             if (result.IsSuccess)
             {
+                // Process renaming of the file
                 foreach (ListBoxItem fileItem in this.FilesList.Items)
                 {
-                    // Process renaming of the file
                     result = FilesManager.EnrichWithPrependAndAppend(fileItem.ToolTip as string, this.PrependName.Text, this.AppendName.Text);
 
                     // Validate renaming result

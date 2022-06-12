@@ -31,9 +31,9 @@ namespace FileManager_UI
                     if (UInt16.TryParse(this.StartingNumber.Text, out ushort startNumber) &&
                         startNumber - this.FilesList.Items.Count <= UInt16.MaxValue)
                     {
+                        // Process renaming of the file
                         foreach (ListBoxItem fileItem in this.FilesList.Items)
                         {
-                            // Process renaming of the file
                             result = FilesManager.ReplaceWithNumber(fileItem.ToolTip as string, this.NamePrefix.Text, startNumber++, this.NamePostfix.Text);
 
                             // Validate renaming result
@@ -55,7 +55,7 @@ namespace FileManager_UI
                     }
                     else
                     {
-                        result = (false, $"Invalid \"Start number\": {this.StartingNumber.Text}.", String.Empty);
+                        result = (false, $"Invalid \"Start number\" value: {this.StartingNumber.Text}.", String.Empty);
                     }
                 }
             }

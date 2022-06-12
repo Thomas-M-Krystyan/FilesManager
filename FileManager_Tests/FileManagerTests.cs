@@ -30,9 +30,9 @@ namespace FileManager_Tests
             {
                 GroupCollection groups = match.Groups;
 
-                Assert.That(groups["PathGroup"].Value, Is.EqualTo(path));
-                Assert.That(groups["NameGroup"].Value, Is.EqualTo(name));
-                Assert.That(groups["ExtensionGroup"].Value, Is.EqualTo(extension));
+                Assert.That(groups[FilesManager.PathGroup].Value, Is.EqualTo(path));
+                Assert.That(groups[FilesManager.NameGroup].Value, Is.EqualTo(name));
+                Assert.That(groups[FilesManager.ExtensionGroup].Value, Is.EqualTo(extension));
             }
         }
         #endregion

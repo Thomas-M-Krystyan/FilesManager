@@ -7,6 +7,8 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
+#pragma warning disable CA1707  // Allow underscores in tests names
+
 namespace FileManager_UI
 {
     public partial class MainWindow : Window
@@ -70,6 +72,7 @@ namespace FileManager_UI
             // Cleanup input sections
             ClearIncrementedNumber();
             ClearPrependAppend();
+            ClearLeadingZeros();
 
             // Clear flags
             this._isAnyMethodSelected = false;
@@ -93,13 +96,17 @@ namespace FileManager_UI
             else
             {
                 // Methods control
-                if (this.StartNumberRadioButton.IsChecked ?? false)
+                if (IsChecked(this.StartNumberRadioButton))
                 {
                     RenameWithIncrementedNumber();
                 }
-                else if (this.PrependAppendRadioButton.IsChecked ?? false)
+                else if (IsChecked(this.PrependAppendRadioButton))
                 {
                     RenameWithPrependAndAppendedText();
+                }
+                else if (IsChecked(this.SetLeadingZerosRadioButton))
+                {
+                    RenameWithLeadingZeros();
                 }
             }
         }
@@ -163,6 +170,14 @@ namespace FileManager_UI
             {
                 button.Deactivate();
             }
+        }
+
+        /// <summary>
+        /// Determines whether the specified <see cref="RadioButton"/> is checked.
+        /// </summary>
+        private static bool IsChecked(RadioButton radioButton)
+        {
+            return radioButton.IsChecked ?? false;
         }
         #endregion
     }
