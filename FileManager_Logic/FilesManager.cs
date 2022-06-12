@@ -54,7 +54,7 @@ namespace FileManager_Logic
         /// </summary>
         public static (bool IsSuccess, string Message, string NewFilePath) EnrichWithPrependAndAppend(string oldFilePath, string textToPrepend, string textToAppend)
         {
-            return RenameFile(oldFilePath, () => GetPrpendedAndAppendedName(oldFilePath, textToPrepend, textToAppend));
+            return RenameFile(oldFilePath, () => GetPrependedAndAppendedName(oldFilePath, textToPrepend, textToAppend));
         }
 
         #region Rename methods
@@ -71,7 +71,7 @@ namespace FileManager_Logic
                 : String.Empty;
         }
 
-        internal static string GetPrpendedAndAppendedName(string filePath, string textToPrepend, string textToAppend)
+        internal static string GetPrependedAndAppendedName(string filePath, string textToPrepend, string textToAppend)
         {
             bool isSuccess = IsFilePathValid(filePath, out Match match);
 
