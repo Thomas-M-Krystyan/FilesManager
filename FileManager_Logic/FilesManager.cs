@@ -17,7 +17,7 @@ namespace FileManager_Logic
 
         // Regex patterns
         private const string InvalidCharactersPatter = "[\\/:*?\"<>|]";
-        private static readonly string FilePathPattern = $@"(?<{PathGroup}>.+\\)(?<{NameGroup}>\S+)(?<{ExtensionGroup}>\.[aA-zZ0-9]\w+)";
+        internal static readonly string FilePathPattern = $@"(?<{PathGroup}>.+\\)(?<{NameGroup}>.+)(?<{ExtensionGroup}>\.[aA-zZ0-9]\w+)";
         #endregion
 
         /// <summary>
@@ -38,9 +38,9 @@ namespace FileManager_Logic
         /// <summary>
         /// Changes the name of a given file by replacing it with incremented numbers (and optional postfix after number).
         /// </summary>
-        public static (bool IsSuccess, string Message, string NewFilePath) ReplaceWithNumber(string oldFilePath, ushort number, string postfix)
+        public static (bool IsSuccess, string Message, string NewFilePath) ReplaceWithNumber(string oldFilePath, string prefix, ushort number, string postfix)
         {
-            return RenameFile(oldFilePath, () => GetNumberIncrementedName(oldFilePath, number, postfix));
+            return RenameFile(oldFilePath, () => GetNumberIncrementedName(oldFilePath, prefix, number, postfix));
         }
 
         /// <summary>
@@ -58,12 +58,13 @@ namespace FileManager_Logic
         }
 
         #region Rename methods
-        internal static string GetNumberIncrementedName(string filePath, ushort startNumber, string postfix)
+        internal static string GetNumberIncrementedName(string filePath, string prefix, ushort startNumber, string postfix)
         {
             bool isSuccess = IsFilePathValid(filePath, out Match match);
 
             return isSuccess
                 ? Path.Combine(match.Groups[PathGroup].Value,                             // The original file path (ended with "/")
+                    $"{(String.IsNullOrWhiteSpace(prefix) ? String.Empty : prefix)}" +    // (!) Optional prefix before the incremented number
                     $"{startNumber++}" +                                                  // (!) Number replacing the name of a given file
                     $"{(String.IsNullOrWhiteSpace(postfix) ? String.Empty : postfix)}" +  // (!) Optional postfix after the incremented number
                     $"{match.Groups[ExtensionGroup].Value}")                              // The original file extension (with dot)
@@ -114,7 +115,7 @@ namespace FileManager_Logic
 
             match = Regex.Match(filePath, FilePathPattern);
 
-            return true;
+            return match.Success;
         }
 
         public static bool ContainsIllegalCharacters(out string invalidValue, params string[] textInputs)

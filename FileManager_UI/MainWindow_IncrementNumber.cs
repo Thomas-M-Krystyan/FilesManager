@@ -16,7 +16,7 @@ namespace FileManager_UI
         {
             // Validate strings which are going to be used in file name
             (bool IsSuccess, string Message, string NewFilePath) result =
-                ValidateIllegalCharacters(this.NamePostfix.Text);
+                ValidateIllegalCharacters(this.NamePrefix.Text, this.NamePostfix.Text);
 
             if (result.IsSuccess)
             {
@@ -34,7 +34,7 @@ namespace FileManager_UI
                         foreach (ListBoxItem fileItem in this.FilesList.Items)
                         {
                             // Process renaming of the file
-                            result = FilesManager.ReplaceWithNumber(fileItem.ToolTip as string, startNumber++, this.NamePostfix.Text);
+                            result = FilesManager.ReplaceWithNumber(fileItem.ToolTip as string, this.NamePrefix.Text, startNumber++, this.NamePostfix.Text);
 
                             // Validate renaming result
                             if (!result.IsSuccess)
