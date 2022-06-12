@@ -100,6 +100,7 @@ namespace FileManager_UI
         {
             this.StartNumberRadioButton.Deactivate();
 
+            this.NamePrefix.Text = String.Empty;
             this.StartingNumber.Text = String.Empty;
             this.NamePostfix.Text = String.Empty;
         }
