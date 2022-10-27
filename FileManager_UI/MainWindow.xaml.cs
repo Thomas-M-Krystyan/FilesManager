@@ -7,8 +7,6 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
-#pragma warning disable CA1707  // Allow underscores in tests names
-
 namespace FileManager_UI
 {
     public partial class MainWindow : Window
