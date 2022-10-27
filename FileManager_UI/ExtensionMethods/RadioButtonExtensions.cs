@@ -7,9 +7,11 @@ namespace FileManager_UI.ExtensionMethods
         /// <summary>
         /// Checks given <see cref="RadioButton"/>.
         /// </summary>
-        public static void Activate(this RadioButton radioButton)
+        public static void Activate(this RadioButton radioButton, MainWindow mainWindow)
         {
             radioButton.IsChecked = true;
+
+            mainWindow.IsAnyMethodSelected = true;
         }
 
         /// <summary>

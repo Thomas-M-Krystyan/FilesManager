@@ -69,8 +69,7 @@ namespace FileManager_UI
         /// </summary>
         private void StartNumberRadioButton_Checked(object sender, RoutedEventArgs @event)
         {
-            this.StartNumberRadioButton.Activate();
-            this._isAnyMethodSelected = true;
+            this.StartNumberRadioButton.Activate(this);
 
             ResetAllRadioButtonsExcept(this.StartNumberRadioButton);
         }
