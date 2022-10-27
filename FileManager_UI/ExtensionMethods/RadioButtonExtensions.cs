@@ -21,5 +21,13 @@ namespace FileManager_UI.ExtensionMethods
         {
             radioButton.IsChecked = false;
         }
+
+        /// <summary>
+        /// Determines whether the specified <see cref="RadioButton"/> is checked.
+        /// </summary>
+        public static bool IsChecked(this RadioButton radioButton)
+        {
+            return radioButton.IsChecked ?? false;
+        }
     }
 }

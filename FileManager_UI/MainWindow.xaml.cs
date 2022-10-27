@@ -94,15 +94,15 @@ namespace FileManager_UI
             else
             {
                 // Methods control
-                if (IsChecked(this.StartNumberRadioButton))
+                if (this.StartNumberRadioButton.IsChecked())
                 {
                     RenameWithIncrementedNumber();
                 }
-                else if (IsChecked(this.PrependAppendRadioButton))
+                else if (this.PrependAppendRadioButton.IsChecked())
                 {
                     RenameWithPrependAndAppendedText();
                 }
-                else if (IsChecked(this.SetLeadingZerosRadioButton))
+                else if (this.SetLeadingZerosRadioButton.IsChecked())
                 {
                     RenameWithLeadingZeros();
                 }
@@ -169,14 +169,6 @@ namespace FileManager_UI
             {
                 button.Deactivate();
             }
-        }
-
-        /// <summary>
-        /// Determines whether the specified <see cref="RadioButton"/> is checked.
-        /// </summary>
-        private static bool IsChecked(RadioButton radioButton)
-        {
-            return radioButton.IsChecked ?? false;
         }
         #endregion
     }
