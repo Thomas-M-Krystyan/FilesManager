@@ -17,7 +17,7 @@
         <!-- List of loaded files -->
         <ListBox x:Name="FilesList"
                  Height="400"
-                 Width="440"
+                 Width="350"
                  Margin="10,10,0,0"
                  HorizontalAlignment="Left"
                  VerticalAlignment="Top"
@@ -31,12 +31,12 @@
         <!-- Group label -->
         <Label Content="RENAME FILES"
                FontWeight="ExtraBold"
-               Margin="457,5,0,0"
+               Margin="368,5,0,0"
                HorizontalAlignment="Left"
                VerticalAlignment="Top" />
 
         <!-- Renaming files (incremented number) -->
-        <Border Margin="460,35,0,0"
+        <Border Margin="370,35,0,0"
                 Padding="2,0,2,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
@@ -45,12 +45,12 @@
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="15px"/>
-                    <ColumnDefinition Width="55"/>
-                    <ColumnDefinition Width="45"/>
+                    <ColumnDefinition Width="45px"/>
+                    <ColumnDefinition Width="90px"/>
                     <ColumnDefinition Width="85px"/>
-                    <ColumnDefinition Width="25"/>
-                    <ColumnDefinition Width="55"/>
-                    <ColumnDefinition Width="45"/>
+                    <ColumnDefinition Width="40px"/>
+                    <ColumnDefinition Width="50px"/>
+                    <ColumnDefinition Width="90px"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -83,8 +83,7 @@
                        Grid.Column="1"
                        Grid.Row="1"
                        Height="25"
-                       Margin="5,0,0,0"
-                       HorizontalAlignment="Left"
+                       HorizontalAlignment="Right"
                        VerticalAlignment="Center"
                        ToolTip="INFO: Optional text to be added before the number"
                        MouseLeftButtonDown="StartNumberLabel_Clicked" />
@@ -93,7 +92,7 @@
                          Grid.Column="2"
                          Grid.Row="1"
                          Height="20"
-                         Width="45"
+                         Width="90"
                          VerticalContentAlignment="Center"
                          TextWrapping="Wrap"
                          HorizontalAlignment="Left"
@@ -105,7 +104,7 @@
                        Grid.Column="3"
                        Grid.Row="1"
                        Height="25"
-                       HorizontalAlignment="Left"
+                       HorizontalAlignment="Right"
                        VerticalAlignment="Center"
                        ToolTip="INFO: Rename given files using an incremented start number"
                        MouseLeftButtonDown="StartNumberLabel_Clicked" />
@@ -114,7 +113,7 @@
                          Grid.Column="4"
                          Grid.Row="1"
                          Height="20"
-                         Width="25"
+                         Width="40"
                          VerticalContentAlignment="Center"
                          TextWrapping="Wrap"
                          HorizontalAlignment="Left"
@@ -126,8 +125,7 @@
                        Grid.Column="5"
                        Grid.Row="1"
                        Height="25"
-                       Margin="5,0,0,0"
-                       HorizontalAlignment="Left"
+                       HorizontalAlignment="Right"
                        VerticalAlignment="Center"
                        ToolTip="INFO: Optional text to be added after the number"
                        MouseLeftButtonDown="StartNumberLabel_Clicked" />
@@ -136,7 +134,7 @@
                          Grid.Column="6"
                          Grid.Row="1"
                          Height="20"
-                         Width="45"
+                         Width="90"
                          VerticalContentAlignment="Center"
                          TextWrapping="Wrap"
                          HorizontalAlignment="Left"
@@ -147,7 +145,7 @@
         </Border>
 
         <!-- Renaming files (prepend and/or appended text) -->
-        <Border Margin="460,88,0,0"
+        <Border Margin="370,88,0,0"
                 Padding="2,0,2,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
@@ -157,9 +155,9 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="15px"/>
                     <ColumnDefinition Width="60px"/>
-                    <ColumnDefinition Width="45"/>
+                    <ColumnDefinition Width="85"/>
                     <ColumnDefinition Width="60"/>
-                    <ColumnDefinition Width="45"/>
+                    <ColumnDefinition Width="85"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -192,7 +190,7 @@
                        Grid.Column="1"
                        Grid.Row="1"
                        Height="25"
-                       HorizontalAlignment="Left"
+                       HorizontalAlignment="Right"
                        VerticalAlignment="Center"
                        ToolTip="INFO: Add a text at the beginning of the file name"
                        MouseLeftButtonDown="PrependAppendLabel_Clicked" />
@@ -201,7 +199,7 @@
                          Grid.Column="2"
                          Grid.Row="1"
                          Height="20"
-                         Width="45"
+                         Width="85"
                          VerticalContentAlignment="Center"
                          TextWrapping="Wrap"
                          HorizontalAlignment="Left"
@@ -213,8 +211,7 @@
                        Grid.Column="3"
                        Grid.Row="1"
                        Height="25"
-                       Margin="3,0,0,0"
-                       HorizontalAlignment="Left"
+                       HorizontalAlignment="Right"
                        VerticalAlignment="Center"
                        ToolTip="INFO: Add a text at the end of the file name"
                        MouseLeftButtonDown="PrependAppendLabel_Clicked" />
@@ -223,7 +220,7 @@
                          Grid.Column="4"
                          Grid.Row="1"
                          Height="20"
-                         Width="45"
+                         Width="85"
                          VerticalContentAlignment="Center"
                          TextWrapping="Wrap"
                          HorizontalAlignment="Left"
@@ -234,7 +231,7 @@
         </Border>
 
         <!-- Renaming files (leading zeros) -->
-        <Border Margin="695,88,0,0"
+        <Border Margin="685,88,0,0"
                 Padding="2,0,2,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
@@ -243,8 +240,8 @@
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="15px" />
-                    <ColumnDefinition Width="35px" />
-                    <ColumnDefinition Width="40px" />
+                    <ColumnDefinition Width="30px" />
+                    <ColumnDefinition Width="55px" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -277,8 +274,7 @@
                        Grid.Column="1"
                        Grid.Row="1"
                        Height="25"
-                       Margin="3,0,0,0"
-                       HorizontalAlignment="Left"
+                       HorizontalAlignment="Right"
                        VerticalAlignment="Center"
                        ToolTip="INFO: Set the amount of leading zeros before the file name"
                        MouseLeftButtonDown="LeadingZerosLabel_Clicked" />
@@ -287,7 +283,7 @@
                          Grid.Column="2"
                          Grid.Row="1"
                          Height="20"
-                         Width="40"
+                         Width="55"
                          VerticalContentAlignment="Center"
                          TextWrapping="Wrap"
                          HorizontalAlignment="Left"
