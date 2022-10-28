@@ -1,5 +1,6 @@
 ﻿using FileManager_Logic;
 using FileManager_UI.ExtensionMethods;
+using FileManager_UI.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -84,12 +85,12 @@ namespace FileManager_UI
             // Validate if there are any files on the list
             if (this.FilesList.Items.Count == 0)
             {
-                _ = MessageBox.Show("The list of files is empty.", "Missing files", MessageBoxButton.OK, MessageBoxImage.Warning);
+                _ = Message.WarningOk("The list of files is empty.", "Missing files");
             }
             // Validate if any radio button of a method is selected
             else if (!this.IsAnyMethodSelected)
             {
-                _ = MessageBox.Show("No renaming method was selected.", "Nothing selected", MessageBoxButton.OK, MessageBoxImage.Warning);
+                _ = Message.WarningOk("No renaming method was selected.", "Nothing selected");
             }
             else
             {
@@ -144,8 +145,8 @@ namespace FileManager_UI
         private static void DisplayPopup((bool IsSuccess, string Message, string NewFilePath) result)
         {
             _ = result.IsSuccess
-                ? MessageBox.Show("All files were renamed!", result.Message, MessageBoxButton.OK, MessageBoxImage.Information)
-                : MessageBox.Show(result.Message, "Renaming error", MessageBoxButton.OK, MessageBoxImage.Error);
+                ? Message.InfoOk("Operation successful", "All files were renamed!")
+                : Message.ErrorOk("Operation failed", result.Message);
         }
 
         /// <summary>
