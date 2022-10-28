@@ -64,9 +64,9 @@ namespace FileManager_UI
             DisplayPopup(result);
         }
 
-        #region Events
+        #region Button handlers
         /// <summary>
-        /// Activates this method <see cref="RadioButton"/>.
+        /// Activates <see cref="RadioButton"/> which belongs to this renaming strategy.
         /// </summary>
         private void SetLeadingZerosRadioButton_Checked(object sender, RoutedEventArgs @event)
         {
@@ -76,7 +76,7 @@ namespace FileManager_UI
         }
 
         /// <summary>
-        /// Selects the radio button when this label was clicked.
+        /// Selects the <see cref="RadioButton"/> when this label was clicked.
         /// </summary>
         private void LeadingZerosLabel_Clicked(object sender, RoutedEventArgs @event)
         {
@@ -84,7 +84,7 @@ namespace FileManager_UI
         }
 
         /// <summary>
-        /// Selects the radio button when this input text field was activated (on focus).
+        /// Selects the <see cref="RadioButton"/> when this input text field was activated (on focus).
         /// </summary>
         private void LeadingZerosTextBox_Focus(object sender, RoutedEventArgs @event)
         {
@@ -94,7 +94,7 @@ namespace FileManager_UI
 
         #region Cleanup
         /// <summary>
-        /// Clears radio button and input text field.
+        /// Clears this <see cref="RadioButton"/> and input text field.
         /// </summary>
         private void ClearLeadingZeros()
         {

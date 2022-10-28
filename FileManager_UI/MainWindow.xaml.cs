@@ -60,7 +60,7 @@ namespace FileManager_UI
             }
         }
 
-        #region Global buttons
+        #region Global button handlers
         /// <summary>
         /// Clears list of files and any methods values.
         /// </summary>
@@ -68,7 +68,7 @@ namespace FileManager_UI
         {
             ClearFilesList();
 
-            // Cleanup input sections
+            // Cleanup input sections and Radio Buttons
             ClearIncrementedNumber();
             ClearPrependAppend();
             ClearLeadingZeros();
@@ -160,7 +160,7 @@ namespace FileManager_UI
         }
 
         /// <summary>
-        /// Deactivates all radio buttons except the provided one.
+        /// Deactivates all <see cref="RadioButton"/>s except the provided one.
         /// </summary>
         private void ResetAllRadioButtonsExcept(RadioButton excludedRadioButton)
         {
