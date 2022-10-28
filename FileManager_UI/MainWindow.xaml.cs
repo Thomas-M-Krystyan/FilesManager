@@ -54,7 +54,7 @@ namespace FileManager_UI
                     }
                     else
                     {
-                        _ = MessageBox.Show("Unrecognized type of file.", "File error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        _ = Message.ErrorOk("File error", "Unrecognized type of file.");
                     }
                 }
             }
@@ -85,12 +85,12 @@ namespace FileManager_UI
             // Validate if there are any files on the list
             if (this.FilesList.Items.Count == 0)
             {
-                _ = Message.WarningOk("The list of files is empty.", "Missing files");
+                _ = Message.WarningOk("Missing files", "The list of files is empty.");
             }
             // Validate if any radio button of a method is selected
             else if (!this.IsAnyMethodSelected)
             {
-                _ = Message.WarningOk("No renaming method was selected.", "Nothing selected");
+                _ = Message.WarningOk("Nothing selected", "No renaming method was selected.");
             }
             else
             {
@@ -140,7 +140,7 @@ namespace FileManager_UI
         }
 
         /// <summary>
-        /// Displays a proper <see cref="MessageBox"/> popup with feedback information.
+        /// Displays a proper <see cref="MessageBoxResult"/> popup with feedback information.
         /// </summary>
         private static void DisplayPopup((bool IsSuccess, string Message, string NewFilePath) result)
         {
