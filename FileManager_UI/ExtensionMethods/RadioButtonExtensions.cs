@@ -1,5 +1,7 @@
 ﻿using System.Windows.Controls;
 
+#pragma warning disable CA1707  // Allow underscores in names
+
 namespace FileManager_UI.ExtensionMethods
 {
     public static class RadioButtonExtensions
