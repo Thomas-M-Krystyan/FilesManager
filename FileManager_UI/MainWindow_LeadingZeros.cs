@@ -70,7 +70,7 @@ namespace FileManager_UI
         /// </summary>
         private void SetLeadingZerosRadioButton_Checked(object sender, RoutedEventArgs @event)
         {
-            this.SetLeadingZerosRadioButton.Activate(this);
+            this.SetLeadingZerosRadioButton.Activate();
 
             ResetAllRadioButtonsExcept(this.SetLeadingZerosRadioButton);
         }

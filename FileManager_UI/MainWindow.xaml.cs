@@ -13,8 +13,6 @@ namespace FileManager_UI
     public partial class MainWindow : Window
     {
         #region Fields
-        protected internal bool IsAnyMethodSelected { get; set; }
-
         private readonly IList<RadioButton> _radioButtons = new List<RadioButton>();
         #endregion
 
@@ -72,9 +70,6 @@ namespace FileManager_UI
             ClearIncrementedNumber();
             ClearPrependAppend();
             ClearLeadingZeros();
-
-            // Clear flags
-            this.IsAnyMethodSelected = false;
         }
 
         /// <summary>
@@ -86,11 +81,6 @@ namespace FileManager_UI
             if (this.FilesList.Items.Count == 0)
             {
                 _ = Message.WarningOk("Missing files", "The list of files is empty.");
-            }
-            // Validate if any radio button of a method is selected
-            else if (!this.IsAnyMethodSelected)
-            {
-                _ = Message.WarningOk("Nothing selected", "No renaming method was selected.");
             }
             else
             {
@@ -106,6 +96,10 @@ namespace FileManager_UI
                 else if (this.SetLeadingZerosRadioButton.IsChecked())
                 {
                     RenameWithLeadingZeros();
+                }
+                else
+                {
+                    _ = Message.WarningOk("Nothing selected", "No renaming method was selected.");
                 }
             }
         }

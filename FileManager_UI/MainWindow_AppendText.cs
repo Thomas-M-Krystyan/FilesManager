@@ -46,7 +46,7 @@ namespace FileManager_UI
         /// </summary>
         private void PrependAppendRadioButtonRadioButton_Checked(object sender, RoutedEventArgs @event)
         {
-            this.PrependAppendRadioButton.Activate(this);
+            this.PrependAppendRadioButton.Activate();
 
             ResetAllRadioButtonsExcept(this.PrependAppendRadioButton);
         }
