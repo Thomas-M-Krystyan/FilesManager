@@ -11,11 +11,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FileManager_Logic\FileManager_Logic.csproj" />
+    <Folder Include="Resources\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Resources\" />
+    <ProjectReference Include="..\FileManager_Logic\FileManager_Logic.csproj" />
   </ItemGroup>
 
 </Project>
