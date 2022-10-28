@@ -58,7 +58,7 @@ namespace FileManager_UI
             }
         }
 
-        #region Global button handlers
+        #region Button handlers (common)
         /// <summary>
         /// Clears list of files and any methods values.
         /// </summary>
@@ -105,11 +105,11 @@ namespace FileManager_UI
         }
         #endregion
 
-        #region Helper methods
+        #region Helper base (protected) methods
         /// <summary>
         /// Clears the list of dropped files.
         /// </summary>
-        private void ClearFilesList()
+        private protected void ClearFilesList()
         {
             this.FilesList.Items.Clear();
         }
@@ -117,7 +117,7 @@ namespace FileManager_UI
         /// <summary>
         /// Validates if the provided text values contains illegal characters.
         /// </summary>
-        private static (bool IsSuccess, string Message, string NewFilePath) ValidateIllegalCharacters(params string[] textInputs)
+        private protected static (bool IsSuccess, string Message, string NewFilePath) ValidateIllegalCharacters(params string[] textInputs)
         {
             return FilesManager.ContainsIllegalCharacters(out string invalidValue, textInputs)
                 ? (false, $"The given value contains illegal characters \"{invalidValue}\"", String.Empty)
@@ -127,7 +127,7 @@ namespace FileManager_UI
         /// <summary>
         /// Updates name and path of the given file on the <see cref="ItemCollection"/> list.
         /// </summary>
-        private static void UpdateNameOnList(ListBoxItem fileItem, string newFilePath)
+        private protected static void UpdateNameOnList(ListBoxItem fileItem, string newFilePath)
         {
             fileItem.Content = Path.GetFileName(newFilePath);
             fileItem.ToolTip = newFilePath;
@@ -136,13 +136,28 @@ namespace FileManager_UI
         /// <summary>
         /// Displays a proper <see cref="MessageBoxResult"/> popup with feedback information.
         /// </summary>
-        private static void DisplayPopup((bool IsSuccess, string Message, string NewFilePath) result)
+        private protected static void DisplayPopup((bool IsSuccess, string Message, string NewFilePath) result)
         {
             _ = result.IsSuccess
                 ? Message.InfoOk("Operation successful", "All files were renamed!")
                 : Message.ErrorOk("Operation failed", result.Message);
         }
 
+        /// <summary>
+        /// Deactivates all <see cref="RadioButton"/>s except the provided one.
+        /// </summary>
+        private protected void ResetAllRadioButtonsExcept(RadioButton excludedRadioButton)
+        {
+            RadioButton[] radioButtonsToDeactivate = this._radioButtons.Where(button => button != excludedRadioButton)
+                                                                       .ToArray();
+            foreach (RadioButton button in radioButtonsToDeactivate)
+            {
+                button.Deactivate();
+            }
+        }
+        #endregion
+
+        #region Helper (private) methods
         /// <summary>
         /// Populates collection of all available <see cref="RadioButton"/>s.
         /// </summary>
@@ -151,19 +166,6 @@ namespace FileManager_UI
             this._radioButtons.Add(this.StartNumberRadioButton);
             this._radioButtons.Add(this.PrependAppendRadioButton);
             this._radioButtons.Add(this.SetLeadingZerosRadioButton);
-        }
-
-        /// <summary>
-        /// Deactivates all <see cref="RadioButton"/>s except the provided one.
-        /// </summary>
-        private void ResetAllRadioButtonsExcept(RadioButton excludedRadioButton)
-        {
-            RadioButton[] radioButtonsToDeactivate = this._radioButtons.Where(button => button != excludedRadioButton)
-                                                                       .ToArray();
-            foreach (RadioButton button in radioButtonsToDeactivate)
-            {
-                button.Deactivate();
-            }
         }
         #endregion
     }
