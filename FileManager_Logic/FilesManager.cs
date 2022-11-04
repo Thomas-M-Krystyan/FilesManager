@@ -18,7 +18,7 @@ namespace FileManager_Logic
         internal const string DigitsGroup = nameof(DigitsGroup);
 
         // Regex patterns
-        internal const string InvalidCharactersPattern = @"[\/:*?""<>|]";
+        internal const string InvalidCharactersPattern = @"[\\/:*?""<>|]";
         internal static readonly string FilePathPattern = $@"(?<{PathGroup}>.+\\)(?<{NameGroup}>.+)(?<{ExtensionGroup}>\.[aA-zZ0-9]\w+)";
         internal static readonly string LeadingZerosPattern = $@"(?<{ZerosGroup}>0+)?(?<{DigitsGroup}>\d+)?(?<{ExtensionGroup}>\.[aA-zZ0-9]\w+)";
         #endregion
@@ -206,7 +206,7 @@ namespace FileManager_Logic
 
             foreach (string text in textInputs)
             {
-                if (Regex.IsMatch(text, InvalidCharactersPattern))
+                if (Regex.IsMatch($@"{text}", InvalidCharactersPattern))
                 {
                     invalidValue = text;
 

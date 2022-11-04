@@ -10,6 +10,31 @@ namespace FileManager_Tests
 {
     public class FileManagerTests
     {
+        #region RegEx for invalid characters
+        [TestCase("", false)]
+        [TestCase(" ", false)]
+        // Invalid characters:  \/:*?""<>|
+        [TestCase(@"n\ame", true)]
+        [TestCase(@"name/", true)]
+        [TestCase(@":name", true)]
+        [TestCase(@"*name", true)]
+        [TestCase(@"name?", true)]
+        [TestCase(@"""name", true)]
+        [TestCase(@"nam<e", true)]
+        [TestCase(@"na>me", true)]
+        [TestCase(@"na|me", true)]
+        // Valid name
+        [TestCase("name", false)]
+        public void CheckIfField_InvalidCharactersPattern_WithRegExPattern_RecognizesInvalidCharacters(string fileName, bool isSuccess)
+        {
+            // Act
+            Match match = Regex.Match(fileName, FilesManager.InvalidCharactersPattern);
+
+            // Arrange
+            Assert.That(match.Success, Is.EqualTo(isSuccess));
+        }
+        #endregion
+
         #region RegEx for file path
         [TestCase("", false, "", "", "")]
         [TestCase(" ", false, "", "", "")]
