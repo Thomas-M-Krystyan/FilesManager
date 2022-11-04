@@ -18,9 +18,9 @@ namespace FileManager_Logic
         internal const string DigitsGroup = nameof(DigitsGroup);
 
         // Regex patterns
-        internal const string InvalidCharactersPatter = @"[\/:*?""<>|]";
+        internal const string InvalidCharactersPattern = @"[\/:*?""<>|]";
         internal static readonly string FilePathPattern = $@"(?<{PathGroup}>.+\\)(?<{NameGroup}>.+)(?<{ExtensionGroup}>\.[aA-zZ0-9]\w+)";
-        internal static readonly string LeadingZerosPattern = $@"(?<{ZerosGroup}>0+)?(?<{DigitsGroup}>\d+)?(?<{NameGroup}>.+)";
+        internal static readonly string LeadingZerosPattern = $@"(?<{ZerosGroup}>0+)?(?<{DigitsGroup}>\d+)?(?<{ExtensionGroup}>\.[aA-zZ0-9]\w+)";
         #endregion
 
         #region API
@@ -206,7 +206,7 @@ namespace FileManager_Logic
 
             foreach (string text in textInputs)
             {
-                if (Regex.IsMatch(text, InvalidCharactersPatter))
+                if (Regex.IsMatch(text, InvalidCharactersPattern))
                 {
                     invalidValue = text;
 
@@ -216,8 +216,6 @@ namespace FileManager_Logic
 
             return false;
         }
-        
-        
         #endregion
 
         #region Helper methods
@@ -225,9 +223,7 @@ namespace FileManager_Logic
         {
             const int NotFound = 0;  // There are no digits in the file name
 
-            bool isSuccess = IsFilePathValid(oldFilePath, out Match pathMatch);
-
-            if (isSuccess)
+            if (IsFilePathValid(oldFilePath, out Match pathMatch))
             {
                 string fileName = pathMatch.Groups[NameGroup].Value;
 

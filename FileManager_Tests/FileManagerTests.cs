@@ -10,29 +10,62 @@ namespace FileManager_Tests
 {
     public class FileManagerTests
     {
-        #region RegEx for path
+        #region RegEx for file path
         [TestCase("", false, "", "", "")]
         [TestCase(" ", false, "", "", "")]
-        [TestCase("C:\\Users\\User\\Desktop\\Folder\\Subfolder\\File.dat", true, "C:\\Users\\User\\Desktop\\Folder\\Subfolder\\", "File", ".dat")]
-        [TestCase("C:\\Users\\User\\Desktop\\Folder\\Subfolder\\!File.dat", true, "C:\\Users\\User\\Desktop\\Folder\\Subfolder\\", "!File", ".dat")]
-        [TestCase("C:\\Users\\User\\Desktop\\Folder\\Subfolder\\Save File.dat", true, "C:\\Users\\User\\Desktop\\Folder\\Subfolder\\", "Save File", ".dat")]
-        [TestCase("C:\\Users\\User\\File", false, "", "", "")]
-        [TestCase("File.dat", false, "", "", "")]
-        public void CheckIfField_WithRegExPattern_ReturnsAllPathComponents(string testPath, bool isSuccess, string path, string name, string extension)
+        [TestCase("C:\\Users\\User\\Desktop\\Folder\\Subfolder\\File.dat", true, "C:\\Users\\User\\Desktop\\Folder\\Subfolder\\", "File", ".dat")]    // Normal valid file path
+        [TestCase("C:\\Users\\User\\Desktop\\Folder\\Subfolder\\!File.dat", true, "C:\\Users\\User\\Desktop\\Folder\\Subfolder\\", "!File", ".dat")]  // With special character in name
+        [TestCase("C:\\Users\\User\\Desktop\\Folder\\Subfolder\\Save File.dat", true, "C:\\Users\\User\\Desktop\\Folder\\Subfolder\\", "Save File", ".dat")]  // With space in name
+        [TestCase("C:\\Users\\User\\File", false, "", "", "")]  // Without file extension
+        [TestCase("File.dat", false, "", "", "")]  // Without file directory
+        public void CheckIfField_FilePathPattern_WithRegExPattern_ReturnsAllMatchGroups(string testPath, bool isSuccess, string expectedPath, string expectedName, string expectedExtension)
         {
             // Act
             Match match = Regex.Match(testPath, FilesManager.FilePathPattern);
 
             // Arrange
-            Assert.IsTrue(match.Success == isSuccess);
+            Assert.That(match.Success, Is.EqualTo(isSuccess));
 
             if (isSuccess)
             {
                 GroupCollection groups = match.Groups;
 
-                Assert.That(groups[FilesManager.PathGroup].Value, Is.EqualTo(path));
-                Assert.That(groups[FilesManager.NameGroup].Value, Is.EqualTo(name));
-                Assert.That(groups[FilesManager.ExtensionGroup].Value, Is.EqualTo(extension));
+                Assert.That(groups[FilesManager.PathGroup].Value, Is.EqualTo(expectedPath));
+                Assert.That(groups[FilesManager.NameGroup].Value, Is.EqualTo(expectedName));
+                Assert.That(groups[FilesManager.ExtensionGroup].Value, Is.EqualTo(expectedExtension));
+            }
+        }
+        #endregion
+
+        #region RegEx for zeros and digits
+        [TestCase("", false, "", "", "")]
+        [TestCase(" ", false, "", "", "")]
+        // Zeros, Digits, Extension
+        [TestCase("0001000.exe", true, "000", "1000", ".exe")]
+        [TestCase("0001000", false, "000", "1000", "")]  // Without file extension
+        [TestCase("000.exe", true, "000", "", ".exe")]
+        // Zeros
+        [TestCase("000", false, "000", "", "")]  // Without file extension
+        [TestCase("1000.exe", true, "", "1000", ".exe")]
+        // Digits
+        [TestCase("1000", false, "", "1000", "")]  // Without file extension
+        // Extensions
+        [TestCase(".exe", true, "", "", ".exe")]
+        public void CheckIfField_LeadingZerosPattern_WithRegExPattern_ReturnsAllMatchGroups(string fileName, bool isSuccess, string expectedZeros, string expectedDigits, string exetedExtension)
+        {
+            // Act
+            Match match = Regex.Match(fileName, FilesManager.LeadingZerosPattern);
+
+            // Arrange
+            Assert.That(match.Success, Is.EqualTo(isSuccess));
+
+            if (isSuccess)
+            {
+                GroupCollection groups = match.Groups;
+
+                Assert.That(groups[FilesManager.ZerosGroup].Value, Is.EqualTo(expectedZeros));
+                Assert.That(groups[FilesManager.DigitsGroup].Value, Is.EqualTo(expectedDigits));
+                Assert.That(groups[FilesManager.ExtensionGroup].Value, Is.EqualTo(exetedExtension));
             }
         }
         #endregion
