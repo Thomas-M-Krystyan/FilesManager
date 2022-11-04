@@ -23,21 +23,7 @@ namespace FileManager_Logic
         internal static readonly string LeadingZerosPattern = $@"(?<{ZerosGroup}>0+)?(?<{DigitsGroup}>\d+)?(?<{NameGroup}>.+)";
         #endregion
 
-        /// <summary>
-        /// Determines whether the provided file has a valid extension.
-        /// </summary>
-        public static bool HasValidExtension(string dropFilePath)
-        {
-            string fileExtension = Path.GetExtension(dropFilePath);
-
-            const int fileExtensionMinLength = 1;
-            const int fileExtensionMaxLength = 4;
-
-            return fileExtension.Contains(".") &&
-                   fileExtension.Length > fileExtensionMinLength &&
-                   fileExtension.Length <= 1 + fileExtensionMaxLength;  // File extension length + dot
-        }
-
+        #region API
         /// <summary>
         /// Changes the name of a given file by replacing it with incremented numbers (and optional postfix after number).
         /// </summary>
@@ -67,6 +53,7 @@ namespace FileManager_Logic
         {
             return RenameFile(oldFilePath, () => GetLeadedZerosName(fileGroups, numberGroups, zerosCount, maxNumberLength));
         }
+        #endregion
 
         #region Rename methods
         internal static string GetNumberIncrementedName(string oldFilePath, string prefix, ushort startNumber, string postfix)
@@ -93,29 +80,6 @@ namespace FileManager_Logic
                     $"{(String.IsNullOrWhiteSpace(textToAppend) ? String.Empty : textToAppend)}" +    // (!) The text to be appended
                     $"{match.Groups[ExtensionGroup].Value}")                                          // The original file extension (with dot)
                 : String.Empty;
-        }
-
-        public static (int NumberLength, GroupCollection FileGroups, GroupCollection NumberGroups) GetNumberLength(string oldFilePath)
-        {
-            const int NotFound = 0;  // There are no digits in the file name
-
-            bool isSuccess = IsFilePathValid(oldFilePath, out Match pathMatch);
-
-            if (isSuccess)
-            {
-                string fileName = pathMatch.Groups[NameGroup].Value;
-
-                Match numberMatch = Regex.Match(fileName, LeadingZerosPattern);
-                GroupCollection numberGroups = numberMatch.Groups;
-
-                return numberMatch.Success
-                    ? (numberGroups[ZerosGroup].Value.Length + numberGroups[DigitsGroup].Value.Length, pathMatch.Groups, numberGroups)
-                    : (NotFound, pathMatch.Groups, numberGroups);
-            }
-            else
-            {
-                return (NotFound, pathMatch.Groups, null);
-            }
         }
 
         internal static string GetLeadedZerosName(GroupCollection fileGroups, GroupCollection numberGroups, int zerosCount, int maxNumberLength)
@@ -163,6 +127,12 @@ namespace FileManager_Logic
         #endregion
 
         #region System.IO.File
+        /// <summary>
+        /// Renames the given file using a specified renaming method.
+        /// </summary>
+        /// <param name="oldFilePath">The original file path.</param>
+        /// <param name="renameMethod">The rename method to be used.</param>
+        /// <returns>Result of renamed file.</returns>
         private static (bool IsSuccess, string Message, string NewFilePath) RenameFile(string oldFilePath, Func<string> renameMethod)
         {
             try
@@ -181,6 +151,33 @@ namespace FileManager_Logic
         #endregion
 
         #region Validation
+        /// <summary>
+        /// Determines whether the provided file has a valid extension.
+        /// </summary>
+        /// <param name="dropFilePath">The file path of dragged and dropped file.</param>
+        /// <returns>
+        ///   The answer whether provided file has an invalid extension.
+        /// </returns>
+        public static bool HasValidExtension(string dropFilePath)
+        {
+            string fileExtension = Path.GetExtension(dropFilePath);
+
+            const int fileExtensionMinLength = 1;
+            const int fileExtensionMaxLength = 4;
+
+            return fileExtension.Contains(".") &&
+                   fileExtension.Length > fileExtensionMinLength &&
+                   fileExtension.Length <= 1 + fileExtensionMaxLength;  // File extension length + dot
+        }
+
+        /// <summary>
+        /// Determines whether the given file path is valid.
+        /// </summary>
+        /// <param name="filePath">The file path.</param>
+        /// <param name="match">The matched result.</param>
+        /// <returns>
+        ///   The answer if file path is valid.
+        /// </returns>
         internal static bool IsFilePathValid(string filePath, out Match match)
         {
             if (String.IsNullOrWhiteSpace(filePath))
@@ -195,6 +192,14 @@ namespace FileManager_Logic
             return match.Success;
         }
 
+        /// <summary>
+        /// Determines whether the given string contains illegal characters.
+        /// </summary>
+        /// <param name="invalidValue">The specific text which contains an invalid characters.</param>
+        /// <param name="textInputs">The set of text inputs to be validated.</param>
+        /// <returns>
+        ///   The answer whether any of provided text values contains an illegal characters.
+        /// </returns>
         public static bool ContainsIllegalCharacters(out string invalidValue, params string[] textInputs)
         {
             invalidValue = String.Empty;
@@ -210,6 +215,33 @@ namespace FileManager_Logic
             }
 
             return false;
+        }
+        
+        
+        #endregion
+
+        #region Helper methods
+        public static (int NumberLength, GroupCollection FileGroups, GroupCollection NumberGroups) GetNumberLength(string oldFilePath)
+        {
+            const int NotFound = 0;  // There are no digits in the file name
+
+            bool isSuccess = IsFilePathValid(oldFilePath, out Match pathMatch);
+
+            if (isSuccess)
+            {
+                string fileName = pathMatch.Groups[NameGroup].Value;
+
+                Match numberMatch = Regex.Match(fileName, LeadingZerosPattern);
+                GroupCollection numberGroups = numberMatch.Groups;
+
+                return numberMatch.Success
+                    ? (numberGroups[ZerosGroup].Value.Length + numberGroups[DigitsGroup].Value.Length, pathMatch.Groups, numberGroups)
+                    : (NotFound, pathMatch.Groups, numberGroups);
+            }
+            else
+            {
+                return (NotFound, pathMatch.Groups, null);
+            }
         }
         #endregion
     }
