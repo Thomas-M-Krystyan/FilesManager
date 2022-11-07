@@ -1,0 +1,65 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{4EFDDAB2-AFE5-4107-9D6F-5B809E6FA379}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Logic", "Logic", "{8731CBEE-5822-41B3-AA74-8B0631DA7EFE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{B9D720A0-4ACF-4994-8FD2-A4FE74F69CCC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{FAFA0D0B-F11E-41E7-82F7-7A5A71422F04}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Logic", "Logic", "{CF65D38B-89A5-450D-9F06-CED46747B62B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Layers", "Layers", "{DF3BE970-9CEA-4C99-B6D2-77E20818417A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".SolutionItems", ".SolutionItems", "{B1DB5287-1D32-43C5-B598-3BE9068D7D5B}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		LICENSE = LICENSE
+		README.txt = README.txt
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilesManager.Core", "Layers\Logic\FilesManager.Core\FilesManager.Core.csproj", "{9715E9B2-7312-4AFA-8F71-D83AAB9D78B3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilesManager.Core.Tests", "Tests\UnitTests\Logic\FilesManager.Core.Tests\FilesManager.Core.Tests.csproj", "{6AA3BDE4-052A-4ACB-9DED-9323DB1680DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilesManager.UI.Desktop", "Layers\Application\FilesManager.UI.Desktop\FilesManager.UI.Desktop.csproj", "{ECB4B9B3-DA49-42B7-B122-2357EA40F2FE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9715E9B2-7312-4AFA-8F71-D83AAB9D78B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9715E9B2-7312-4AFA-8F71-D83AAB9D78B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9715E9B2-7312-4AFA-8F71-D83AAB9D78B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9715E9B2-7312-4AFA-8F71-D83AAB9D78B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AA3BDE4-052A-4ACB-9DED-9323DB1680DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AA3BDE4-052A-4ACB-9DED-9323DB1680DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AA3BDE4-052A-4ACB-9DED-9323DB1680DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AA3BDE4-052A-4ACB-9DED-9323DB1680DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECB4B9B3-DA49-42B7-B122-2357EA40F2FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECB4B9B3-DA49-42B7-B122-2357EA40F2FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECB4B9B3-DA49-42B7-B122-2357EA40F2FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECB4B9B3-DA49-42B7-B122-2357EA40F2FE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8731CBEE-5822-41B3-AA74-8B0631DA7EFE} = {DF3BE970-9CEA-4C99-B6D2-77E20818417A}
+		{B9D720A0-4ACF-4994-8FD2-A4FE74F69CCC} = {DF3BE970-9CEA-4C99-B6D2-77E20818417A}
+		{FAFA0D0B-F11E-41E7-82F7-7A5A71422F04} = {4EFDDAB2-AFE5-4107-9D6F-5B809E6FA379}
+		{CF65D38B-89A5-450D-9F06-CED46747B62B} = {FAFA0D0B-F11E-41E7-82F7-7A5A71422F04}
+		{9715E9B2-7312-4AFA-8F71-D83AAB9D78B3} = {8731CBEE-5822-41B3-AA74-8B0631DA7EFE}
+		{6AA3BDE4-052A-4ACB-9DED-9323DB1680DE} = {CF65D38B-89A5-450D-9F06-CED46747B62B}
+		{ECB4B9B3-DA49-42B7-B122-2357EA40F2FE} = {B9D720A0-4ACF-4994-8FD2-A4FE74F69CCC}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D41DB821-0B95-41F5-A3FB-7645BEA42B44}
+	EndGlobalSection
+EndGlobal

@@ -1,6 +1,24 @@
 Changelog:
 
 ------------------------------------------------------------------------
+version 0.3.1-alpha
+
+- migrate project to .NET 6
+- split projects into layers (architecture): Application / Logic / Tests
+- split large classes into specialized files (Message, Helper, Validate)
+- changed the application window title
+- introduce Resources.resx and move all strings from XAML into it
+- add EXAMPLES to all renaming methods in XAML
+- much more unit tests
+------------------------------------------------------------------------
+version 0.3-alpha
+
+- adjust UI to create more space on the right (again)
+- more space between fields and controls on the right
+- initialize new method "leading zeros" (not working yet but with UI)
+- fix Regular Expressions not working in some invalid characters cases
+- extract few methods to dedicated extension methods
+------------------------------------------------------------------------
 version 0.2.1
 
 - add prefix in "incremented number method"
