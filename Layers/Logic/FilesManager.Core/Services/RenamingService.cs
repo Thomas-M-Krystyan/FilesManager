@@ -67,52 +67,87 @@ namespace FileManager.Layers.Logic
 
         internal static string GetLeadedZerosName(GroupCollection? fileGroups, GroupCollection? numberGroups, int zerosCount, int maxNumberLength)
         {
-            bool hasValidData = (fileGroups != null && fileGroups.Count > 0) &&
-                                (numberGroups != null && numberGroups.Count > 0);
+            bool hasValidData = fileGroups != null && fileGroups.Count > 0 &&
+                                numberGroups != null && numberGroups.Count > 0;
 
             return hasValidData
                 ? Path.Combine(fileGroups!.Value(Validate.PathGroup),                        // The original file path (ended with "/")
-                    $"{NameWithLeadingZeros(numberGroups!, zerosCount, maxNumberLength)}" +  // (!) Set the specific number of leading zeros
+                    //$"{NameWithLeadingZeros(numberGroups!, zerosCount, maxNumberLength)}" +  // (!) Set the specific number of leading zeros
                     $"{fileGroups!.Value(Validate.ExtensionGroup)}")                         // The original file extension (with dot)
                 : string.Empty;
         }
         #endregion
 
         #region Helper methods
-        /// <summary>
-        /// Set enough number of zeros before numeric part of the name
-        /// </summary>
-        private static string NameWithLeadingZeros(GroupCollection nameGroups, int zerosCount, int maxNumberLength)
+        internal static string[] GetNamesWithLeadingZeros(string[] originalNames, int zerosCount)
         {
-            if (zerosCount > 0)
+            //int maxLength = GetLongestFileName();
+
+            return default;
+        }
+
+        /// <summary>
+        /// Gets the name of the longest file.
+        /// </summary>
+        /// <param name="fileNames">The file names:
+        ///   <para>
+        ///     <list type="bullet">
+        ///       <item>collection cannot be null</item>
+        ///       <item>items cannot be null or contain only whitespaces</item>
+        ///       <item>items should have only names (without extension)</item>
+        ///     </list>
+        ///   </para>
+        /// </param>
+        /// <returns></returns>
+        internal static int GetLongestFileName(string[] fileNames)
+        {
+            int count = 0;
+
+            for (int index = 0; index < fileNames.Length; index++)
             {
-                string zeros = nameGroups.Value(Validate.ZerosGroup);
-                string digits = nameGroups.Value(Validate.DigitsGroup);
-                int numberLength = zeros.Length + digits.Length;
-
-                /* Add more zeroes to shorter number to make all of them the same size:
-
-                   REQUEST:
-                     "Add 1 more zero to numbers 10 & 100"
-
-                   NOTE: Zero will be added to number 100 since this is the longest number in the given
-                         sequence => 0100, and number 10 will be compensated => 0010 to have equal length
-
-                   RESULT:
-                     0010 & 0100
-                */
-                if (numberLength < maxNumberLength)
-                {
-                    int difference = maxNumberLength - numberLength;
-                    zerosCount += difference;
-                }
-
-                string leadingZeros = $"{new string('0', zerosCount)}{digits}";
-
-                return $"{leadingZeros}{nameGroups.Value(Validate.NameGroup)}";
+                count = Math.Max(count, fileNames[index].Length);
             }
 
-            return string.Empty;
+            return count;
+        }
+
+        /// <summary>
+        /// Adds the leading zeros to the beginning of the file.
+        /// </summary>
+        /// <param name="numberComponent">The extracted numeric part of the file name.</param>
+        /// <param name="zerosCount">The amount of zeros to be added. Cannot be 0.</param>
+        /// <param name="maxNumberLength">The lenght of the longest numeric component.</param>
+        /// <returns>New collection of file names preceeded by zeros.</returns>
+        internal static string[] AddLeadingZeros(string[] numberComponent, byte zerosCount, ushort maxNumberLength)
+        {
+            if (zerosCount == 0 || maxNumberLength == 0)
+            {
+                return numberComponent;
+            }
+
+            List<string> renamedComponent = new();
+
+            for (int index = 0; index < numberComponent.Length; index++)
+            {
+                string newName;
+
+                if (numberComponent[index].Length == 0)
+                {
+                    newName = numberComponent[index];
+                }
+                else
+                {
+                    int zerosToAdd = numberComponent[index].Length == maxNumberLength
+                    ? zerosCount
+                    : maxNumberLength - numberComponent[index].Length + zerosCount;
+
+                    newName = $"{new string('0', zerosToAdd)}{numberComponent[index]}";
+                }
+
+                renamedComponent.Add(newName);
+            }
+
+            return renamedComponent.ToArray();
         }
         #endregion
 
