@@ -1,7 +1,7 @@
 ﻿namespace FilesManager.Core.ExtensionMethods
 {
     /// <summary>
-    /// String extension methods.
+    /// Extension methods for <see langword="string"/>s.
     /// </summary>
     internal static class StringExtensions
     {

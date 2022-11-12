@@ -3,7 +3,7 @@
 namespace FilesManager.Core.ExtensionMethods
 {
     /// <summary>
-    /// <see cref="GroupCollection"/> extension methods.
+    /// Extension methods for <see cref="GroupCollection"/>s.
     /// </summary>
     internal static class GroupCollectionExtensions
     {
