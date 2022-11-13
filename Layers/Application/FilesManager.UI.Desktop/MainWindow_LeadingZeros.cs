@@ -20,8 +20,8 @@ namespace FilesManager.UI.Desktop
             //RenamingResultDto result = (false, string.Empty, string.Empty);
 
             //// Validate input value (cannot be converted or it's too large)
-            //if (sbyte.TryParse(this.LeadingZeros.Text, out sbyte zerosCount) &&
-            //    zerosCount <= 5)
+            //if (byte.TryParse(this.LeadingZeros.Text, out byte zerosCount) &&
+            //    zerosCount <= 7)
             //{
             //    // Determine max length of leading number
             //    int maxNumberLength = 0;

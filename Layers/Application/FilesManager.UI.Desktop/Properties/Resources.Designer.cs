@@ -331,7 +331,7 @@ namespace FilesManager.UI.Desktop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to TIP: Only positive numbers from the range [0 - 5].
+        ///   Looks up a localized string similar to TIP: Only positive numbers from the range [0 - 7].
         /// </summary>
         public static string Tip_OnlyVerySmallPositiveNumbers_Tooltip {
             get {
