@@ -84,27 +84,5 @@ namespace FilesManager.Core.Validation
 
             return false;
         }
-
-        /// <summary>
-        /// Checks whether provided input contains only "0" digits.
-        /// </summary>
-        /// <returns>The answer whether only digits equals to "0" were provided.</returns>
-        public static bool OnlyZeros(string textInput, out string firstIinvalidValue)
-        {
-            firstIinvalidValue = string.Empty;
-
-            foreach (char text in textInput)
-            {
-                bool isConvertable = byte.TryParse($"{text}", out byte result);  // Checking if the input is a small digit
-                if (!isConvertable || result != 0)                               // Checking if the input is equal to "0"
-                {
-                    firstIinvalidValue = $"{text}";
-                    
-                    return false;
-                }
-            }
-
-            return true;
-        }
     }
 }

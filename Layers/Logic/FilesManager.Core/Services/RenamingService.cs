@@ -33,9 +33,10 @@ namespace FileManager.Layers.Logic
         /// <summary>
         /// Changes the name of a given file by setting a specified amount of leading zeros before the file name.
         /// </summary>
-        public static RenamingResultDto SetLeadingZeros(string oldFilePath, GroupCollection? fileGroups, GroupCollection? numberGroups, int zerosCount, int maxNumberLength)
+        public static RenamingResultDto SetLeadingZeros(string[] oldFilePaths, int zerosCount)
         {
-            return RenameFile(oldFilePath, () => GetLeadedZerosName(fileGroups, numberGroups, zerosCount, maxNumberLength));
+            return default;
+            //return RenameFile(oldFilePath, () => GetLeadedZerosName(fileGroups, numberGroups, zerosCount, maxNumberLength));
         }
         #endregion
 

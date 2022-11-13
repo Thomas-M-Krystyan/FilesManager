@@ -20,11 +20,10 @@ namespace FilesManager.UI.Desktop
         private void RenameWithLeadingZeros()
         {
             RenamingResultDto result = new(true);
-            string invalidDigit = string.Empty;
 
-            // Validate input value (it's empty or too large, cannot be converted to numbers or does not contain only "0" digits)
-            if (this.LeadingZeros.Text is { Length: > 0, Length: <= 7 } &&
-                Validate.OnlyZeros(this.LeadingZeros.Text, out invalidDigit))
+            // Validate input value (cannot be converted to small positive number; it's either too small, equal to "0", or too large)
+            if (byte.TryParse(this.LeadingZeros.Text, out byte zerosCount) &&
+                zerosCount > 0 && zerosCount <= 7)
             {
                 //int currentIndex = 0;
 
@@ -47,7 +46,8 @@ namespace FilesManager.UI.Desktop
             }
             else
             {
-                result = new RenamingResultDto(false, $"Invalid value in \"Leading zeros\": {invalidDigit}.", string.Empty);
+                result = new RenamingResultDto(false, $"Invalid value in \"Leading zeros\": " +
+                    $"{(string.IsNullOrWhiteSpace(this.LeadingZeros.Text) ? "Empty" : this.LeadingZeros.Text)}.", string.Empty);
             }
 
             DisplayPopup(result);
