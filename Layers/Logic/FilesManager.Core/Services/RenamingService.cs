@@ -1,3 +1,4 @@
+using FilesManager.Core.DTOs;
 using FilesManager.Core.ExtensionMethods;
 using FilesManager.Core.Validation;
 using System.Text.RegularExpressions;
@@ -10,7 +11,7 @@ namespace FileManager.Layers.Logic
         /// <summary>
         /// Changes the name of a given file by replacing it with incremented numbers (and optional postfix after number).
         /// </summary>
-        public static (bool IsSuccess, string Message, string NewFilePath) ReplaceWithNumber(string oldFilePath, string prefix, ushort number, string postfix)
+        public static RenamingResultDto ReplaceWithNumber(string oldFilePath, string prefix, ushort number, string postfix)
         {
             return RenameFile(oldFilePath, () => GetNumberIncrementedName(oldFilePath, prefix, number, postfix));
         }
@@ -24,7 +25,7 @@ namespace FileManager.Layers.Logic
         ///   - appending a text after the original file name but before its extension.
         /// </para>
         /// </summary>
-        public static (bool IsSuccess, string Message, string NewFilePath) EnrichWithPrependAndAppend(string oldFilePath, string textToPrepend, string textToAppend)
+        public static RenamingResultDto EnrichWithPrependAndAppend(string oldFilePath, string textToPrepend, string textToAppend)
         {
             return RenameFile(oldFilePath, () => GetPrependedAndAppendedName(oldFilePath, textToPrepend, textToAppend));
         }
@@ -32,7 +33,7 @@ namespace FileManager.Layers.Logic
         /// <summary>
         /// Changes the name of a given file by setting a specified amount of leading zeros before the file name.
         /// </summary>
-        public static (bool IsSuccess, string Message, string NewFilePath) SetLeadingZeros(string oldFilePath, GroupCollection? fileGroups, GroupCollection? numberGroups, int zerosCount, int maxNumberLength)
+        public static RenamingResultDto SetLeadingZeros(string oldFilePath, GroupCollection? fileGroups, GroupCollection? numberGroups, int zerosCount, int maxNumberLength)
         {
             return RenameFile(oldFilePath, () => GetLeadedZerosName(fileGroups, numberGroups, zerosCount, maxNumberLength));
         }
@@ -79,12 +80,12 @@ namespace FileManager.Layers.Logic
         #endregion
 
         #region Helper methods
-        internal static string[] GetNamesWithLeadingZeros(string[] originalNames, int zerosCount)
-        {
-            //int maxLength = GetLongestFileName();
+        //internal static string[] GetNamesWithLeadingZeros(string[] originalNames, int zerosCount)
+        //{
+        //    //int maxLength = GetLongestFileName();
 
-            return default;
-        }
+        //    return default;
+        //}
 
         /// <summary>
         /// Gets the name of the longest file.
@@ -158,7 +159,7 @@ namespace FileManager.Layers.Logic
         /// <param name="oldFilePath">The original file path.</param>
         /// <param name="renameMethod">The rename method to be used.</param>
         /// <returns>Result of renamed file.</returns>
-        private static (bool IsSuccess, string Message, string NewFilePath) RenameFile(string oldFilePath, Func<string> renameMethod)
+        private static RenamingResultDto RenameFile(string oldFilePath, Func<string> renameMethod)
         {
             try
             {
@@ -166,11 +167,11 @@ namespace FileManager.Layers.Logic
 
                 File.Move(oldFilePath, newFilePath);
 
-                return (true, "Success", newFilePath);
+                return new RenamingResultDto(true, "Success", newFilePath);
             }
             catch (Exception exception)
             {
-                return (false, exception.Message, string.Empty);
+                return new RenamingResultDto(false, exception.Message, string.Empty);
             }
         }
         #endregion

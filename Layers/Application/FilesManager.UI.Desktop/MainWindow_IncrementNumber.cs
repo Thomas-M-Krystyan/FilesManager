@@ -54,7 +54,7 @@ namespace FilesManager.UI.Desktop
                     }
                     else
                     {
-                        result = (false, $"Invalid \"Start number\" value: {this.StartingNumber.Text}.", string.Empty);
+                        result = new RenamingResultDto(false, $"Invalid \"Start number\" value: {this.StartingNumber.Text}.", string.Empty);
                     }
                 }
             }
