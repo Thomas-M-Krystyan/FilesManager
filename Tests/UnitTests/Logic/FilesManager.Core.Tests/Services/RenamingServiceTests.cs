@@ -122,10 +122,10 @@ namespace FilesManager.Core.Tests.Services
 
         #region Replacing name with adding leading zeros
         [TestCaseSource(nameof(GetTestFileNames))]
-        public void TestMethod_GetLongestFileName_ForValidInput_ReturnsExpectedMaxFileLength((string[] Names, int ExpectedCount) testData)
+        public void TestMethod_GetMaxLength_ForValidInput_ReturnsExpectedMaxFileLength((string[] Names, int ExpectedCount) testData)
         {
             // Act
-            int result = RenamingService.GetLongestFileName(testData.Names);
+            int result = RenamingService.GetMaxLength(testData.Names);
 
             // Assert
             Assert.That(result, Is.EqualTo(testData.ExpectedCount));

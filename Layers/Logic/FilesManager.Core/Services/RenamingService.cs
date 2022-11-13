@@ -90,7 +90,7 @@ namespace FileManager.Layers.Logic
         /// <summary>
         /// Gets the name of the longest file.
         /// </summary>
-        /// <param name="fileNames">The file names:
+        /// <param name="inputs">The file names:
         ///   <para>
         ///     <list type="bullet">
         ///       <item>collection cannot be null</item>
@@ -100,13 +100,13 @@ namespace FileManager.Layers.Logic
         ///   </para>
         /// </param>
         /// <returns></returns>
-        internal static int GetLongestFileName(string[] fileNames)
+        internal static int GetMaxLength(string[] inputs)
         {
             int count = 0;
 
-            for (int index = 0; index < fileNames.Length; index++)
+            for (int index = 0; index < inputs.Length; index++)
             {
-                count = Math.Max(count, fileNames[index].Length);
+                count = Math.Max(count, inputs[index].Length);
             }
 
             return count;

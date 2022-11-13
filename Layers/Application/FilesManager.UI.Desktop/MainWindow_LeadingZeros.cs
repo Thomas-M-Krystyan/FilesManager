@@ -19,50 +19,53 @@ namespace FilesManager.UI.Desktop
         {
             //RenamingResultDto result = (false, string.Empty, string.Empty);
 
-            //// Validate input value (cannot be converted or it's too large)
-            //if (byte.TryParse(this.LeadingZeros.Text, out byte zerosCount) &&
-            //    zerosCount <= 7)
+            // Validate input value (cannot be converted or it's too large)
+            if (byte.TryParse(this.LeadingZeros.Text, out byte zerosCount) &&
+                zerosCount <= 7)
+            {
+
+            }
             //{
             //    // Determine max length of leading number
             //    int maxNumberLength = 0;
 
-            //    List<(ListBoxItem FileItem, GroupCollection? FileGroups, GroupCollection? NumberGroups)> filesData = new();
+                //    List<(ListBoxItem FileItem, GroupCollection? FileGroups, GroupCollection? NumberGroups)> filesData = new();
 
-            //    foreach (ListBoxItem fileItem in this.FilesList.Items)
-            //    {
-            //        NumberLengthDto resultDto = Helper.GetNumberLength((string)fileItem.ToolTip);
+                //    foreach (ListBoxItem fileItem in this.FilesList.Items)
+                //    {
+                //        NumberLengthDto resultDto = Helper.GetNumberLength((string)fileItem.ToolTip);
 
-            //        maxNumberLength = Math.Max(maxNumberLength, resultDto.NumberLength);
+                //        maxNumberLength = Math.Max(maxNumberLength, resultDto.NumberLength);
 
-            //        filesData.Add((fileItem, resultDto.FileGroups, resultDto.NumberGroups));
-            //    }
+                //        filesData.Add((fileItem, resultDto.FileGroups, resultDto.NumberGroups));
+                //    }
 
-            //    // Process renaming of the file
-            //    foreach ((ListBoxItem FileItem, GroupCollection? FileGroups, GroupCollection? NumberGroups) fileData in filesData)
-            //    {
-            //        result = RenamingService.SetLeadingZeros(
-            //            (string)fileData.FileItem.ToolTip, fileData.FileGroups, fileData.NumberGroups, zerosCount, maxNumberLength);
+                //    // Process renaming of the file
+                //    foreach ((ListBoxItem FileItem, GroupCollection? FileGroups, GroupCollection? NumberGroups) fileData in filesData)
+                //    {
+                //        result = RenamingService.SetLeadingZeros(
+                //            (string)fileData.FileItem.ToolTip, fileData.FileGroups, fileData.NumberGroups, zerosCount, maxNumberLength);
 
-            //        // Validate renaming result
-            //        if (!result.IsSuccess)
-            //        {
-            //            ClearFilesList();
+                //        // Validate renaming result
+                //        if (!result.IsSuccess)
+                //        {
+                //            ClearFilesList();
 
-            //            break;
-            //        }
+                //            break;
+                //        }
 
-            //        UpdateNameOnList(fileData.FileItem, result.NewFilePath);
-            //    }
+                //        UpdateNameOnList(fileData.FileItem, result.NewFilePath);
+                //    }
 
-            //    // Reset input field
-            //    this.LeadingZeros.Text = string.Empty;
-            //}
-            //else
-            //{
-            //    result = (false, $"Invalid \"Leading zeros\" value: {this.LeadingZeros.Text}.", string.Empty);
-            //}
+                //    // Reset input field
+                //    this.LeadingZeros.Text = string.Empty;
+                //}
+                //else
+                //{
+                //    result = (false, $"Invalid \"Leading zeros\" value: {this.LeadingZeros.Text}.", string.Empty);
+                //}
 
-            //DisplayPopup(result);
+                //DisplayPopup(result);
         }
 
         #region Button handlers
