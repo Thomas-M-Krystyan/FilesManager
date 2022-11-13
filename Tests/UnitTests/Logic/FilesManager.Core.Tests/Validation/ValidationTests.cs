@@ -178,5 +178,23 @@ namespace FilesManager.Core.Tests.Validation
             yield return (new[] { @"na|me" },    true,  @"na|me");
         }
         #endregion
+
+        #region OnlyZeros
+        [TestCase("00000", true, "")]
+        [TestCase("00800", false, "8")]
+        [TestCase("12345", false, "1")]
+        public void TestMethod_OnlyZeros_ForGivenInput_ReturnsExpectedResult(string input, bool expectedResult, string expectedFirstInvalidValue)
+        {
+            // Act
+            bool actualResult = Validate.OnlyZeros(input, out string actualFirstInvalidValue);
+            
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(actualResult, Is.EqualTo(expectedResult));
+                Assert.That(actualFirstInvalidValue, Is.EqualTo(expectedFirstInvalidValue));
+            });
+        }
+        #endregion
     }
 }
