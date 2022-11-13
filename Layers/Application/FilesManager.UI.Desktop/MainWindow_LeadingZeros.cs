@@ -17,7 +17,7 @@ namespace FilesManager.UI.Desktop
         /// </summary>
         private void RenameWithLeadingZeros()
         {
-            //(bool IsSuccess, string Message, string NewFilePath) result = (false, string.Empty, string.Empty);
+            //RenamingResultDto result = (false, string.Empty, string.Empty);
 
             //// Validate input value (cannot be converted or it's too large)
             //if (sbyte.TryParse(this.LeadingZeros.Text, out sbyte zerosCount) &&

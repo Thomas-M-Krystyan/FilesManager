@@ -1,4 +1,5 @@
 ﻿using FileManager.Layers.Logic;
+using FilesManager.Core.DTOs;
 using FilesManager.UI.Desktop.ExtensionMethods;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,8 +11,7 @@ namespace FilesManager.UI.Desktop
         private void RenameWithPrependAndAppendedText()
         {
             // Validate strings which are going to be used in file name
-            (bool IsSuccess, string Message, string NewFilePath) result =
-                ValidateIllegalCharacters(this.PrependName.Text, this.AppendName.Text);
+            RenamingResultDto result = ValidateIllegalCharacters(this.PrependName.Text, this.AppendName.Text);
 
             if (result.IsSuccess)
             {

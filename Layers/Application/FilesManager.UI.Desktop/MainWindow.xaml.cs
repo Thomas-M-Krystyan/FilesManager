@@ -1,4 +1,5 @@
-﻿using FilesManager.Core.Validation;
+﻿using FilesManager.Core.DTOs;
+using FilesManager.Core.Validation;
 using FilesManager.UI.Desktop.ExtensionMethods;
 using FilesManager.UI.Desktop.Utilities;
 using System.Collections.Generic;
@@ -116,11 +117,11 @@ namespace FilesManager.UI.Desktop
         /// <summary>
         /// Validates if the provided text values contains illegal characters.
         /// </summary>
-        private protected static (bool IsSuccess, string Message, string NewFilePath) ValidateIllegalCharacters(params string[] textInputs)
+        private protected static RenamingResultDto ValidateIllegalCharacters(params string[] textInputs)
         {
             return Validate.ContainsIllegalCharacters(textInputs, out string invalidValue)
-                ? (false, $"The given value contains illegal characters \"{invalidValue}\"", string.Empty)
-                : (true, string.Empty, string.Empty);  // Only the first value is important
+                ? new RenamingResultDto(false, $"The given value contains illegal characters \"{invalidValue}\"", string.Empty)
+                : new RenamingResultDto(true);
         }
 
         /// <summary>
@@ -135,7 +136,7 @@ namespace FilesManager.UI.Desktop
         /// <summary>
         /// Displays a proper <see cref="MessageBoxResult"/> popup with feedback information.
         /// </summary>
-        private protected static void DisplayPopup((bool IsSuccess, string Message, string NewFilePath) result)
+        private protected static void DisplayPopup(RenamingResultDto result)
         {
             _ = result.IsSuccess
                 ? Message.InfoOk("Operation successful", "All files were renamed!")
@@ -148,7 +149,7 @@ namespace FilesManager.UI.Desktop
         private protected void ResetAllRadioButtonsExcept(RadioButton excludedRadioButton)
         {
             RadioButton[] radioButtonsToDeactivate = this._radioButtons.Where(button => button != excludedRadioButton)
-                                                                        .ToArray();
+                                                                       .ToArray();
             foreach (RadioButton button in radioButtonsToDeactivate)
             {
                 button.Deactivate();

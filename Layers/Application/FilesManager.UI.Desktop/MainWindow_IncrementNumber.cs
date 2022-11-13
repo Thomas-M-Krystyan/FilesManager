@@ -1,6 +1,6 @@
 ﻿using FileManager.Layers.Logic;
+using FilesManager.Core.DTOs;
 using FilesManager.UI.Desktop.ExtensionMethods;
-using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,21 +15,20 @@ namespace FilesManager.UI.Desktop
         private void RenameWithIncrementedNumber()
         {
             // Validate strings which are going to be used in file name
-            (bool IsSuccess, string Message, string NewFilePath) result =
-                ValidateIllegalCharacters(this.NamePrefix.Text, this.NamePostfix.Text);
+            RenamingResultDto result = ValidateIllegalCharacters(this.NamePrefix.Text, this.NamePostfix.Text);
 
             if (result.IsSuccess)
             {
                 // Validate null or empty input
-                if (String.IsNullOrWhiteSpace(this.StartingNumber.Text))
+                if (string.IsNullOrWhiteSpace(this.StartingNumber.Text))
                 {
-                    result = (false, "Provide \"Start number\".", string.Empty);
+                    result = new RenamingResultDto(false, "Provide \"Start number\".", string.Empty);
                 }
                 else
                 {
                     // Validate input value (cannot be converted or it's too large)
-                    if (UInt16.TryParse(this.StartingNumber.Text, out ushort startNumber) &&
-                        startNumber - this.FilesList.Items.Count <= UInt16.MaxValue)
+                    if (ushort.TryParse(this.StartingNumber.Text, out ushort startNumber) &&
+                        startNumber - this.FilesList.Items.Count <= ushort.MaxValue)
                     {
                         // Process renaming of the file
                         foreach (ListBoxItem fileItem in this.FilesList.Items)
