@@ -20,7 +20,7 @@ namespace FilesManager.UI.Desktop
 
             // Validate input value (cannot be converted to small positive number; it's either too small, equal to "0", or too large)
             if (byte.TryParse(this.LeadingZeros.Text, out byte zerosCount) &&
-                zerosCount > 0 && zerosCount <= 7)
+                zerosCount >= 0 && zerosCount <= 7)
             {
                 // Raw items from the files list
                 ListBoxItem[] listBoxItems = this.FilesList.Items.Cast<ListBoxItem>().ToArray();

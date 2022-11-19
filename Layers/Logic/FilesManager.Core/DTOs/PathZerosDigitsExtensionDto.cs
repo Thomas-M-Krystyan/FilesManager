@@ -11,14 +11,19 @@
         public static new readonly PathZerosDigitsExtensionDto Empty = new();
 
         /// <summary>
-        /// Gets the zeros part of the name of a file.
+        /// Gets the zeros part of the name of the file.
         /// </summary>
         public string Zeros { get; } = string.Empty;
 
         /// <summary>
-        /// Gets the digits part of the name of a file.
+        /// Gets the digits part of the name of the file.
         /// </summary>
         public string Digits { get; } = string.Empty;
+
+        /// <summary>
+        /// Gets the complete name of the file.
+        /// </summary>
+        public virtual string FullName => $"{this.Zeros}{this.Digits}{this.Name}";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PathZerosDigitsExtensionDto"/> class.

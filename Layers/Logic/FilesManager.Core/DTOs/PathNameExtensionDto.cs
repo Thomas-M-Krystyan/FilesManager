@@ -13,7 +13,7 @@ namespace FilesManager.Core.DTOs
         public static readonly PathNameExtensionDto Empty = new();
 
         /// <summary>
-        /// Gets the name of a file.
+        /// Gets the name of the file.
         /// </summary>
         public string Name { get; } = string.Empty;
 

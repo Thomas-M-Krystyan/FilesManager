@@ -36,7 +36,7 @@ namespace FileManager.Layers.Logic
         /// </summary>
         public static RenamingResultDto SetLeadingZeros(string oldFilePath, PathZerosDigitsExtensionDto fileNameComponents, byte zerosCount, int maxNumberLength)
         {
-            RenamingResultDto result = Validate.IsPathDtoEmpty(fileNameComponents, oldFilePath);
+            RenamingResultDto result = Validate.IsPathDtoValid(fileNameComponents, fileNameComponents.FullName);
 
             return result.IsSuccess
                 ? RenameFile(oldFilePath, () => GetLeadedZerosName(fileNameComponents, zerosCount, maxNumberLength))
@@ -75,8 +75,7 @@ namespace FileManager.Layers.Logic
         {
             return FilePathConverter.GetFilePath(
                 path: fileNameComponents.Path,
-                zeros: GetLeadingZeros(fileNameComponents.Digits, zerosCount, maxNumberLength),
-                digits: fileNameComponents.Digits,
+                digits: GetDigitsWithLeadingZeros(fileNameComponents.Digits, zerosCount, maxNumberLength),
                 name: fileNameComponents.Name,
                 extension: fileNameComponents.Extension);
         }
@@ -90,7 +89,7 @@ namespace FileManager.Layers.Logic
         /// <param name="zerosCount">The amount of zeros to be added. Cannot be 0.</param>
         /// <param name="maxNumberLength">The lenght of the longest numeric component.</param>
         /// <returns>New file name preceeded by zeros.</returns>
-        internal static string GetLeadingZeros(string initialDigits, byte zerosCount, int maxNumberLength)
+        internal static string GetDigitsWithLeadingZeros(string initialDigits, byte zerosCount, int maxNumberLength)
         {
             if (zerosCount == 0 || maxNumberLength <= 0)
             {

@@ -3,12 +3,12 @@
     public abstract class BasePathDto
     {
         /// <summary>
-        /// Gets the path of a file.
+        /// Gets the path of the file.
         /// </summary>
         public string Path { get; } = string.Empty;
 
         /// <summary>
-        /// Gets the extension of a file.
+        /// Gets the extension of the file.
         /// </summary>
         public string Extension { get; } = string.Empty;
 
@@ -29,7 +29,8 @@
         /// </summary>
         public bool IsEmpty()
         {
-            return this.Path == string.Empty && this.Extension == string.Empty;
+            return this.Path == string.Empty &&
+                   this.Extension == string.Empty;
         }
     }
 }

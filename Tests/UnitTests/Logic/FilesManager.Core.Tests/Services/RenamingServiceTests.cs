@@ -125,7 +125,7 @@ namespace FilesManager.Core.Tests.Services
         public void TestMethod_GetLeadingZeros_ForValidInput_ReturnsExpectedChangedFileNames((string OriginalName, byte ZerosCount, ushort MaxFileLength, string ExpectedName) testData)
         {
             // Act
-            string actualName = RenamingService.GetLeadingZeros(testData.OriginalName, testData.ZerosCount, testData.MaxFileLength);
+            string actualName = RenamingService.GetDigitsWithLeadingZeros(testData.OriginalName, testData.ZerosCount, testData.MaxFileLength);
 
             // Assert
             Assert.That(actualName, Is.EqualTo(testData.ExpectedName));

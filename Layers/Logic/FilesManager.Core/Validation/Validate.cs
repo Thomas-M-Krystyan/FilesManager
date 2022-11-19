@@ -1,6 +1,5 @@
 ﻿using FilesManager.Core.DTOs;
 using FilesManager.Core.DTOs.Abstractions;
-using System;
 using System.Text.RegularExpressions;
 
 namespace FilesManager.Core.Validation
@@ -91,12 +90,19 @@ namespace FilesManager.Core.Validation
         /// <summary>
         /// Checks if the given DTO is empty.
         /// </summary>
-        internal static RenamingResultDto IsPathDtoEmpty<T>(T pathDto, string oldFilePath)
+        internal static RenamingResultDto IsPathDtoValid<T>(T pathDto, string previousFileName)
             where T : BasePathDto
         {
             return pathDto.IsEmpty()
-                ? RenamingResultDto.Failure($"Internal (RegEx) error: The file \"{oldFilePath}\" was't parsed properly")
-                : RenamingResultDto.Success();
+                ? RenamingResultDto.Failure($"Internal (RegEx) error: The file \"{previousFileName}\" was't parsed properly")
+                : pathDto switch
+                  {
+                      PathZerosDigitsExtensionDto zerosDigitsDto when zerosDigitsDto.Zeros == string.Empty &&
+                                                                      zerosDigitsDto.Digits == string.Empty
+                        => RenamingResultDto.Failure($"The file name \"{previousFileName}\" does not contain preceeding numeric part"),
+                      
+                      _ => RenamingResultDto.Success(),
+                  };
         }
     }
 }

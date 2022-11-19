@@ -66,11 +66,11 @@ namespace FilesManager.Core.Converters
         }
 
         /// <summary>
-        /// Converts path + zeros + digits + name + extension back into a consolidated file <see cref="Path"/>.
+        /// Converts path + digits + name + extension back into a consolidated file <see cref="Path"/>.
         /// </summary>
-        public static string GetFilePath(string path, string zeros, string digits, string name, string extension)
+        public static string GetFilePath(string path, string digits, string name, string extension)
         {
-            return Path.Combine(path, zeros + digits + name + extension);
+            return Path.Combine(path, digits + name + extension);
         }
         #endregion
     }
