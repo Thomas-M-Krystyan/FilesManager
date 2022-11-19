@@ -88,7 +88,7 @@ namespace FilesManager.Core.Validation
         }
 
         /// <summary>
-        /// Checks if the given DTO is empty.
+        /// Checks if the given DTO is valid.
         /// </summary>
         internal static RenamingResultDto IsPathDtoValid<T>(T pathDto, string previousFileName)
             where T : BasePathDto
@@ -97,10 +97,12 @@ namespace FilesManager.Core.Validation
                 ? RenamingResultDto.Failure($"Internal (RegEx) error: The file \"{previousFileName}\" was't parsed properly")
                 : pathDto switch
                   {
+                      // Zeros-Digits type of DTO with missing Zeros and Digits values
                       PathZerosDigitsExtensionDto zerosDigitsDto when zerosDigitsDto.Zeros == string.Empty &&
                                                                       zerosDigitsDto.Digits == string.Empty
                         => RenamingResultDto.Failure($"The file name \"{previousFileName}\" does not contain preceeding numeric part"),
                       
+                      // Default
                       _ => RenamingResultDto.Success(),
                   };
         }
