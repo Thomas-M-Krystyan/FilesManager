@@ -1,6 +1,11 @@
 Changelog:
 
 ------------------------------------------------------------------------
+version 0.3.2
+
+- finish "leading zeros method"
+- refactor the code to start using DTOs
+------------------------------------------------------------------------
 version 0.3.1-alpha
 
 - migrate project to .NET 6
