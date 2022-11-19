@@ -57,23 +57,23 @@ namespace FilesManager.Core.Tests.Validation
         #endregion
 
         #region RegEx for zeros and digits
-        [TestCase("", false, "", "", "")]
-        [TestCase(" ", false, "", "", "")]
-        // Zeros, Digits, Extension
-        [TestCase("0001000.exe", true, "000", "1000", ".exe")]
-        [TestCase("0001000", false, "", "", "")]  // Without file extension
-        [TestCase("000.exe", true, "000", "", ".exe")]
+        [TestCase("", true, "", "", "")]
+        [TestCase(" ", true, "", "", " ")]
         // Zeros
-        [TestCase("000", false, "", "", "")]  // Without file extension
-        [TestCase("1000.exe", true, "", "1000", ".exe")]
+        [TestCase("000", true, "000", "", "")]
         // Digits
-        [TestCase("1000", false, "", "", "")]  // Without file extension
-        // Extensions
-        [TestCase(".exe", true, "", "", ".exe")]
-        public void TestField_LeadingZerosPattern_WithRegExPattern_ReturnsAllMatchGroups(string fileName, bool isSuccess, string expectedZeros, string expectedDigits, string exetedExtension)
+        [TestCase("1000", true, "", "1000", "")]
+        // Name
+        [TestCase("test", true, "", "", "test")]
+        // Combination of data
+        [TestCase("0001000test", true, "000", "1000", "test")]
+        [TestCase("000test", true, "000", "", "test")]
+        [TestCase("0001000", true, "000", "1000", "")]
+        [TestCase("1000test", true, "", "1000", "test")]
+        public void TestField_LeadingZerosPattern_WithRegExPattern_ReturnsAllMatchGroups(string fileName, bool isSuccess, string expectedZeros, string expectedDigits, string exetedName)
         {
             // Act
-            Match match = Regex.Match(fileName, Validate.LeadingZerosPattern);
+            Match match = Regex.Match(fileName, Validate.DigitsNamePattern);
 
             // Arrange
             Assert.Multiple(() =>
@@ -81,7 +81,7 @@ namespace FilesManager.Core.Tests.Validation
                 Assert.That(match.Success, Is.EqualTo(isSuccess));
                 Assert.That(match.Groups[Validate.ZerosGroup].Value, Is.EqualTo(expectedZeros));
                 Assert.That(match.Groups[Validate.DigitsGroup].Value, Is.EqualTo(expectedDigits));
-                Assert.That(match.Groups[Validate.ExtensionGroup].Value, Is.EqualTo(exetedExtension));
+                Assert.That(match.Groups[Validate.NameGroup].Value, Is.EqualTo(exetedName));
             });
         }
         #endregion

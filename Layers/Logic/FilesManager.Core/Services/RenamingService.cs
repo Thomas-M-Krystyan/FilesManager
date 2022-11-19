@@ -1,3 +1,4 @@
+using FilesManager.Core.Converters;
 using FilesManager.Core.DTOs;
 using FilesManager.Core.ExtensionMethods;
 using FilesManager.Core.Validation;
@@ -5,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace FileManager.Layers.Logic
 {
-    public static class RenamingService
+    public class RenamingService
     {
         #region API
         /// <summary>
@@ -33,10 +34,13 @@ namespace FileManager.Layers.Logic
         /// <summary>
         /// Changes the name of a given file by setting a specified amount of leading zeros before the file name.
         /// </summary>
-        public static RenamingResultDto SetLeadingZeros(string[] oldFilePaths, int zerosCount)
+        public static RenamingResultDto SetLeadingZeros(string oldFilePath, PathZerosDigitsExtensionDto fileNameComponents, byte zerosCount, int maxNumberLength)
         {
-            return default;
-            //return RenameFile(oldFilePath, () => GetLeadedZerosName(fileGroups, numberGroups, zerosCount, maxNumberLength));
+            RenamingResultDto result = Validate.IsPathDtoEmpty(fileNameComponents, oldFilePath);
+
+            return result.IsSuccess
+                ? RenameFile(oldFilePath, () => GetLeadedZerosName(fileNameComponents, zerosCount, maxNumberLength))
+                : result;
         }
         #endregion
 
@@ -67,89 +71,37 @@ namespace FileManager.Layers.Logic
                 : string.Empty;
         }
 
-        internal static string GetLeadedZerosName(GroupCollection? fileGroups, GroupCollection? numberGroups, int zerosCount, int maxNumberLength)
+        internal static string GetLeadedZerosName(PathZerosDigitsExtensionDto fileNameComponents, byte zerosCount, int maxNumberLength)
         {
-            bool hasValidData = fileGroups != null && fileGroups.Count > 0 &&
-                                numberGroups != null && numberGroups.Count > 0;
-
-            return hasValidData
-                ? Path.Combine(fileGroups!.Value(Validate.PathGroup),                        // The original file path (ended with "/")
-                    //$"{NameWithLeadingZeros(numberGroups!, zerosCount, maxNumberLength)}" +  // (!) Set the specific number of leading zeros
-                    $"{fileGroups!.Value(Validate.ExtensionGroup)}")                         // The original file extension (with dot)
-                : string.Empty;
+            return FilePathConverter.GetFilePath(
+                path: fileNameComponents.Path,
+                zeros: GetLeadingZeros(fileNameComponents.Digits, zerosCount, maxNumberLength),
+                digits: fileNameComponents.Digits,
+                name: fileNameComponents.Name,
+                extension: fileNameComponents.Extension);
         }
         #endregion
 
         #region Helper methods
-        //internal static string[] GetNamesWithLeadingZeros(string[] originalNames, int zerosCount)
-        //{
-        //    //int maxLength = GetLongestFileName();
-
-        //    return default;
-        //}
-
-        /// <summary>
-        /// Gets the name of the longest file.
-        /// </summary>
-        /// <param name="inputs">The file names:
-        ///   <para>
-        ///     <list type="bullet">
-        ///       <item>collection cannot be null</item>
-        ///       <item>items cannot be null or contain only whitespaces</item>
-        ///       <item>items should have only names (without extension)</item>
-        ///     </list>
-        ///   </para>
-        /// </param>
-        /// <returns></returns>
-        internal static int GetMaxLength(string[] inputs)
-        {
-            int count = 0;
-
-            for (int index = 0; index < inputs.Length; index++)
-            {
-                count = Math.Max(count, inputs[index].Length);
-            }
-
-            return count;
-        }
-
         /// <summary>
         /// Adds the leading zeros to the beginning of the file.
         /// </summary>
-        /// <param name="numberComponent">The extracted numeric part of the file name.</param>
+        /// <param name="initialDigits">The extracted digits part of the file name.</param>
         /// <param name="zerosCount">The amount of zeros to be added. Cannot be 0.</param>
         /// <param name="maxNumberLength">The lenght of the longest numeric component.</param>
-        /// <returns>New collection of file names preceeded by zeros.</returns>
-        internal static string[] AddLeadingZeros(string[] numberComponent, byte zerosCount, ushort maxNumberLength)
+        /// <returns>New file name preceeded by zeros.</returns>
+        internal static string GetLeadingZeros(string initialDigits, byte zerosCount, int maxNumberLength)
         {
-            if (zerosCount == 0 || maxNumberLength == 0)
+            if (zerosCount == 0 || maxNumberLength <= 0)
             {
-                return numberComponent;
+                return initialDigits;
             }
 
-            List<string> renamedComponent = new();
+            int zerosToAdd = initialDigits.Length == maxNumberLength
+                ? zerosCount
+                : maxNumberLength - initialDigits.Length + zerosCount;
 
-            for (int index = 0; index < numberComponent.Length; index++)
-            {
-                string newName;
-
-                if (numberComponent[index].Length == 0)
-                {
-                    newName = numberComponent[index];
-                }
-                else
-                {
-                    int zerosToAdd = numberComponent[index].Length == maxNumberLength
-                    ? zerosCount
-                    : maxNumberLength - numberComponent[index].Length + zerosCount;
-
-                    newName = $"{new string('0', zerosToAdd)}{numberComponent[index]}";
-                }
-
-                renamedComponent.Add(newName);
-            }
-
-            return renamedComponent.ToArray();
+            return $"{new string('0', zerosToAdd)}{initialDigits}";
         }
         #endregion
 
@@ -168,11 +120,11 @@ namespace FileManager.Layers.Logic
 
                 File.Move(oldFilePath, newFilePath);
 
-                return new RenamingResultDto(true, "Success", newFilePath);
+                return RenamingResultDto.Success(newFilePath);
             }
             catch (Exception exception)
             {
-                return new RenamingResultDto(false, exception.Message, string.Empty);
+                return RenamingResultDto.Failure(exception.Message);
             }
         }
         #endregion

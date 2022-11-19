@@ -23,8 +23,6 @@ namespace FilesManager.UI.Desktop
                     // Validate renaming result
                     if (!result.IsSuccess)
                     {
-                        ClearFilesList();
-
                         break;
                     }
 

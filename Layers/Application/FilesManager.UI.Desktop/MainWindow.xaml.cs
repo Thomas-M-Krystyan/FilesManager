@@ -120,8 +120,8 @@ namespace FilesManager.UI.Desktop
         private protected static RenamingResultDto ValidateIllegalCharacters(params string[] textInputs)
         {
             return Validate.ContainsIllegalCharacters(textInputs, out string invalidValue)
-                ? new RenamingResultDto(false, $"The given value contains illegal characters \"{invalidValue}\"", string.Empty)
-                : new RenamingResultDto(true);
+                ? RenamingResultDto.Failure($"The given value contains illegal characters \"{invalidValue}\"")
+                : RenamingResultDto.Success();
         }
 
         /// <summary>

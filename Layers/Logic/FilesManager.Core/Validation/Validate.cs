@@ -1,4 +1,7 @@
-﻿using System.Text.RegularExpressions;
+﻿using FilesManager.Core.DTOs;
+using FilesManager.Core.DTOs.Abstractions;
+using System;
+using System.Text.RegularExpressions;
 
 namespace FilesManager.Core.Validation
 {
@@ -17,7 +20,7 @@ namespace FilesManager.Core.Validation
         // Regex patterns
         internal const string InvalidCharactersPattern = @"[\\/:*?""<>|]";
         internal static readonly string FilePathPattern = $@"(?<{PathGroup}>.+\\)(?<{NameGroup}>.+)(?<{ExtensionGroup}>\.[aA-zZ0-9]\w+)";
-        internal static readonly string LeadingZerosPattern = $@"(?<{ZerosGroup}>0+)?(?<{DigitsGroup}>\d+)?(?<{ExtensionGroup}>\.[aA-zZ0-9]\w+)";
+        internal static readonly string DigitsNamePattern = $@"(?<{ZerosGroup}>0*)?(?<{DigitsGroup}>\d*)?(?<{NameGroup}>.*)";
 
         /// <summary>
         /// Determines whether the provided file has a valid extension.
@@ -83,6 +86,17 @@ namespace FilesManager.Core.Validation
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Checks if the given DTO is empty.
+        /// </summary>
+        internal static RenamingResultDto IsPathDtoEmpty<T>(T pathDto, string oldFilePath)
+            where T : BasePathDto
+        {
+            return pathDto.IsEmpty()
+                ? RenamingResultDto.Failure($"Internal (RegEx) error: The file \"{oldFilePath}\" was't parsed properly")
+                : RenamingResultDto.Success();
         }
     }
 }

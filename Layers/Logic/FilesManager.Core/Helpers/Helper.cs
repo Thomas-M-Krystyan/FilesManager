@@ -1,40 +1,44 @@
-﻿using FilesManager.Core.DTOs;
-using FilesManager.Core.ExtensionMethods;
-using FilesManager.Core.Validation;
-using System.Text.RegularExpressions;
+﻿using FilesManager.Core.ExtensionMethods;
 
 namespace FilesManager.Core.Helpers
 {
     /// <summary>
-    /// Helper miscellaneous methods.
+    /// Helper methods for common usage.
     /// </summary>
     public static class Helper
     {
         /// <summary>
-        /// Gets the length of the number group (extracted from a file name).
+        /// Gets the length of the longest text from the provided input.
         /// </summary>
-        public static NumberLengthDto GetNumberLength(string oldFilePath)
+        /// <param name="inputs">The file names:
+        ///   <para>
+        ///     <list type="bullet">
+        ///       <item>collection cannot be null</item>
+        ///       <item>items cannot be null or contain only whitespaces</item>
+        ///     </list>
+        ///   </para>
+        /// </param>
+        /// <returns>Length of the longest text input.</returns>
+        public static int GetMaxLength(string[] inputs)
         {
-            const int NotFound = 0;  // There are no digits in the file name
-
-            Match pathMatch = Validate.IsFilePathValid(oldFilePath);
-
-            if (pathMatch.Success)
+            if (inputs.IsNullOrEmpty())
             {
-                string fileName = pathMatch.Value(Validate.NameGroup);
-
-                Match numberMatch = Regex.Match(fileName, Validate.LeadingZerosPattern);
-                GroupCollection numberGroups = numberMatch.Groups;
-
-                return numberMatch.Success
-                    ? new NumberLengthDto(numberGroups.Value(Validate.ZerosGroup).Length + numberGroups.Value(Validate.DigitsGroup).Length,
-                                          pathMatch.Groups, numberGroups)
-                    : new NumberLengthDto(NotFound, pathMatch.Groups, numberGroups);
+                return 0;
             }
-            else
+
+            int count = 0;
+
+            for (int index = 0; index < inputs.Length; index++)
             {
-                return new NumberLengthDto(NotFound, pathMatch.Groups, null);
+                if (string.IsNullOrWhiteSpace(inputs[index]))
+                {
+                    continue;
+                }
+
+                count = Math.Max(count, inputs[index].Length);
             }
+
+            return count;
         }
     }
 }

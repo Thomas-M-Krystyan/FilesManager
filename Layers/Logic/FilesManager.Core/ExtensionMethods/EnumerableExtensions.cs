@@ -7,7 +7,7 @@
     {
         internal static bool IsNullOrEmpty<T>(this IEnumerable<T> collection)
         {
-            return collection?.Count() > 0;
+            return collection?.Count() == 0;
         }
     }
 }

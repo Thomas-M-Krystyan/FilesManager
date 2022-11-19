@@ -1,12 +1,9 @@
 ﻿using FileManager.Layers.Logic;
+using FilesManager.Core.Converters;
 using FilesManager.Core.DTOs;
 using FilesManager.Core.Helpers;
-using FilesManager.Core.Validation;
 using FilesManager.UI.Desktop.ExtensionMethods;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -19,35 +16,47 @@ namespace FilesManager.UI.Desktop
         /// </summary>
         private void RenameWithLeadingZeros()
         {
-            RenamingResultDto result = new(true);
+            RenamingResultDto result = RenamingResultDto.Failure();
 
             // Validate input value (cannot be converted to small positive number; it's either too small, equal to "0", or too large)
             if (byte.TryParse(this.LeadingZeros.Text, out byte zerosCount) &&
                 zerosCount > 0 && zerosCount <= 7)
             {
-                //int currentIndex = 0;
+                // Raw items from the files list
+                ListBoxItem[] listBoxItems = this.FilesList.Items.Cast<ListBoxItem>().ToArray();
 
-                //(string Path, int Index)[] fileData = this.FilesList.Items.Cast<ListBoxItem>()
-                //                                                          .Select(fileItem => ((string)fileItem.ToolTip, currentIndex++))
-                //                                                          .ToArray();
+                // Paths converted into components
+                PathZerosDigitsExtensionDto[] filePaths = listBoxItems
+                    .Select(fileItem => FilePathConverter.GetPathZerosDigitsExtension((string)fileItem.ToolTip))
+                    .ToArray();
 
-                //result = RenamingService.SetLeadingZeros(fileData, zerosCount);
+                // Only digits components of the names
+                string[] filesNamesDigits = filePaths.Select(filePath => filePath.Digits)
+                                                     .ToArray();
 
-                //// Validate renaming result
-                //if (!result.IsSuccess)
-                //{
-                //    ClearFilesList();
-                //}
+                int maxDigitLength = Helper.GetMaxLength(filesNamesDigits);
 
-                //UpdateNameOnList(fileData.FileItem, result.NewFilePath);
-                
-                //// Reset input field
-                //this.LeadingZeros.Text = string.Empty;
+                // Process renaming of the file
+                for (int index = 0; index < this.FilesList.Items.Count; index++)
+                {
+                    result = RenamingService.SetLeadingZeros((string)listBoxItems[index].ToolTip, filePaths[index],
+                                                             zerosCount, maxDigitLength);
+                    // Validate renaming result
+                    if (!result.IsSuccess)
+                    {
+                        break;
+                    }
+
+                    UpdateNameOnList(listBoxItems[index], result.NewFilePath);
+                }
+
+                // Reset input field
+                this.LeadingZeros.Text = string.Empty;
             }
             else
             {
-                result = new RenamingResultDto(false, $"Invalid value in \"Leading zeros\": " +
-                    $"{(string.IsNullOrWhiteSpace(this.LeadingZeros.Text) ? "Empty" : this.LeadingZeros.Text)}.", string.Empty);
+                result = RenamingResultDto.Failure($"Invalid value in \"Leading zeros\": " +
+                    $"{(string.IsNullOrWhiteSpace(this.LeadingZeros.Text) ? "Empty" : this.LeadingZeros.Text)}.");
             }
 
             DisplayPopup(result);

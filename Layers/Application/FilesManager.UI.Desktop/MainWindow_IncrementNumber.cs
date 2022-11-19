@@ -22,7 +22,7 @@ namespace FilesManager.UI.Desktop
                 // Validate null or empty input
                 if (string.IsNullOrWhiteSpace(this.StartingNumber.Text))
                 {
-                    result = new RenamingResultDto(false, "Provide \"Start number\".", string.Empty);
+                    result = RenamingResultDto.Failure("Provide \"Start number\".");
                 }
                 else
                 {
@@ -54,7 +54,7 @@ namespace FilesManager.UI.Desktop
                     }
                     else
                     {
-                        result = new RenamingResultDto(false, $"Invalid \"Start number\" value: {this.StartingNumber.Text}.", string.Empty);
+                        result = RenamingResultDto.Failure($"Invalid \"Start number\" value: {this.StartingNumber.Text}.");
                     }
                 }
             }

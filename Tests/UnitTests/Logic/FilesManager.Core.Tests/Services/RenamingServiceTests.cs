@@ -121,47 +121,24 @@ namespace FilesManager.Core.Tests.Services
         #endregion
 
         #region Replacing name with adding leading zeros
-        [TestCaseSource(nameof(GetTestFileNames))]
-        public void TestMethod_GetMaxLength_ForValidInput_ReturnsExpectedMaxFileLength((string[] Names, int ExpectedCount) testData)
-        {
-            // Act
-            int result = RenamingService.GetMaxLength(testData.Names);
-
-            // Assert
-            Assert.That(result, Is.EqualTo(testData.ExpectedCount));
-        }
-
-        private static IEnumerable<(string[] Names, int ExpectedCount)> GetTestFileNames()
-        {
-            yield return (new[] { "" }, 0);
-            yield return (new[] { "test1" }, 5);
-            yield return (new[] { "test1", "test25" }, 6);
-            yield return (new[] { "test1", "test25", "test300" }, 7);
-        }
-
         [TestCaseSource(nameof(GetTestFileNames_Zeros_MaxLength))]
-        public void TestMethod_AddLeadingZeros_ForValidInput_ReturnsExpectedChangedFileNames((string[] OriginalNames, byte ZerosCount, ushort MaxFileLength, string[] ExpectedNames) testData)
+        public void TestMethod_GetLeadingZeros_ForValidInput_ReturnsExpectedChangedFileNames((string OriginalName, byte ZerosCount, ushort MaxFileLength, string ExpectedName) testData)
         {
             // Act
-            string[] actualNames = RenamingService.AddLeadingZeros(testData.OriginalNames, testData.ZerosCount, testData.MaxFileLength);
+            string actualName = RenamingService.GetLeadingZeros(testData.OriginalName, testData.ZerosCount, testData.MaxFileLength);
 
             // Assert
-            for (int index = 0; index < actualNames.Length; index++)
-            {
-                Assert.That(actualNames[index], Is.EqualTo(testData.ExpectedNames[index]));
-            }
+            Assert.That(actualName, Is.EqualTo(testData.ExpectedName));
         }
 
-        private static IEnumerable<(string[] OriginalNames, byte ZerosCount, ushort MaxFileLength, string[] ExpectedNames)> GetTestFileNames_Zeros_MaxLength()
+        private static IEnumerable<(string OriginalName, byte ZerosCount, ushort MaxFileLength, string ExpectedName)> GetTestFileNames_Zeros_MaxLength()
         {
-            yield return (new[] { "1" }, 2, 1, new[] { "001" });
-            yield return (new[] { "1" }, 0, 1, new[] { "1" });
-            yield return (new[] { "1", "10" }, 2, 2, new[] { "0001", "0010" });
-            yield return (new[] { "1", "10" }, 0, 2, new[] { "1", "10" });
-            yield return (new[] { "1", "10", "101" }, 2, 3, new[] { "00001", "00010", "00101" });
-            yield return (new[] { "1", "", "101" }, 1, 3, new[] { "0001", "", "0101" });
-            yield return (new[] { "" }, 2, 0, new[] { "" });
-            yield return (new[] { "" }, 0, 0, new[] { "" });
+            yield return ("1", 2, 1, "001");
+            yield return ("1", 1, 1, "01");
+            yield return ("1", 0, 1, "1");
+            yield return ("", 2, 0, "");
+            yield return ("", 1, 0, "");
+            yield return ("", 0, 0, "");
         }
         #endregion
     }
