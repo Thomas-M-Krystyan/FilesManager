@@ -49,26 +49,24 @@ namespace FileManager.Layers.Logic
         {
             Match filePathMatch = Validate.IsFilePathValid(oldFilePath);
 
-            return filePathMatch.Success
-                ? Path.Combine(filePathMatch.Value(Validate.PathGroup),  // The original file path (ended with "/")
-                    $"{prefix.GetValueOrEmpty()}" +                      // (!) Optional prefix before the incremented number
-                    $"{startNumber++}" +                                 // (!) Number replacing the name of a given file
-                    $"{postfix.GetValueOrEmpty()}" +                     // (!) Optional postfix after the incremented number
-                    $"{filePathMatch.Value(Validate.ExtensionGroup)}")   // The original file extension (with dot)
-                : string.Empty;
+            return FilePathConverter.GetFilePath(
+                path: filePathMatch.Value(Validate.PathGroup),
+                name: $"{prefix.GetValueOrEmpty()}" +
+                      $"{startNumber++}" +
+                      $"{postfix.GetValueOrEmpty()}",
+                extension: filePathMatch.Value(Validate.ExtensionGroup));
         }
 
         internal static string GetPrependedAndAppendedName(string oldFilePath, string textToPrepend, string textToAppend)
         {
             Match filePathMatch = Validate.IsFilePathValid(oldFilePath);
 
-            return filePathMatch.Success
-                ? Path.Combine(filePathMatch.Value(Validate.PathGroup),  // The original file path (ended with "/")
-                    $"{textToPrepend.GetValueOrEmpty()}" +               // (!) The text to be prepended
-                    $"{filePathMatch.Value(Validate.NameGroup)}" +       // The original file name
-                    $"{textToAppend.GetValueOrEmpty()}" +                // (!) The text to be appended
-                    $"{filePathMatch.Value(Validate.ExtensionGroup)}")   // The original file extension (with dot)
-                : string.Empty;
+            return FilePathConverter.GetFilePath(
+                path: filePathMatch.Value(Validate.PathGroup),
+                name: $"{textToPrepend.GetValueOrEmpty()}" +
+                      $"{filePathMatch.Value(Validate.NameGroup)}" +
+                      $"{textToAppend.GetValueOrEmpty()}",
+                extension: filePathMatch.Value(Validate.ExtensionGroup));
         }
 
         internal static string GetLeadedZerosName(PathZerosDigitsExtensionDto fileNameComponents, byte zerosCount, int maxNumberLength)
