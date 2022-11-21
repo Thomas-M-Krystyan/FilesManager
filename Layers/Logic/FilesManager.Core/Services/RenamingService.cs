@@ -73,8 +73,8 @@ namespace FileManager.Layers.Logic
         {
             return FilePathConverter.GetFilePath(
                 path: fileNameComponents.Path,
-                digits: GetDigitsWithLeadingZeros(fileNameComponents.Digits, zerosCount, maxNumberLength),
-                name: fileNameComponents.Name,
+                name: $"{GetDigitsWithLeadingZeros(fileNameComponents.Digits, zerosCount, maxNumberLength)}" +
+                      $"{fileNameComponents.Name}",
                 extension: fileNameComponents.Extension);
         }
         #endregion

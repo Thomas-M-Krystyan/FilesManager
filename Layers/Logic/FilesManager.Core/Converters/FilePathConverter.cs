@@ -25,14 +25,6 @@ namespace FilesManager.Core.Converters
                                            extension: filePathMatch.Value(Validate.ExtensionGroup))
                 : PathNameExtensionDto.Empty;
         }
-
-        /// <summary>
-        /// Converts path + name + extension back into a consolidated file <see cref="Path"/>.
-        /// </summary>
-        public static string GetFilePath(string path, string name, string extension)
-        {
-            return Path.Combine(path, name + extension);
-        }
         #endregion
 
         #region Path + Zeros + Digits + Extension
@@ -64,14 +56,14 @@ namespace FilesManager.Core.Converters
 
             return PathZerosDigitsExtensionDto.Empty;
         }
+        #endregion
 
         /// <summary>
-        /// Converts path + digits + name + extension back into a consolidated file <see cref="Path"/>.
+        /// Converts path + name + extension back into a consolidated file <see cref="Path"/>.
         /// </summary>
-        public static string GetFilePath(string path, string digits, string name, string extension)
+        public static string GetFilePath(string path, string name, string extension)
         {
-            return Path.Combine(path, digits + name + extension);
+            return Path.Combine(path, name + extension);
         }
-        #endregion
     }
 }
