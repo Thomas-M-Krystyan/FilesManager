@@ -40,7 +40,7 @@ namespace FileManager.Layers.Logic
 
             return result.IsSuccess
                 ? RenameFile(oldFilePath, () => GetLeadedZerosName(fileNameComponents, zerosCount, maxNumberLength))
-                : result;
+                : result;  // Failure
         }
         #endregion
 
