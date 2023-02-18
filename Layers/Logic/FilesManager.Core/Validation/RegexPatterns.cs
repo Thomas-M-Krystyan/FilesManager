@@ -20,7 +20,9 @@ namespace FilesManager.Core.Validation
         /// <summary>
         /// Captures invalid characters in files names.
         /// </summary>
-        internal static readonly Regex InvalidCharactersPattern = new($@"[{string.Join(string.Empty, Path.GetInvalidFileNameChars())}]", RegexOptions.Compiled);
+        internal static readonly Regex InvalidCharactersPattern = new("[" +
+            $"{Regex.Escape(new string(Path.GetInvalidFileNameChars()))}" +
+            "]", RegexOptions.Compiled);
 
         /// <summary>
         /// Captures path, name, and extensions components of the file path.
