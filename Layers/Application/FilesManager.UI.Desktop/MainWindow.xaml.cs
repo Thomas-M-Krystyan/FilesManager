@@ -105,11 +105,11 @@ namespace FilesManager.UI.Desktop
         }
         #endregion
 
-        #region Helper base (protected) methods
+        #region Helper (partial) methods - used by strategies
         /// <summary>
         /// Clears the list of dropped files.
         /// </summary>
-        private protected void ClearFilesList()
+        private void ClearFilesList()
         {
             this.FilesList.Items.Clear();
         }
@@ -117,7 +117,7 @@ namespace FilesManager.UI.Desktop
         /// <summary>
         /// Validates if the provided text values contains illegal characters.
         /// </summary>
-        private protected static RenamingResultDto ValidateIllegalCharacters(params string[] textInputs)
+        private static RenamingResultDto ValidateIllegalCharacters(params string[] textInputs)
         {
             return Validate.ContainsIllegalCharacters(textInputs, out string invalidValue)
                 ? RenamingResultDto.Failure($"The given value contains illegal characters \"{invalidValue}\"")
@@ -127,7 +127,7 @@ namespace FilesManager.UI.Desktop
         /// <summary>
         /// Updates name and path of the given file on the <see cref="ItemCollection"/> list.
         /// </summary>
-        private protected static void UpdateNameOnList(ListBoxItem fileItem, string newFilePath)
+        private static void UpdateNameOnList(ListBoxItem fileItem, string newFilePath)
         {
             fileItem.Content = Path.GetFileName(newFilePath);
             fileItem.ToolTip = newFilePath;
@@ -136,7 +136,7 @@ namespace FilesManager.UI.Desktop
         /// <summary>
         /// Displays a proper <see cref="MessageBoxResult"/> popup with feedback information.
         /// </summary>
-        private protected static void DisplayPopup(RenamingResultDto result)
+        private static void DisplayPopup(RenamingResultDto result)
         {
             _ = result.IsSuccess
                 ? Message.InfoOk("Operation successful", "All files were renamed!")
@@ -146,7 +146,7 @@ namespace FilesManager.UI.Desktop
         /// <summary>
         /// Deactivates all <see cref="RadioButton"/>s except the provided one.
         /// </summary>
-        private protected void ResetAllRadioButtonsExcept(RadioButton excludedRadioButton)
+        private void ResetAllRadioButtonsExcept(RadioButton excludedRadioButton)
         {
             RadioButton[] radioButtonsToDeactivate = this._radioButtons.Where(button => button != excludedRadioButton)
                                                                        .ToArray();
@@ -157,7 +157,7 @@ namespace FilesManager.UI.Desktop
         }
         #endregion
 
-        #region Helper (private) methods
+        #region Helper (local) methods - used only in this file
         /// <summary>
         /// Populates collection of all available <see cref="RadioButton"/>s.
         /// </summary>
