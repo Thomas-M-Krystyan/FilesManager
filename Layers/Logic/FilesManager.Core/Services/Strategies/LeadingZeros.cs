@@ -3,7 +3,7 @@ using FilesManager.Core.DTOs;
 
 namespace FilesManager.Core.Services.Strategies
 {
-    internal class LeadingZeros
+    internal static class LeadingZeros
     {
         internal static string GetLeadedZerosName(PathZerosDigitsExtensionDto fileNameComponents, byte zerosCount, int maxNumberLength)
         {
