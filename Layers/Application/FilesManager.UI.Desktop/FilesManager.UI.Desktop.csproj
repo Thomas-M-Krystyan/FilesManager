@@ -9,7 +9,6 @@
     <!-- Change the name of the output .exe file -->
     <AssemblyName>FileManager</AssemblyName>
     <ApplicationIcon>Resources\Icons\Icon.ico</ApplicationIcon>
-
   </PropertyGroup>
 
   <ItemGroup>
