@@ -8,7 +8,7 @@ namespace FilesManager.Core.Converters
     /// <summary>
     /// Converts back and forth data associated with file <see cref="Path"/>.
     /// </summary>
-    public class FilePathConverter
+    public static class FilePathConverter
     {
         #region Path + Name + Extension
         /// <summary>
@@ -17,12 +17,12 @@ namespace FilesManager.Core.Converters
         /// <returns>Empty <see cref="PathNameExtensionDto"/> if the provided file path is invalid.</returns>
         public static PathNameExtensionDto GetPathNameExtension(string filePath)
         {
-            Match filePathMatch = Regex.Match(filePath, Validate.FilePathPattern);
+            Match filePathMatch = RegexPatterns.FilePathPattern.Match(filePath);
 
             return filePathMatch.Success
-                ? new PathNameExtensionDto(path: filePathMatch.Value(Validate.PathGroup),
-                                           name: filePathMatch.Value(Validate.NameGroup),
-                                           extension: filePathMatch.Value(Validate.ExtensionGroup))
+                ? new PathNameExtensionDto(path: filePathMatch.Value(RegexPatterns.PathGroup),
+                                           name: filePathMatch.Value(RegexPatterns.NameGroup),
+                                           extension: filePathMatch.Value(RegexPatterns.ExtensionGroup))
                 : PathNameExtensionDto.Empty;
         }
         #endregion
@@ -34,21 +34,21 @@ namespace FilesManager.Core.Converters
         /// <returns>Empty <see cref="PathNameExtensionDto"/> if the provided file path is invalid.</returns>
         public static PathZerosDigitsExtensionDto GetPathZerosDigitsExtension(string filePath)
         {
-            Match filePathMatch = Regex.Match(filePath, Validate.FilePathPattern);
+            Match filePathMatch = RegexPatterns.FilePathPattern.Match(filePath);
 
             if (filePathMatch.Success)
             {
-                string path = filePathMatch.Value(Validate.PathGroup);
-                string name = filePathMatch.Value(Validate.NameGroup);
-                string extension = filePathMatch.Value(Validate.ExtensionGroup);
+                string path = filePathMatch.Value(RegexPatterns.PathGroup);
+                string name = filePathMatch.Value(RegexPatterns.NameGroup);
+                string extension = filePathMatch.Value(RegexPatterns.ExtensionGroup);
 
-                Match digitsNameMatch = Regex.Match(name, Validate.DigitsNamePattern);
+                Match digitsNameMatch = RegexPatterns.DigitsNamePattern.Match(name);
 
                 if (digitsNameMatch.Success)
                 {
-                    string zeros = digitsNameMatch.Value(Validate.ZerosGroup);
-                    string digits = digitsNameMatch.Value(Validate.DigitsGroup);
-                    name = digitsNameMatch.Value(Validate.NameGroup);
+                    string zeros = digitsNameMatch.Value(RegexPatterns.ZerosGroup);
+                    string digits = digitsNameMatch.Value(RegexPatterns.DigitsGroup);
+                    name = digitsNameMatch.Value(RegexPatterns.NameGroup);
 
                     return new PathZerosDigitsExtensionDto(path, zeros, digits, name, extension);
                 }

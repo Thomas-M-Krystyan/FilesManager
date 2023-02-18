@@ -9,18 +9,6 @@ namespace FilesManager.Core.Validation
     /// </summary>
     public static class Validate
     {
-        // Group names
-        internal const string PathGroup = nameof(PathGroup);
-        internal const string NameGroup = nameof(NameGroup);
-        internal const string ExtensionGroup = nameof(ExtensionGroup);
-        internal const string ZerosGroup = nameof(ZerosGroup);
-        internal const string DigitsGroup = nameof(DigitsGroup);
-
-        // Regex patterns
-        internal const string InvalidCharactersPattern = @"[\\/:*?""<>|]";
-        internal static readonly string FilePathPattern = $@"(?<{PathGroup}>.+\\)(?<{NameGroup}>.+)(?<{ExtensionGroup}>\.[aA-zZ0-9]\w+)";
-        internal static readonly string DigitsNamePattern = $@"(?<{ZerosGroup}>0*)?(?<{DigitsGroup}>\d*)?(?<{NameGroup}>.*)";
-
         /// <summary>
         /// Determines whether the provided file has a valid extension.
         /// </summary>
@@ -56,7 +44,7 @@ namespace FilesManager.Core.Validation
         {
             return string.IsNullOrWhiteSpace(filePath)
                 ? Match.Empty
-                : Regex.Match(filePath, FilePathPattern);
+                : RegexPatterns.FilePathPattern.Match(filePath);
         }
 
         /// <summary>
@@ -75,7 +63,7 @@ namespace FilesManager.Core.Validation
             {
                 foreach (string text in textInputs)
                 {
-                    if (Regex.IsMatch($"{text}", InvalidCharactersPattern))
+                    if (RegexPatterns.InvalidCharactersPattern.IsMatch($"{text}"))
                     {
                         invalidValue = text;
 
