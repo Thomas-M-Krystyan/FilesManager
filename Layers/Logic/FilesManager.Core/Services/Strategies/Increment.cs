@@ -11,12 +11,14 @@ namespace FilesManager.Core.Services.Strategies
         {
             Match filePathMatch = Validate.IsFilePathValid(oldFilePath);
 
-            return FilePathConverter.GetFilePath(
-                path: filePathMatch.Value(RegexPatterns.PathGroup),
-                name: $"{prefix.GetValueOrEmpty()}" +
-                      $"{startNumber++}" +
-                      $"{postfix.GetValueOrEmpty()}",
-                extension: filePathMatch.Value(RegexPatterns.ExtensionGroup));
+            return !filePathMatch.Success
+                ? string.Empty  // Failure
+                : FilePathConverter.GetFilePath(
+                    path: filePathMatch.Value(RegexPatterns.PathGroup),
+                    name: $"{prefix.GetValueOrEmpty()}" +
+                          $"{startNumber++}" +
+                          $"{postfix.GetValueOrEmpty()}",
+                    extension: filePathMatch.Value(RegexPatterns.ExtensionGroup));
         }
     }
 }
