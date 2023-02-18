@@ -12,7 +12,7 @@ namespace FileManager.Layers.Logic
         /// </summary>
         public static RenamingResultDto ReplaceWithNumber(string oldFilePath, string prefix, ushort number, string postfix)
         {
-            return WritingService.RenameFile(oldFilePath, () => Increment.GetNumberIncrementedName(oldFilePath, prefix, number, postfix));
+            return WritingService.RenameFile(oldFilePath, () => IncrementNumber.GetNumberIncrementedName(oldFilePath, prefix, number, postfix));
         }
 
         /// <summary>

@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace FilesManager.Core.Services.Strategies
 {
-    internal static class Increment
+    internal static class IncrementNumber
     {
         internal static string GetNumberIncrementedName(string oldFilePath, string prefix, ushort startNumber, string postfix)
         {
