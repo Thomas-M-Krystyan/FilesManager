@@ -16,14 +16,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <!-- Generating resources class from .resx-->
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-  </ItemGroup>
 
-  <ItemGroup>
+    <!-- Embedding resources class to be used in XAML -->
     <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
