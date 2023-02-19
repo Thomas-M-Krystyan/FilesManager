@@ -1,5 +1,7 @@
 ﻿using FilesManager.Core.Converters;
 using FilesManager.Core.DTOs;
+using FilesManager.Core.Validation;
+using System.Text.RegularExpressions;
 
 namespace FilesManager.Core.Services.Strategies
 {
@@ -7,11 +9,22 @@ namespace FilesManager.Core.Services.Strategies
     {
         internal static string GetLeadedZerosName(PathZerosDigitsExtensionDto fileNameComponents, byte zerosCount, int maxNumberLength)
         {
-            return FilePathConverter.GetFilePath(
-                path: fileNameComponents.Path,
-                name: $"{GetDigitsWithLeadingZeros(fileNameComponents.Digits, zerosCount, maxNumberLength)}" +
-                      $"{fileNameComponents.Name}",
-                extension: fileNameComponents.Extension);
+            RenamingResultDto result = Validate.IsPathDtoValid(fileNameComponents, fileNameComponents.FullName);
+
+            if (!result.IsSuccess)
+            {
+                throw new InvalidOperationException(result.Message);
+            }
+
+            Match filePathMatch = Validate.IsFilePathValid(fileNameComponents.Path);
+
+            return !filePathMatch.Success
+                ? string.Empty
+                : FilePathConverter.GetFilePath(
+                    path: fileNameComponents.Path,
+                    name: $"{GetDigitsWithLeadingZeros(fileNameComponents.Digits, zerosCount, maxNumberLength)}" +
+                          $"{fileNameComponents.Name}",
+                    extension: fileNameComponents.Extension);
         }
 
         #region Helper methods

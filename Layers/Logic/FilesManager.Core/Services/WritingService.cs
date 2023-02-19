@@ -16,6 +16,11 @@ namespace FilesManager.Core.Services
             {
                 string newFilePath = renameMethod();
 
+                if (string.IsNullOrEmpty(newFilePath))
+                {
+                    throw new ArgumentException($"Cannot rename the file \"{oldFilePath}\"");
+                }
+
                 File.Move(oldFilePath, newFilePath);
 
                 return RenamingResultDto.Success(newFilePath);

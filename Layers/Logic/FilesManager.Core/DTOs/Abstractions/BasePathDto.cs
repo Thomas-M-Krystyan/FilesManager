@@ -29,8 +29,8 @@
         /// </summary>
         public bool IsEmpty()
         {
-            return this.Path == string.Empty &&
-                   this.Extension == string.Empty;
+            return this.Path.Equals(string.Empty) ||
+                   this.Extension.Equals(string.Empty);
         }
     }
 }

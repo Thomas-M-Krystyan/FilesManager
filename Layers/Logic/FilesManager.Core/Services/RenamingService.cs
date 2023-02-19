@@ -1,11 +1,10 @@
 using FilesManager.Core.DTOs;
 using FilesManager.Core.Services;
 using FilesManager.Core.Services.Strategies;
-using FilesManager.Core.Validation;
 
 namespace FileManager.Layers.Logic
 {
-    public class RenamingService
+    public static class RenamingService
     {
         /// <summary>
         /// Changes the name of a given file by replacing it with incremented numbers (and optional postfix after number).
@@ -34,11 +33,7 @@ namespace FileManager.Layers.Logic
         /// </summary>
         public static RenamingResultDto SetLeadingZeros(string oldFilePath, PathZerosDigitsExtensionDto fileNameComponents, byte zerosCount, int maxNumberLength)
         {
-            RenamingResultDto result = Validate.IsPathDtoValid(fileNameComponents, fileNameComponents.FullName);
-
-            return result.IsSuccess
-                ? WritingService.RenameFile(oldFilePath, () => LeadingZeros.GetLeadedZerosName(fileNameComponents, zerosCount, maxNumberLength))
-                : result;  // Failure
+            return WritingService.RenameFile(oldFilePath, () => LeadingZeros.GetLeadedZerosName(fileNameComponents, zerosCount, maxNumberLength));
         }
     }
 }
