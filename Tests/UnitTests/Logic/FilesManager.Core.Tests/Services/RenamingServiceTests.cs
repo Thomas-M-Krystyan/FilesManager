@@ -63,16 +63,19 @@ namespace FilesManager.Core.Tests.Services
             });
         }
 
-        public static IEnumerable<(string originalPath, (string path, string zeros, string digits, string name, string extension), string exception)> LeadingZerosTestCases(string originalPath)
+        public static IEnumerable<(string originalPath, (string path, string zeros, string digits, string name, string extension), string exception)> LeadingZerosTestCases(string filePath)
         {
-            yield return ($"{originalPath}", ("", "00", "1", "Test", ""), "Internal (RegEx) error: The file \"001Test\" was't parsed properly");
-            yield return ($"{originalPath}", ("C:/Users/", "00", "1", "Test", ""), "Internal (RegEx) error: The file \"001Test\" was't parsed properly");
-            yield return ($"{originalPath}", ("", "00", "1", "Test", ".zip"), "Internal (RegEx) error: The file \"001Test\" was't parsed properly");
+            // DTO without name or extension
+            yield return ($"{filePath}", ("", "00", "1", "Test", ""), "Internal (RegEx) error: The file \"001Test\" was't parsed properly");
+            yield return ($"{filePath}", ("C:/Users/", "00", "1", "Test", ""), "Internal (RegEx) error: The file \"001Test\" was't parsed properly");
+            yield return ($"{filePath}", ("", "00", "1", "Test", ".zip"), "Internal (RegEx) error: The file \"001Test\" was't parsed properly");
 
-            yield return ($"{originalPath}", ("C:/Users/", "", "", "", ".jpg"), "The file name \"\" does not contain preceeding numeric part");
-            yield return ($"{originalPath}", ("C:/Users/", "", "", "Test", ".jpg"), "The file name \"Test\" does not contain preceeding numeric part");
+            // DTO without zeroes or digits
+            yield return ($"{filePath}", ("C:/Users/", "", "", "", ".jpg"), "The file name \"\" does not contain preceeding numeric part");
+            yield return ($"{filePath}", ("C:/Users/", "", "", "Test", ".jpg"), "The file name \"Test\" does not contain preceeding numeric part");
 
-            yield return ($"{originalPath}", ("C:/Users/", "00", "1", "Test", ".jpg"), $"Cannot rename the file \"{originalPath}\"");
+            // Invalid source path
+            yield return ($"{filePath}", ("C:/Users/", "00", "1", "Test", ".jpg"), $"Cannot rename the file \"{filePath}\"");
         }
     }
 }
