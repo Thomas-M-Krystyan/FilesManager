@@ -14,7 +14,15 @@
         
         WindowStyle="SingleBorderWindow"
         ResizeMode="CanMinimize">  <!-- NOTE: Enable minimize / maximize buttons -->
-    
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Dictionaries/CommonDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
     <Grid>
         <!-- ################################# -->
         <!-- ###  LEFT PART OF THE SCREEN  ### -->
@@ -29,19 +37,28 @@
                  VerticalAlignment="Top"
                  AllowDrop="True"
                  Drop="Drop_Files"
-                 ToolTip="{x:Static p:Resources.Tooltip_FilesList}"/>
+                 ToolTip="{x:Static p:Resources.Tooltip_FilesList}"
+                 Style="{StaticResource ControlWithResponsiveToolTips}" />
 
         <!-- ################################## -->
         <!-- ###  RIGHT PART OF THE SCREEN  ### -->
         <!-- ################################## -->
-        
+
         <!-- Group label -->
         <Label Content="{x:Static p:Resources.Header_General}"
                FontWeight="ExtraBold"
                Margin="368,5,0,0"
                HorizontalAlignment="Left"
                VerticalAlignment="Top"
-               ToolTip="{x:Static p:Resources.Tooltip_RenamingHeader}" />
+               ToolTip="{x:Static p:Resources.Tooltip_RenamingHeader}"
+               Style="{StaticResource ControlWithResponsiveToolTips}" />
+
+        <TextBlock Text="HINT: Hover anything to see help"
+                   FontWeight="ExtraLight"
+                   FontSize="10px"
+                   Margin="650,5,0,0"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top" />
 
         <!-- Renaming files (incremented number) -->
         <Border Margin="370,35,0,0"
@@ -74,7 +91,8 @@
                        Margin="-3,0,0,0"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Top"
-                       ToolTip="{x:Static p:Resources.Tooltip_Method_IncrementNumber}" />
+                       ToolTip="{x:Static p:Resources.Tooltip_Method_IncrementNumber}"
+                       Style="{StaticResource ControlWithResponsiveToolTips}" />
 
                 <!-- 2nd row -->
                 <RadioButton x:Name="StartNumberRadioButton"
@@ -85,6 +103,7 @@
                              HorizontalAlignment="Left"
                              VerticalAlignment="Center"
                              ToolTip="{x:Static p:Resources.Tooltip_RadioButton}"
+                             Style="{StaticResource ControlWithResponsiveToolTips}"
                              Checked="StartNumberRadioButton_Checked" />
 
                 <Label Content="{x:Static p:Resources.Label_Prefix}"
@@ -94,6 +113,7 @@
                        HorizontalAlignment="Right"
                        VerticalAlignment="Center"
                        ToolTip="{x:Static p:Resources.Tooltip_Prefix}"
+                       Style="{StaticResource ControlWithResponsiveToolTips}"
                        MouseLeftButtonDown="StartNumberLabel_Clicked" />
 
                 <TextBox x:Name="NamePrefix"
@@ -106,6 +126,7 @@
                          HorizontalAlignment="Left"
                          VerticalAlignment="Center"
                          ToolTip="{x:Static p:Resources.Tooltip_Tip_NonEmptyFieldContent}"
+                         Style="{StaticResource ControlWithResponsiveToolTips}"
                          GotFocus="StartNumberTextBox_Focus" />
 
                 <Label Content="{x:Static p:Resources.Label_StartNumber}"
@@ -115,6 +136,7 @@
                        HorizontalAlignment="Right"
                        VerticalAlignment="Center"
                        ToolTip="{x:Static p:Resources.Tooltip_StartNumber}"
+                       Style="{StaticResource ControlWithResponsiveToolTips}"
                        MouseLeftButtonDown="StartNumberLabel_Clicked" />
 
                 <TextBox x:Name="StartingNumber"
@@ -127,6 +149,7 @@
                          HorizontalAlignment="Left"
                          VerticalAlignment="Center"
                          ToolTip="{x:Static p:Resources.Tooltip_Tip_OnlyPositiveNumbers}"
+                         Style="{StaticResource ControlWithResponsiveToolTips}"
                          GotFocus="StartNumberTextBox_Focus" />
 
                 <Label Content="{x:Static p:Resources.Label_Postfix}"
@@ -136,6 +159,7 @@
                        HorizontalAlignment="Right"
                        VerticalAlignment="Center"
                        ToolTip="{x:Static p:Resources.Tooltip_Postfix}"
+                       Style="{StaticResource ControlWithResponsiveToolTips}"
                        MouseLeftButtonDown="StartNumberLabel_Clicked" />
 
                 <TextBox x:Name="NamePostfix"
@@ -148,6 +172,7 @@
                          HorizontalAlignment="Left"
                          VerticalAlignment="Center"
                          ToolTip="{x:Static p:Resources.Tooltip_Tip_NonEmptyFieldContent}"
+                         Style="{StaticResource ControlWithResponsiveToolTips}"
                          GotFocus="StartNumberTextBox_Focus" />
             </Grid>
         </Border>
@@ -181,7 +206,8 @@
                        Margin="-3,0,0,0"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Top"
-                       ToolTip="{x:Static p:Resources.Tooltip_Method_PrependAppend}" />
+                       ToolTip="{x:Static p:Resources.Tooltip_Method_PrependAppend}"
+                       Style="{StaticResource ControlWithResponsiveToolTips}" />
 
                 <!-- 2nd row -->
                 <RadioButton x:Name="PrependAppendRadioButton"
@@ -192,6 +218,7 @@
                              HorizontalAlignment="Left"
                              VerticalAlignment="Center"
                              ToolTip="{x:Static p:Resources.Tooltip_RadioButton}"
+                             Style="{StaticResource ControlWithResponsiveToolTips}"
                              Checked="PrependAppendRadioButtonRadioButton_Checked" />
 
                 <Label Content="{x:Static p:Resources.Label_Prepend}"
@@ -201,6 +228,7 @@
                        HorizontalAlignment="Right"
                        VerticalAlignment="Center"
                        ToolTip="{x:Static p:Resources.Tooltip_Prepend}"
+                       Style="{StaticResource ControlWithResponsiveToolTips}"
                        MouseLeftButtonDown="PrependAppendLabel_Clicked" />
 
                 <TextBox x:Name="PrependName"
@@ -213,6 +241,7 @@
                          HorizontalAlignment="Left"
                          VerticalAlignment="Center"
                          ToolTip="{x:Static p:Resources.Tooltip_Tip_NonEmptyFieldContent}"
+                         Style="{StaticResource ControlWithResponsiveToolTips}"
                          GotFocus="PrependAppendTextBox_Focus" />
 
                 <Label Content="{x:Static p:Resources.Label_Append}"
@@ -222,6 +251,7 @@
                        HorizontalAlignment="Right"
                        VerticalAlignment="Center"
                        ToolTip="{x:Static p:Resources.Tooltip_Append}"
+                       Style="{StaticResource ControlWithResponsiveToolTips}"
                        MouseLeftButtonDown="PrependAppendLabel_Clicked" />
 
                 <TextBox x:Name="AppendName"
@@ -234,6 +264,7 @@
                          HorizontalAlignment="Left"
                          VerticalAlignment="Center"
                          ToolTip="{x:Static p:Resources.Tooltip_Tip_NonEmptyFieldContent}"
+                         Style="{StaticResource ControlWithResponsiveToolTips}"
                          GotFocus="PrependAppendTextBox_Focus" />
             </Grid>
         </Border>
@@ -265,7 +296,8 @@
                        Margin="-3,0,0,0"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Top"
-                       ToolTip="{x:Static p:Resources.Tooltip_Method_LeadingZeros}" />
+                       ToolTip="{x:Static p:Resources.Tooltip_Method_LeadingZeros}"
+                       Style="{StaticResource ControlWithResponsiveToolTips}" />
 
                 <!-- 2nd row -->
                 <RadioButton x:Name="SetLeadingZerosRadioButton"
@@ -276,6 +308,7 @@
                              HorizontalAlignment="Left"
                              VerticalAlignment="Center"
                              ToolTip="{x:Static p:Resources.Tooltip_RadioButton}"
+                             Style="{StaticResource ControlWithResponsiveToolTips}"
                              Checked="SetLeadingZerosRadioButton_Checked" />
 
                 <Label Content="{x:Static p:Resources.Label_Set}"
@@ -285,6 +318,7 @@
                        HorizontalAlignment="Right"
                        VerticalAlignment="Center"
                        ToolTip="{x:Static p:Resources.Tooltip_Set}"
+                       Style="{StaticResource ControlWithResponsiveToolTips}"
                        MouseLeftButtonDown="LeadingZerosLabel_Clicked" />
 
                 <TextBox x:Name="LeadingZeros"
@@ -297,6 +331,7 @@
                          HorizontalAlignment="Left"
                          VerticalAlignment="Center"
                          ToolTip="{x:Static p:Resources.Tooltip_Tip_OnlyVerySmallPositiveNumbers}"
+                         Style="{StaticResource ControlWithResponsiveToolTips}"
                          GotFocus="LeadingZerosTextBox_Focus" />
             </Grid>
         </Border>
@@ -310,7 +345,8 @@
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
                 Click="ResetButton_Click"
-                ToolTip="{x:Static p:Resources.Tooltip_ResetButton}" />
+                ToolTip="{x:Static p:Resources.Tooltip_ResetButton}"
+                Style="{StaticResource ControlWithResponsiveToolTips}" />
 
         <Button x:Name="ProcessButton"
                 Content="{x:Static p:Resources.Content_ProcessButton}"
@@ -320,6 +356,7 @@
                 VerticalAlignment="Bottom"
                 Background="LightBlue"
                 Click="ProcessButton_Click"
-                ToolTip="{x:Static p:Resources.Tooltip_ProcessButton}" />
+                ToolTip="{x:Static p:Resources.Tooltip_ProcessButton}"
+                Style="{StaticResource ControlWithResponsiveToolTips}" />
     </Grid>
 </Window>
