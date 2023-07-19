@@ -12,7 +12,7 @@ namespace FilesManager.Core.Services.Strategies
             Match filePathMatch = Validate.IsFilePathValid(oldFilePath);
 
             return !filePathMatch.Success
-                ? string.Empty
+                ? String.Empty
                 : FilePathConverter.GetFilePath(
                     path: filePathMatch.Value(RegexPatterns.PathGroup),
                     name: $"{prefix.GetValueOrEmpty()}" +

@@ -17,7 +17,7 @@ namespace FilesManager.Core.Tests.Services.Strategies
             string expectedFilePath = @$"C:\Drive\Folder\Subfolder\{expectedPrefix}Test.jpg";
 
             // Act
-            string actualFilePath = PrependAppend.GetPrependedAndAppendedName(TestFilePath, testPrefix, string.Empty);
+            string actualFilePath = PrependAppend.GetPrependedAndAppendedName(TestFilePath, testPrefix, String.Empty);
 
             // Assert
             Assert.That(actualFilePath, Is.EqualTo(expectedFilePath));
@@ -34,7 +34,7 @@ namespace FilesManager.Core.Tests.Services.Strategies
             string expectedFilePath = @$"C:\Drive\Folder\Subfolder\Test{expectedPostfix}.jpg";
 
             // Act
-            string actualFilePath = PrependAppend.GetPrependedAndAppendedName(TestFilePath, string.Empty, testPostfix);
+            string actualFilePath = PrependAppend.GetPrependedAndAppendedName(TestFilePath, String.Empty, testPostfix);
 
             // Assert
             Assert.That(actualFilePath, Is.EqualTo(expectedFilePath));
@@ -51,7 +51,7 @@ namespace FilesManager.Core.Tests.Services.Strategies
             string actualFilePath = PrependAppend.GetPrependedAndAppendedName(testPath, "a", "z");
 
             // Assert
-            Assert.That(actualFilePath, Is.EqualTo(string.Empty));
+            Assert.That(actualFilePath, Is.EqualTo(String.Empty));
         }
     }
 }

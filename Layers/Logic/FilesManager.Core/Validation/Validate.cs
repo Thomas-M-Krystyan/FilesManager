@@ -18,7 +18,7 @@ namespace FilesManager.Core.Validation
         /// </returns>
         public static bool HasValidExtension(string dropFilePath)
         {
-            if (string.IsNullOrWhiteSpace(dropFilePath) || dropFilePath.Length < 3)  // a.h
+            if (String.IsNullOrWhiteSpace(dropFilePath) || dropFilePath.Length < 3)  // a.h
             {
                 return false;
             }
@@ -42,7 +42,7 @@ namespace FilesManager.Core.Validation
         /// </returns>
         internal static Match IsFilePathValid(string filePath)
         {
-            return string.IsNullOrWhiteSpace(filePath)
+            return String.IsNullOrWhiteSpace(filePath)
                 ? Match.Empty
                 : RegexPatterns.FilePathPattern.Match(filePath);
         }
@@ -57,7 +57,7 @@ namespace FilesManager.Core.Validation
         /// </returns>
         public static bool ContainsIllegalCharacters(string[] textInputs, out string invalidValue)
         {
-            invalidValue = string.Empty;
+            invalidValue = String.Empty;
 
             if (textInputs != null)
             {
@@ -86,8 +86,8 @@ namespace FilesManager.Core.Validation
                 : pathDto switch
                   {
                       // Zeros-Digits type of DTO with missing Zeros and Digits values
-                      PathZerosDigitsExtensionDto zerosDigitsDto when zerosDigitsDto.Zeros == string.Empty &&
-                                                                      zerosDigitsDto.Digits == string.Empty
+                      PathZerosDigitsExtensionDto zerosDigitsDto when zerosDigitsDto.Zeros == String.Empty &&
+                                                                      zerosDigitsDto.Digits == String.Empty
                         => RenamingResultDto.Failure($"The file name \"{previousFileName}\" does not contain preceeding numeric part"),
                       
                       // Default

@@ -1,6 +1,7 @@
 ﻿using FileManager.Layers.Logic;
 using FilesManager.Core.DTOs;
 using FilesManager.UI.Desktop.ExtensionMethods;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -30,8 +31,8 @@ namespace FilesManager.UI.Desktop
                 }
 
                 // Reset input fields
-                this.PrependName.Text = string.Empty;
-                this.AppendName.Text = string.Empty;
+                this.PrependName.Text = String.Empty;
+                this.AppendName.Text = String.Empty;
             }
 
             DisplayPopup(result);
@@ -73,8 +74,8 @@ namespace FilesManager.UI.Desktop
         {
             this.PrependAppendRadioButton.Deactivate();
 
-            this.PrependName.Text = string.Empty;
-            this.AppendName.Text = string.Empty;
+            this.PrependName.Text = String.Empty;
+            this.AppendName.Text = String.Empty;
         }
         #endregion
     }

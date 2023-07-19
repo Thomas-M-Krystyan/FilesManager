@@ -1,6 +1,7 @@
 ﻿using FileManager.Layers.Logic;
 using FilesManager.Core.DTOs;
 using FilesManager.UI.Desktop.ExtensionMethods;
+using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,15 +21,15 @@ namespace FilesManager.UI.Desktop
             if (result.IsSuccess)
             {
                 // Validate null or empty input
-                if (string.IsNullOrWhiteSpace(this.StartingNumber.Text))
+                if (String.IsNullOrWhiteSpace(this.StartingNumber.Text))
                 {
                     result = RenamingResultDto.Failure("Provide \"Start number\".");
                 }
                 else
                 {
                     // Validate input value (cannot be converted or it's too large)
-                    if (ushort.TryParse(this.StartingNumber.Text, out ushort startNumber) &&
-                        startNumber - this.FilesList.Items.Count <= ushort.MaxValue)
+                    if (UInt16.TryParse(this.StartingNumber.Text, out ushort startNumber) &&
+                        startNumber - this.FilesList.Items.Count <= UInt16.MaxValue)
                     {
                         // Process renaming of the file
                         foreach (ListBoxItem fileItem in this.FilesList.Items)
@@ -98,9 +99,9 @@ namespace FilesManager.UI.Desktop
         {
             this.StartNumberRadioButton.Deactivate();
 
-            this.NamePrefix.Text = string.Empty;
-            this.StartingNumber.Text = string.Empty;
-            this.NamePostfix.Text = string.Empty;
+            this.NamePrefix.Text = String.Empty;
+            this.StartingNumber.Text = String.Empty;
+            this.NamePostfix.Text = String.Empty;
         }
         #endregion
     }

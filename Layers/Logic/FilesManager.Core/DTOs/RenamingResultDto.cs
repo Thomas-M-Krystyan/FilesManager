@@ -13,12 +13,12 @@
         /// <summary>
         /// Gets the renaming result message (information, warning, error).
         /// </summary>
-        public string Message { get; } = string.Empty;
+        public string Message { get; } = String.Empty;
 
         /// <summary>
         /// Gets new renamed file path.
         /// </summary>
-        public string NewFilePath { get; } = string.Empty;
+        public string NewFilePath { get; } = String.Empty;
 
         #region Constructors
         /// <summary>
@@ -29,13 +29,13 @@
             this.IsSuccess = isSuccess;
         }
 
-        /// <inheritdoc cref="RenamingResultDto(bool)" />
+        /// <inheritdoc cref="RenamingResultDto(Boolean)" />
         private RenamingResultDto(bool isSuccess, string message) : this(isSuccess)
         {
             this.Message = message;
         }
 
-        /// <inheritdoc cref="RenamingResultDto(bool)" />
+        /// <inheritdoc cref="RenamingResultDto(Boolean)" />
         private RenamingResultDto(bool isSuccess, string message, string newFilePath) : this(isSuccess, message)
         {
             this.NewFilePath = newFilePath;

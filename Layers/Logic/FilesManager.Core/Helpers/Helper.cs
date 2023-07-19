@@ -30,7 +30,7 @@ namespace FilesManager.Core.Helpers
 
             for (int index = 0; index < inputs.Length; index++)
             {
-                if (string.IsNullOrWhiteSpace(inputs[index]))
+                if (String.IsNullOrWhiteSpace(inputs[index]))
                 {
                     continue;
                 }

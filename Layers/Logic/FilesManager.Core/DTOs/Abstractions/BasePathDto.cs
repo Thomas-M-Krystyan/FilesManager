@@ -5,12 +5,12 @@
         /// <summary>
         /// Gets the path of the file.
         /// </summary>
-        public string Path { get; } = string.Empty;
+        public string Path { get; } = String.Empty;
 
         /// <summary>
         /// Gets the extension of the file.
         /// </summary>
-        public string Extension { get; } = string.Empty;
+        public string Extension { get; } = String.Empty;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BasePathDto"/> class.
@@ -29,8 +29,8 @@
         /// </summary>
         public bool IsEmpty()
         {
-            return this.Path.Equals(string.Empty) ||
-                   this.Extension.Equals(string.Empty);
+            return this.Path.Equals(String.Empty) ||
+                   this.Extension.Equals(String.Empty);
         }
     }
 }

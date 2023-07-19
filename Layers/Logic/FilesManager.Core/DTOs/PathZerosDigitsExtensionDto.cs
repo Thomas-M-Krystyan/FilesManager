@@ -13,12 +13,12 @@
         /// <summary>
         /// Gets the zeros part of the name of the file.
         /// </summary>
-        public string Zeros { get; } = string.Empty;
+        public string Zeros { get; } = String.Empty;
 
         /// <summary>
         /// Gets the digits part of the name of the file.
         /// </summary>
-        public string Digits { get; } = string.Empty;
+        public string Digits { get; } = String.Empty;
 
         /// <summary>
         /// Gets the complete name of the file.
