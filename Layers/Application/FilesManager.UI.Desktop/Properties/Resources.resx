@@ -127,13 +127,13 @@
     <value>RENAME FILES</value>
   </data>
   <data name="Header_Method_IncrementNumber" xml:space="preserve">
-    <value>Replace name (prefix + number + postfix)</value>
+    <value>Replace name (old [name] =&gt; prefix? + number + postfix?)</value>
   </data>
   <data name="Header_Method_LeadingZeros" xml:space="preserve">
     <value>Leading zeros</value>
   </data>
   <data name="Header_Method_PrependAppend" xml:space="preserve">
-    <value>Update name (prepend + [unchanged name] + append)</value>
+    <value>Update name (prepend? + [unchanged name] + append?)</value>
   </data>
   <data name="Label_Append" xml:space="preserve">
     <value>Append:</value>
@@ -154,7 +154,7 @@
     <value>Start number:</value>
   </data>
   <data name="Tooltip_Append" xml:space="preserve">
-    <value>INFO: Add a text at the end of the file name</value>
+    <value>INFO: Optional text to be added at the end of the file name</value>
   </data>
   <data name="Tooltip_FilesList" xml:space="preserve">
     <value>Drag and drop files here</value>
@@ -237,7 +237,7 @@ RESULT:
     <value>INFO: Optional text to be added before the number</value>
   </data>
   <data name="Tooltip_Prepend" xml:space="preserve">
-    <value>INFO: Add a text at the beginning of the file name</value>
+    <value>INFO: Optional text to be added at the beginning of the file name</value>
   </data>
   <data name="Tooltip_ProcessButton" xml:space="preserve">
     <value>INFO: Starts processing given files based on a selected method</value>

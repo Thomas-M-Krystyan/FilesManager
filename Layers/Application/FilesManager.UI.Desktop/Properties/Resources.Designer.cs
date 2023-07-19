@@ -88,7 +88,7 @@ namespace FilesManager.UI.Desktop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Replace name (prefix + number + postfix).
+        ///   Looks up a localized string similar to Replace name (old [name] =&gt; prefix? + number + postfix?).
         /// </summary>
         public static string Header_Method_IncrementNumber {
             get {
@@ -106,7 +106,7 @@ namespace FilesManager.UI.Desktop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Update name (prepend + [unchanged name] + append).
+        ///   Looks up a localized string similar to Update name (prepend? + [unchanged name] + append?).
         /// </summary>
         public static string Header_Method_PrependAppend {
             get {
@@ -169,7 +169,7 @@ namespace FilesManager.UI.Desktop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to INFO: Add a text at the end of the file name.
+        ///   Looks up a localized string similar to INFO: Optional text to be added at the end of the file name.
         /// </summary>
         public static string Tooltip_Append {
             get {
@@ -289,7 +289,7 @@ namespace FilesManager.UI.Desktop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to INFO: Add a text at the beginning of the file name.
+        ///   Looks up a localized string similar to INFO: Optional text to be added at the beginning of the file name.
         /// </summary>
         public static string Tooltip_Prepend {
             get {
