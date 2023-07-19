@@ -156,6 +156,9 @@
   <data name="Tooltip_Append" xml:space="preserve">
     <value>INFO: Add a text at the end of the file name</value>
   </data>
+  <data name="Tooltip_FilesList" xml:space="preserve">
+    <value>Drag and drop files here</value>
+  </data>
   <data name="Tooltip_Method_IncrementNumber" xml:space="preserve">
     <value>EXAMPLE
 
@@ -241,6 +244,9 @@ RESULT:
   </data>
   <data name="Tooltip_RadioButton" xml:space="preserve">
     <value>INFO: Select to activate this method</value>
+  </data>
+  <data name="Tooltip_RenamingHeader" xml:space="preserve">
+    <value>File extensions will remain intact. Only file names will be affected</value>
   </data>
   <data name="Tooltip_ResetButton" xml:space="preserve">
     <value>INFO: Clears loaded files and all values from methods</value>

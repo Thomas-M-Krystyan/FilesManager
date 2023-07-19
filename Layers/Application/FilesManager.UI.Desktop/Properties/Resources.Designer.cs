@@ -178,6 +178,15 @@ namespace FilesManager.UI.Desktop.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Drag and drop files here.
+        /// </summary>
+        public static string Tooltip_FilesList {
+            get {
+                return ResourceManager.GetString("Tooltip_FilesList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to EXAMPLE
         ///
         ///INPUT:
@@ -303,6 +312,15 @@ namespace FilesManager.UI.Desktop.Properties {
         public static string Tooltip_RadioButton {
             get {
                 return ResourceManager.GetString("Tooltip_RadioButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File extensions will remain intact. Only file names will be affected.
+        /// </summary>
+        public static string Tooltip_RenamingHeader {
+            get {
+                return ResourceManager.GetString("Tooltip_RenamingHeader", resourceCulture);
             }
         }
         

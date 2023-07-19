@@ -28,7 +28,8 @@
                  HorizontalAlignment="Left"
                  VerticalAlignment="Top"
                  AllowDrop="True"
-                 Drop="Drop_Files" />
+                 Drop="Drop_Files"
+                 ToolTip="{x:Static p:Resources.Tooltip_FilesList}"/>
 
         <!-- ################################## -->
         <!-- ###  RIGHT PART OF THE SCREEN  ### -->
@@ -39,7 +40,8 @@
                FontWeight="ExtraBold"
                Margin="368,5,0,0"
                HorizontalAlignment="Left"
-               VerticalAlignment="Top" />
+               VerticalAlignment="Top"
+               ToolTip="{x:Static p:Resources.Tooltip_RenamingHeader}" />
 
         <!-- Renaming files (incremented number) -->
         <Border Margin="370,35,0,0"
