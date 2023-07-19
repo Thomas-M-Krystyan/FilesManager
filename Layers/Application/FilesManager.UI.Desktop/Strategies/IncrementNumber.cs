@@ -28,29 +28,36 @@ namespace FilesManager.UI.Desktop
                 else
                 {
                     // Validate input value (cannot be converted or it's too large)
-                    if (UInt16.TryParse(this.StartingNumber.Text, out ushort startNumber) &&
-                        startNumber - this.FilesList.Items.Count <= UInt16.MaxValue)
+                    if (UInt16.TryParse(this.StartingNumber.Text, out ushort startNumber))
                     {
-                        // Process renaming of the file
-                        foreach (ListBoxItem fileItem in this.FilesList.Items)
+                        // Validate input value (consecutive numbers would exceed the allowed maximum)
+                        if (startNumber + this.FilesList.Items.Count - 1 <= UInt16.MaxValue)
                         {
-                            result = RenamingService.ReplaceWithNumber((string)fileItem.ToolTip, this.NamePrefix.Text, startNumber++, this.NamePostfix.Text);
-
-                            // Validate renaming result
-                            if (!result.IsSuccess)
+                            // Process renaming of the file
+                            foreach (ListBoxItem fileItem in this.FilesList.Items)
                             {
-                                ClearFilesList();
+                                result = RenamingService.ReplaceWithNumber((string)fileItem.ToolTip, this.NamePrefix.Text, startNumber++, this.NamePostfix.Text);
 
-                                break;
+                                // Validate renaming result
+                                if (!result.IsSuccess)
+                                {
+                                    ClearFilesList();
+
+                                    break;
+                                }
+
+                                UpdateNameOnList(fileItem, result.NewFilePath);
                             }
 
-                            UpdateNameOnList(fileItem, result.NewFilePath);
+                            if (result.IsSuccess)
+                            {
+                                // Set the last number as the new start number
+                                this.StartingNumber.Text = startNumber.ToString(CultureInfo.InvariantCulture);
+                            }
                         }
-
-                        if (result.IsSuccess)
+                        else
                         {
-                            // Set the last number as the new start number
-                            this.StartingNumber.Text = startNumber.ToString(CultureInfo.InvariantCulture);
+                            result = RenamingResultDto.Failure($"Some numbers would exceed the max value for \"Start number\" ({UInt16.MaxValue}) if the renaming continue incrementally.");
                         }
                     }
                     else
