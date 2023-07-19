@@ -19,7 +19,7 @@ namespace FilesManager.Core.Tests.Services
             Assert.Multiple(() =>
             {
                 Assert.That(actualResult.IsSuccess, Is.False);
-                Assert.That(actualResult.Message.StartsWith("Cannot rename the file"), Is.True);
+                Assert.That(actualResult.Message, Does.StartWith("Cannot rename the file"));
                 Assert.That(actualResult.NewFilePath, Is.Empty);
             });
         }
@@ -36,7 +36,7 @@ namespace FilesManager.Core.Tests.Services
             Assert.Multiple(() =>
             {
                 Assert.That(actualResult.IsSuccess, Is.False);
-                Assert.That(actualResult.Message.StartsWith("Cannot rename the file"), Is.True);
+                Assert.That(actualResult.Message, Does.StartWith("Cannot rename the file"));
                 Assert.That(actualResult.NewFilePath, Is.Empty);
             });
         }
@@ -63,7 +63,7 @@ namespace FilesManager.Core.Tests.Services
             });
         }
 
-        public static IEnumerable<(string originalPath, (string path, string zeros, string digits, string name, string extension), string exception)> LeadingZerosTestCases(string filePath)
+        private static IEnumerable<(string originalPath, (string path, string zeros, string digits, string name, string extension), string exception)> LeadingZerosTestCases(string filePath)
         {
             // DTO without name or extension
             yield return ($"{filePath}", ("", "00", "1", "Test", ""), "Internal (RegEx) error: The file \"001Test\" was't parsed properly");
