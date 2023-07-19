@@ -35,7 +35,7 @@
         <!-- ################################## -->
         
         <!-- Group label -->
-        <Label Content="{x:Static p:Resources.GeneralHeader}"
+        <Label Content="{x:Static p:Resources.Header_General}"
                FontWeight="ExtraBold"
                Margin="368,5,0,0"
                HorizontalAlignment="Left"
@@ -66,13 +66,13 @@
                 <!-- 1st row -->
                 <Label Grid.Column="0" Grid.ColumnSpan="5"
                        Grid.Row="0"
-                       Content="{x:Static p:Resources.Method_IncrementNumber_Label}"
+                       Content="{x:Static p:Resources.Header_Method_IncrementNumber}"
                        FontSize="9px"
                        FontWeight="Bold"
                        Margin="-3,0,0,0"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Top"
-                       ToolTip="{x:Static p:Resources.Method_IncrementNumber_Tooltip}" />
+                       ToolTip="{x:Static p:Resources.Tooltip_Method_IncrementNumber}" />
 
                 <!-- 2nd row -->
                 <RadioButton x:Name="StartNumberRadioButton"
@@ -82,16 +82,16 @@
                              Width="15"
                              HorizontalAlignment="Left"
                              VerticalAlignment="Center"
-                             ToolTip="{x:Static p:Resources.RadioButton_Tooltip}"
+                             ToolTip="{x:Static p:Resources.Tooltip_RadioButton}"
                              Checked="StartNumberRadioButton_Checked" />
 
-                <Label Content="{x:Static p:Resources.Prefix_Label}"
+                <Label Content="{x:Static p:Resources.Label_Prefix}"
                        Grid.Column="1"
                        Grid.Row="1"
                        Height="25"
                        HorizontalAlignment="Right"
                        VerticalAlignment="Center"
-                       ToolTip="{x:Static p:Resources.Prefix_Tooltip}"
+                       ToolTip="{x:Static p:Resources.Tooltip_Prefix}"
                        MouseLeftButtonDown="StartNumberLabel_Clicked" />
 
                 <TextBox x:Name="NamePrefix"
@@ -103,16 +103,16 @@
                          TextWrapping="Wrap"
                          HorizontalAlignment="Left"
                          VerticalAlignment="Center"
-                         ToolTip="{x:Static p:Resources.Tip_NonEmptyFieldContent_Tooltip}"
+                         ToolTip="{x:Static p:Resources.Tooltip_Tip_NonEmptyFieldContent}"
                          GotFocus="StartNumberTextBox_Focus" />
 
-                <Label Content="{x:Static p:Resources.StartNumber_Label}"
+                <Label Content="{x:Static p:Resources.Label_StartNumber}"
                        Grid.Column="3"
                        Grid.Row="1"
                        Height="25"
                        HorizontalAlignment="Right"
                        VerticalAlignment="Center"
-                       ToolTip="{x:Static p:Resources.StartNumber_Tooltip}"
+                       ToolTip="{x:Static p:Resources.Tooltip_StartNumber}"
                        MouseLeftButtonDown="StartNumberLabel_Clicked" />
 
                 <TextBox x:Name="StartingNumber"
@@ -124,16 +124,16 @@
                          TextWrapping="Wrap"
                          HorizontalAlignment="Left"
                          VerticalAlignment="Center"
-                         ToolTip="{x:Static p:Resources.Tip_OnlyPositiveNumbers_Tooltip}"
+                         ToolTip="{x:Static p:Resources.Tooltip_Tip_OnlyPositiveNumbers}"
                          GotFocus="StartNumberTextBox_Focus" />
 
-                <Label Content="{x:Static p:Resources.Postfix_Label}"
+                <Label Content="{x:Static p:Resources.Label_Postfix}"
                        Grid.Column="5"
                        Grid.Row="1"
                        Height="25"
                        HorizontalAlignment="Right"
                        VerticalAlignment="Center"
-                       ToolTip="{x:Static p:Resources.Postfix_Tooltip}"
+                       ToolTip="{x:Static p:Resources.Tooltip_Postfix}"
                        MouseLeftButtonDown="StartNumberLabel_Clicked" />
 
                 <TextBox x:Name="NamePostfix"
@@ -145,7 +145,7 @@
                          TextWrapping="Wrap"
                          HorizontalAlignment="Left"
                          VerticalAlignment="Center"
-                         ToolTip="{x:Static p:Resources.Tip_NonEmptyFieldContent_Tooltip}"
+                         ToolTip="{x:Static p:Resources.Tooltip_Tip_NonEmptyFieldContent}"
                          GotFocus="StartNumberTextBox_Focus" />
             </Grid>
         </Border>
@@ -173,13 +173,13 @@
                 <!-- 1st row -->
                 <Label Grid.Column="0" Grid.ColumnSpan="5"
                        Grid.Row="0"
-                       Content="{x:Static p:Resources.Method_PrependAppend_Label}"
+                       Content="{x:Static p:Resources.Header_Method_PrependAppend}"
                        FontSize="9px"
                        FontWeight="Bold"
                        Margin="-3,0,0,0"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Top"
-                       ToolTip="{x:Static p:Resources.Method_PrependAppend_Tooltip}" />
+                       ToolTip="{x:Static p:Resources.Tooltip_Method_PrependAppend}" />
 
                 <!-- 2nd row -->
                 <RadioButton x:Name="PrependAppendRadioButton"
@@ -189,16 +189,16 @@
                              Width="15"
                              HorizontalAlignment="Left"
                              VerticalAlignment="Center"
-                             ToolTip="{x:Static p:Resources.RadioButton_Tooltip}"
+                             ToolTip="{x:Static p:Resources.Tooltip_RadioButton}"
                              Checked="PrependAppendRadioButtonRadioButton_Checked" />
 
-                <Label Content="{x:Static p:Resources.Prepend_Label}"
+                <Label Content="{x:Static p:Resources.Label_Prepend}"
                        Grid.Column="1"
                        Grid.Row="1"
                        Height="25"
                        HorizontalAlignment="Right"
                        VerticalAlignment="Center"
-                       ToolTip="{x:Static p:Resources.Prepend_Tooltip}"
+                       ToolTip="{x:Static p:Resources.Tooltip_Prepend}"
                        MouseLeftButtonDown="PrependAppendLabel_Clicked" />
 
                 <TextBox x:Name="PrependName"
@@ -210,16 +210,16 @@
                          TextWrapping="Wrap"
                          HorizontalAlignment="Left"
                          VerticalAlignment="Center"
-                         ToolTip="{x:Static p:Resources.Tip_NonEmptyFieldContent_Tooltip}"
+                         ToolTip="{x:Static p:Resources.Tooltip_Tip_NonEmptyFieldContent}"
                          GotFocus="PrependAppendTextBox_Focus" />
 
-                <Label Content="{x:Static p:Resources.Append_Label}"
+                <Label Content="{x:Static p:Resources.Label_Append}"
                        Grid.Column="3"
                        Grid.Row="1"
                        Height="25"
                        HorizontalAlignment="Right"
                        VerticalAlignment="Center"
-                       ToolTip="{x:Static p:Resources.Append_Tooltip}"
+                       ToolTip="{x:Static p:Resources.Tooltip_Append}"
                        MouseLeftButtonDown="PrependAppendLabel_Clicked" />
 
                 <TextBox x:Name="AppendName"
@@ -231,7 +231,7 @@
                          TextWrapping="Wrap"
                          HorizontalAlignment="Left"
                          VerticalAlignment="Center"
-                         ToolTip="{x:Static p:Resources.Tip_NonEmptyFieldContent_Tooltip}"
+                         ToolTip="{x:Static p:Resources.Tooltip_Tip_NonEmptyFieldContent}"
                          GotFocus="PrependAppendTextBox_Focus" />
             </Grid>
         </Border>
@@ -257,13 +257,13 @@
                 <!-- 1st row -->
                 <Label Grid.Column="0" Grid.ColumnSpan="3"
                        Grid.Row="0"
-                       Content="{x:Static p:Resources.Method_LeadingZeros_Label}"
+                       Content="{x:Static p:Resources.Header_Method_LeadingZeros}"
                        FontSize="9px"
                        FontWeight="Bold"
                        Margin="-3,0,0,0"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Top"
-                       ToolTip="{x:Static p:Resources.Method_LeadingZeros_Tooltip}" />
+                       ToolTip="{x:Static p:Resources.Tooltip_Method_LeadingZeros}" />
 
                 <!-- 2nd row -->
                 <RadioButton x:Name="SetLeadingZerosRadioButton"
@@ -273,16 +273,16 @@
                              Width="15"
                              HorizontalAlignment="Left"
                              VerticalAlignment="Center"
-                             ToolTip="{x:Static p:Resources.RadioButton_Tooltip}"
+                             ToolTip="{x:Static p:Resources.Tooltip_RadioButton}"
                              Checked="SetLeadingZerosRadioButton_Checked" />
 
-                <Label Content="{x:Static p:Resources.Set_Label}"
+                <Label Content="{x:Static p:Resources.Label_Set}"
                        Grid.Column="1"
                        Grid.Row="1"
                        Height="25"
                        HorizontalAlignment="Right"
                        VerticalAlignment="Center"
-                       ToolTip="{x:Static p:Resources.Set_Tooltip}"
+                       ToolTip="{x:Static p:Resources.Tooltip_Set}"
                        MouseLeftButtonDown="LeadingZerosLabel_Clicked" />
 
                 <TextBox x:Name="LeadingZeros"
@@ -294,30 +294,30 @@
                          TextWrapping="Wrap"
                          HorizontalAlignment="Left"
                          VerticalAlignment="Center"
-                         ToolTip="{x:Static p:Resources.Tip_OnlyVerySmallPositiveNumbers_Tooltip}"
+                         ToolTip="{x:Static p:Resources.Tooltip_Tip_OnlyVerySmallPositiveNumbers}"
                          GotFocus="LeadingZerosTextBox_Focus" />
             </Grid>
         </Border>
 
         <!-- Global buttons -->
         <Button x:Name="ClearListButton"
-                Content="{x:Static p:Resources.ResetButton_Content}"
+                Content="{x:Static p:Resources.Content_ResetButton}"
                 Width="50"
                 Margin="0,0,65,10"
                 Background="#FFDCB9B9"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
                 Click="ResetButton_Click"
-                ToolTip="{x:Static p:Resources.ResetButton_Tooltip}" />
+                ToolTip="{x:Static p:Resources.Tooltip_ResetButton}" />
 
         <Button x:Name="ProcessButton"
-                Content="{x:Static p:Resources.ProcessButton_Content}"
+                Content="{x:Static p:Resources.Content_ProcessButton}"
                 Width="50"
                 Margin="0,0,10,10"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
                 Background="LightBlue"
                 Click="ProcessButton_Click"
-                ToolTip="{x:Static p:Resources.ProcessButton_Tooltip}" />
+                ToolTip="{x:Static p:Resources.Tooltip_ProcessButton}" />
     </Grid>
 </Window>

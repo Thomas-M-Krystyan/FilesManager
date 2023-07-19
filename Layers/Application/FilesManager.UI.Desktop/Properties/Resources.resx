@@ -117,21 +117,47 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Append_Label" xml:space="preserve">
-    <value>Append:</value>
+  <data name="Content_ProcessButton" xml:space="preserve">
+    <value>Process</value>
   </data>
-  <data name="Append_Tooltip" xml:space="preserve">
-    <value>INFO: Add a text at the end of the file name</value>
+  <data name="Content_ResetButton" xml:space="preserve">
+    <value>Reset</value>
   </data>
-  <data name="GeneralHeader" xml:space="preserve">
+  <data name="Header_General" xml:space="preserve">
     <value>RENAME FILES</value>
   </data>
-  <data name="Method_IncrementNumber_Label" xml:space="preserve">
-    <value>Incremented number + postfix</value>
-    <comment>Renaming method header</comment>
+  <data name="Header_Method_IncrementNumber" xml:space="preserve">
+    <value>Replace name (prefix + number + postfix)</value>
   </data>
-  <data name="Method_IncrementNumber_Tooltip" xml:space="preserve">
-    <value>THE EXAMPLE
+  <data name="Header_Method_LeadingZeros" xml:space="preserve">
+    <value>Leading zeros</value>
+  </data>
+  <data name="Header_Method_PrependAppend" xml:space="preserve">
+    <value>Update name (prepend + [unchanged name] + append)</value>
+  </data>
+  <data name="Label_Append" xml:space="preserve">
+    <value>Append:</value>
+  </data>
+  <data name="Label_Postfix" xml:space="preserve">
+    <value>Postfix:</value>
+  </data>
+  <data name="Label_Prefix" xml:space="preserve">
+    <value>Prefix:</value>
+  </data>
+  <data name="Label_Prepend" xml:space="preserve">
+    <value>Prepend:</value>
+  </data>
+  <data name="Label_Set" xml:space="preserve">
+    <value>Set:</value>
+  </data>
+  <data name="Label_StartNumber" xml:space="preserve">
+    <value>Start number:</value>
+  </data>
+  <data name="Tooltip_Append" xml:space="preserve">
+    <value>INFO: Add a text at the end of the file name</value>
+  </data>
+  <data name="Tooltip_Method_IncrementNumber" xml:space="preserve">
+    <value>EXAMPLE
 
 INPUT:
 - picture20.png
@@ -144,15 +170,22 @@ PARAMETERS:
 
 RESULT:
 - test #0_file.png
-- test #1_file.jpeg</value>
-    <comment>Renaming method header</comment>
+- test #1_file.jpeg
+
+
+EXPLANATION: The original file names are completely
+replaced by at least one of the provided values. It is po-
+ssible to put text before counting numbers, or leave it
+blank, to keep only numbers as the new file names.
+
+PS: You can also use this method to rename your
+files in the following way: "image (" + "1" + ")"
+resulting with this output: "image (1).jpg" which
+is a similar behavior to Microsoft Windows renaming
+strategy (adding numbers to avoid conflicting names).</value>
   </data>
-  <data name="Method_LeadingZeros_Label" xml:space="preserve">
-    <value>Leading zeros</value>
-    <comment>Renaming method header</comment>
-  </data>
-  <data name="Method_LeadingZeros_Tooltip" xml:space="preserve">
-    <value>THE EXAMPLE
+  <data name="Tooltip_Method_LeadingZeros" xml:space="preserve">
+    <value>EXAMPLE
 
 INPUT:
 - 1.jpg
@@ -163,15 +196,26 @@ PARAMETERS:
 
 RESULT:
 - 0001.jpg
-- 0015.jpg</value>
-    <comment>Renaming method header</comment>
+- 0015.jpg
+
+
+EXPLANATION: As the first step "n-leading" zeros
+were added to the longest file name. Then, as the
+second step, names shorter or equal to the longest
+possible name were aligned by adding respective
+amount of zeroes. This behavior is useful for older
+Windows systems sorting behaviors, where files
+were ordered lexicographically as following:
+
+Lexicographically:        Mathematically:
+
+0.txt                                00.txt
+1.txt                                01.txt
+10.txt                              02.txt
+2.txt                                10.txt</value>
   </data>
-  <data name="Method_PrependAppend_Label" xml:space="preserve">
-    <value>Prepend / append text</value>
-    <comment>Renaming method header</comment>
-  </data>
-  <data name="Method_PrependAppend_Tooltip" xml:space="preserve">
-    <value>THE EXAMPLE
+  <data name="Tooltip_Method_PrependAppend" xml:space="preserve">
+    <value>EXAMPLE
 
 INPUT:
 - Archive.zip
@@ -182,65 +226,43 @@ PARAMETERS:
 
 RESULT:
 - My_[Archive]_2022.zip</value>
-    <comment>Renaming method header</comment>
   </data>
-  <data name="Postfix_Label" xml:space="preserve">
-    <value>Postfix:</value>
-  </data>
-  <data name="Postfix_Tooltip" xml:space="preserve">
+  <data name="Tooltip_Postfix" xml:space="preserve">
     <value>INFO: Optional text to be added after the number</value>
   </data>
-  <data name="Prefix_Label" xml:space="preserve">
-    <value>Prefix:</value>
-  </data>
-  <data name="Prefix_Tooltip" xml:space="preserve">
+  <data name="Tooltip_Prefix" xml:space="preserve">
     <value>INFO: Optional text to be added before the number</value>
   </data>
-  <data name="Prepend_Label" xml:space="preserve">
-    <value>Prepend:</value>
-  </data>
-  <data name="Prepend_Tooltip" xml:space="preserve">
+  <data name="Tooltip_Prepend" xml:space="preserve">
     <value>INFO: Add a text at the beginning of the file name</value>
   </data>
-  <data name="ProcessButton_Content" xml:space="preserve">
-    <value>Process</value>
-  </data>
-  <data name="ProcessButton_Tooltip" xml:space="preserve">
+  <data name="Tooltip_ProcessButton" xml:space="preserve">
     <value>INFO: Starts processing given files based on a selected method</value>
   </data>
-  <data name="RadioButton_Tooltip" xml:space="preserve">
+  <data name="Tooltip_RadioButton" xml:space="preserve">
     <value>INFO: Select to activate this method</value>
   </data>
-  <data name="ResetButton_Content" xml:space="preserve">
-    <value>Reset</value>
-  </data>
-  <data name="ResetButton_Tooltip" xml:space="preserve">
+  <data name="Tooltip_ResetButton" xml:space="preserve">
     <value>INFO: Clears loaded files and all values from methods</value>
   </data>
-  <data name="Set_Label" xml:space="preserve">
-    <value>Set:</value>
-  </data>
-  <data name="Set_Tooltip" xml:space="preserve">
+  <data name="Tooltip_Set" xml:space="preserve">
     <value>INFO: Set the amount of leading zeros before the file name</value>
   </data>
-  <data name="StartNumber_Label" xml:space="preserve">
-    <value>Start number:</value>
-  </data>
-  <data name="StartNumber_Tooltip" xml:space="preserve">
+  <data name="Tooltip_StartNumber" xml:space="preserve">
     <value>INFO: Rename given files using an incremented start number</value>
   </data>
-  <data name="Tip_NonEmptyFieldContent_Tooltip" xml:space="preserve">
+  <data name="Tooltip_Tip_NonEmptyFieldContent" xml:space="preserve">
     <value>TIP: Empty or only whitespaces content will be ignored
 
 Invalid characters:  \ / : * ? " &lt; &gt; |</value>
   </data>
-  <data name="Tip_OnlyPositiveNumbers_Tooltip" xml:space="preserve">
+  <data name="Tooltip_Tip_OnlyPositiveNumbers" xml:space="preserve">
     <value>TIP: Only positive numbers from the range [0 - 65 535]</value>
   </data>
-  <data name="Tip_OnlyVerySmallPositiveNumbers_Tooltip" xml:space="preserve">
+  <data name="Tooltip_Tip_OnlyVerySmallPositiveNumbers" xml:space="preserve">
     <value>TIP: Only positive numbers from the range [0 - 7]</value>
   </data>
   <data name="WindowTitle" xml:space="preserve">
-    <value>File Manager (v0.3.2-alpha)</value>
+    <value>File Manager (v0.3.3-alpha)</value>
   </data>
 </root>

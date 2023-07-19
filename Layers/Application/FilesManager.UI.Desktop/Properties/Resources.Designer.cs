@@ -61,43 +61,124 @@ namespace FilesManager.UI.Desktop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Append:.
+        ///   Looks up a localized string similar to Process.
         /// </summary>
-        public static string Append_Label {
+        public static string Content_ProcessButton {
             get {
-                return ResourceManager.GetString("Append_Label", resourceCulture);
+                return ResourceManager.GetString("Content_ProcessButton", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to INFO: Add a text at the end of the file name.
+        ///   Looks up a localized string similar to Reset.
         /// </summary>
-        public static string Append_Tooltip {
+        public static string Content_ResetButton {
             get {
-                return ResourceManager.GetString("Append_Tooltip", resourceCulture);
+                return ResourceManager.GetString("Content_ResetButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to RENAME FILES.
         /// </summary>
-        public static string GeneralHeader {
+        public static string Header_General {
             get {
-                return ResourceManager.GetString("GeneralHeader", resourceCulture);
+                return ResourceManager.GetString("Header_General", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Incremented number + postfix.
+        ///   Looks up a localized string similar to Replace name (prefix + number + postfix).
         /// </summary>
-        public static string Method_IncrementNumber_Label {
+        public static string Header_Method_IncrementNumber {
             get {
-                return ResourceManager.GetString("Method_IncrementNumber_Label", resourceCulture);
+                return ResourceManager.GetString("Header_Method_IncrementNumber", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to THE EXAMPLE
+        ///   Looks up a localized string similar to Leading zeros.
+        /// </summary>
+        public static string Header_Method_LeadingZeros {
+            get {
+                return ResourceManager.GetString("Header_Method_LeadingZeros", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update name (prepend + [unchanged name] + append).
+        /// </summary>
+        public static string Header_Method_PrependAppend {
+            get {
+                return ResourceManager.GetString("Header_Method_PrependAppend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Append:.
+        /// </summary>
+        public static string Label_Append {
+            get {
+                return ResourceManager.GetString("Label_Append", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Postfix:.
+        /// </summary>
+        public static string Label_Postfix {
+            get {
+                return ResourceManager.GetString("Label_Postfix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prefix:.
+        /// </summary>
+        public static string Label_Prefix {
+            get {
+                return ResourceManager.GetString("Label_Prefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prepend:.
+        /// </summary>
+        public static string Label_Prepend {
+            get {
+                return ResourceManager.GetString("Label_Prepend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set:.
+        /// </summary>
+        public static string Label_Set {
+            get {
+                return ResourceManager.GetString("Label_Set", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start number:.
+        /// </summary>
+        public static string Label_StartNumber {
+            get {
+                return ResourceManager.GetString("Label_StartNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to INFO: Add a text at the end of the file name.
+        /// </summary>
+        public static string Tooltip_Append {
+            get {
+                return ResourceManager.GetString("Tooltip_Append", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to EXAMPLE
         ///
         ///INPUT:
         ///- picture20.png
@@ -110,25 +191,26 @@ namespace FilesManager.UI.Desktop.Properties {
         ///
         ///RESULT:
         ///- test #0_file.png
-        ///- test #1_file.jpeg.
+        ///- test #1_file.jpeg
+        ///
+        ///
+        ///EXPLANATION: The original file names are completely
+        ///replaced by at least one of the provided values. It is po-
+        ///ssible to put text before counting numbers, or leave it
+        ///blank, to keep only numbers as the new file names.
+        ///
+        ///PS: You can also use this method to rename your
+        ///files in the following way: &quot;image (&quot; + &quot;1&quot; + &quot;)&quot;
+        ///resulti [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string Method_IncrementNumber_Tooltip {
+        public static string Tooltip_Method_IncrementNumber {
             get {
-                return ResourceManager.GetString("Method_IncrementNumber_Tooltip", resourceCulture);
+                return ResourceManager.GetString("Tooltip_Method_IncrementNumber", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Leading zeros.
-        /// </summary>
-        public static string Method_LeadingZeros_Label {
-            get {
-                return ResourceManager.GetString("Method_LeadingZeros_Label", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to THE EXAMPLE
+        ///   Looks up a localized string similar to EXAMPLE
         ///
         ///INPUT:
         ///- 1.jpg
@@ -139,25 +221,29 @@ namespace FilesManager.UI.Desktop.Properties {
         ///
         ///RESULT:
         ///- 0001.jpg
-        ///- 0015.jpg.
+        ///- 0015.jpg
+        ///
+        ///
+        ///EXPLANATION: As the first step &quot;n-leading&quot; zeros
+        ///were added to the longest file name. Then, as the
+        ///second step, names shorter or equal to the longest
+        ///possible name were aligned by adding respective
+        ///amount of zeroes. This behavior is useful for older
+        ///Windows systems sorting behaviors, where files
+        ///were ordered lexicographically as following:
+        ///
+        ///Lexicographically:        Mathematically:
+        ///
+        ///0.txt          [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string Method_LeadingZeros_Tooltip {
+        public static string Tooltip_Method_LeadingZeros {
             get {
-                return ResourceManager.GetString("Method_LeadingZeros_Tooltip", resourceCulture);
+                return ResourceManager.GetString("Tooltip_Method_LeadingZeros", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Prepend / append text.
-        /// </summary>
-        public static string Method_PrependAppend_Label {
-            get {
-                return ResourceManager.GetString("Method_PrependAppend_Label", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to THE EXAMPLE
+        ///   Looks up a localized string similar to EXAMPLE
         ///
         ///INPUT:
         ///- Archive.zip
@@ -169,144 +255,81 @@ namespace FilesManager.UI.Desktop.Properties {
         ///RESULT:
         ///- My_[Archive]_2022.zip.
         /// </summary>
-        public static string Method_PrependAppend_Tooltip {
+        public static string Tooltip_Method_PrependAppend {
             get {
-                return ResourceManager.GetString("Method_PrependAppend_Tooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Postfix:.
-        /// </summary>
-        public static string Postfix_Label {
-            get {
-                return ResourceManager.GetString("Postfix_Label", resourceCulture);
+                return ResourceManager.GetString("Tooltip_Method_PrependAppend", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to INFO: Optional text to be added after the number.
         /// </summary>
-        public static string Postfix_Tooltip {
+        public static string Tooltip_Postfix {
             get {
-                return ResourceManager.GetString("Postfix_Tooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Prefix:.
-        /// </summary>
-        public static string Prefix_Label {
-            get {
-                return ResourceManager.GetString("Prefix_Label", resourceCulture);
+                return ResourceManager.GetString("Tooltip_Postfix", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to INFO: Optional text to be added before the number.
         /// </summary>
-        public static string Prefix_Tooltip {
+        public static string Tooltip_Prefix {
             get {
-                return ResourceManager.GetString("Prefix_Tooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Prepend:.
-        /// </summary>
-        public static string Prepend_Label {
-            get {
-                return ResourceManager.GetString("Prepend_Label", resourceCulture);
+                return ResourceManager.GetString("Tooltip_Prefix", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to INFO: Add a text at the beginning of the file name.
         /// </summary>
-        public static string Prepend_Tooltip {
+        public static string Tooltip_Prepend {
             get {
-                return ResourceManager.GetString("Prepend_Tooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Process.
-        /// </summary>
-        public static string ProcessButton_Content {
-            get {
-                return ResourceManager.GetString("ProcessButton_Content", resourceCulture);
+                return ResourceManager.GetString("Tooltip_Prepend", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to INFO: Starts processing given files based on a selected method.
         /// </summary>
-        public static string ProcessButton_Tooltip {
+        public static string Tooltip_ProcessButton {
             get {
-                return ResourceManager.GetString("ProcessButton_Tooltip", resourceCulture);
+                return ResourceManager.GetString("Tooltip_ProcessButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to INFO: Select to activate this method.
         /// </summary>
-        public static string RadioButton_Tooltip {
+        public static string Tooltip_RadioButton {
             get {
-                return ResourceManager.GetString("RadioButton_Tooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Reset.
-        /// </summary>
-        public static string ResetButton_Content {
-            get {
-                return ResourceManager.GetString("ResetButton_Content", resourceCulture);
+                return ResourceManager.GetString("Tooltip_RadioButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to INFO: Clears loaded files and all values from methods.
         /// </summary>
-        public static string ResetButton_Tooltip {
+        public static string Tooltip_ResetButton {
             get {
-                return ResourceManager.GetString("ResetButton_Tooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Set:.
-        /// </summary>
-        public static string Set_Label {
-            get {
-                return ResourceManager.GetString("Set_Label", resourceCulture);
+                return ResourceManager.GetString("Tooltip_ResetButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to INFO: Set the amount of leading zeros before the file name.
         /// </summary>
-        public static string Set_Tooltip {
+        public static string Tooltip_Set {
             get {
-                return ResourceManager.GetString("Set_Tooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Start number:.
-        /// </summary>
-        public static string StartNumber_Label {
-            get {
-                return ResourceManager.GetString("StartNumber_Label", resourceCulture);
+                return ResourceManager.GetString("Tooltip_Set", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to INFO: Rename given files using an incremented start number.
         /// </summary>
-        public static string StartNumber_Tooltip {
+        public static string Tooltip_StartNumber {
             get {
-                return ResourceManager.GetString("StartNumber_Tooltip", resourceCulture);
+                return ResourceManager.GetString("Tooltip_StartNumber", resourceCulture);
             }
         }
         
@@ -315,32 +338,32 @@ namespace FilesManager.UI.Desktop.Properties {
         ///
         ///Invalid characters:  \ / : * ? &quot; &lt; &gt; |.
         /// </summary>
-        public static string Tip_NonEmptyFieldContent_Tooltip {
+        public static string Tooltip_Tip_NonEmptyFieldContent {
             get {
-                return ResourceManager.GetString("Tip_NonEmptyFieldContent_Tooltip", resourceCulture);
+                return ResourceManager.GetString("Tooltip_Tip_NonEmptyFieldContent", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to TIP: Only positive numbers from the range [0 - 65 535].
         /// </summary>
-        public static string Tip_OnlyPositiveNumbers_Tooltip {
+        public static string Tooltip_Tip_OnlyPositiveNumbers {
             get {
-                return ResourceManager.GetString("Tip_OnlyPositiveNumbers_Tooltip", resourceCulture);
+                return ResourceManager.GetString("Tooltip_Tip_OnlyPositiveNumbers", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to TIP: Only positive numbers from the range [0 - 7].
         /// </summary>
-        public static string Tip_OnlyVerySmallPositiveNumbers_Tooltip {
+        public static string Tooltip_Tip_OnlyVerySmallPositiveNumbers {
             get {
-                return ResourceManager.GetString("Tip_OnlyVerySmallPositiveNumbers_Tooltip", resourceCulture);
+                return ResourceManager.GetString("Tooltip_Tip_OnlyVerySmallPositiveNumbers", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to File Manager (v0.3.2-alpha).
+        ///   Looks up a localized string similar to File Manager (v0.3.3-alpha).
         /// </summary>
         public static string WindowTitle {
             get {
