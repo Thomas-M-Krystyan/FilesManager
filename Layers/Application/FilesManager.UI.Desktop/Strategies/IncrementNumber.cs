@@ -31,7 +31,7 @@ namespace FilesManager.UI.Desktop
                     if (UInt16.TryParse(this.StartingNumber.Text, out ushort startNumber))
                     {
                         // Validate input value (consecutive numbers would exceed the allowed maximum)
-                        if (startNumber + this.FilesList.Items.Count - 1 <= UInt16.MaxValue)
+                        if (startNumber + this.FilesList.Items.Count - 1 <= UInt16.MaxValue)  // NOTE: "startNumber" will be the first to use, that's why Count - 1
                         {
                             // Process renaming of the file
                             foreach (ListBoxItem fileItem in this.FilesList.Items)
