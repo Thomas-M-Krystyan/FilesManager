@@ -52,7 +52,9 @@ namespace FilesManager.UI.Desktop
                             if (result.IsSuccess)
                             {
                                 // Set the last number as the new start number
-                                this.StartingNumber.Text = startNumber.ToString(CultureInfo.InvariantCulture);
+                                this.StartingNumber.Text = startNumber.Equals(0)
+                                    ? (--startNumber).ToString()  // Revert the effect of "startNumber" value overflow (UInt16.MaxValue + 1 => 0)
+                                    : startNumber.ToString(CultureInfo.InvariantCulture);
                             }
                         }
                         else
