@@ -10,7 +10,7 @@ namespace FilesManager.Core.Tests.Services.Strategies
         [TestCase(" ", "")]
         [TestCase(null, "")]
         [TestCase("X", "X")]  // No path
-        public void TestMethod_GetPrependedAndAppendedName_ForValidPath_AndPrefix_AddsPrefixToChangedName(string testPrefix, string expectedPrefix)
+        public void GetPrependedAndAppendedName_ForValidPath_AndPrefix_AddsPrefixToChangedName(string testPrefix, string expectedPrefix)
         {
             // Arrange
             const string TestFilePath = @"C:\Drive\Folder\Subfolder\Test.jpg";
@@ -27,7 +27,7 @@ namespace FilesManager.Core.Tests.Services.Strategies
         [TestCase(" ", "")]
         [TestCase(null, "")]
         [TestCase("X", "X")]  // No path
-        public void TestMethod_GetPrependedAndAppendedName_ForValidPath_AndPostfix_AddsPostfixToChangedName(string testPostfix, string expectedPostfix)
+        public void GetPrependedAndAppendedName_ForValidPath_AndPostfix_AddsPostfixToChangedName(string testPostfix, string expectedPostfix)
         {
             // Arrange
             const string TestFilePath = @"C:\Drive\Folder\Subfolder\Test.jpg";
@@ -45,7 +45,7 @@ namespace FilesManager.Core.Tests.Services.Strategies
         [TestCase(null)]
         [TestCase(@"abc.jpg")]              // No path
         [TestCase(@"C:\Drive\Folder\abc")]  // No extension
-        public void TestMethod_GetPrependedAndAppendedName_ForInvalidPath_ReturnsEmptyString(string testPath)
+        public void GetPrependedAndAppendedName_ForInvalidPath_ReturnsEmptyString(string testPath)
         {
             // Act
             string actualFilePath = PrependAppend.GetPrependedAndAppendedName(testPath, "a", "z");

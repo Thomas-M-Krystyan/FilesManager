@@ -10,7 +10,7 @@ namespace FilesManager.Core.Tests.ExtensionMethods
         [TestCase(" ", "")]
         [TestCase(null, "")]
         [TestCase("test", "test")]
-        public void TestMethod_GetValueOrEmpty_ReturnsExpectedResult(string testText, string expectedResult)
+        public void GetValueOrEmpty_ReturnsExpectedResult(string testText, string expectedResult)
         {
             // Act
             string actualResult = testText.GetValueOrEmpty();

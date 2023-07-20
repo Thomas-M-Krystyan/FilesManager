@@ -7,7 +7,7 @@ namespace FilesManager.Core.Tests.Helpers
     public class HelperTests
     {
         [TestCaseSource(nameof(GetTestFileNames))]
-        public void TestMethod_GetMaxLength_ForValidInput_ReturnsExpectedMaxFileLength((string[] Names, int ExpectedCount) testData)
+        public void GetMaxLength_ForValidInput_ReturnsExpectedMaxFileLength((string[] Names, int ExpectedCount) testData)
         {
             // Act
             int result = Helper.GetMaxLength(testData.Names);

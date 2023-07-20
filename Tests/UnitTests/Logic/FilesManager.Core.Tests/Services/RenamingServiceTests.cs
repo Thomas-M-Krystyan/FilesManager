@@ -10,7 +10,7 @@ namespace FilesManager.Core.Tests.Services
         [TestCase("")]
         [TestCase(" ")]
         [TestCase(null)]
-        public void TestMethod_ReplaceWithNumber_ForInvalidPath_ReturnsFailureDto(string invalidPath)
+        public void ReplaceWithNumber_ForInvalidPath_ReturnsFailureDto(string invalidPath)
         {
             // Act
             RenamingResultDto actualResult = RenamingService.ReplaceWithNumber(invalidPath, "Pre", 9, "Post");
@@ -27,7 +27,7 @@ namespace FilesManager.Core.Tests.Services
         [TestCase("")]
         [TestCase(" ")]
         [TestCase(null)]
-        public void TestMethod_EnrichWithPrependAndAppend_ForInvalidPath_ReturnsFailureDto(string invalidPath)
+        public void EnrichWithPrependAndAppend_ForInvalidPath_ReturnsFailureDto(string invalidPath)
         {
             // Act
             RenamingResultDto actualResult = RenamingService.EnrichWithPrependAndAppend(invalidPath, "Prepend", "Append");
@@ -45,7 +45,7 @@ namespace FilesManager.Core.Tests.Services
         [TestCaseSource(nameof(LeadingZerosTestCases), new object[] { "" })]
         [TestCaseSource(nameof(LeadingZerosTestCases), new object[] { " " })]
         [TestCaseSource(nameof(LeadingZerosTestCases), new object?[] { null })]
-        public void TestMethod_SetLeadingZeros_ForInvalidPath_ReturnsFailureDto((string OriginalPath, (string Path, string Zeros, string Digits, string Name, string Extension) Dto, string ExpectedException) test)
+        public void SetLeadingZeros_ForInvalidPath_ReturnsFailureDto((string OriginalPath, (string Path, string Zeros, string Digits, string Name, string Extension) Dto, string ExpectedException) test)
         {
             // Act
             RenamingResultDto actualResult = RenamingService.SetLeadingZeros(

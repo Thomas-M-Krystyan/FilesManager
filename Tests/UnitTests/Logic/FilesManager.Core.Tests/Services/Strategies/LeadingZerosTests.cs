@@ -7,7 +7,7 @@ namespace FilesManager.Core.Tests.Services.Strategies
     internal class LeadingZerosTests
     {
         [TestCaseSource(nameof(GetTestFileNames_Zeros_MaxLength))]
-        public void TestMethod_GetLeadingZeros_ForValidInput_ReturnsExpectedChangedFileNames((string OriginalName, byte ZerosCount, ushort MaxFileLength, string ExpectedName) testData)
+        public void GetLeadingZeros_ForValidInput_ReturnsExpectedChangedFileNames((string OriginalName, byte ZerosCount, ushort MaxFileLength, string ExpectedName) testData)
         {
             // Act
             string actualName = LeadingZeros.GetDigitsWithLeadingZeros(testData.OriginalName, testData.ZerosCount, testData.MaxFileLength);

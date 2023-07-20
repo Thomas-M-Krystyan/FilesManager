@@ -7,7 +7,7 @@ namespace FilesManager.Core.Tests.Services.Strategies
     internal class IncrementNumberTests
     {
         [Test]
-        public void TestMethod_GetNumberIncrementedName_ForValidPath_AndNumber_ReturnsChangedFileName()
+        public void GetNumberIncrementedName_ForValidPath_AndNumber_ReturnsChangedFileName()
         {
             // Arrange
             const string TestFilePath = @"C:\Drive\Folder\abc.jpg";
@@ -24,7 +24,7 @@ namespace FilesManager.Core.Tests.Services.Strategies
         [TestCase(" ", "")]
         [TestCase(null, "")]
         [TestCase("X", "X")]  // No path
-        public void TestMethod_GetNumberIncrementedName_ForValidPath_AndPrefix_AddsPrefixToChangedName(string testPrefix, string expectedPrefix)
+        public void GetNumberIncrementedName_ForValidPath_AndPrefix_AddsPrefixToChangedName(string testPrefix, string expectedPrefix)
         {
             // Arrange
             const string TestFilePath = @"C:\Drive\Folder\Subfolder\1.jpg";
@@ -41,7 +41,7 @@ namespace FilesManager.Core.Tests.Services.Strategies
         [TestCase(" ", "")]
         [TestCase(null, "")]
         [TestCase("X", "X")]  // No path
-        public void TestMethod_GetNumberIncrementedName_ForValidPath_AndPostfix_AddsPostfixToChangedName(string testPostfix, string expectedPostfix)
+        public void GetNumberIncrementedName_ForValidPath_AndPostfix_AddsPostfixToChangedName(string testPostfix, string expectedPostfix)
         {
             // Arrange
             const string TestFilePath = @"C:\Drive\Folder\Subfolder\1.jpg";
@@ -59,7 +59,7 @@ namespace FilesManager.Core.Tests.Services.Strategies
         [TestCase(null)]
         [TestCase(@"abc.jpg")]              // No path
         [TestCase(@"C:\Drive\Folder\abc")]  // No extension
-        public void TestMethod_GetNumberIncrementedName_ForInvalidPath_ReturnsEmptyString(string testPath)
+        public void GetNumberIncrementedName_ForInvalidPath_ReturnsEmptyString(string testPath)
         {
             // Act
             string actualFilePath = IncrementNumber.GetNumberIncrementedName(testPath, "a", 9, "z");

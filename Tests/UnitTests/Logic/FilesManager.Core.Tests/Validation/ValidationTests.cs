@@ -28,7 +28,7 @@ namespace FilesManager.Core.Tests.Validation
         [TestCase("test.jpeg", true)]
         // Too long
         [TestCase("test.abcdefghijkl", false)]
-        public void TestMethod_HasValidExtension_ForGivenInput_ReturnsExpectedResult(string filePath, bool expectedResult)
+        public void HasValidExtension_ForGivenInput_ReturnsExpectedResult(string filePath, bool expectedResult)
         {
             // Act
             bool actualResult = Validate.HasValidExtension(filePath);
@@ -45,7 +45,7 @@ namespace FilesManager.Core.Tests.Validation
         [TestCase(null, false, "", "", "")]
         // Valid cases
         [TestCase("C:\\Folder\\File.dat", true, "C:\\Folder\\", "File", ".dat")]  // Simplified file path (with valid structure)
-        public void TestMethod_IsFilePathValid_ForValidInput_ReturnsExpectedResult_AndMatch(string testPath, bool isSuccess, string expectedPath, string expectedName, string expectedExtension)
+        public void IsFilePathValid_ForValidInput_ReturnsExpectedResult_AndMatch(string testPath, bool isSuccess, string expectedPath, string expectedName, string expectedExtension)
         {
             // Act
             Match actualResult = Validate.IsFilePathValid(testPath);
@@ -69,7 +69,7 @@ namespace FilesManager.Core.Tests.Validation
 
         #region ContainsIllegalCharacters
         [TestCaseSource(nameof(TestInputs))]
-        public void TestMethod_ContainsIllegalCharacters_ForInvalidInput_ReturnsExpectedResult_AndValue((string[] TextInputs, bool ExpectedResult, string ExpectedValue) test)
+        public void ContainsIllegalCharacters_ForInvalidInput_ReturnsExpectedResult_AndValue((string[] TextInputs, bool ExpectedResult, string ExpectedValue) test)
         {
             // Act
             bool actualResult = Validate.ContainsIllegalCharacters(test.TextInputs, out string actualValue);
