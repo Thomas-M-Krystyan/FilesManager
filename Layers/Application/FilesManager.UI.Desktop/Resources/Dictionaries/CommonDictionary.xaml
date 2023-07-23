@@ -7,7 +7,7 @@
     <Style x:Key="ControlWithResponsiveToolTips"
            TargetType="{x:Type Control}">
         <Setter Property="ToolTipService.IsEnabled" Value="True" />
-        <Setter Property="ToolTipService.InitialShowDelay" Value="250" />
+        <Setter Property="ToolTipService.InitialShowDelay" Value="250" />  <!-- Much faster tool tips -->
         <Setter Property="ToolTipService.ShowDuration" Value="20000" />
         <Setter Property="ToolTipService.ShowOnDisabled" Value="True" />
     </Style>
