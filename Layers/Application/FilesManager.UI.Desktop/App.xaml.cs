@@ -8,7 +8,7 @@ namespace FilesManager.UI.Desktop
     /// </summary>
     public partial class App : Application
     {
-        protected override void OnStartup(StartupEventArgs @event)
+        protected override void OnStartup(StartupEventArgs arguments)
         {
             this.MainWindow = new MainWindow()
             {
@@ -17,7 +17,7 @@ namespace FilesManager.UI.Desktop
 
             this.MainWindow.Show();
 
-            base.OnStartup(@event);
+            base.OnStartup(arguments);
         }
     }
 }
