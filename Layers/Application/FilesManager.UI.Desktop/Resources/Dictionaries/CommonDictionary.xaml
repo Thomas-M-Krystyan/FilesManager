@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:xaml="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:System="clr-namespace:System;assembly=mscorlib">
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
 
     <!-- #################### -->
     <!-- ###  VARIABLES:  ### -->
@@ -10,8 +10,8 @@
     <Thickness xaml:Key="RightPartMargin">0,0,10,10</Thickness>
     <GridLength xaml:Key="SeparatorHeight">5.0</GridLength>
     <GridLength xaml:Key="SeparatorWidth">5.0</GridLength>
-    <System:Double xaml:Key="TextBoxHeight">20.0</System:Double>
-    <System:Double xaml:Key="ButtonWidth">50.0</System:Double>
+    <system:Double xaml:Key="TextBoxHeight">20.0</system:Double>
+    <system:Double xaml:Key="ButtonWidth">50.0</system:Double>
 
     <!-- ################# -->
     <!-- ###  STYLES:  ### -->

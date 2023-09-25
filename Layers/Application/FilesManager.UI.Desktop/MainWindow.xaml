@@ -3,12 +3,13 @@
         xmlns:data="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:xaml="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:markup="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:property="clr-namespace:FilesManager.UI.Desktop.Properties"
+        xmlns:properties="clr-namespace:FilesManager.UI.Desktop.Properties"
         xmlns:main="clr-namespace:FilesManager.UI.Desktop.ViewModels.Root"
+        xmlns:strategies="clr-namespace:FilesManager.UI.Desktop.ViewModels.Strategies"
         data:DataContext="{data:DesignInstance Type=main:MainWindowViewModel}"
         markup:Ignorable="data"
         
-        Title="{xaml:Static property:Resources.WindowTitle}"
+        Title="{xaml:Static properties:Resources.WindowTitle}"
         
         Background="LightGray"
         WindowStyle="SingleBorderWindow"
@@ -48,7 +49,7 @@
                  VerticalAlignment="Top"
                  AllowDrop="True"
                  Drop="Drop_Files"
-                 ToolTip="{xaml:Static property:Resources.Tooltip_FilesList}"
+                 ToolTip="{xaml:Static properties:Resources.Tooltip_FilesList}"
                  Style="{StaticResource ControlWithResponsiveToolTips}" />
 
         <!-- ################################## -->
@@ -75,9 +76,9 @@
                    Margin="0,5,0,0"
                    HorizontalAlignment="Left"
                    VerticalAlignment="Top"
-                   Content="{xaml:Static property:Resources.Header_General}"
+                   Content="{xaml:Static properties:Resources.Header_General}"
                    FontWeight="ExtraBold"
-                   ToolTip="{xaml:Static property:Resources.Tooltip_RenamingHeader}"
+                   ToolTip="{xaml:Static properties:Resources.Tooltip_RenamingHeader}"
                    Style="{StaticResource ControlWithResponsiveToolTips}" />
 
             <!-- Strategy #1: Increment number -->
@@ -103,54 +104,54 @@
                     <!-- Header -->
                     <Label Grid.Column="0" Grid.ColumnSpan="5"
                            Grid.Row="0"
-                           Content="{Binding MethodHeader}"
-                           ToolTip="{xaml:Static property:Resources.Tooltip_Method_IncrementNumber}"
+                           Content="{xaml:Static strategies:IncrementNumberViewModel.MethodHeader}"
+                           ToolTip="{xaml:Static properties:Resources.Tooltip_Method_IncrementNumber}"
                            Style="{StaticResource HeaderStyle}" />
 
                     <!-- Controls -->
                     <RadioButton xaml:Name="StartNumberRadioButton"
                                  Grid.Column="0"
                                  Grid.Row="1"
-                                 ToolTip="{xaml:Static property:Resources.Tooltip_RadioButton}"
+                                 ToolTip="{xaml:Static properties:Resources.Tooltip_RadioButton}"
                                  Style="{StaticResource RadioButtonStyle}"
                                  Checked="StartNumberRadioButton_Checked" />
 
                     <Label Grid.Column="1"
                            Grid.Row="1"
-                           Content="{xaml:Static property:Resources.Label_Prefix}"
-                           ToolTip="{xaml:Static property:Resources.Tooltip_Prefix}"
+                           Content="{xaml:Static properties:Resources.Label_Prefix}"
+                           ToolTip="{xaml:Static properties:Resources.Tooltip_Prefix}"
                            Style="{StaticResource LabelStyle}"
                            MouseLeftButtonDown="StartNumberLabel_Clicked" />
                     <TextBox xaml:Name="NamePrefix"
                              Grid.Column="2"
                              Grid.Row="1"
-                             ToolTip="{xaml:Static property:Resources.Tooltip_Tip_NonEmptyFieldContent}"
+                             ToolTip="{xaml:Static properties:Resources.Tooltip_Tip_NonEmptyFieldContent}"
                              Style="{StaticResource TextBoxStyle_120}"
                              GotFocus="StartNumberTextBox_Focus" />
 
                     <Label Grid.Column="3"
                            Grid.Row="1"
-                           Content="{xaml:Static property:Resources.Label_StartNumber}"
-                           ToolTip="{xaml:Static property:Resources.Tooltip_StartNumber}"
+                           Content="{xaml:Static properties:Resources.Label_StartNumber}"
+                           ToolTip="{xaml:Static properties:Resources.Tooltip_StartNumber}"
                            Style="{StaticResource LabelStyle}"
                            MouseLeftButtonDown="StartNumberLabel_Clicked" />
                     <TextBox xaml:Name="StartingNumber"
                              Grid.Column="4"
                              Grid.Row="1"
-                             ToolTip="{xaml:Static property:Resources.Tooltip_Tip_OnlyPositiveNumbers}"
+                             ToolTip="{xaml:Static properties:Resources.Tooltip_Tip_OnlyPositiveNumbers}"
                              Style="{StaticResource TextBoxStyle_60}"
                              GotFocus="StartNumberTextBox_Focus" />
 
                     <Label Grid.Column="5"
                            Grid.Row="1"
-                           Content="{xaml:Static property:Resources.Label_Postfix}"
-                           ToolTip="{xaml:Static property:Resources.Tooltip_Postfix}"
+                           Content="{xaml:Static properties:Resources.Label_Postfix}"
+                           ToolTip="{xaml:Static properties:Resources.Tooltip_Postfix}"
                            Style="{StaticResource LabelStyle}"
                            MouseLeftButtonDown="StartNumberLabel_Clicked" />
                     <TextBox xaml:Name="NamePostfix"
                              Grid.Column="6"
                              Grid.Row="1"
-                             ToolTip="{xaml:Static property:Resources.Tooltip_Tip_NonEmptyFieldContent}"
+                             ToolTip="{xaml:Static properties:Resources.Tooltip_Tip_NonEmptyFieldContent}"
                              Style="{StaticResource TextBoxStyle_120}"
                              GotFocus="StartNumberTextBox_Focus" />
                 </Grid>
@@ -188,41 +189,41 @@
                         <!-- Header -->
                         <Label Grid.Column="0" Grid.ColumnSpan="5"
                                Grid.Row="0"
-                               Content="{xaml:Static property:Resources.Header_Method_PrependAppend}"
-                               ToolTip="{xaml:Static property:Resources.Tooltip_Method_PrependAppend}"
+                               Content="{xaml:Static properties:Resources.Header_Method_PrependAppend}"
+                               ToolTip="{xaml:Static properties:Resources.Tooltip_Method_PrependAppend}"
                                Style="{StaticResource HeaderStyle}" />
 
                         <!-- Controls -->
                         <RadioButton xaml:Name="PrependAppendRadioButton"
                                      Grid.Column="0"
                                      Grid.Row="1"
-                                     ToolTip="{xaml:Static property:Resources.Tooltip_RadioButton}"
+                                     ToolTip="{xaml:Static properties:Resources.Tooltip_RadioButton}"
                                      Style="{StaticResource RadioButtonStyle}"
                                      Checked="PrependAppendRadioButtonRadioButton_Checked" />
 
                         <Label Grid.Column="1"
                                Grid.Row="1"
-                               Content="{xaml:Static property:Resources.Label_Prepend}"
-                               ToolTip="{xaml:Static property:Resources.Tooltip_Prepend}"
+                               Content="{xaml:Static properties:Resources.Label_Prepend}"
+                               ToolTip="{xaml:Static properties:Resources.Tooltip_Prepend}"
                                Style="{StaticResource LabelStyle}"
                                MouseLeftButtonDown="PrependAppendLabel_Clicked" />
                         <TextBox xaml:Name="PrependName"
                                  Grid.Column="2"
                                  Grid.Row="1"
-                                 ToolTip="{xaml:Static property:Resources.Tooltip_Tip_NonEmptyFieldContent}"
+                                 ToolTip="{xaml:Static properties:Resources.Tooltip_Tip_NonEmptyFieldContent}"
                                  Style="{StaticResource TextBoxStyle_120}"
                                  GotFocus="PrependAppendTextBox_Focus" />
 
                         <Label Grid.Column="3"
                                Grid.Row="1"
-                               Content="{xaml:Static property:Resources.Label_Append}"
-                               ToolTip="{xaml:Static property:Resources.Tooltip_Append}"
+                               Content="{xaml:Static properties:Resources.Label_Append}"
+                               ToolTip="{xaml:Static properties:Resources.Tooltip_Append}"
                                Style="{StaticResource LabelStyle}"
                                MouseLeftButtonDown="PrependAppendLabel_Clicked" />
                         <TextBox xaml:Name="AppendName"
                                  Grid.Column="4"
                                  Grid.Row="1"
-                                 ToolTip="{xaml:Static property:Resources.Tooltip_Tip_NonEmptyFieldContent}"
+                                 ToolTip="{xaml:Static properties:Resources.Tooltip_Tip_NonEmptyFieldContent}"
                                  Style="{StaticResource TextBoxStyle_120}"
                                  GotFocus="PrependAppendTextBox_Focus" />
                     </Grid>
@@ -246,28 +247,28 @@
                         <!-- Header -->
                         <Label Grid.Column="0" Grid.ColumnSpan="3"
                                Grid.Row="0"
-                               Content="{xaml:Static property:Resources.Header_Method_LeadingZeros}"
-                               ToolTip="{xaml:Static property:Resources.Tooltip_Method_LeadingZeros}"
+                               Content="{xaml:Static properties:Resources.Header_Method_LeadingZeros}"
+                               ToolTip="{xaml:Static properties:Resources.Tooltip_Method_LeadingZeros}"
                                Style="{StaticResource HeaderStyle}" />
 
                         <!-- Controls -->
                         <RadioButton xaml:Name="SetLeadingZerosRadioButton"
                                      Grid.Column="0"
                                      Grid.Row="1"
-                                     ToolTip="{xaml:Static property:Resources.Tooltip_RadioButton}"
+                                     ToolTip="{xaml:Static properties:Resources.Tooltip_RadioButton}"
                                      Style="{StaticResource RadioButtonStyle}"
                                      Checked="SetLeadingZerosRadioButton_Checked" />
 
                         <Label Grid.Column="1"
                                Grid.Row="1"
-                               Content="{xaml:Static property:Resources.Label_Set}"
-                               ToolTip="{xaml:Static property:Resources.Tooltip_Set}"
+                               Content="{xaml:Static properties:Resources.Label_Set}"
+                               ToolTip="{xaml:Static properties:Resources.Tooltip_Set}"
                                Style="{StaticResource LabelStyle}"
                                MouseLeftButtonDown="LeadingZerosLabel_Clicked" />
                         <TextBox xaml:Name="LeadingZeros"
                                  Grid.Column="2"
                                  Grid.Row="1"
-                                 ToolTip="{xaml:Static property:Resources.Tooltip_Tip_OnlyVerySmallPositiveNumbers}"
+                                 ToolTip="{xaml:Static properties:Resources.Tooltip_Tip_OnlyVerySmallPositiveNumbers}"
                                  Style="{StaticResource TextBoxStyle_60}"
                                  GotFocus="LeadingZerosTextBox_Focus" />
                     </Grid>
@@ -295,19 +296,19 @@
                 <Button xaml:Name="ClearListButton"
                         Grid.Column="1"
                         Grid.Row="1"
-                        Content="{xaml:Static property:Resources.Content_ResetButton}"
+                        Content="{xaml:Static properties:Resources.Content_ResetButton}"
                         Background="#FFDCB9B9"
                         Click="ResetButton_Click"
-                        ToolTip="{xaml:Static property:Resources.Tooltip_ResetButton}"
+                        ToolTip="{xaml:Static properties:Resources.Tooltip_ResetButton}"
                         Style="{StaticResource ButtonStyle}" />
 
                 <Button xaml:Name="ProcessButton"
                         Grid.Column="3"
                         Grid.Row="1"
-                        Content="{xaml:Static property:Resources.Content_ProcessButton}"
+                        Content="{xaml:Static properties:Resources.Content_ProcessButton}"
                         Background="LightBlue"
                         Click="ProcessButton_Click"
-                        ToolTip="{xaml:Static property:Resources.Tooltip_ProcessButton}"
+                        ToolTip="{xaml:Static properties:Resources.Tooltip_ProcessButton}"
                         Style="{StaticResource ButtonStyle}" />
             </Grid>
         </Grid>
