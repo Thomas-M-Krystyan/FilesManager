@@ -23,6 +23,8 @@ namespace FilesManager.UI.Desktop
         {
             InitializeComponent();
 
+            this.SizeToContent = SizeToContent.WidthAndHeight;  // NOTE: Adjust window to its content in real-time
+
             RegisterRadioButtons();
         }
 

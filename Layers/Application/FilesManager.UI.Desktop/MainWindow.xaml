@@ -10,13 +10,11 @@
         
         Title="{xaml:Static property:Resources.WindowTitle}"
         
-        Height="458"
-        Width="816"
         Background="LightGray"
-        
         WindowStyle="SingleBorderWindow"
         ResizeMode="CanMinimize">  <!-- NOTE: Enable minimize / maximize buttons -->
 
+    <!-- RESOURCES -->
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -25,16 +23,27 @@
         </ResourceDictionary>
     </Window.Resources>
 
+    <!-- CONTENT -->
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="{StaticResource SeparatorWidth}"/>
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
         <!-- ################################# -->
         <!-- ###  LEFT PART OF THE SCREEN  ### -->
         <!-- ################################# -->
-
-        <!-- List of loaded files -->
+            <!-- List of loaded files -->
         <ListBox xaml:Name="FilesList"
+                 Grid.Column="0"
+                 Grid.Row="0"
                  Height="400"
-                 Width="350"
-                 Margin="10,10,0,0"
+                 Width="300"
+                 Margin="{StaticResource LeftPartMargin}"
                  HorizontalAlignment="Left"
                  VerticalAlignment="Top"
                  AllowDrop="True"
@@ -45,321 +54,262 @@
         <!-- ################################## -->
         <!-- ###  RIGHT PART OF THE SCREEN  ### -->
         <!-- ################################## -->
+        <Grid Grid.Column="2"
+              Grid.Row="0"
+              Margin="{StaticResource RightPartMargin}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />  <!-- Main row -->
+                <RowDefinition Height="Auto" />  <!-- Strategy #1 -->
+                <RowDefinition Height="{StaticResource SeparatorWidth}" />
+                <RowDefinition Height="Auto" />  <!-- Strategy #2 + #3 -->
+                <RowDefinition />
+                <RowDefinition Height="Auto" />  <!-- Buttons -->
+            </Grid.RowDefinitions>
 
-        <!-- Group label -->
-        <Label Content="{xaml:Static property:Resources.Header_General}"
-               FontWeight="ExtraBold"
-               Margin="368,5,0,0"
-               HorizontalAlignment="Left"
-               VerticalAlignment="Top"
-               ToolTip="{xaml:Static property:Resources.Tooltip_RenamingHeader}"
-               Style="{StaticResource ControlWithResponsiveToolTips}" />
-
-        <TextBlock Text="HINT: Hover anything to see help"
-                   FontWeight="ExtraLight"
-                   FontSize="10px"
-                   Margin="650,5,0,0"
+            <!-- Main row -->
+            <Label Grid.Column="0"
+                   Grid.Row="0"
+                   Margin="0,5,0,0"
                    HorizontalAlignment="Left"
-                   VerticalAlignment="Top" />
+                   VerticalAlignment="Top"
+                   Content="{xaml:Static property:Resources.Header_General}"
+                   FontWeight="ExtraBold"
+                   ToolTip="{xaml:Static property:Resources.Tooltip_RenamingHeader}"
+                   Style="{StaticResource ControlWithResponsiveToolTips}" />
 
-        <!-- Renaming files (incremented number) -->
-        <Border Margin="370,35,0,0"
-                Padding="2,0,2,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                BorderThickness="1px"
-                BorderBrush="DarkGray"
-                DataContext="{Binding IncrementStrategy}">
-            <Grid>
+            <!-- Strategy #1: Increment number -->
+            <Border Grid.Column="0" Grid.ColumnSpan="2"
+                    Grid.Row="1"
+                    DataContext="{Binding IncrementStrategy}"
+                    Style="{StaticResource BorderStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <!-- Header -->
+                    <Label Grid.Column="0" Grid.ColumnSpan="5"
+                           Grid.Row="0"
+                           Content="{Binding MethodHeader}"
+                           ToolTip="{xaml:Static property:Resources.Tooltip_Method_IncrementNumber}"
+                           Style="{StaticResource HeaderStyle}" />
+
+                    <!-- Controls -->
+                    <RadioButton xaml:Name="StartNumberRadioButton"
+                                 Grid.Column="0"
+                                 Grid.Row="1"
+                                 ToolTip="{xaml:Static property:Resources.Tooltip_RadioButton}"
+                                 Style="{StaticResource RadioButtonStyle}"
+                                 Checked="StartNumberRadioButton_Checked" />
+
+                    <Label Grid.Column="1"
+                           Grid.Row="1"
+                           Content="{xaml:Static property:Resources.Label_Prefix}"
+                           ToolTip="{xaml:Static property:Resources.Tooltip_Prefix}"
+                           Style="{StaticResource LabelStyle}"
+                           MouseLeftButtonDown="StartNumberLabel_Clicked" />
+                    <TextBox xaml:Name="NamePrefix"
+                             Grid.Column="2"
+                             Grid.Row="1"
+                             ToolTip="{xaml:Static property:Resources.Tooltip_Tip_NonEmptyFieldContent}"
+                             Style="{StaticResource TextBoxStyle_120}"
+                             GotFocus="StartNumberTextBox_Focus" />
+
+                    <Label Grid.Column="3"
+                           Grid.Row="1"
+                           Content="{xaml:Static property:Resources.Label_StartNumber}"
+                           ToolTip="{xaml:Static property:Resources.Tooltip_StartNumber}"
+                           Style="{StaticResource LabelStyle}"
+                           MouseLeftButtonDown="StartNumberLabel_Clicked" />
+                    <TextBox xaml:Name="StartingNumber"
+                             Grid.Column="4"
+                             Grid.Row="1"
+                             ToolTip="{xaml:Static property:Resources.Tooltip_Tip_OnlyPositiveNumbers}"
+                             Style="{StaticResource TextBoxStyle_60}"
+                             GotFocus="StartNumberTextBox_Focus" />
+
+                    <Label Grid.Column="5"
+                           Grid.Row="1"
+                           Content="{xaml:Static property:Resources.Label_Postfix}"
+                           ToolTip="{xaml:Static property:Resources.Tooltip_Postfix}"
+                           Style="{StaticResource LabelStyle}"
+                           MouseLeftButtonDown="StartNumberLabel_Clicked" />
+                    <TextBox xaml:Name="NamePostfix"
+                             Grid.Column="6"
+                             Grid.Row="1"
+                             ToolTip="{xaml:Static property:Resources.Tooltip_Tip_NonEmptyFieldContent}"
+                             Style="{StaticResource TextBoxStyle_120}"
+                             GotFocus="StartNumberTextBox_Focus" />
+                </Grid>
+            </Border>
+
+            <Grid Grid.Column="0"
+                  Grid.Row="3">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="15px" />
-                    <ColumnDefinition Width="45px" />
-                    <ColumnDefinition Width="90px" />
-                    <ColumnDefinition Width="85px" />
-                    <ColumnDefinition Width="40px" />
-                    <ColumnDefinition Width="50px" />
-                    <ColumnDefinition Width="90px" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="{StaticResource SeparatorWidth}" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
+                    
+                <!-- Strategy #2: Prepend / appended -->
+                <Border Grid.Column="0"
+                        Grid.Row="0"
+                        Style="{StaticResource BorderStyle}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
 
-                <!-- 1st row -->
-                <Label Grid.Column="0" Grid.ColumnSpan="5"
-                       Grid.Row="0"
-                       Content="{xaml:Static property:Resources.Header_Method_IncrementNumber}"
-                       FontSize="9px"
-                       FontWeight="Bold"
-                       Margin="-3,0,0,0"
-                       HorizontalAlignment="Left"
-                       VerticalAlignment="Top"
-                       ToolTip="{xaml:Static property:Resources.Tooltip_Method_IncrementNumber}"
-                       Style="{StaticResource ControlWithResponsiveToolTips}" />
+                        <!-- Header -->
+                        <Label Grid.Column="0" Grid.ColumnSpan="5"
+                               Grid.Row="0"
+                               Content="{xaml:Static property:Resources.Header_Method_PrependAppend}"
+                               ToolTip="{xaml:Static property:Resources.Tooltip_Method_PrependAppend}"
+                               Style="{StaticResource HeaderStyle}" />
 
-                <!-- 2nd row -->
-                <RadioButton xaml:Name="StartNumberRadioButton"
-                             Grid.Column="0"
-                             Grid.Row="1"
-                             Height="14"
-                             Width="15"
-                             HorizontalAlignment="Left"
-                             VerticalAlignment="Center"
-                             ToolTip="{xaml:Static property:Resources.Tooltip_RadioButton}"
-                             Style="{StaticResource ControlWithResponsiveToolTips}"
-                             Checked="StartNumberRadioButton_Checked" />
+                        <!-- Controls -->
+                        <RadioButton xaml:Name="PrependAppendRadioButton"
+                                     Grid.Column="0"
+                                     Grid.Row="1"
+                                     ToolTip="{xaml:Static property:Resources.Tooltip_RadioButton}"
+                                     Style="{StaticResource RadioButtonStyle}"
+                                     Checked="PrependAppendRadioButtonRadioButton_Checked" />
 
-                <Label Content="{xaml:Static property:Resources.Label_Prefix}"
-                       Grid.Column="1"
-                       Grid.Row="1"
-                       Height="25"
-                       HorizontalAlignment="Right"
-                       VerticalAlignment="Center"
-                       ToolTip="{xaml:Static property:Resources.Tooltip_Prefix}"
-                       Style="{StaticResource ControlWithResponsiveToolTips}"
-                       MouseLeftButtonDown="StartNumberLabel_Clicked" />
+                        <Label Grid.Column="1"
+                               Grid.Row="1"
+                               Content="{xaml:Static property:Resources.Label_Prepend}"
+                               ToolTip="{xaml:Static property:Resources.Tooltip_Prepend}"
+                               Style="{StaticResource LabelStyle}"
+                               MouseLeftButtonDown="PrependAppendLabel_Clicked" />
+                        <TextBox xaml:Name="PrependName"
+                                 Grid.Column="2"
+                                 Grid.Row="1"
+                                 ToolTip="{xaml:Static property:Resources.Tooltip_Tip_NonEmptyFieldContent}"
+                                 Style="{StaticResource TextBoxStyle_120}"
+                                 GotFocus="PrependAppendTextBox_Focus" />
 
-                <TextBox xaml:Name="NamePrefix"
-                         Grid.Column="2"
-                         Grid.Row="1"
-                         Height="20"
-                         Width="90"
-                         VerticalContentAlignment="Center"
-                         TextWrapping="Wrap"
-                         HorizontalAlignment="Left"
-                         VerticalAlignment="Center"
-                         ToolTip="{xaml:Static property:Resources.Tooltip_Tip_NonEmptyFieldContent}"
-                         Style="{StaticResource ControlWithResponsiveToolTips}"
-                         GotFocus="StartNumberTextBox_Focus" />
+                        <Label Grid.Column="3"
+                               Grid.Row="1"
+                               Content="{xaml:Static property:Resources.Label_Append}"
+                               ToolTip="{xaml:Static property:Resources.Tooltip_Append}"
+                               Style="{StaticResource LabelStyle}"
+                               MouseLeftButtonDown="PrependAppendLabel_Clicked" />
+                        <TextBox xaml:Name="AppendName"
+                                 Grid.Column="4"
+                                 Grid.Row="1"
+                                 ToolTip="{xaml:Static property:Resources.Tooltip_Tip_NonEmptyFieldContent}"
+                                 Style="{StaticResource TextBoxStyle_120}"
+                                 GotFocus="PrependAppendTextBox_Focus" />
+                    </Grid>
+                </Border>
 
-                <Label Content="{xaml:Static property:Resources.Label_StartNumber}"
-                       Grid.Column="3"
-                       Grid.Row="1"
-                       Height="25"
-                       HorizontalAlignment="Right"
-                       VerticalAlignment="Center"
-                       ToolTip="{xaml:Static property:Resources.Tooltip_StartNumber}"
-                       Style="{StaticResource ControlWithResponsiveToolTips}"
-                       MouseLeftButtonDown="StartNumberLabel_Clicked" />
+                <!-- Strategy #3: Leading zeros -->
+                <Border Grid.Column="2"
+                        Grid.Row="0"
+                        Style="{StaticResource BorderStyle}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
 
-                <TextBox xaml:Name="StartingNumber"
-                         Grid.Column="4"
-                         Grid.Row="1"
-                         Height="20"
-                         Width="40"
-                         VerticalContentAlignment="Center"
-                         TextWrapping="Wrap"
-                         HorizontalAlignment="Left"
-                         VerticalAlignment="Center"
-                         ToolTip="{xaml:Static property:Resources.Tooltip_Tip_OnlyPositiveNumbers}"
-                         Style="{StaticResource ControlWithResponsiveToolTips}"
-                         GotFocus="StartNumberTextBox_Focus" />
+                        <!-- Header -->
+                        <Label Grid.Column="0" Grid.ColumnSpan="3"
+                               Grid.Row="0"
+                               Content="{xaml:Static property:Resources.Header_Method_LeadingZeros}"
+                               ToolTip="{xaml:Static property:Resources.Tooltip_Method_LeadingZeros}"
+                               Style="{StaticResource HeaderStyle}" />
 
-                <Label Content="{xaml:Static property:Resources.Label_Postfix}"
-                       Grid.Column="5"
-                       Grid.Row="1"
-                       Height="25"
-                       HorizontalAlignment="Right"
-                       VerticalAlignment="Center"
-                       ToolTip="{xaml:Static property:Resources.Tooltip_Postfix}"
-                       Style="{StaticResource ControlWithResponsiveToolTips}"
-                       MouseLeftButtonDown="StartNumberLabel_Clicked" />
+                        <!-- Controls -->
+                        <RadioButton xaml:Name="SetLeadingZerosRadioButton"
+                                     Grid.Column="0"
+                                     Grid.Row="1"
+                                     ToolTip="{xaml:Static property:Resources.Tooltip_RadioButton}"
+                                     Style="{StaticResource RadioButtonStyle}"
+                                     Checked="SetLeadingZerosRadioButton_Checked" />
 
-                <TextBox xaml:Name="NamePostfix"
-                         Grid.Column="6"
-                         Grid.Row="1"
-                         Height="20"
-                         Width="90"
-                         VerticalContentAlignment="Center"
-                         TextWrapping="Wrap"
-                         HorizontalAlignment="Left"
-                         VerticalAlignment="Center"
-                         ToolTip="{xaml:Static property:Resources.Tooltip_Tip_NonEmptyFieldContent}"
-                         Style="{StaticResource ControlWithResponsiveToolTips}"
-                         GotFocus="StartNumberTextBox_Focus" />
+                        <Label Grid.Column="1"
+                               Grid.Row="1"
+                               Content="{xaml:Static property:Resources.Label_Set}"
+                               ToolTip="{xaml:Static property:Resources.Tooltip_Set}"
+                               Style="{StaticResource LabelStyle}"
+                               MouseLeftButtonDown="LeadingZerosLabel_Clicked" />
+                        <TextBox xaml:Name="LeadingZeros"
+                                 Grid.Column="2"
+                                 Grid.Row="1"
+                                 ToolTip="{xaml:Static property:Resources.Tooltip_Tip_OnlyVerySmallPositiveNumbers}"
+                                 Style="{StaticResource TextBoxStyle_60}"
+                                 GotFocus="LeadingZerosTextBox_Focus" />
+                    </Grid>
+                </Border>
             </Grid>
-        </Border>
 
-        <!-- Renaming files (prepend and/or appended text) -->
-        <Border Margin="370,88,0,0"
-                Padding="2,0,2,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                BorderThickness="1px"
-                BorderBrush="DarkGray">
-            <Grid>
+            <!-- Global buttons -->
+            <Grid Grid.Column="1"
+                  Grid.Row="4"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Bottom">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="15px" />
-                    <ColumnDefinition Width="60px" />
-                    <ColumnDefinition Width="85" />
-                    <ColumnDefinition Width="60" />
-                    <ColumnDefinition Width="85" />
+                    <ColumnDefinition Width="{StaticResource SeparatorWidth}" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="{StaticResource SeparatorWidth}" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="{StaticResource SeparatorWidth}" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="{StaticResource SeparatorHeight}" />
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="{StaticResource SeparatorHeight}" />
                 </Grid.RowDefinitions>
 
-                <!-- 1st row -->
-                <Label Grid.Column="0" Grid.ColumnSpan="5"
-                       Grid.Row="0"
-                       Content="{xaml:Static property:Resources.Header_Method_PrependAppend}"
-                       FontSize="9px"
-                       FontWeight="Bold"
-                       Margin="-3,0,0,0"
-                       HorizontalAlignment="Left"
-                       VerticalAlignment="Top"
-                       ToolTip="{xaml:Static property:Resources.Tooltip_Method_PrependAppend}"
-                       Style="{StaticResource ControlWithResponsiveToolTips}" />
+                <Button xaml:Name="ClearListButton"
+                        Grid.Column="1"
+                        Grid.Row="1"
+                        Content="{xaml:Static property:Resources.Content_ResetButton}"
+                        Background="#FFDCB9B9"
+                        Click="ResetButton_Click"
+                        ToolTip="{xaml:Static property:Resources.Tooltip_ResetButton}"
+                        Style="{StaticResource ButtonStyle}" />
 
-                <!-- 2nd row -->
-                <RadioButton xaml:Name="PrependAppendRadioButton"
-                             Grid.Column="0"
-                             Grid.Row="1"
-                             Height="14"
-                             Width="15"
-                             HorizontalAlignment="Left"
-                             VerticalAlignment="Center"
-                             ToolTip="{xaml:Static property:Resources.Tooltip_RadioButton}"
-                             Style="{StaticResource ControlWithResponsiveToolTips}"
-                             Checked="PrependAppendRadioButtonRadioButton_Checked" />
-
-                <Label Content="{xaml:Static property:Resources.Label_Prepend}"
-                       Grid.Column="1"
-                       Grid.Row="1"
-                       Height="25"
-                       HorizontalAlignment="Right"
-                       VerticalAlignment="Center"
-                       ToolTip="{xaml:Static property:Resources.Tooltip_Prepend}"
-                       Style="{StaticResource ControlWithResponsiveToolTips}"
-                       MouseLeftButtonDown="PrependAppendLabel_Clicked" />
-
-                <TextBox xaml:Name="PrependName"
-                         Grid.Column="2"
-                         Grid.Row="1"
-                         Height="20"
-                         Width="85"
-                         VerticalContentAlignment="Center"
-                         TextWrapping="Wrap"
-                         HorizontalAlignment="Left"
-                         VerticalAlignment="Center"
-                         ToolTip="{xaml:Static property:Resources.Tooltip_Tip_NonEmptyFieldContent}"
-                         Style="{StaticResource ControlWithResponsiveToolTips}"
-                         GotFocus="PrependAppendTextBox_Focus" />
-
-                <Label Content="{xaml:Static property:Resources.Label_Append}"
-                       Grid.Column="3"
-                       Grid.Row="1"
-                       Height="25"
-                       HorizontalAlignment="Right"
-                       VerticalAlignment="Center"
-                       ToolTip="{xaml:Static property:Resources.Tooltip_Append}"
-                       Style="{StaticResource ControlWithResponsiveToolTips}"
-                       MouseLeftButtonDown="PrependAppendLabel_Clicked" />
-
-                <TextBox xaml:Name="AppendName"
-                         Grid.Column="4"
-                         Grid.Row="1"
-                         Height="20"
-                         Width="85"
-                         VerticalContentAlignment="Center"
-                         TextWrapping="Wrap"
-                         HorizontalAlignment="Left"
-                         VerticalAlignment="Center"
-                         ToolTip="{xaml:Static property:Resources.Tooltip_Tip_NonEmptyFieldContent}"
-                         Style="{StaticResource ControlWithResponsiveToolTips}"
-                         GotFocus="PrependAppendTextBox_Focus" />
+                <Button xaml:Name="ProcessButton"
+                        Grid.Column="3"
+                        Grid.Row="1"
+                        Content="{xaml:Static property:Resources.Content_ProcessButton}"
+                        Background="LightBlue"
+                        Click="ProcessButton_Click"
+                        ToolTip="{xaml:Static property:Resources.Tooltip_ProcessButton}"
+                        Style="{StaticResource ButtonStyle}" />
             </Grid>
-        </Border>
-
-        <!-- Renaming files (leading zeros) -->
-        <Border Margin="685,88,0,0"
-                Padding="2,0,2,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                BorderThickness="1px"
-                BorderBrush="DarkGray">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="15px" />
-                    <ColumnDefinition Width="30px" />
-                    <ColumnDefinition Width="55px" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-
-                <!-- 1st row -->
-                <Label Grid.Column="0" Grid.ColumnSpan="3"
-                       Grid.Row="0"
-                       Content="{xaml:Static property:Resources.Header_Method_LeadingZeros}"
-                       FontSize="9px"
-                       FontWeight="Bold"
-                       Margin="-3,0,0,0"
-                       HorizontalAlignment="Left"
-                       VerticalAlignment="Top"
-                       ToolTip="{xaml:Static property:Resources.Tooltip_Method_LeadingZeros}"
-                       Style="{StaticResource ControlWithResponsiveToolTips}" />
-
-                <!-- 2nd row -->
-                <RadioButton xaml:Name="SetLeadingZerosRadioButton"
-                             Grid.Column="0"
-                             Grid.Row="1"
-                             Height="14"
-                             Width="15"
-                             HorizontalAlignment="Left"
-                             VerticalAlignment="Center"
-                             ToolTip="{xaml:Static property:Resources.Tooltip_RadioButton}"
-                             Style="{StaticResource ControlWithResponsiveToolTips}"
-                             Checked="SetLeadingZerosRadioButton_Checked" />
-
-                <Label Content="{xaml:Static property:Resources.Label_Set}"
-                       Grid.Column="1"
-                       Grid.Row="1"
-                       Height="25"
-                       HorizontalAlignment="Right"
-                       VerticalAlignment="Center"
-                       ToolTip="{xaml:Static property:Resources.Tooltip_Set}"
-                       Style="{StaticResource ControlWithResponsiveToolTips}"
-                       MouseLeftButtonDown="LeadingZerosLabel_Clicked" />
-
-                <TextBox xaml:Name="LeadingZeros"
-                         Grid.Column="2"
-                         Grid.Row="1"
-                         Height="20"
-                         Width="55"
-                         VerticalContentAlignment="Center"
-                         TextWrapping="Wrap"
-                         HorizontalAlignment="Left"
-                         VerticalAlignment="Center"
-                         ToolTip="{xaml:Static property:Resources.Tooltip_Tip_OnlyVerySmallPositiveNumbers}"
-                         Style="{StaticResource ControlWithResponsiveToolTips}"
-                         GotFocus="LeadingZerosTextBox_Focus" />
-            </Grid>
-        </Border>
-
-        <!-- Global buttons -->
-        <Button xaml:Name="ClearListButton"
-                Content="{xaml:Static property:Resources.Content_ResetButton}"
-                Width="50"
-                Margin="0,0,65,10"
-                Background="#FFDCB9B9"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Click="ResetButton_Click"
-                ToolTip="{xaml:Static property:Resources.Tooltip_ResetButton}"
-                Style="{StaticResource ControlWithResponsiveToolTips}" />
-
-        <Button xaml:Name="ProcessButton"
-                Content="{xaml:Static property:Resources.Content_ProcessButton}"
-                Width="50"
-                Margin="0,0,10,10"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Background="LightBlue"
-                Click="ProcessButton_Click"
-                ToolTip="{xaml:Static property:Resources.Tooltip_ProcessButton}"
-                Style="{StaticResource ControlWithResponsiveToolTips}" />
+        </Grid>
     </Grid>
 </Window>

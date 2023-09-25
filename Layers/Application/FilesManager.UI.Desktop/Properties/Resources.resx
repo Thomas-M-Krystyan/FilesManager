@@ -127,13 +127,13 @@
     <value>RENAME FILES</value>
   </data>
   <data name="Header_Method_IncrementNumber" xml:space="preserve">
-    <value>Replace name (old [name] =&gt; prefix? + number + postfix?)</value>
+    <value>"Replace name" (old name → prefix? + number + postfix?)</value>
   </data>
   <data name="Header_Method_LeadingZeros" xml:space="preserve">
-    <value>Leading zeros</value>
+    <value>"Leading zeros"</value>
   </data>
   <data name="Header_Method_PrependAppend" xml:space="preserve">
-    <value>Update name (prepend? + [unchanged name] + append?)</value>
+    <value>"Update name" (prepend? + [unchanged name] + append?)</value>
   </data>
   <data name="Label_Append" xml:space="preserve">
     <value>Append:</value>
@@ -246,7 +246,7 @@ RESULT:
     <value>INFO: Select to activate this method</value>
   </data>
   <data name="Tooltip_RenamingHeader" xml:space="preserve">
-    <value>File extensions will remain intact. Only file names will be affected</value>
+    <value>INFO: File extensions will remain intact. Only file names will be affected</value>
   </data>
   <data name="Tooltip_ResetButton" xml:space="preserve">
     <value>INFO: Clears loaded files and all values from methods</value>
@@ -269,6 +269,7 @@ Invalid characters:  \ / : * ? " &lt; &gt; |</value>
     <value>TIP: Only positive numbers from the range [0 - 7]</value>
   </data>
   <data name="WindowTitle" xml:space="preserve">
-    <value>File Manager (v0.3.3-alpha)</value>
+    <value>File Manager (v0.3.4-alpha)</value>
+    <comment>Version</comment>
   </data>
 </root>

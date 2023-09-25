@@ -88,7 +88,7 @@ namespace FilesManager.UI.Desktop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Replace name (old [name] =&gt; prefix? + number + postfix?).
+        ///   Looks up a localized string similar to &quot;Replace name&quot; (old name → prefix? + number + postfix?).
         /// </summary>
         public static string Header_Method_IncrementNumber {
             get {
@@ -97,7 +97,7 @@ namespace FilesManager.UI.Desktop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Leading zeros.
+        ///   Looks up a localized string similar to &quot;Leading zeros&quot;.
         /// </summary>
         public static string Header_Method_LeadingZeros {
             get {
@@ -106,7 +106,7 @@ namespace FilesManager.UI.Desktop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Update name (prepend? + [unchanged name] + append?).
+        ///   Looks up a localized string similar to &quot;Update name&quot; (prepend? + [unchanged name] + append?).
         /// </summary>
         public static string Header_Method_PrependAppend {
             get {
@@ -316,7 +316,7 @@ namespace FilesManager.UI.Desktop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to File extensions will remain intact. Only file names will be affected.
+        ///   Looks up a localized string similar to INFO: File extensions will remain intact. Only file names will be affected.
         /// </summary>
         public static string Tooltip_RenamingHeader {
             get {
@@ -381,7 +381,7 @@ namespace FilesManager.UI.Desktop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to File Manager (v0.3.3-alpha).
+        ///   Looks up a localized string similar to File Manager (v0.3.4-alpha).
         /// </summary>
         public static string WindowTitle {
             get {

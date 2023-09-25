@@ -1,15 +1,98 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:xaml="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:System="clr-namespace:System;assembly=mscorlib">
 
-    <!-- STYLES: -->
-    
+    <!-- #################### -->
+    <!-- ###  VARIABLES:  ### -->
+    <!-- #################### -->
+
+    <Thickness xaml:Key="LeftPartMargin">10,10,0,10</Thickness>
+    <Thickness xaml:Key="RightPartMargin">0,0,10,10</Thickness>
+    <GridLength xaml:Key="SeparatorHeight">5.0</GridLength>
+    <GridLength xaml:Key="SeparatorWidth">5.0</GridLength>
+    <System:Double xaml:Key="TextBoxHeight">20.0</System:Double>
+    <System:Double xaml:Key="ButtonWidth">50.0</System:Double>
+
+    <!-- ################# -->
+    <!-- ###  STYLES:  ### -->
+    <!-- ################# -->
+
     <!-- WPF control with updated (faster) tool tips -->
-    <Style x:Key="ControlWithResponsiveToolTips"
-           TargetType="{x:Type Control}">
+    <Style xaml:Key="ControlWithResponsiveToolTips"
+           TargetType="{xaml:Type Control}">
         <Setter Property="ToolTipService.IsEnabled" Value="True" />
-        <Setter Property="ToolTipService.InitialShowDelay" Value="250" />  <!-- Much faster tool tips -->
+        <Setter Property="ToolTipService.InitialShowDelay" Value="250" />  <!-- Much more responsive tooltips -->
         <Setter Property="ToolTipService.ShowDuration" Value="20000" />
         <Setter Property="ToolTipService.ShowOnDisabled" Value="True" />
+    </Style>
+    
+    <!-- Borders -->
+    <Style xaml:Key="BorderStyle"
+           TargetType="{xaml:Type Border}">
+        <Setter Property="Padding" Value="2,0,2,0" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="BorderThickness" Value="1px" />
+        <Setter Property="BorderBrush" Value="DarkGray" />
+    </Style>
+
+    <!-- Headers -->
+    <Style xaml:Key="HeaderStyle"
+           TargetType="{xaml:Type Label}"
+           BasedOn="{StaticResource ControlWithResponsiveToolTips}">
+        <Setter Property="Margin" Value="-3,0,0,0" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="9px" />
+        <Setter Property="FontWeight" Value="Bold" />
+    </Style>
+
+    <!-- Radio Buttons -->
+    <Style xaml:Key="RadioButtonStyle"
+           TargetType="{xaml:Type RadioButton}"
+           BasedOn="{StaticResource ControlWithResponsiveToolTips}">
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+
+    <!-- Labels -->
+    <Style xaml:Key="LabelStyle"
+           TargetType="{xaml:Type Label}"
+           BasedOn="{StaticResource ControlWithResponsiveToolTips}">
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+
+    <!-- Text Boxes -->
+    <Style xaml:Key="TextBoxStyle"
+           TargetType="{xaml:Type TextBox}"
+           BasedOn="{StaticResource ControlWithResponsiveToolTips}">
+        <Setter Property="Height" Value="{StaticResource TextBoxHeight}" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+    </Style>
+
+    <Style xaml:Key="TextBoxStyle_120"
+           TargetType="{xaml:Type TextBox}"
+           BasedOn="{StaticResource TextBoxStyle}">
+        <Setter Property="Width" Value="120px" />
+    </Style>
+
+    <Style xaml:Key="TextBoxStyle_60"
+           TargetType="{xaml:Type TextBox}"
+           BasedOn="{StaticResource TextBoxStyle}">
+        <Setter Property="Width" Value="60px" />
+    </Style>
+
+    <!-- Buttons -->
+    <Style xaml:Key="ButtonStyle"
+           TargetType="{xaml:Type Button}"
+           BasedOn="{StaticResource ControlWithResponsiveToolTips}">
+        <Setter Property="Width" Value="{StaticResource ButtonWidth}" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
 
 </ResourceDictionary>
