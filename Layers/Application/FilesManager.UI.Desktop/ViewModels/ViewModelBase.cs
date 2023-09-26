@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using FilesManager.UI.Desktop.Properties;
+using System.ComponentModel;
 
 namespace FilesManager.UI.Desktop.ViewModels
 {
@@ -7,6 +8,11 @@ namespace FilesManager.UI.Desktop.ViewModels
     /// </summary>
     internal abstract class ViewModelBase : INotifyPropertyChanged
     {
+        // Texts
+        public static readonly string Content_NonEmptyField_Tooltip = Resources.Tooltip_Tip_Content_NonEmptyField;
+        public static readonly string Content_OnlyPositives_Tooltip = Resources.Tooltip_Tip_Content_OnlyPositives;
+
+        // Events
         public event PropertyChangedEventHandler? PropertyChanged;
 
         /// <summary>

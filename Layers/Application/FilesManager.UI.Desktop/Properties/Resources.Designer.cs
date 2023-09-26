@@ -88,7 +88,7 @@ namespace FilesManager.UI.Desktop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;Replace name&quot; (old name → prefix? + number + postfix?).
+        ///   Looks up a localized string similar to &quot;Replace name&quot; ([old name] → prefix? + number + postfix?).
         /// </summary>
         public static string Header_Method_IncrementNumber {
             get {
@@ -356,27 +356,27 @@ namespace FilesManager.UI.Desktop.Properties {
         ///
         ///Invalid characters:  \ / : * ? &quot; &lt; &gt; |.
         /// </summary>
-        public static string Tooltip_Tip_NonEmptyFieldContent {
+        public static string Tooltip_Tip_Content_NonEmptyField {
             get {
-                return ResourceManager.GetString("Tooltip_Tip_NonEmptyFieldContent", resourceCulture);
+                return ResourceManager.GetString("Tooltip_Tip_Content_NonEmptyField", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to TIP: Only positive numbers from the range [0 - 65 535].
         /// </summary>
-        public static string Tooltip_Tip_OnlyPositiveNumbers {
+        public static string Tooltip_Tip_Content_OnlyPositives {
             get {
-                return ResourceManager.GetString("Tooltip_Tip_OnlyPositiveNumbers", resourceCulture);
+                return ResourceManager.GetString("Tooltip_Tip_Content_OnlyPositives", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to TIP: Only positive numbers from the range [0 - 7].
         /// </summary>
-        public static string Tooltip_Tip_OnlyVerySmallPositiveNumbers {
+        public static string Tooltip_Tip_Content_OnlyVerySmallPositives {
             get {
-                return ResourceManager.GetString("Tooltip_Tip_OnlyVerySmallPositiveNumbers", resourceCulture);
+                return ResourceManager.GetString("Tooltip_Tip_Content_OnlyVerySmallPositives", resourceCulture);
             }
         }
         

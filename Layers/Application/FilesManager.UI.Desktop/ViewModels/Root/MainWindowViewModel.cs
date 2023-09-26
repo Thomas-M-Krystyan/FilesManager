@@ -4,9 +4,8 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
 {
     internal sealed class MainWindowViewModel : ViewModelBase
     {
-        #region View Models
-        public IncrementNumberViewModel IncrementStrategy { get; set; }
-        #endregion
+        // View Models
+        internal IncrementNumberViewModel IncrementStrategy { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindowViewModel"/> class.

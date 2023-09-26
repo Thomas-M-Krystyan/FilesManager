@@ -127,7 +127,7 @@
     <value>RENAME FILES</value>
   </data>
   <data name="Header_Method_IncrementNumber" xml:space="preserve">
-    <value>"Replace name" (old name → prefix? + number + postfix?)</value>
+    <value>"Replace name" ([old name] → prefix? + number + postfix?)</value>
   </data>
   <data name="Header_Method_LeadingZeros" xml:space="preserve">
     <value>"Leading zeros"</value>
@@ -257,15 +257,15 @@ RESULT:
   <data name="Tooltip_StartNumber" xml:space="preserve">
     <value>INFO: Rename given files using an incremented start number</value>
   </data>
-  <data name="Tooltip_Tip_NonEmptyFieldContent" xml:space="preserve">
+  <data name="Tooltip_Tip_Content_NonEmptyField" xml:space="preserve">
     <value>TIP: Empty or only whitespaces content will be ignored
 
 Invalid characters:  \ / : * ? " &lt; &gt; |</value>
   </data>
-  <data name="Tooltip_Tip_OnlyPositiveNumbers" xml:space="preserve">
+  <data name="Tooltip_Tip_Content_OnlyPositives" xml:space="preserve">
     <value>TIP: Only positive numbers from the range [0 - 65 535]</value>
   </data>
-  <data name="Tooltip_Tip_OnlyVerySmallPositiveNumbers" xml:space="preserve">
+  <data name="Tooltip_Tip_Content_OnlyVerySmallPositives" xml:space="preserve">
     <value>TIP: Only positive numbers from the range [0 - 7]</value>
   </data>
   <data name="WindowTitle" xml:space="preserve">
