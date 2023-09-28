@@ -37,7 +37,7 @@ namespace FilesManager.UI.Desktop
             ClearFilesList();
 
             // Cleanup input sections and Radio Buttons
-            ClearIncrementedNumber();
+            //ClearIncrementedNumber();  // TODO: Uncomment
             ClearPrependAppend();
             ClearLeadingZeros();
         }
@@ -57,7 +57,7 @@ namespace FilesManager.UI.Desktop
                 // Methods control
                 if (this.StartNumberRadioButton.IsChecked())
                 {
-                    RenameWithIncrementedNumber();
+                    //RenameWithIncrementedNumber();  // TODO: Uncomment
                 }
                 else if (this.PrependAppendRadioButton.IsChecked())
                 {

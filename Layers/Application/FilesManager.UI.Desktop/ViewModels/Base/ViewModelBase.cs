@@ -1,7 +1,7 @@
 ﻿using FilesManager.UI.Desktop.Properties;
 using System.ComponentModel;
 
-namespace FilesManager.UI.Desktop.ViewModels
+namespace FilesManager.UI.Desktop.ViewModels.Base
 {
     /// <summary>
     /// Base class for all view models in MVVM architecture.
@@ -20,7 +20,7 @@ namespace FilesManager.UI.Desktop.ViewModels
         /// </summary>
         protected void OnPropertyChanged(string propertyName)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
