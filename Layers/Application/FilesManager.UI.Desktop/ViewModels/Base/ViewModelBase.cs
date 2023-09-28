@@ -1,6 +1,5 @@
 ﻿using FilesManager.UI.Desktop.Properties;
 using Microsoft.Xaml.Behaviors.Core;
-using System;
 using System.ComponentModel;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -11,8 +10,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Base
     /// Base class for all view models in MVVM architecture.
     /// </summary>
     /// <seealso cref="INotifyPropertyChanged"/>
-    /// <seealso cref="IDisposable"/>
-    internal abstract class ViewModelBase : INotifyPropertyChanged, IDisposable
+    internal abstract class ViewModelBase : INotifyPropertyChanged
     {
         #region Texts
         public static readonly string Content_NonEmptyField_Tooltip = Resources.Tooltip_Tip_Content_NonEmptyField;
@@ -52,20 +50,6 @@ namespace FilesManager.UI.Desktop.ViewModels.Base
         /// Clears some elements related to this view model (e.g., <see cref="RadioButton"/>(s) or input fields).
         /// </summary>
         protected abstract void Reset();
-        #endregion
-
-        #region IDisposable pattern
-        private protected bool _disposed;
-
-        /// <inheritdoc cref="IDisposable.Dispose()"/>
-        void IDisposable.Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        /// <inheritdoc cref="IDisposable.Dispose()"/>
-        protected abstract void Dispose(bool disposing);
         #endregion
     }
 }

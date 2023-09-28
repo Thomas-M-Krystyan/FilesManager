@@ -25,18 +25,5 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         {
             this.IncrementStrategy.OnReset();
         }
-
-        /// <inheritdoc cref="ViewModelBase.Dispose(bool)"/>
-        protected override void Dispose(bool disposing)
-        {
-            if (!this._disposed)
-            {
-                if (disposing)
-                {
-                }
-
-                this._disposed = true;
-            }
-        }
     }
 }

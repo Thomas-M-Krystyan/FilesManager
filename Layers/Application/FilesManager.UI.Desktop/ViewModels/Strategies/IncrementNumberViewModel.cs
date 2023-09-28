@@ -150,18 +150,5 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         {
             this.IsEnabled = true;
         }
-
-        /// <inheritdoc cref="ViewModelBase.Dispose(bool)"/>
-        protected override void Dispose(bool disposing)
-        {
-            if (!this._disposed)
-            {
-                if (disposing)
-                {
-                }
-
-                this._disposed = true;
-            }
-        }
     }
 }
