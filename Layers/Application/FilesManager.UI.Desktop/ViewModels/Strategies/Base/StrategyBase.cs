@@ -1,6 +1,6 @@
 ﻿using FilesManager.UI.Desktop.ViewModels.Base;
-using System;
-using System.Windows.Controls;
+using Microsoft.Xaml.Behaviors.Core;
+using System.Windows.Input;
 
 namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
 {
@@ -8,8 +8,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
     /// Base class for all file manipulation strategies.
     /// </summary>
     /// <seealso cref="ViewModelBase" />
-    /// <seealso cref="IDisposable"/>
-    internal abstract class StrategyBase : ViewModelBase, IDisposable
+    internal abstract class StrategyBase : ViewModelBase
     {
         #region Properties
         private bool _isEnabled = false;
@@ -28,32 +27,25 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         }
         #endregion
 
-        #region Events
+        #region Commands
         /// <summary>
-        /// Performs cleanup <see cref="Action"/>s.
+        /// Occurs when a click on some members of this view model was requested.
         /// </summary>
-        protected event Action OnClear = () => { };
+        public ICommand OnSelected => new ActionCommand(Select);
         #endregion
 
-        #region Methods
         /// <summary>
-        /// Clears elements related to this strategy (<see cref="RadioButton"/> and input fields).
+        /// Initializes a new instance of the <see cref="StrategyBase"/> class.
         /// </summary>
-        protected abstract void Clear();
-        #endregion
-
-        #region IDisposable pattern
-        private protected bool _disposed;
-
-        /// <inheritdoc cref="IDisposable.Dispose()"/>
-        void IDisposable.Dispose()
+        protected StrategyBase() : base()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
         }
 
-        /// <inheritdoc cref="IDisposable.Dispose()"/>
-        protected abstract void Dispose(bool disposing);
+        #region Abstract
+        /// <summary>
+        /// Selects some elements related to this strategy based on the click event from the XAML side.
+        /// </summary>
+        protected abstract void Select();
         #endregion
     }
 }

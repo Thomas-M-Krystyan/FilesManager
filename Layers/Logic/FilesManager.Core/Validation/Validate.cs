@@ -57,7 +57,7 @@ namespace FilesManager.Core.Validation
         /// </returns>
         public static bool ContainsIllegalCharacters(string[] textInputs, out string invalidValue)
         {
-            invalidValue = String.Empty;
+            invalidValue = string.Empty;
 
             if (textInputs != null)
             {
@@ -86,8 +86,8 @@ namespace FilesManager.Core.Validation
                 : pathDto switch
                   {
                       // Zeros-Digits type of DTO with missing Zeros and Digits values
-                      PathZerosDigitsExtensionDto zerosDigitsDto when zerosDigitsDto.Zeros == String.Empty &&
-                                                                      zerosDigitsDto.Digits == String.Empty
+                      PathZerosDigitsExtensionDto zerosDigitsDto when zerosDigitsDto.Zeros == string.Empty &&
+                                                                      zerosDigitsDto.Digits == string.Empty
                         => RenamingResultDto.Failure($"The file name \"{previousFileName}\" does not contain preceeding numeric part"),
                       
                       // Default

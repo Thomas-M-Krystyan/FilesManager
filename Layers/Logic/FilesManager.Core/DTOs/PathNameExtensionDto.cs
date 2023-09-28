@@ -15,7 +15,7 @@ namespace FilesManager.Core.DTOs
         /// <summary>
         /// Gets the name of the file.
         /// </summary>
-        public string Name { get; } = String.Empty;
+        public string Name { get; } = string.Empty;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PathNameExtensionDto"/> class.

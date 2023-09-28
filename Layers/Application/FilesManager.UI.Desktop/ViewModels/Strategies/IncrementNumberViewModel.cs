@@ -1,7 +1,6 @@
 ﻿using FilesManager.UI.Desktop.Properties;
 using FilesManager.UI.Desktop.ViewModels.Base;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
-using System;
 
 namespace FilesManager.UI.Desktop.ViewModels.Strategies
 {
@@ -11,7 +10,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
     /// <seealso cref="ViewModelBase"/>
     internal sealed class IncrementNumberViewModel : StrategyBase
     {
-        // Texts
+        #region Texts
         public static readonly string Method_Header = Resources.Header_Method_IncrementNumber;
         public static readonly string Method_Tooltip = Resources.Tooltip_Method_IncrementNumber;
         public static readonly string RadioButton_Tooltip = Resources.Tooltip_RadioButton;
@@ -21,9 +20,10 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         public static readonly string StartNumber_Tooltip = Resources.Tooltip_StartNumber;
         public static readonly string Postfix_Label = Resources.Label_Postfix;
         public static readonly string Postfix_Tooltip = Resources.Tooltip_Postfix;
+        #endregion
 
-        // Properties
-        private string _namePrefix = String.Empty;
+        #region Properties
+        private string _namePrefix = string.Empty;
         public string NamePrefix
         {
             get => this._namePrefix;
@@ -34,7 +34,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             }
         }
 
-        private string _startingNumber = String.Empty;
+        private string _startingNumber = string.Empty;
         public string StartingNumber
         {
             get => this._startingNumber;
@@ -45,7 +45,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             }
         }
 
-        private string _namePostfix = String.Empty;
+        private string _namePostfix = string.Empty;
         public string NamePostfix
         {
             get => this._namePostfix;
@@ -55,18 +55,15 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
                 OnPropertyChanged(nameof(this.NamePostfix));
             }
         }
+        #endregion
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="IncrementNumberViewModel"/> class.
         /// </summary>
-        internal IncrementNumberViewModel()
+        internal IncrementNumberViewModel() : base()
         {
-            // Subscribe events
-            this.OnClear += Clear;
         }
-
-
-
 
         /// <summary>
         /// Renames given files using incremented start number and optional postfix.
@@ -130,53 +127,38 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         //    DisplayPopup(result);
         //}
 
-        //#region Button handlers
-        ///// <summary>
-        ///// Activates <see cref="RadioButton"/> which belongs to this renaming strategy.
-        ///// </summary>
-        //private void StartNumberRadioButton_Checked(object sender, RoutedEventArgs @event)
-        //{
-        //    this.IsEnabled = true;
+        /// <inheritdoc cref="ViewModelBase.OnReset"/>
+        public new void OnReset()
+        {
+            if (base.OnReset.CanExecute(null))
+            {
+                base.OnReset.Execute(null);
+            }
+        }
 
-        //    ResetAllRadioButtonsExcept(this.StartNumberRadioButton);
-        //}
-
-        ///// <summary>
-        ///// Selects the <see cref="RadioButton"/> when this label was clicked.
-        ///// </summary>
-        //private void StartNumberLabel_Clicked(object sender, RoutedEventArgs @event)
-        //{
-        //    StartNumberRadioButton_Checked(sender, @event);
-        //}
-
-        ///// <summary>
-        ///// Selects the <see cref="RadioButton"/> when this input text field was activated (on focus).
-        ///// </summary>
-        //private void StartNumberTextBox_Focus(object sender, RoutedEventArgs @event)
-        //{
-        //    StartNumberRadioButton_Checked(sender, @event);
-        //}
-        //#endregion
-
-        /// <inheritdoc cref="StrategyBase.Clear()"/>
-        protected override void Clear()
+        /// <inheritdoc cref="ViewModelBase.Reset()"/>
+        protected override void Reset()
         {
             this.IsEnabled = false;
 
-            this.NamePrefix = String.Empty;
-            this.StartingNumber = String.Empty;
-            this.NamePostfix = String.Empty;
+            this.NamePrefix = string.Empty;
+            this.StartingNumber = string.Empty;
+            this.NamePostfix = string.Empty;
         }
 
-        /// <inheritdoc cref="StrategyBase.Dispose()"/>
+        /// <inheritdoc cref="StrategyBase.Select()"/>
+        protected override void Select()
+        {
+            this.IsEnabled = true;
+        }
+
+        /// <inheritdoc cref="ViewModelBase.Dispose(bool)"/>
         protected override void Dispose(bool disposing)
         {
             if (!this._disposed)
             {
                 if (disposing)
                 {
-                    // Unsubscribe events
-                    this.OnClear -= Clear;
                 }
 
                 this._disposed = true;

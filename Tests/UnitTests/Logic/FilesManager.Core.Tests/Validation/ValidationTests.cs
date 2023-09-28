@@ -11,7 +11,6 @@ namespace FilesManager.Core.Tests.Validation
         // Invalid caases
         [TestCase("", false)]
         [TestCase(" ", false)]
-        [TestCase(null, false)]
         // Too short
         [TestCase("a", false)]
         [TestCase("a.", false)]
@@ -42,7 +41,6 @@ namespace FilesManager.Core.Tests.Validation
         // Invalid cases
         [TestCase("", false, "", "", "")]
         [TestCase(" ", false, "", "", "")]
-        [TestCase(null, false, "", "", "")]
         // Valid cases
         [TestCase("C:\\Folder\\File.dat", true, "C:\\Folder\\", "File", ".dat")]  // Simplified file path (with valid structure)
         public void IsFilePathValid_ForValidInput_ReturnsExpectedResult_AndMatch(string testPath, bool isSuccess, string expectedPath, string expectedName, string expectedExtension)

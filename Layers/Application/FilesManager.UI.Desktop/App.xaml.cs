@@ -10,11 +10,13 @@ namespace FilesManager.UI.Desktop
     {
         protected override void OnStartup(StartupEventArgs arguments)
         {
+            // Sets the context of the application (MainWindow.xaml.cs)
             this.MainWindow = new MainWindow()
             {
                 DataContext = new MainWindowViewModel()
             };
 
+            // Displays the graphic layer of the application (MainWindow.xaml)
             this.MainWindow.Show();
 
             base.OnStartup(arguments);

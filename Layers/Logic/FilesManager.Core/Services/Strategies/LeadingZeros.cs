@@ -19,7 +19,7 @@ namespace FilesManager.Core.Services.Strategies
             Match filePathMatch = Validate.IsFilePathValid(fileNameComponents.Path);
 
             return !filePathMatch.Success
-                ? String.Empty
+                ? string.Empty
                 : FilePathConverter.GetFilePath(
                     path: fileNameComponents.Path,
                     name: $"{GetDigitsWithLeadingZeros(fileNameComponents.Digits, zerosCount, maxNumberLength)}" +

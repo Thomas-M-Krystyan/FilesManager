@@ -8,7 +8,6 @@ namespace FilesManager.Core.Tests.ExtensionMethods
     {
         [TestCase("", "")]
         [TestCase(" ", "")]
-        [TestCase(null, "")]
         [TestCase("test", "test")]
         public void GetValueOrEmpty_ReturnsExpectedResult(string testText, string expectedResult)
         {

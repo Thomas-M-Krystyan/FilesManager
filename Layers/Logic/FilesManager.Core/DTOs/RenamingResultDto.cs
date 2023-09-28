@@ -13,12 +13,12 @@
         /// <summary>
         /// Gets the renaming result message (information, warning, error).
         /// </summary>
-        public string Message { get; } = String.Empty;
+        public string Message { get; } = string.Empty;
 
         /// <summary>
         /// Gets new renamed file path.
         /// </summary>
-        public string NewFilePath { get; } = String.Empty;
+        public string NewFilePath { get; } = string.Empty;
 
         #region Constructors
         /// <summary>

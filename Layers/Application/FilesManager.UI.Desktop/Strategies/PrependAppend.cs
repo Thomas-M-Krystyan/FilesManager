@@ -31,8 +31,8 @@ namespace FilesManager.UI.Desktop
                 }
 
                 // Reset input fields
-                this.PrependName.Text = String.Empty;
-                this.AppendName.Text = String.Empty;
+                this.PrependName.Text = string.Empty;
+                this.AppendName.Text = string.Empty;
             }
 
             DisplayPopup(result);
@@ -74,8 +74,8 @@ namespace FilesManager.UI.Desktop
         {
             this.PrependAppendRadioButton.Deactivate();
 
-            this.PrependName.Text = String.Empty;
-            this.AppendName.Text = String.Empty;
+            this.PrependName.Text = string.Empty;
+            this.AppendName.Text = string.Empty;
         }
         #endregion
     }

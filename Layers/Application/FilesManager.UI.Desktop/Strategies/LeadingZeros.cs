@@ -52,7 +52,7 @@ namespace FilesManager.UI.Desktop
                 }
 
                 // Reset input field
-                this.LeadingZeros.Text = String.Empty;
+                this.LeadingZeros.Text = string.Empty;
             }
             else
             {
@@ -99,7 +99,7 @@ namespace FilesManager.UI.Desktop
         {
             this.SetLeadingZerosRadioButton.Deactivate();
 
-            this.LeadingZeros.Text = String.Empty;
+            this.LeadingZeros.Text = string.Empty;
         }
         #endregion
     }

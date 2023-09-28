@@ -10,7 +10,7 @@
         /// </summary>
         internal static string GetValueOrEmpty(this string value)
         {
-            return String.IsNullOrWhiteSpace(value) ? String.Empty : value;
+            return String.IsNullOrWhiteSpace(value) ? string.Empty : value;
         }
     }
 }

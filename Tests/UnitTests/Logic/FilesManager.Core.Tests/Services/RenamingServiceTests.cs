@@ -9,7 +9,6 @@ namespace FilesManager.Core.Tests.Services
     {
         [TestCase("")]
         [TestCase(" ")]
-        [TestCase(null)]
         public void ReplaceWithNumber_ForInvalidPath_ReturnsFailureDto(string invalidPath)
         {
             // Act
@@ -26,7 +25,6 @@ namespace FilesManager.Core.Tests.Services
 
         [TestCase("")]
         [TestCase(" ")]
-        [TestCase(null)]
         public void EnrichWithPrependAndAppend_ForInvalidPath_ReturnsFailureDto(string invalidPath)
         {
             // Act

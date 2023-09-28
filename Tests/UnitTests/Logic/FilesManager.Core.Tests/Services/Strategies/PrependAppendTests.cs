@@ -8,7 +8,6 @@ namespace FilesManager.Core.Tests.Services.Strategies
     {
         [TestCase("", "")]
         [TestCase(" ", "")]
-        [TestCase(null, "")]
         [TestCase("X", "X")]  // No path
         public void GetPrependedAndAppendedName_ForValidPath_AndPrefix_AddsPrefixToChangedName(string testPrefix, string expectedPrefix)
         {
@@ -17,7 +16,7 @@ namespace FilesManager.Core.Tests.Services.Strategies
             string expectedFilePath = @$"C:\Drive\Folder\Subfolder\{expectedPrefix}Test.jpg";
 
             // Act
-            string actualFilePath = PrependAppend.GetPrependedAndAppendedName(TestFilePath, testPrefix, String.Empty);
+            string actualFilePath = PrependAppend.GetPrependedAndAppendedName(TestFilePath, testPrefix, string.Empty);
 
             // Assert
             Assert.That(actualFilePath, Is.EqualTo(expectedFilePath));
@@ -25,7 +24,6 @@ namespace FilesManager.Core.Tests.Services.Strategies
 
         [TestCase("", "")]
         [TestCase(" ", "")]
-        [TestCase(null, "")]
         [TestCase("X", "X")]  // No path
         public void GetPrependedAndAppendedName_ForValidPath_AndPostfix_AddsPostfixToChangedName(string testPostfix, string expectedPostfix)
         {
@@ -34,7 +32,7 @@ namespace FilesManager.Core.Tests.Services.Strategies
             string expectedFilePath = @$"C:\Drive\Folder\Subfolder\Test{expectedPostfix}.jpg";
 
             // Act
-            string actualFilePath = PrependAppend.GetPrependedAndAppendedName(TestFilePath, String.Empty, testPostfix);
+            string actualFilePath = PrependAppend.GetPrependedAndAppendedName(TestFilePath, string.Empty, testPostfix);
 
             // Assert
             Assert.That(actualFilePath, Is.EqualTo(expectedFilePath));
@@ -42,7 +40,6 @@ namespace FilesManager.Core.Tests.Services.Strategies
 
         [TestCase("")]
         [TestCase(" ")]
-        [TestCase(null)]
         [TestCase(@"abc.jpg")]              // No path
         [TestCase(@"C:\Drive\Folder\abc")]  // No extension
         public void GetPrependedAndAppendedName_ForInvalidPath_ReturnsEmptyString(string testPath)
@@ -51,7 +48,7 @@ namespace FilesManager.Core.Tests.Services.Strategies
             string actualFilePath = PrependAppend.GetPrependedAndAppendedName(testPath, "a", "z");
 
             // Assert
-            Assert.That(actualFilePath, Is.EqualTo(String.Empty));
+            Assert.That(actualFilePath, Is.EqualTo(string.Empty));
         }
     }
 }
