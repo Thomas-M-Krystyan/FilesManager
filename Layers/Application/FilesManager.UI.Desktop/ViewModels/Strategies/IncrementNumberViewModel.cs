@@ -57,7 +57,6 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         }
         #endregion
 
-
         /// <summary>
         /// Initializes a new instance of the <see cref="IncrementNumberViewModel"/> class.
         /// </summary>
