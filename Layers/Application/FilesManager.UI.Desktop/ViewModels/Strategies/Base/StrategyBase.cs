@@ -1,6 +1,4 @@
 ﻿using FilesManager.UI.Desktop.ViewModels.Base;
-using Microsoft.Xaml.Behaviors.Core;
-using System.Windows.Input;
 
 namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
 {
@@ -27,13 +25,6 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         }
         #endregion
 
-        #region Commands
-        /// <summary>
-        /// Occurs when a click on some members of this view model was requested.
-        /// </summary>
-        public ICommand OnSelected => new ActionCommand(Select);
-        #endregion
-
         /// <summary>
         /// Initializes a new instance of the <see cref="StrategyBase"/> class.
         /// </summary>
@@ -41,11 +32,38 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         {
         }
 
-        #region Abstract
-        /// <summary>
-        /// Selects some elements related to this strategy based on the click event from the XAML side.
-        /// </summary>
-        protected abstract void Select();
+        #region Event handlers
+        /// <inheritdoc cref="ViewModelBase.OnReset"/>
+        public new void OnSelected()
+        {
+            if (base.OnSelected.CanExecute(null))
+            {
+                base.OnSelected.Execute(null);
+            }
+        }
+
+        /// <inheritdoc cref="ViewModelBase.OnReset"/>
+        public new void OnDeselected()
+        {
+            if (base.OnDeselected.CanExecute(null))
+            {
+                base.OnDeselected.Execute(null);
+            }
+        }
+        #endregion
+
+        #region Polymorphism
+        /// <inheritdoc cref="ViewModelBase.Select()"/>
+        protected override sealed void Select()  // NOTE: Default behavior for all strategies, no need to change it. Overloading restricted
+        {
+            this.IsEnabled = true;
+        }
+
+        /// <inheritdoc cref="ViewModelBase.Deselect()"/>
+        protected override sealed void Deselect()  // NOTE: Default behavior for all strategies, no need to change it. Overloading restricted
+        {
+            this.IsEnabled = false;
+        }
         #endregion
     }
 }

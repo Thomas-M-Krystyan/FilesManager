@@ -126,6 +126,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         //    DisplayPopup(result);
         //}
 
+        #region Event handlers
         /// <inheritdoc cref="ViewModelBase.OnReset"/>
         public new void OnReset()
         {
@@ -134,21 +135,18 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
                 base.OnReset.Execute(null);
             }
         }
+        #endregion
 
+        #region Polymorphism
         /// <inheritdoc cref="ViewModelBase.Reset()"/>
-        protected override void Reset()
+        protected override sealed void Reset()  // NOTE: Speficic behavior for this concrete strategy. Overloading restricted
         {
-            this.IsEnabled = false;
+            Deselect();
 
             this.NamePrefix = string.Empty;
             this.StartingNumber = string.Empty;
             this.NamePostfix = string.Empty;
         }
-
-        /// <inheritdoc cref="StrategyBase.Select()"/>
-        protected override void Select()
-        {
-            this.IsEnabled = true;
-        }
+        #endregion
     }
 }

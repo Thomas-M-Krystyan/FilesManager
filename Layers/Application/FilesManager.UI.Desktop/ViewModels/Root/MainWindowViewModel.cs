@@ -20,10 +20,22 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
             this.IncrementStrategy = new IncrementNumberViewModel();
         }
 
-        /// <inheritdoc cref="ViewModelBase.Reset()"/>
-        protected override void Reset()
+        #region Polymorphism
+        /// <summary>
+        /// Deselects all strategies.
+        /// </summary>
+        protected override sealed void Deselect()  // NOTE: Specific behavior of the hub for other view models. Overloading restricted
+        {
+            this.IncrementStrategy.OnDeselected();
+        }
+
+        /// <summary>
+        /// Resets all strategies.
+        /// </summary>
+        protected override sealed void Reset()  // NOTE: Specific behavior of the hub for other view models. Overloading restricted
         {
             this.IncrementStrategy.OnReset();
         }
+        #endregion
     }
 }

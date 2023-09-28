@@ -1,7 +1,6 @@
 ﻿using FilesManager.UI.Desktop.Properties;
 using Microsoft.Xaml.Behaviors.Core;
 using System.ComponentModel;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace FilesManager.UI.Desktop.ViewModels.Base
@@ -23,7 +22,17 @@ namespace FilesManager.UI.Desktop.ViewModels.Base
 
         #region Commands
         /// <summary>
-        /// Occurs when the reset was requested on this view model.
+        /// Occurs when a select was requested on this view model.
+        /// </summary>
+        public ICommand OnSelected => new ActionCommand(Select);
+
+        /// <summary>
+        /// Occurs when a deselect was requested on this view model.
+        /// </summary>
+        public ICommand OnDeselected => new ActionCommand(Deselect);
+
+        /// <summary>
+        /// Occurs when a reset was requested on this view model.
         /// </summary>
         public ICommand OnReset => new ActionCommand(Reset);
         #endregion
@@ -35,7 +44,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Base
         {
         }
 
-        #region Regular
+        #region Listener
         /// <summary>
         /// Notifies a specific view model whether its property was changed from XAML code.
         /// </summary>
@@ -45,11 +54,23 @@ namespace FilesManager.UI.Desktop.ViewModels.Base
         }
         #endregion
 
+        #region Virtual
+        /// <summary>
+        /// Selects certain elements or controls related to this view model.
+        /// </summary>
+        protected virtual void Select() { }  // NOTE: "MainWindowViewModel" doesn't need to overload it
+        #endregion
+
         #region Abstract
         /// <summary>
-        /// Clears some elements related to this view model (e.g., <see cref="RadioButton"/>(s) or input fields).
+        /// Deselects certain elements or controls related to this view model.
         /// </summary>
-        protected abstract void Reset();
+        protected abstract void Deselect();  // NOTE: Should be implemented by all view models
+
+        /// <summary>
+        /// Clears certain elements or controls related to this view model.
+        /// </summary>
+        protected abstract void Reset();  // NOTE: Should be implemented by all view models
         #endregion
     }
 }
