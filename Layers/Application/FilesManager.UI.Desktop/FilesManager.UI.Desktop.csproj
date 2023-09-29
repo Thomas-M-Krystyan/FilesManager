@@ -1,20 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
+    
+    <OutputType>WinExe</OutputType>
     <UseWPF>true</UseWPF>
+    
+    <Nullable>enable</Nullable>
 
     <!-- Change the name of the output .exe file -->
     <AssemblyName>FileManager</AssemblyName>
     <ApplicationIcon>Resources\Icons\Icon.ico</ApplicationIcon>
   </PropertyGroup>
 
+  <!-- Packages -->
   <ItemGroup>
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
   </ItemGroup>
 
+  <!-- Projects -->
   <ItemGroup>
     <ProjectReference Include="..\..\Logic\FilesManager.Core\FilesManager.Core.csproj" />
   </ItemGroup>

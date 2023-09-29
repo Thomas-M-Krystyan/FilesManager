@@ -16,19 +16,19 @@ namespace FilesManager.UI.Desktop.ViewModels.Base
 
         #region Commands
         /// <summary>
-        /// Occurs when a select was requested on this view model.
+        /// Handles subscribed <see cref="Select()"/> action.
         /// </summary>
-        public ICommand OnSelected => new ActionCommand(Select);
+        public ICommand SelectCommand => new ActionCommand(Select);
 
         /// <summary>
-        /// Occurs when a deselect was requested on this view model.
+        /// Handles subscribed <see cref="Deselect()"/> action.
         /// </summary>
-        public ICommand OnDeselected => new ActionCommand(Deselect);
+        public ICommand DeselectCommand => new ActionCommand(Deselect);
 
         /// <summary>
-        /// Occurs when a reset was requested on this view model.
+        /// Handles subscribed <see cref="Reset()"/> action.
         /// </summary>
-        public ICommand OnReset => new ActionCommand(Reset);
+        public ICommand ResetCommand => new ActionCommand(Reset);
         #endregion
 
         /// <summary>

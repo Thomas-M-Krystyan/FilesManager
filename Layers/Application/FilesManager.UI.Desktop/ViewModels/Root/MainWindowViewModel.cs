@@ -10,9 +10,11 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
     internal sealed class MainWindowViewModel : ViewModelBase
     {
         #region View Models
-        public IncrementNumberViewModel IncrementNumberViewModel { get; set; }
+        /// <inheritdoc cref="IncrementNumberViewModel"/>
+        public IncrementNumberViewModel IncrementNumberStrategy { get; }
 
-        public PrependAppendViewModel PrependAppendViewModel { get; set; }
+        /// <inheritdoc cref="PrependAppendViewModel"/>
+        public PrependAppendViewModel PrependAppendStrategy { get; }
         #endregion
 
         /// <summary>
@@ -20,8 +22,18 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         /// </summary>
         internal MainWindowViewModel() : base()
         {
-            this.IncrementNumberViewModel = new IncrementNumberViewModel();
-            this.PrependAppendViewModel = new PrependAppendViewModel();
+            this.IncrementNumberStrategy = new IncrementNumberViewModel();
+            this.PrependAppendStrategy = new PrependAppendViewModel();
+
+            SubscribeEvents();
+        }
+
+        /// <summary>
+        /// Destructs this instance of the <see cref="MainWindowViewModel"/> class.
+        /// </summary>
+        ~MainWindowViewModel()
+        {
+            UnsubscribeEvents();
         }
 
         #region Polymorphism
@@ -30,9 +42,8 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         /// </summary>
         protected override sealed void Deselect()  // NOTE: Specific behavior of the hub for other view models. Overloading restricted
         {
-            // TODO: if (!this.IncrementStratefy.IsEnabled) => OnDeselected();
-            this.IncrementNumberViewModel.OnDeselected();
-            this.PrependAppendViewModel.OnDeselected();
+            this.IncrementNumberStrategy.DeselectCommand.Execute(null);
+            this.PrependAppendStrategy.DeselectCommand.Execute(null);
         }
 
         /// <summary>
@@ -40,8 +51,22 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         /// </summary>
         protected override sealed void Reset()  // NOTE: Specific behavior of the hub for other view models. Overloading restricted
         {
-            this.IncrementNumberViewModel.OnReset();
-            this.PrependAppendViewModel.OnReset();
+            this.IncrementNumberStrategy.ResetCommand.Execute(null);
+            this.PrependAppendStrategy.ResetCommand.Execute(null);
+        }
+        #endregion
+
+        #region Subscriptions
+        private void SubscribeEvents()
+        {
+            this.IncrementNumberStrategy.OnSelected += Deselect;
+            this.PrependAppendStrategy.OnSelected += Deselect;
+        }
+
+        private void UnsubscribeEvents()
+        {
+            this.IncrementNumberStrategy.OnSelected -= Deselect;
+            this.PrependAppendStrategy.OnSelected -= Deselect;
         }
         #endregion
     }

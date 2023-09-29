@@ -85,7 +85,7 @@
             <!-- Strategy #1: Increment number -->
             <Border Grid.Column="0" Grid.ColumnSpan="2"
                     Grid.Row="1"
-                    DataContext="{Binding IncrementNumberViewModel}"
+                    DataContext="{Binding IncrementNumberStrategy, Mode=OneTime}"
                     Style="{StaticResource BorderStyle}">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -112,7 +112,7 @@
                     <!-- Controls -->
                     <RadioButton Grid.Column="0"
                                  Grid.Row="1"
-                                 IsChecked="{Binding IsEnabled}"
+                                 IsChecked="{Binding IsEnabled, Mode=TwoWay}"
                                  ToolTip="{xaml:Static strategies:IncrementNumberViewModel.RadioButton_Tooltip}"
                                  Style="{StaticResource RadioButtonStyle}" />
 
@@ -123,18 +123,18 @@
                            Style="{StaticResource LabelStyle}">
                         <behaviors:Interaction.Triggers>
                             <behaviors:EventTrigger EventName="MouseLeftButtonDown">
-                                <behaviors:InvokeCommandAction Command="{Binding OnSelected}" />
+                                <behaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
                             </behaviors:EventTrigger>
                         </behaviors:Interaction.Triggers>
                     </Label>
                     <TextBox Grid.Column="2"
                              Grid.Row="1"
-                             Text="{Binding NamePrefix}"
+                             Text="{Binding NamePrefix, Mode=TwoWay}"
                              ToolTip="{xaml:Static strategies:IncrementNumberViewModel.Content_NonEmptyField_Tooltip}"
                              Style="{StaticResource TextBoxStyle_120}">
                         <behaviors:Interaction.Triggers>
                             <behaviors:EventTrigger EventName="GotFocus">
-                                <behaviors:InvokeCommandAction Command="{Binding OnSelected}" />
+                                <behaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
                             </behaviors:EventTrigger>
                         </behaviors:Interaction.Triggers>
                     </TextBox>
@@ -146,18 +146,18 @@
                            Style="{StaticResource LabelStyle}">
                         <behaviors:Interaction.Triggers>
                             <behaviors:EventTrigger EventName="MouseLeftButtonDown">
-                                <behaviors:InvokeCommandAction Command="{Binding OnSelected}" />
+                                <behaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
                             </behaviors:EventTrigger>
                         </behaviors:Interaction.Triggers>
                     </Label>
                     <TextBox Grid.Column="4"
                              Grid.Row="1"
-                             Text="{Binding StartingNumber}"
+                             Text="{Binding StartingNumber, Mode=TwoWay}"
                              ToolTip="{xaml:Static strategies:IncrementNumberViewModel.Content_OnlyPositives_Tooltip}"
                              Style="{StaticResource TextBoxStyle_60}">
                         <behaviors:Interaction.Triggers>
                             <behaviors:EventTrigger EventName="GotFocus">
-                                <behaviors:InvokeCommandAction Command="{Binding OnSelected}" />
+                                <behaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
                             </behaviors:EventTrigger>
                         </behaviors:Interaction.Triggers>
                     </TextBox>
@@ -169,18 +169,18 @@
                            Style="{StaticResource LabelStyle}">
                         <behaviors:Interaction.Triggers>
                             <behaviors:EventTrigger EventName="MouseLeftButtonDown">
-                                <behaviors:InvokeCommandAction Command="{Binding OnSelected}" />
+                                <behaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
                             </behaviors:EventTrigger>
                         </behaviors:Interaction.Triggers>
                     </Label>
                     <TextBox Grid.Column="6"
                              Grid.Row="1"
-                             Text="{Binding NamePostfix}"
+                             Text="{Binding NamePostfix, Mode=TwoWay}"
                              ToolTip="{xaml:Static strategies:IncrementNumberViewModel.Content_NonEmptyField_Tooltip}"
                              Style="{StaticResource TextBoxStyle_120}">
                         <behaviors:Interaction.Triggers>
                             <behaviors:EventTrigger EventName="GotFocus">
-                                <behaviors:InvokeCommandAction Command="{Binding OnSelected}" />
+                                <behaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
                             </behaviors:EventTrigger>
                         </behaviors:Interaction.Triggers>
                     </TextBox>
@@ -198,11 +198,11 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                    
+
                 <!-- Strategy #2: Prepend / appended -->
                 <Border Grid.Column="0"
                         Grid.Row="0"
-                        DataContext="{Binding PrependAppendViewModel}"
+                        DataContext="{Binding PrependAppendStrategy, Mode=OneTime}"
                         Style="{StaticResource BorderStyle}">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -227,7 +227,7 @@
                         <!-- Controls -->
                         <RadioButton Grid.Column="0"
                                      Grid.Row="1"
-                                     IsChecked="{Binding IsEnabled}"
+                                     IsChecked="{Binding IsEnabled, Mode=TwoWay}"
                                      ToolTip="{xaml:Static strategies:PrependAppendViewModel.RadioButton_Tooltip}"
                                      Style="{StaticResource RadioButtonStyle}" />
 
@@ -238,17 +238,18 @@
                                Style="{StaticResource LabelStyle}">
                             <behaviors:Interaction.Triggers>
                                 <behaviors:EventTrigger EventName="MouseLeftButtonDown">
-                                    <behaviors:InvokeCommandAction Command="{Binding OnSelected}" />
+                                    <behaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
                                 </behaviors:EventTrigger>
                             </behaviors:Interaction.Triggers>
                         </Label>
                         <TextBox Grid.Column="2"
                                  Grid.Row="1"
+                                 Text="{Binding AppendName, Mode=TwoWay}"
                                  ToolTip="{xaml:Static strategies:PrependAppendViewModel.Content_NonEmptyField_Tooltip}"
                                  Style="{StaticResource TextBoxStyle_120}">
                             <behaviors:Interaction.Triggers>
                                 <behaviors:EventTrigger EventName="GotFocus">
-                                    <behaviors:InvokeCommandAction Command="{Binding OnSelected}" />
+                                    <behaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
                                 </behaviors:EventTrigger>
                             </behaviors:Interaction.Triggers>
                         </TextBox>
@@ -260,17 +261,18 @@
                                Style="{StaticResource LabelStyle}">
                             <behaviors:Interaction.Triggers>
                                 <behaviors:EventTrigger EventName="MouseLeftButtonDown">
-                                    <behaviors:InvokeCommandAction Command="{Binding OnSelected}" />
+                                    <behaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
                                 </behaviors:EventTrigger>
                             </behaviors:Interaction.Triggers>
                         </Label>
                         <TextBox Grid.Column="4"
                                  Grid.Row="1"
+                                 Text="{Binding PrependName, Mode=TwoWay}"
                                  ToolTip="{xaml:Static strategies:PrependAppendViewModel.Content_NonEmptyField_Tooltip}"
                                  Style="{StaticResource TextBoxStyle_120}">
                             <behaviors:Interaction.Triggers>
                                 <behaviors:EventTrigger EventName="GotFocus">
-                                    <behaviors:InvokeCommandAction Command="{Binding OnSelected}" />
+                                    <behaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
                                 </behaviors:EventTrigger>
                             </behaviors:Interaction.Triggers>
                         </TextBox>
@@ -350,7 +352,7 @@
                         Style="{StaticResource ButtonStyle}">
                     <behaviors:Interaction.Triggers>
                         <behaviors:EventTrigger EventName="Click">
-                            <behaviors:InvokeCommandAction Command="{Binding OnReset}" />
+                            <behaviors:InvokeCommandAction Command="{Binding ResetCommand, Mode=OneWay}" />
                         </behaviors:EventTrigger>
                     </behaviors:Interaction.Triggers>
                 </Button>

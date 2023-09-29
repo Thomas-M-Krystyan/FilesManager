@@ -1,5 +1,6 @@
 ﻿using FilesManager.UI.Desktop.Properties;
 using FilesManager.UI.Desktop.ViewModels.Base;
+using System;
 
 namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
 {
@@ -33,6 +34,13 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         }
         #endregion
 
+        #region Events
+        /// <summary>
+        /// Occurs when <see cref="Select()"/> operation was requested on this view model.
+        /// </summary>
+        public event Action OnSelected = () => { };
+        #endregion
+
         /// <summary>
         /// Initializes a new instance of the <see cref="StrategyBase"/> class.
         /// </summary>
@@ -40,39 +48,12 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         {
         }
 
-        #region Event handlers
-        /// <inheritdoc cref="ViewModelBase.OnSelected"/>
-        public new void OnSelected()
-        {
-            if (base.OnSelected.CanExecute(null))
-            {
-                base.OnSelected.Execute(null);
-            }
-        }
-
-        /// <inheritdoc cref="ViewModelBase.OnDeselected"/>
-        public new void OnDeselected()
-        {
-            if (base.OnDeselected.CanExecute(null))
-            {
-                base.OnDeselected.Execute(null);
-            }
-        }
-
-        /// <inheritdoc cref="ViewModelBase.OnReset"/>
-        public new void OnReset()
-        {
-            if (base.OnReset.CanExecute(null))
-            {
-                base.OnReset.Execute(null);
-            }
-        }
-        #endregion
-
         #region Polymorphism
         /// <inheritdoc cref="ViewModelBase.Select()"/>
         protected override sealed void Select()  // NOTE: Default behavior for all strategies, no need to change it. Overloading restricted
         {
+            OnSelected();
+
             this.IsEnabled = true;
         }
 
