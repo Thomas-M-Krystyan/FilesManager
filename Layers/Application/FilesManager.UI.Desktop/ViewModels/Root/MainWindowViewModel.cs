@@ -9,15 +9,19 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
     /// <seealso cref="ViewModelBase" />
     internal sealed class MainWindowViewModel : ViewModelBase
     {
-        // View Models
-        public IncrementNumberViewModel IncrementStrategy { get; set; }
+        #region View Models
+        public IncrementNumberViewModel IncrementNumberViewModel { get; set; }
+
+        public PrependAppendViewModel PrependAppendViewModel { get; set; }
+        #endregion
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindowViewModel"/> class.
         /// </summary>
         internal MainWindowViewModel() : base()
         {
-            this.IncrementStrategy = new IncrementNumberViewModel();
+            this.IncrementNumberViewModel = new IncrementNumberViewModel();
+            this.PrependAppendViewModel = new PrependAppendViewModel();
         }
 
         #region Polymorphism
@@ -26,7 +30,9 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         /// </summary>
         protected override sealed void Deselect()  // NOTE: Specific behavior of the hub for other view models. Overloading restricted
         {
-            this.IncrementStrategy.OnDeselected();
+            // TODO: if (!this.IncrementStratefy.IsEnabled) => OnDeselected();
+            this.IncrementNumberViewModel.OnDeselected();
+            this.PrependAppendViewModel.OnDeselected();
         }
 
         /// <summary>
@@ -34,7 +40,8 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         /// </summary>
         protected override sealed void Reset()  // NOTE: Specific behavior of the hub for other view models. Overloading restricted
         {
-            this.IncrementStrategy.OnReset();
+            this.IncrementNumberViewModel.OnReset();
+            this.PrependAppendViewModel.OnReset();
         }
         #endregion
     }

@@ -85,7 +85,7 @@
             <!-- Strategy #1: Increment number -->
             <Border Grid.Column="0" Grid.ColumnSpan="2"
                     Grid.Row="1"
-                    DataContext="{Binding IncrementStrategy}"
+                    DataContext="{Binding IncrementNumberViewModel}"
                     Style="{StaticResource BorderStyle}">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -110,8 +110,7 @@
                            Style="{StaticResource HeaderStyle}" />
 
                     <!-- Controls -->
-                    <RadioButton xaml:Name="StartNumberRadioButton"
-                                 Grid.Column="0"
+                    <RadioButton Grid.Column="0"
                                  Grid.Row="1"
                                  IsChecked="{Binding IsEnabled}"
                                  ToolTip="{xaml:Static strategies:IncrementNumberViewModel.RadioButton_Tooltip}"
@@ -203,6 +202,7 @@
                 <!-- Strategy #2: Prepend / appended -->
                 <Border Grid.Column="0"
                         Grid.Row="0"
+                        DataContext="{Binding PrependAppendViewModel}"
                         Style="{StaticResource BorderStyle}">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -220,43 +220,60 @@
                         <!-- Header -->
                         <Label Grid.Column="0" Grid.ColumnSpan="5"
                                Grid.Row="0"
-                               Content="{xaml:Static properties:Resources.Header_Method_PrependAppend}"
-                               ToolTip="{xaml:Static properties:Resources.Tooltip_Method_PrependAppend}"
+                               Content="{xaml:Static strategies:PrependAppendViewModel.Method_Header}"
+                               ToolTip="{xaml:Static strategies:PrependAppendViewModel.Method_Tooltip}"
                                Style="{StaticResource HeaderStyle}" />
 
                         <!-- Controls -->
-                        <RadioButton xaml:Name="PrependAppendRadioButton"
-                                     Grid.Column="0"
+                        <RadioButton Grid.Column="0"
                                      Grid.Row="1"
-                                     ToolTip="{xaml:Static properties:Resources.Tooltip_RadioButton}"
-                                     Style="{StaticResource RadioButtonStyle}"
-                                     Checked="PrependAppendRadioButtonRadioButton_Checked" />
+                                     IsChecked="{Binding IsEnabled}"
+                                     ToolTip="{xaml:Static strategies:PrependAppendViewModel.RadioButton_Tooltip}"
+                                     Style="{StaticResource RadioButtonStyle}" />
 
                         <Label Grid.Column="1"
                                Grid.Row="1"
-                               Content="{xaml:Static properties:Resources.Label_Prepend}"
-                               ToolTip="{xaml:Static properties:Resources.Tooltip_Prepend}"
-                               Style="{StaticResource LabelStyle}"
-                               MouseLeftButtonDown="PrependAppendLabel_Clicked" />
-                        <TextBox xaml:Name="PrependName"
-                                 Grid.Column="2"
+                               Content="{xaml:Static strategies:PrependAppendViewModel.Prepend_Label}"
+                               ToolTip="{xaml:Static strategies:PrependAppendViewModel.Prepend_Tooltip}"
+                               Style="{StaticResource LabelStyle}">
+                            <behaviors:Interaction.Triggers>
+                                <behaviors:EventTrigger EventName="MouseLeftButtonDown">
+                                    <behaviors:InvokeCommandAction Command="{Binding OnSelected}" />
+                                </behaviors:EventTrigger>
+                            </behaviors:Interaction.Triggers>
+                        </Label>
+                        <TextBox Grid.Column="2"
                                  Grid.Row="1"
-                                 ToolTip="{xaml:Static properties:Resources.Tooltip_Tip_Content_NonEmptyField}"
-                                 Style="{StaticResource TextBoxStyle_120}"
-                                 GotFocus="PrependAppendTextBox_Focus" />
+                                 ToolTip="{xaml:Static strategies:PrependAppendViewModel.Content_NonEmptyField_Tooltip}"
+                                 Style="{StaticResource TextBoxStyle_120}">
+                            <behaviors:Interaction.Triggers>
+                                <behaviors:EventTrigger EventName="GotFocus">
+                                    <behaviors:InvokeCommandAction Command="{Binding OnSelected}" />
+                                </behaviors:EventTrigger>
+                            </behaviors:Interaction.Triggers>
+                        </TextBox>
 
                         <Label Grid.Column="3"
                                Grid.Row="1"
-                               Content="{xaml:Static properties:Resources.Label_Append}"
-                               ToolTip="{xaml:Static properties:Resources.Tooltip_Append}"
-                               Style="{StaticResource LabelStyle}"
-                               MouseLeftButtonDown="PrependAppendLabel_Clicked" />
-                        <TextBox xaml:Name="AppendName"
-                                 Grid.Column="4"
+                               Content="{xaml:Static strategies:PrependAppendViewModel.Append_Label}"
+                               ToolTip="{xaml:Static strategies:PrependAppendViewModel.Append_Tooltip}"
+                               Style="{StaticResource LabelStyle}">
+                            <behaviors:Interaction.Triggers>
+                                <behaviors:EventTrigger EventName="MouseLeftButtonDown">
+                                    <behaviors:InvokeCommandAction Command="{Binding OnSelected}" />
+                                </behaviors:EventTrigger>
+                            </behaviors:Interaction.Triggers>
+                        </Label>
+                        <TextBox Grid.Column="4"
                                  Grid.Row="1"
-                                 ToolTip="{xaml:Static properties:Resources.Tooltip_Tip_Content_NonEmptyField}"
-                                 Style="{StaticResource TextBoxStyle_120}"
-                                 GotFocus="PrependAppendTextBox_Focus" />
+                                 ToolTip="{xaml:Static strategies:PrependAppendViewModel.Content_NonEmptyField_Tooltip}"
+                                 Style="{StaticResource TextBoxStyle_120}">
+                            <behaviors:Interaction.Triggers>
+                                <behaviors:EventTrigger EventName="GotFocus">
+                                    <behaviors:InvokeCommandAction Command="{Binding OnSelected}" />
+                                </behaviors:EventTrigger>
+                            </behaviors:Interaction.Triggers>
+                        </TextBox>
                     </Grid>
                 </Border>
 

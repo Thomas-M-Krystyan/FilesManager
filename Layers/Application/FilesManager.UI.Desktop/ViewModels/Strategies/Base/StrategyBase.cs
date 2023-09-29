@@ -33,7 +33,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         }
 
         #region Event handlers
-        /// <inheritdoc cref="ViewModelBase.OnReset"/>
+        /// <inheritdoc cref="ViewModelBase.OnSelected"/>
         public new void OnSelected()
         {
             if (base.OnSelected.CanExecute(null))
@@ -42,12 +42,21 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
             }
         }
 
-        /// <inheritdoc cref="ViewModelBase.OnReset"/>
+        /// <inheritdoc cref="ViewModelBase.OnDeselected"/>
         public new void OnDeselected()
         {
             if (base.OnDeselected.CanExecute(null))
             {
                 base.OnDeselected.Execute(null);
+            }
+        }
+
+        /// <inheritdoc cref="ViewModelBase.OnReset"/>
+        public new void OnReset()
+        {
+            if (base.OnReset.CanExecute(null))
+            {
+                base.OnReset.Execute(null);
             }
         }
         #endregion

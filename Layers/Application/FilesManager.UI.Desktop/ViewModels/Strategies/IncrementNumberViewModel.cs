@@ -126,17 +126,6 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         //    DisplayPopup(result);
         //}
 
-        #region Event handlers
-        /// <inheritdoc cref="ViewModelBase.OnReset"/>
-        public new void OnReset()
-        {
-            if (base.OnReset.CanExecute(null))
-            {
-                base.OnReset.Execute(null);
-            }
-        }
-        #endregion
-
         #region Polymorphism
         /// <inheritdoc cref="ViewModelBase.Reset()"/>
         protected override sealed void Reset()  // NOTE: Speficic behavior for this concrete strategy. Overloading restricted

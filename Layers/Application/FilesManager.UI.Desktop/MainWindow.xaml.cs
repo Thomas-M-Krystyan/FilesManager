@@ -37,8 +37,8 @@ namespace FilesManager.UI.Desktop
             ClearFilesList();
 
             // Cleanup input sections and Radio Buttons
-            //ClearIncrementedNumber();  // TODO: Uncomment
-            ClearPrependAppend();
+            //ClearIncrementedNumber();
+            //ClearPrependAppend();
             ClearLeadingZeros();
         }
 
@@ -55,19 +55,19 @@ namespace FilesManager.UI.Desktop
             else
             {
                 // Methods control
-                if (this.StartNumberRadioButton.IsChecked())
+                //if (this.StartNumberRadioButton.IsChecked())
                 {
                     //RenameWithIncrementedNumber();  // TODO: Uncomment
                 }
-                else if (this.PrependAppendRadioButton.IsChecked())
+                //else if (this.PrependAppendRadioButton.IsChecked())
                 {
-                    RenameWithPrependAndAppendedText();
+                    //RenameWithPrependAndAppendedText();  // TODO: Uncomment
                 }
-                else if (this.SetLeadingZerosRadioButton.IsChecked())
+                //else if (this.SetLeadingZerosRadioButton.IsChecked())
                 {
-                    RenameWithLeadingZeros();
+                    //RenameWithLeadingZeros();  // TODO: Uncomment
                 }
-                else
+                //else
                 {
                     _ = Message.WarningOk("Nothing selected", "No renaming method was selected.");
                 }
@@ -165,8 +165,8 @@ namespace FilesManager.UI.Desktop
         /// </summary>
         private void RegisterRadioButtons()
         {
-            this._radioButtons.Add(this.StartNumberRadioButton);
-            this._radioButtons.Add(this.PrependAppendRadioButton);
+            //this._radioButtons.Add(this.StartNumberRadioButton);
+            //this._radioButtons.Add(this.PrependAppendRadioButton);
             this._radioButtons.Add(this.SetLeadingZerosRadioButton);
         }
         #endregion
