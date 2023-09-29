@@ -1,10 +1,7 @@
 ﻿using FilesManager.Core.DTOs;
 using FilesManager.Core.Validation;
-using FilesManager.UI.Desktop.ExtensionMethods;
 using FilesManager.UI.Desktop.Utilities;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -12,10 +9,6 @@ namespace FilesManager.UI.Desktop
 {
     public partial class MainWindow : Window
     {
-        #region Fields
-        private readonly IList<RadioButton> _radioButtons = new List<RadioButton>();
-        #endregion
-
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
         /// </summary>
@@ -24,8 +17,6 @@ namespace FilesManager.UI.Desktop
             InitializeComponent();
 
             this.SizeToContent = SizeToContent.WidthAndHeight;  // NOTE: Adjust window to its content in real-time
-
-            RegisterRadioButtons();
         }
 
         #region Button handlers (common)
@@ -112,19 +103,6 @@ namespace FilesManager.UI.Desktop
                 ? Message.InfoOk("Operation successful", "All files were renamed!")
                 : Message.ErrorOk("Operation failed", result.Message);
         }
-
-        /// <summary>
-        /// Deactivates all <see cref="RadioButton"/>s except the provided one.
-        /// </summary>
-        private void ResetAllRadioButtonsExcept(RadioButton excludedRadioButton)
-        {
-            RadioButton[] radioButtonsToDeactivate = this._radioButtons.Where(button => button != excludedRadioButton)
-                                                                       .ToArray();
-            foreach (RadioButton button in radioButtonsToDeactivate)
-            {
-                button.Deactivate();
-            }
-        }
         #endregion
 
         #region Helper (local) methods - used only in this file
@@ -158,16 +136,6 @@ namespace FilesManager.UI.Desktop
                     }
                 }
             }
-        }
-
-        /// <summary>
-        /// Populates collection of all available <see cref="RadioButton"/>s.
-        /// </summary>
-        private void RegisterRadioButtons()
-        {
-            //this._radioButtons.Add(this.StartNumberRadioButton);
-            //this._radioButtons.Add(this.PrependAppendRadioButton);
-            this._radioButtons.Add(this.SetLeadingZerosRadioButton);
         }
         #endregion
     }

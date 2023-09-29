@@ -112,10 +112,16 @@
                     <!-- Controls -->
                     <RadioButton Grid.Column="0"
                                  Grid.Row="1"
-                                 IsChecked="{Binding IsEnabled, Mode=TwoWay}"
+                                 IsChecked="{Binding IsEnabled, Mode=OneWay}"
                                  ToolTip="{xaml:Static strategies:IncrementNumberViewModel.RadioButton_Tooltip}"
-                                 Style="{StaticResource RadioButtonStyle}" />
-
+                                 Style="{StaticResource RadioButtonStyle}">
+                        <behaviors:Interaction.Triggers>
+                            <behaviors:EventTrigger EventName="Checked">
+                                <behaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
+                            </behaviors:EventTrigger>
+                        </behaviors:Interaction.Triggers>
+                    </RadioButton>
+                
                     <Label Grid.Column="1"
                            Grid.Row="1"
                            Content="{xaml:Static strategies:IncrementNumberViewModel.Prefix_Label}"
@@ -227,9 +233,15 @@
                         <!-- Controls -->
                         <RadioButton Grid.Column="0"
                                      Grid.Row="1"
-                                     IsChecked="{Binding IsEnabled, Mode=TwoWay}"
+                                     IsChecked="{Binding IsEnabled, Mode=OneWay}"
                                      ToolTip="{xaml:Static strategies:PrependAppendViewModel.RadioButton_Tooltip}"
-                                     Style="{StaticResource RadioButtonStyle}" />
+                                     Style="{StaticResource RadioButtonStyle}">
+                            <behaviors:Interaction.Triggers>
+                                <behaviors:EventTrigger EventName="Checked">
+                                    <behaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
+                                </behaviors:EventTrigger>
+                            </behaviors:Interaction.Triggers>
+                        </RadioButton>
 
                         <Label Grid.Column="1"
                                Grid.Row="1"

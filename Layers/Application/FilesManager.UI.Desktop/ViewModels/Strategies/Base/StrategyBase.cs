@@ -52,9 +52,12 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         /// <inheritdoc cref="ViewModelBase.Select()"/>
         protected override sealed void Select()  // NOTE: Default behavior for all strategies, no need to change it. Overloading restricted
         {
-            OnSelected();
+            if (!this.IsEnabled)
+            {
+                OnSelected();
 
-            this.IsEnabled = true;
+                this.IsEnabled = true;
+            }
         }
 
         /// <inheritdoc cref="ViewModelBase.Deselect()"/>

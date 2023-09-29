@@ -2,8 +2,6 @@
 using FilesManager.Core.Converters;
 using FilesManager.Core.DTOs;
 using FilesManager.Core.Helpers;
-using FilesManager.UI.Desktop.ExtensionMethods;
-using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,7 +18,7 @@ namespace FilesManager.UI.Desktop
             var result = RenamingResultDto.Failure();
 
             // Validate input value (cannot be converted to small positive number; it's either too small, equal to "0", or too large)
-            if (Byte.TryParse(this.LeadingZeros.Text, out byte zerosCount) &&
+            if (byte.TryParse(this.LeadingZeros.Text, out byte zerosCount) &&
                 zerosCount >= 0 && zerosCount <= 7)
             {
                 // Raw items from the files list
@@ -57,7 +55,7 @@ namespace FilesManager.UI.Desktop
             else
             {
                 result = RenamingResultDto.Failure($"Invalid value in \"Leading zeros\": " +
-                    $"{(String.IsNullOrWhiteSpace(this.LeadingZeros.Text) ? "Empty" : this.LeadingZeros.Text)}.");
+                    $"{(string.IsNullOrWhiteSpace(this.LeadingZeros.Text) ? "Empty" : this.LeadingZeros.Text)}.");
             }
 
             DisplayPopup(result);
@@ -69,9 +67,6 @@ namespace FilesManager.UI.Desktop
         /// </summary>
         private void SetLeadingZerosRadioButton_Checked(object sender, RoutedEventArgs @event)
         {
-            this.SetLeadingZerosRadioButton.Activate();
-
-            ResetAllRadioButtonsExcept(this.SetLeadingZerosRadioButton);
         }
 
         /// <summary>
@@ -97,8 +92,6 @@ namespace FilesManager.UI.Desktop
         /// </summary>
         private void ClearLeadingZeros()
         {
-            this.SetLeadingZerosRadioButton.Deactivate();
-
             this.LeadingZeros.Text = string.Empty;
         }
         #endregion
