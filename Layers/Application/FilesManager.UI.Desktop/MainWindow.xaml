@@ -294,6 +294,7 @@
                 <!-- Strategy #3: Leading zeros -->
                 <Border Grid.Column="2"
                         Grid.Row="0"
+                        DataContext="{Binding LeadingZerosStrategy, Mode=OneTime}"
                         Style="{StaticResource BorderStyle}">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -309,30 +310,44 @@
                         <!-- Header -->
                         <Label Grid.Column="0" Grid.ColumnSpan="3"
                                Grid.Row="0"
-                               Content="{xaml:Static properties:Resources.Header_Method_LeadingZeros}"
-                               ToolTip="{xaml:Static properties:Resources.Tooltip_Method_LeadingZeros}"
+                               Content="{xaml:Static strategies:LeadingZerosViewModel.Method_Header}"
+                               ToolTip="{xaml:Static strategies:LeadingZerosViewModel.Method_Tooltip}"
                                Style="{StaticResource HeaderStyle}" />
 
                         <!-- Controls -->
-                        <RadioButton xaml:Name="SetLeadingZerosRadioButton"
-                                     Grid.Column="0"
+                        <RadioButton Grid.Column="0"
                                      Grid.Row="1"
-                                     ToolTip="{xaml:Static properties:Resources.Tooltip_RadioButton}"
-                                     Style="{StaticResource RadioButtonStyle}"
-                                     Checked="SetLeadingZerosRadioButton_Checked" />
+                                     IsChecked="{Binding IsEnabled, Mode=OneWay}"
+                                     ToolTip="{xaml:Static strategies:LeadingZerosViewModel.RadioButton_Tooltip}"
+                                     Style="{StaticResource RadioButtonStyle}">
+                            <behaviors:Interaction.Triggers>
+                                <behaviors:EventTrigger EventName="Checked">
+                                    <behaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
+                                </behaviors:EventTrigger>
+                            </behaviors:Interaction.Triggers>
+                        </RadioButton>
 
                         <Label Grid.Column="1"
                                Grid.Row="1"
-                               Content="{xaml:Static properties:Resources.Label_Set}"
-                               ToolTip="{xaml:Static properties:Resources.Tooltip_Set}"
-                               Style="{StaticResource LabelStyle}"
-                               MouseLeftButtonDown="LeadingZerosLabel_Clicked" />
-                        <TextBox xaml:Name="LeadingZeros"
-                                 Grid.Column="2"
+                               Content="{xaml:Static strategies:LeadingZerosViewModel.Set_Label}"
+                               ToolTip="{xaml:Static strategies:LeadingZerosViewModel.Set_Tooltip}"
+                               Style="{StaticResource LabelStyle}">
+                            <behaviors:Interaction.Triggers>
+                                <behaviors:EventTrigger EventName="MouseLeftButtonDown">
+                                    <behaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
+                                </behaviors:EventTrigger>
+                            </behaviors:Interaction.Triggers>
+                        </Label>
+                        <TextBox Grid.Column="2"
                                  Grid.Row="1"
-                                 ToolTip="{xaml:Static properties:Resources.Tooltip_Tip_Content_OnlyVerySmallPositives}"
-                                 Style="{StaticResource TextBoxStyle_60}"
-                                 GotFocus="LeadingZerosTextBox_Focus" />
+                                 ToolTip="{xaml:Static strategies:LeadingZerosViewModel.Content_OnlyVerySmallPositives_Tooltip}"
+                                 Style="{StaticResource TextBoxStyle_60}">
+                            <behaviors:Interaction.Triggers>
+                                <behaviors:EventTrigger EventName="GotFocus">
+                                    <behaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
+                                </behaviors:EventTrigger>
+                            </behaviors:Interaction.Triggers>
+                        </TextBox>
                     </Grid>
                 </Border>
             </Grid>

@@ -15,6 +15,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
 
         public static readonly string Content_NonEmptyField_Tooltip = Resources.Tooltip_Tip_Content_NonEmptyField;
         public static readonly string Content_OnlyPositives_Tooltip = Resources.Tooltip_Tip_Content_OnlyPositives;
+        public static readonly string Content_OnlyVerySmallPositives_Tooltip = Resources.Tooltip_Tip_Content_OnlyVerySmallPositives;
         #endregion
 
         #region Properties

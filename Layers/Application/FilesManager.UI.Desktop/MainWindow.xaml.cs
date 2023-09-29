@@ -26,11 +26,6 @@ namespace FilesManager.UI.Desktop
         private void ResetButton_Click(object sender, RoutedEventArgs @event)
         {
             ClearFilesList();
-
-            // Cleanup input sections and Radio Buttons
-            //ClearIncrementedNumber();
-            //ClearPrependAppend();
-            ClearLeadingZeros();
         }
 
         /// <summary>

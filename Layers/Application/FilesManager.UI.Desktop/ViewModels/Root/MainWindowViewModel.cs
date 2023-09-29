@@ -11,10 +11,13 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
     {
         #region View Models
         /// <inheritdoc cref="IncrementNumberViewModel"/>
-        public IncrementNumberViewModel IncrementNumberStrategy { get; }
+        public IncrementNumberViewModel IncrementNumberStrategy { get; internal set; } = new();
 
         /// <inheritdoc cref="PrependAppendViewModel"/>
-        public PrependAppendViewModel PrependAppendStrategy { get; }
+        public PrependAppendViewModel PrependAppendStrategy { get; internal set; } = new();
+
+        /// <inheritdoc cref="LeadingZerosViewModel"/>
+        public LeadingZerosViewModel LeadingZerosStrategy { get; internal set; } = new();
         #endregion
 
         /// <summary>
@@ -22,9 +25,6 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         /// </summary>
         internal MainWindowViewModel() : base()
         {
-            this.IncrementNumberStrategy = new IncrementNumberViewModel();
-            this.PrependAppendStrategy = new PrependAppendViewModel();
-
             SubscribeEvents();
         }
 
@@ -44,6 +44,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         {
             this.IncrementNumberStrategy.DeselectCommand.Execute(null);
             this.PrependAppendStrategy.DeselectCommand.Execute(null);
+            this.LeadingZerosStrategy.DeselectCommand.Execute(null);
         }
 
         /// <summary>
@@ -53,6 +54,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         {
             this.IncrementNumberStrategy.ResetCommand.Execute(null);
             this.PrependAppendStrategy.ResetCommand.Execute(null);
+            this.LeadingZerosStrategy.ResetCommand.Execute(null);
         }
         #endregion
 
@@ -61,12 +63,14 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         {
             this.IncrementNumberStrategy.OnSelected += Deselect;
             this.PrependAppendStrategy.OnSelected += Deselect;
+            this.LeadingZerosStrategy.OnSelected += Deselect;
         }
 
         private void UnsubscribeEvents()
         {
             this.IncrementNumberStrategy.OnSelected -= Deselect;
             this.PrependAppendStrategy.OnSelected -= Deselect;
+            this.LeadingZerosStrategy.OnSelected -= Deselect;
         }
         #endregion
     }
