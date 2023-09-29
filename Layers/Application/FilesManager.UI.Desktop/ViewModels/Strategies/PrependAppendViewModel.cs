@@ -1,9 +1,6 @@
-﻿using FileManager.Layers.Logic;
-using FilesManager.Core.DTOs;
-using FilesManager.UI.Desktop.Properties;
+﻿using FilesManager.UI.Desktop.Properties;
 using FilesManager.UI.Desktop.ViewModels.Base;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
-using System.Windows.Controls;
 
 namespace FilesManager.UI.Desktop.ViewModels.Strategies
 {
