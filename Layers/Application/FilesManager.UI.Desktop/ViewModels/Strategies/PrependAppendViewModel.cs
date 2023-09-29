@@ -13,7 +13,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         #region Texts
         public static readonly string Method_Header = Resources.Header_Method_PrependAppend;
         public static readonly string Method_Tooltip = Resources.Tooltip_Method_PrependAppend;
-        public static readonly string RadioButton_Tooltip = Resources.Tooltip_RadioButton;
+
         public static readonly string Prepend_Label = Resources.Label_Prepend;
         public static readonly string Prepend_Tooltip = Resources.Tooltip_Prepend;
         public static readonly string Append_Label = Resources.Label_Append;

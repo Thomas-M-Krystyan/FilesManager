@@ -1,5 +1,4 @@
-﻿using FilesManager.UI.Desktop.Properties;
-using Microsoft.Xaml.Behaviors.Core;
+﻿using Microsoft.Xaml.Behaviors.Core;
 using System.ComponentModel;
 using System.Windows.Input;
 
@@ -11,11 +10,6 @@ namespace FilesManager.UI.Desktop.ViewModels.Base
     /// <seealso cref="INotifyPropertyChanged"/>
     internal abstract class ViewModelBase : INotifyPropertyChanged
     {
-        #region Texts
-        public static readonly string Content_NonEmptyField_Tooltip = Resources.Tooltip_Tip_Content_NonEmptyField;
-        public static readonly string Content_OnlyPositives_Tooltip = Resources.Tooltip_Tip_Content_OnlyPositives;
-        #endregion
-
         #region Events
         public event PropertyChangedEventHandler? PropertyChanged;
         #endregion

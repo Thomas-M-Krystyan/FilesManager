@@ -13,7 +13,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         #region Texts
         public static readonly string Method_Header = Resources.Header_Method_IncrementNumber;
         public static readonly string Method_Tooltip = Resources.Tooltip_Method_IncrementNumber;
-        public static readonly string RadioButton_Tooltip = Resources.Tooltip_RadioButton;
+
         public static readonly string Prefix_Label = Resources.Label_Prefix;
         public static readonly string Prefix_Tooltip = Resources.Tooltip_Prefix;
         public static readonly string StartNumber_Label = Resources.Label_StartNumber;

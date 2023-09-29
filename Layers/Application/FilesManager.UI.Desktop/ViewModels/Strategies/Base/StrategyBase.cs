@@ -1,4 +1,5 @@
-﻿using FilesManager.UI.Desktop.ViewModels.Base;
+﻿using FilesManager.UI.Desktop.Properties;
+using FilesManager.UI.Desktop.ViewModels.Base;
 
 namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
 {
@@ -8,6 +9,13 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
     /// <seealso cref="ViewModelBase" />
     internal abstract class StrategyBase : ViewModelBase
     {
+        #region Texts
+        public static readonly string RadioButton_Tooltip = Resources.Tooltip_RadioButton;
+
+        public static readonly string Content_NonEmptyField_Tooltip = Resources.Tooltip_Tip_Content_NonEmptyField;
+        public static readonly string Content_OnlyPositives_Tooltip = Resources.Tooltip_Tip_Content_OnlyPositives;
+        #endregion
+
         #region Properties
         private bool _isEnabled = false;
 
