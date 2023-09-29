@@ -54,7 +54,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         {
             if (!this.IsEnabled)
             {
-                OnSelected();
+                OnSelected();  // NOTE: Accepts an action (through subscription) which precedes activation of the radio button
 
                 this.IsEnabled = true;
             }
