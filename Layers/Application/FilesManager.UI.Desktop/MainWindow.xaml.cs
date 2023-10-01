@@ -84,39 +84,5 @@ namespace FilesManager.UI.Desktop
                 : Message.ErrorOk("Operation failed", result.Message);
         }
         #endregion
-
-        #region Helper (local) methods - used only in this file
-        /// <summary>
-        /// Loads files drag-and-dropped (using mouse) into the list of files.
-        /// </summary>
-        //private void Drop_Files(object sender, DragEventArgs @event)
-        //{
-        //    if (@event.Data.GetDataPresent(DataFormats.FileDrop))
-        //    {
-        //        ClearFilesList();
-
-        //        // Load dropped files
-        //        string[] droppedFilesPaths = (string[])@event.Data.GetData(format: DataFormats.FileDrop, autoConvert: true);
-
-        //        // Populate the list
-        //        foreach (string filePath in droppedFilesPaths)
-        //        {
-        //            ListBoxItem listBoxItem = new();
-
-        //            if (Validate.HasValidExtension(filePath))  // Ignore folders and files with non-standard extensions
-        //            {
-        //                listBoxItem.Content = Path.GetFileName(filePath);
-        //                listBoxItem.ToolTip = filePath;
-
-        //                //_ = this.FilesList.Items.Add(listBoxItem);
-        //            }
-        //            else
-        //            {
-        //                _ = Message.ErrorOk("File error", "Unrecognized type of file.");
-        //            }
-        //        }
-        //    }
-        //}
-        #endregion
     }
 }
