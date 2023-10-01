@@ -134,7 +134,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
                     else
                     {
                         _ = Message.ErrorOk(Resources.ERROR_Operation_FileNotRecognized_Header,
-                                            Resources.ERROR_Operation_FileNotRecognized_Message);
+                                            Resources.ERROR_Operation_FileNotRecognized_Text);
                     }
                 }
             }

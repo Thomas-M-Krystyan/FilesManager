@@ -90,9 +90,9 @@ namespace FilesManager.UI.Desktop.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Unrecognized type of file..
         /// </summary>
-        public static string ERROR_Operation_FileNotRecognized_Message {
+        public static string ERROR_Operation_FileNotRecognized_Text {
             get {
-                return ResourceManager.GetString("ERROR_Operation_FileNotRecognized_Message", resourceCulture);
+                return ResourceManager.GetString("ERROR_Operation_FileNotRecognized_Text", resourceCulture);
             }
         }
         
