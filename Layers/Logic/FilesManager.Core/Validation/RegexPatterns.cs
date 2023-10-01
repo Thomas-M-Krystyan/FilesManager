@@ -2,6 +2,9 @@
 
 namespace FilesManager.Core.Validation
 {
+    /// <summary>
+    /// A set of handful Regular Expression patterns.
+    /// </summary>
     internal static class RegexPatterns
     {
         // -----------
@@ -27,7 +30,7 @@ namespace FilesManager.Core.Validation
         /// <summary>
         /// Captures path, name, and extensions components of the file path.
         /// </summary>
-        internal static readonly Regex FilePathPattern = new($@"(?<{PathGroup}>.+\\)(?<{NameGroup}>.+)(?<{ExtensionGroup}>\.[aA-zZ0-9]\w+)", RegexOptions.Compiled);
+        internal static readonly Regex FilePathPattern = new($@"^(?<{PathGroup}>[A-Z]{{1}}\:\\.+\\)(?<{NameGroup}>[a-zA-Z0-9 ._-]+)(?<{ExtensionGroup}>\.[aA-zZ0-9]{{1,6}})$", RegexOptions.Compiled);
 
         /// <summary>
         /// Captures zeroes, digits, and non-numeric components of the file name.

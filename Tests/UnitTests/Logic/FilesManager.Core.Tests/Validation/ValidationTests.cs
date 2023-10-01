@@ -7,43 +7,44 @@ namespace FilesManager.Core.Tests.Validation
     [TestFixture]
     public class ValidationTests
     {
-        #region HasValidExtension
-        // Invalid caases
-        [TestCase("", false)]
-        [TestCase(" ", false)]
-        // Too short
-        [TestCase("a", false)]
-        [TestCase("a.", false)]
-        [TestCase(".", false)]
-        [TestCase(".z", false)]
-        // Missing part
-        [TestCase("test", false)]
-        [TestCase("test.", false)]
-        // Valid cases
-        [TestCase("test.h", true)]
-        [TestCase("test.7z", true)]
-        [TestCase("test.exe", true)]
-        [TestCase("test.001", true)]
-        [TestCase("test.jpeg", true)]
-        // Too long
-        [TestCase("test.abcdefghijkl", false)]
-        public void HasValidExtension_ForGivenInput_ReturnsExpectedResult(string filePath, bool expectedResult)
-        {
-            // Act
-            bool actualResult = Validate.HasValidExtension(filePath);
-
-            // Assert
-            Assert.That(actualResult, Is.EqualTo(expectedResult));
-        }
-        #endregion
-
         #region IsFilePathValid
-        // Invalid cases
-        [TestCase("", false, "", "", "")]
-        [TestCase(" ", false, "", "", "")]
-        // Valid cases
-        [TestCase("C:\\Folder\\File.dat", true, "C:\\Folder\\", "File", ".dat")]  // Simplified file path (with valid structure)
-        public void IsFilePathValid_ForValidInput_ReturnsExpectedResult_AndMatch(string testPath, bool isSuccess, string expectedPath, string expectedName, string expectedExtension)
+        // Missing path
+        [TestCase("File", false, "", "", "")]
+        [TestCase("File.", false, "", "", "")]
+        [TestCase("File.h", false, "", "", "")]
+        [TestCase("File.7z", false, "", "", "")]
+        [TestCase("File.exe", false, "", "", "")]
+        [TestCase("File.jpeg", false, "", "", "")]
+        [TestCase("File.xhtml", false, "", "", "")]
+        [TestCase("File.cshtml", false, "", "", "")]
+        [TestCase("File.extreme", false, "", "", "")]
+        // Missing name
+        [TestCase(@"C:\Folder", false, "", "", "")]
+        [TestCase(@"C:\Folder\", false, "", "", "")]
+        [TestCase(@"C:\Folder\.", false, "", "", "")]
+        [TestCase(@"C:\Folder\.h", false, "", "", "")]
+        [TestCase(@"C:\Folder\.7z", false, "", "", "")]
+        [TestCase(@"C:\Folder\.exe", false, "", "", "")]
+        [TestCase(@"C:\Folder\.jpeg", false, "", "", "")]
+        [TestCase(@"C:\Folder\.xhtml", false, "", "", "")]
+        [TestCase(@"C:\Folder\.cshtml", false, "", "", "")]
+        [TestCase(@"C:\Folder\.extreme", false, "", "", "")]
+        // Full path
+        [TestCase(@"C:\Folder\File", false, "", "", "")]  // Without extension
+        [TestCase(@"C:\Folder\File.", false, "", "", "")]  // Without extension
+        [TestCase(@"C:\Folder\File.h", true, "C:\\Folder\\", "File", ".h")]
+        [TestCase(@"C:\Folder\File.7z", true, "C:\\Folder\\", "File", ".7z")]
+        [TestCase(@"C:\Folder\File.exe", true, "C:\\Folder\\", "File", ".exe")]
+        [TestCase(@"C:\Folder\File.jpeg", true, "C:\\Folder\\", "File", ".jpeg")]
+        [TestCase(@"C:\Folder\File.xhtml", true, "C:\\Folder\\", "File", ".xhtml")]
+        [TestCase(@"C:\Folder\File.cshtml", true, "C:\\Folder\\", "File", ".cshtml")]
+        [TestCase(@"C:\Folder\File.extreme", false, "", "", "")]  // Too long
+        [TestCase(@"C:\Folder\Is Me.jpeg", true, "C:\\Folder\\", "Is Me", ".jpeg")]
+        [TestCase(@"C:\Folder\Is-Me.jpeg", true, "C:\\Folder\\", "Is-Me", ".jpeg")]
+        [TestCase(@"C:\Folder\Is_Me.jpeg", true, "C:\\Folder\\", "Is_Me", ".jpeg")]
+        [TestCase(@"C:\Folder\Is.Me.jpeg", true, "C:\\Folder\\", "Is.Me", ".jpeg")]
+        [TestCase(@"C:\Folder\Is.png.jpeg", true, "C:\\Folder\\", "Is.png", ".jpeg")]
+        public void IsFilePathValid_ForGivenInput_ReturnsExpectedMatch(string testPath, bool isSuccess, string expectedPath, string expectedName, string expectedExtension)
         {
             // Act
             Match actualResult = Validate.IsFilePathValid(testPath);
@@ -53,14 +54,16 @@ namespace FilesManager.Core.Tests.Validation
             {
                 Assert.That(actualResult.Success, Is.EqualTo(isSuccess));
                 
-                if (!actualResult.Success)
+                if (actualResult.Success)
+                {
+                    Assert.That(actualResult.Groups[RegexPatterns.PathGroup].Value, Is.EqualTo(expectedPath));
+                    Assert.That(actualResult.Groups[RegexPatterns.NameGroup].Value, Is.EqualTo(expectedName));
+                    Assert.That(actualResult.Groups[RegexPatterns.ExtensionGroup].Value, Is.EqualTo(expectedExtension));
+                }
+                else
                 {
                     Assert.That(actualResult, Is.EqualTo(Match.Empty));
                 }
-
-                Assert.That(actualResult.Groups[RegexPatterns.PathGroup].Value, Is.EqualTo(expectedPath));
-                Assert.That(actualResult.Groups[RegexPatterns.NameGroup].Value, Is.EqualTo(expectedName));
-                Assert.That(actualResult.Groups[RegexPatterns.ExtensionGroup].Value, Is.EqualTo(expectedExtension));
             });
         }
         #endregion

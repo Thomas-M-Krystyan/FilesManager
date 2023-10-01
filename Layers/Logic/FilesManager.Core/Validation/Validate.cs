@@ -11,32 +11,6 @@ namespace FilesManager.Core.Validation
     public static class Validate
     {
         /// <summary>
-        /// Determines whether the provided file has a valid extension.
-        /// </summary>
-        /// <param name="filePath">The path of the file.</param>
-        /// <returns>
-        ///   The answer whether provided file has an invalid extension.
-        /// </returns>
-        public static bool HasValidExtension(string filePath)
-        {
-            const int dotLength = 1;
-            const int fileExtensionMinLength = 1;
-
-            if (string.IsNullOrWhiteSpace(filePath) ||  // Invalid example: "" or " "
-                !(filePath.Length > dotLength + fileExtensionMinLength))  // Invalid example: ".h"
-            {
-                return false;
-            }
-
-            string fileExtension = Path.GetExtension(filePath);
-
-            const int fileExtensionMaxLength = 4;
-
-            return fileExtension.Length is >= dotLength + fileExtensionMinLength    // Valid example: "a[.h]"
-                                        and <= dotLength + fileExtensionMaxLength;  // Valid example: "a[.jpeg]"
-        }
-
-        /// <summary>
         /// Determines whether the given file path is valid.
         /// </summary>
         /// <param name="filePath">The file path.</param>
@@ -44,7 +18,7 @@ namespace FilesManager.Core.Validation
         /// <returns>
         ///   The answer if file path is valid.
         /// </returns>
-        internal static Match IsFilePathValid(string filePath)
+        public static Match IsFilePathValid(string filePath)
         {
             return string.IsNullOrWhiteSpace(filePath)
                 ? Match.Empty

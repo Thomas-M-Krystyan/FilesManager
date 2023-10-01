@@ -162,7 +162,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
                 // Populate the list
                 foreach (string filePath in droppedFilesPaths)
                 {
-                    if (Validate.HasValidExtension(filePath))  // Ignore files that doesn't match the pattern "[name].[extension]"
+                    if (Validate.IsFilePathValid(filePath).Success)  // Ignore files that doesn't match the pattern "[name].[extension]"
                     {
                         this.Files.Add(
                             new FileData

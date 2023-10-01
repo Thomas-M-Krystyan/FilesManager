@@ -44,12 +44,12 @@ namespace FilesManager.Core.Tests.Services
         [TestCaseSource(nameof(LeadingZerosTestCases), new object[] { "" })]
         [TestCaseSource(nameof(LeadingZerosTestCases), new object[] { " " })]
         [TestCaseSource(nameof(LeadingZerosTestCases), new object?[] { null })]
-        public void SetLeadingZeros_ForInvalidPath_ReturnsFailureDto((string OriginalPath, (string Path, string Zeros, string Digits, string Name, string Extension) Dto, string ExpectedException) test)
+        public void SetLeadingZeros_ForInvalidPath_ReturnsFailureDto(TestData test)
         {
             // Act
             RenamingResultDto actualResult = RenamingService.SetLeadingZeros(
                 test.OriginalPath,
-                new PathZerosDigitsExtensionDto(test.Dto.Path, test.Dto.Zeros, test.Dto.Digits, test.Dto.Name, test.Dto.Extension),
+                new PathZerosDigitsExtensionDto(test.File.Path, test.File.Zeros, test.File.Digits, test.File.Name, test.File.Extension),
                 5,
                 9);
 
@@ -57,24 +57,28 @@ namespace FilesManager.Core.Tests.Services
             Assert.Multiple(() =>
             {
                 Assert.That(actualResult.IsSuccess, Is.False);
-                Assert.That(actualResult.Message, Is.EqualTo(test.ExpectedException));
+                Assert.That(actualResult.Message, Is.EqualTo(test.Exception));
                 Assert.That(actualResult.NewFilePath, Is.Empty);
             });
         }
 
-        private static IEnumerable<(string originalPath, (string path, string zeros, string digits, string name, string extension), string exception)> LeadingZerosTestCases(string filePath)
+        private static IEnumerable<TestData> LeadingZerosTestCases(string filePath)
         {
             // DTO without name or extension
-            yield return ($"{filePath}", ("", "00", "1", "Test", ""), "Internal (RegEx) error: The file \"001Test\" was't parsed properly");
-            yield return ($"{filePath}", ("C:/Users/", "00", "1", "Test", ""), "Internal (RegEx) error: The file \"001Test\" was't parsed properly");
-            yield return ($"{filePath}", ("", "00", "1", "Test", ".zip"), "Internal (RegEx) error: The file \"001Test\" was't parsed properly");
+            yield return new($"{filePath}", new("", "00", "1", "Test", ""), "Internal (RegEx) error: The file \"001Test\" was't parsed properly");
+            yield return new($"{filePath}", new("C:/Users/", "00", "1", "Test", ""), "Internal (RegEx) error: The file \"001Test\" was't parsed properly");
+            yield return new($"{filePath}", new("", "00", "1", "Test", ".zip"), "Internal (RegEx) error: The file \"001Test\" was't parsed properly");
 
             // DTO without zeroes or digits
-            yield return ($"{filePath}", ("C:/Users/", "", "", "", ".jpg"), "The file name \"\" does not contain preceeding numeric part");
-            yield return ($"{filePath}", ("C:/Users/", "", "", "Test", ".jpg"), "The file name \"Test\" does not contain preceeding numeric part");
+            yield return new($"{filePath}", new("C:/Users/", "", "", "", ".jpg"), "The file name \"\" does not contain preceeding numeric part");
+            yield return new($"{filePath}", new("C:/Users/", "", "", "Test", ".jpg"), "The file name \"Test\" does not contain preceeding numeric part");
 
             // Invalid source path
-            yield return ($"{filePath}", ("C:/Users/", "00", "1", "Test", ".jpg"), $"Cannot rename the file \"{filePath}\"");
+            yield return new($"{filePath}", new("C:/Users/", "00", "1", "Test", ".jpg"), $"Cannot rename the file \"{filePath}\"");
         }
+
+        internal sealed record TestData(string OriginalPath, TestFileData File, string Exception);
+
+        internal sealed record TestFileData(string Path, string Zeros, string Digits, string Name, string Extension);
     }
 }

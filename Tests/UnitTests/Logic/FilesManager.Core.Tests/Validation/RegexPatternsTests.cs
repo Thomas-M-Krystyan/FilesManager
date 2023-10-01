@@ -32,30 +32,6 @@ namespace FilesManager.Core.Tests.Validation
         }
         #endregion
 
-        #region RegEx for file path
-        [TestCase("", false, "", "", "")]
-        [TestCase(" ", false, "", "", "")]
-        [TestCase("C:\\Users\\User\\Desktop\\Folder\\Subfolder\\File.dat", true, "C:\\Users\\User\\Desktop\\Folder\\Subfolder\\", "File", ".dat")]    // Normal valid file path
-        [TestCase("C:\\Users\\User\\Desktop\\Folder\\Subfolder\\!File.dat", true, "C:\\Users\\User\\Desktop\\Folder\\Subfolder\\", "!File", ".dat")]  // With special character in name
-        [TestCase("C:\\Users\\User\\Desktop\\Folder\\Subfolder\\Save File.dat", true, "C:\\Users\\User\\Desktop\\Folder\\Subfolder\\", "Save File", ".dat")]  // With space in name
-        [TestCase("C:\\Users\\User\\File", false, "", "", "")]  // Without file extension
-        [TestCase("File.dat", false, "", "", "")]  // Without file directory
-        public void TestField_FilePathPattern_WithRegExPattern_ReturnsAllMatchGroups(string testPath, bool isSuccess, string expectedPath, string expectedName, string expectedExtension)
-        {
-            // Act
-            Match match = RegexPatterns.FilePathPattern.Match(testPath);
-
-            // Arrange
-            Assert.Multiple(() =>
-            {
-                Assert.That(match.Success, Is.EqualTo(isSuccess));
-                Assert.That(match.Groups[RegexPatterns.PathGroup].Value, Is.EqualTo(expectedPath));
-                Assert.That(match.Groups[RegexPatterns.NameGroup].Value, Is.EqualTo(expectedName));
-                Assert.That(match.Groups[RegexPatterns.ExtensionGroup].Value, Is.EqualTo(expectedExtension));
-            });
-        }
-        #endregion
-
         #region RegEx for zeros and digits
         [TestCase("", true, "", "", "")]
         [TestCase(" ", true, "", "", " ")]
@@ -85,6 +61,5 @@ namespace FilesManager.Core.Tests.Validation
             });
         }
         #endregion
-
     }
 }
