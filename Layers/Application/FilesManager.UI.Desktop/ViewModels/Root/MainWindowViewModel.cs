@@ -15,7 +15,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
     /// <summary>
     /// View model for the main window of the application.
     /// </summary>
-    /// <seealso cref="ViewModelBase" />
+    /// <seealso cref="ViewModelBase"/>
     internal sealed class MainWindowViewModel : ViewModelBase
     {
         #region Texts

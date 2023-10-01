@@ -7,7 +7,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
     /// <summary>
     /// Base class for all file manipulation strategies.
     /// </summary>
-    /// <seealso cref="ViewModelBase" />
+    /// <seealso cref="ViewModelBase"/>
     internal abstract class StrategyBase : ViewModelBase
     {
         #region Texts
