@@ -195,10 +195,11 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
                     else
                     {
                         this.Files.Clear();
+                        UpdateMainButtons();  // NOTE: Cleaning up "Reset" button would be blocked until user click "OK" on the pupup
 
                         _ = Message.ErrorOk(Resources.ERROR_Operation_FileNotRecognized_Header,
                                             Resources.ERROR_Operation_FileNotRecognized_Text + $" \"{Path.GetFileName(filePath)}\"");
-                        break;
+                        return;
                     }
                 }
 
