@@ -1,4 +1,5 @@
-﻿using FilesManager.Core.Models.POCOs;
+﻿using FilesManager.Core.Models.DTOs.Results;
+using FilesManager.Core.Models.POCOs;
 using FilesManager.Core.Validation;
 using FilesManager.UI.Desktop.Properties;
 using FilesManager.UI.Desktop.Utilities;
@@ -184,13 +185,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
                 {
                     if (Validate.IsFilePathValid(filePath).Success)  // Ignore files that doesn't match the pattern "[name].[extension]"
                     {
-                        this.Files.Add(
-                            new FileData
-                            {
-                                Path = filePath,
-                                Name = Path.GetFileNameWithoutExtension(filePath),
-                                Extension = Path.GetExtension(filePath)
-                            });
+                        this.Files.Add(new FileData { Path = filePath });
                     }
                     else
                     {
@@ -214,9 +209,9 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         {
             if (this.CanProcess)
             {
-                this._activeStrategy!.Process();
+                RenamingResultDto result = this._activeStrategy!.Process(this.Files);  // NOTE: Collection is modified by reference
 
-                // TODO: Display success or failure message
+                this._activeStrategy!.DisplayPopup(result);
             }
         }
 

@@ -1,6 +1,12 @@
-﻿using FilesManager.UI.Desktop.Properties;
+﻿using FileManager.Layers.Logic;
+using FilesManager.Core.Models.DTOs.Results;
+using FilesManager.Core.Models.POCOs;
+using FilesManager.Core.Validation;
+using FilesManager.UI.Desktop.Properties;
 using FilesManager.UI.Desktop.ViewModels.Base;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
+using System.Collections.ObjectModel;
+using System.Globalization;
 
 namespace FilesManager.UI.Desktop.ViewModels.Strategies
 {
@@ -64,72 +70,71 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         {
         }
 
-        /// <summary>
-        /// Renames given files using incremented start number and optional postfix.
-        /// </summary>
-        //private void RenameWithIncrementedNumber()
-        //{
-        //    // Validate strings which are going to be used in file name
-        //    RenamingResultDto result = ValidateIllegalCharacters(this.NamePrefix, this.NamePostfix);
-
-        //    if (result.IsSuccess)
-        //    {
-        //        // Validate null or empty input
-        //        if (String.IsNullOrWhiteSpace(this.StartingNumber))
-        //        {
-        //            result = RenamingResultDto.Failure("Provide \"Start number\".");
-        //        }
-        //        else
-        //        {
-        //            // Validate input value (cannot be converted or it's too large)
-        //            if (UInt16.TryParse(this.StartingNumber, out ushort startNumber))
-        //            {
-        //                // Validate input value (consecutive numbers would exceed the allowed maximum)
-        //                if (startNumber + this.FilesList.Items.Count - 1 <= UInt16.MaxValue)  // NOTE: "startNumber" will be the first to use, that's why Count - 1
-        //                {
-        //                    // Process renaming of the file
-        //                    foreach (ListBoxItem fileItem in this.FilesList.Items)
-        //                    {
-        //                        result = RenamingService.ReplaceWithNumber((string)fileItem.ToolTip, this.NamePrefix, startNumber++, this.NamePostfix);
-
-        //                        // Validate renaming result
-        //                        if (!result.IsSuccess)
-        //                        {
-        //                            ClearFilesList();
-
-        //                            break;
-        //                        }
-
-        //                        UpdateNameOnList(fileItem, result.NewFilePath);
-        //                    }
-
-        //                    if (result.IsSuccess)
-        //                    {
-        //                        // Set the last number as the new start number
-        //                        this.StartingNumber = startNumber.Equals(0)
-        //                            ? (--startNumber).ToString()  // Revert the effect of "startNumber" value overflow (UInt16.MaxValue + 1 => 0)
-        //                            : startNumber.ToString(CultureInfo.InvariantCulture);
-        //                    }
-        //                }
-        //                else
-        //                {
-        //                    result = RenamingResultDto.Failure($"Some numbers would exceed the max value for \"Start number\" ({UInt16.MaxValue}) if the renaming continue incrementally.");
-        //                }
-        //            }
-        //            else
-        //            {
-        //                result = RenamingResultDto.Failure($"Invalid \"Start number\" value: {this.StartingNumber}.");
-        //            }
-        //        }
-        //    }
-
-        //    DisplayPopup(result);
-        //}
-
         #region Polymorphism
-        /// <inheritdoc cref="StrategyBase.Process()"/>
-        internal override sealed void Process()
+        /// <inheritdoc cref="StrategyBase.Process(ObservableCollection{FileData})"/>
+        internal override sealed RenamingResultDto Process(ObservableCollection<FileData> loadedFiles)
         {
+            // ----------------------------------
+            // 1. Validate mandatory input fields
+            // ----------------------------------
+            if (string.IsNullOrWhiteSpace(this.StartingNumber))  // Empty
+            {
+                return RenamingResultDto.Failure("Provide \"Start number\".");
+            }
+
+            if (!ushort.TryParse(this.StartingNumber, out ushort startNumber))  // Too small (negative) or too large (already above ushort.MaxValue)
+            {
+                return RenamingResultDto.Failure($"Invalid \"Start number\" value: {this.StartingNumber}.");
+            }
+
+            if (startNumber + loadedFiles.Count - 1 > ushort.MaxValue)  // Exceeding the maximum possible value
+            {
+                // EXAMPLE: "startNumber" is 65530 and there is 6 files on the list. The result of ++ would be 65536 => which is more than maximum for ushort
+                return RenamingResultDto.Failure($"Some numbers would eventually exceed the max value for \"Start number\" (65535) if the renaming continue.");
+            }
+
+            // ---------------------------------
+            // 2. Validate optional input fields
+            // ---------------------------------
+            (bool isInvalid, string faultyInput) = Validate.HaveInvalidCharacters(this.NamePrefix, this.NamePostfix);
+            if (isInvalid)
+            {
+                return RenamingResultDto.Failure($"The given value contains illegal characters: \"{faultyInput}\"");
+            }
+
+            // --------------------------------
+            // 3. Process renaming of the files
+            // --------------------------------
+            var result = RenamingResultDto.Failure();
+
+            for (int index = 0; index < loadedFiles.Count; index++)
+            {
+                FileData file = loadedFiles[index];
+                result = RenamingService.ReplaceWithNumber(file.Path, this.NamePrefix, startNumber++, this.NamePostfix);
+
+                if (result.IsSuccess)
+                {
+                    // NOTE: Removing the old and inserting the modified item is necessary to notify ObservableCollection<T> about item updates
+                    loadedFiles.RemoveAt(index);
+                    file.Path = result.NewFilePath;
+                    loadedFiles.Insert(index, file);
+                }
+                else
+                {
+                    loadedFiles.Clear();
+                    break;
+                }
+            }
+
+            if (result.IsSuccess)
+            {
+                // Set the last number as the new start number
+                this.StartingNumber = startNumber is 0
+                    ? (--startNumber).ToString()  // Revert the effect of "startNumber" value overflow (ushort.MaxValue + 1 => 0)
+                    : startNumber.ToString(CultureInfo.InvariantCulture);
+            }
+
+            return result;
         }
 
         /// <inheritdoc cref="ViewModelBase.Reset()"/>

@@ -26,31 +26,26 @@ namespace FilesManager.Core.Validation
         }
 
         /// <summary>
-        /// Determines whether the given string contains illegal characters.
+        /// Determines whether the given <see langword="string"/> contains illegal characters.
         /// </summary>
-        /// <param name="invalidValue">The specific text which contains an invalid characters.</param>
-        /// <param name="textInputs">The set of text inputs to be validated.</param>
+        /// <param name="textInputs">The probe of text inputs to be validated.</param>
+        /// <param name="invalidInput">The specific input that contains invalid characters.</param>
         /// <returns>
-        ///   The answer whether any of provided text values contains an illegal characters.
+        ///   The answer whether any of the provided inputs contain illegal characters.
         /// </returns>
-        public static bool ContainsIllegalCharacters(string[] textInputs, out string invalidValue)
+        public static (bool ContainsInvalid, string InvalidInput) HaveInvalidCharacters(params string[] textInputs)
         {
-            invalidValue = string.Empty;
-
-            if (textInputs != null)
+            for (int index = 0; index < textInputs.Length; index++)
             {
-                foreach (string text in textInputs)
-                {
-                    if (RegexPatterns.InvalidCharactersPattern.IsMatch($"{text}"))
-                    {
-                        invalidValue = text;
+                string currentInput = textInputs[index];
 
-                        return true;
-                    }
+                if (RegexPatterns.InvalidCharactersPattern.IsMatch(currentInput))
+                {
+                    return (true, currentInput);
                 }
             }
 
-            return false;
+            return (false, string.Empty);
         }
 
         /// <summary>

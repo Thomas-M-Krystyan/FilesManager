@@ -1,6 +1,11 @@
-﻿using FilesManager.UI.Desktop.Properties;
+﻿using FilesManager.Core.Models.DTOs.Results;
+using FilesManager.Core.Models.POCOs;
+using FilesManager.UI.Desktop.Properties;
+using FilesManager.UI.Desktop.Utilities;
 using FilesManager.UI.Desktop.ViewModels.Base;
 using System;
+using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
 {
@@ -77,7 +82,26 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         /// <summary>
         /// Executes logic related to this specific strategy.
         /// </summary>
-        internal abstract void Process();
+        /// <param name="loadedFiles">
+        ///   The collection of loaded files, dragged and dropped into dedicated UI section.
+        ///   <para>
+        ///     It will never be null or empty.
+        ///   </para>
+        /// </param>
+        internal abstract RenamingResultDto Process(ObservableCollection<FileData> loadedFiles);
+        #endregion
+
+        #region Virtual
+        /// <summary>
+        /// Displays a proper <see cref="MessageBoxResult"/> popup with feedback information.
+        /// </summary>
+        /// <param name="result">The result of processing operation.</param>
+        internal virtual void DisplayPopup(RenamingResultDto result)
+        {
+            _ = result.IsSuccess
+                ? Message.InfoOk("Operation successful", "All files were renamed!")
+                : Message.ErrorOk("Operation failed", result.Message);
+        }
         #endregion
     }
 }

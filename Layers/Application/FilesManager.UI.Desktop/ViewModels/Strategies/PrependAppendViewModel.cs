@@ -1,6 +1,9 @@
-﻿using FilesManager.UI.Desktop.Properties;
+﻿using FilesManager.Core.Models.DTOs.Results;
+using FilesManager.Core.Models.POCOs;
+using FilesManager.UI.Desktop.Properties;
 using FilesManager.UI.Desktop.ViewModels.Base;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
+using System.Collections.ObjectModel;
 
 namespace FilesManager.UI.Desktop.ViewModels.Strategies
 {
@@ -81,9 +84,10 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         //}
 
         #region Polymorphism
-        /// <inheritdoc cref="StrategyBase.Process()"/>
-        internal override sealed void Process()
+        /// <inheritdoc cref="StrategyBase.Process(ObservableCollection{FileData})"/>
+        internal override sealed RenamingResultDto Process(ObservableCollection<FileData> loadedFiles)
         {
+            return RenamingResultDto.Success();
         }
 
         /// <inheritdoc cref="ViewModelBase.Reset()"/>

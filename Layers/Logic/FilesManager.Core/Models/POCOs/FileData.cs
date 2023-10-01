@@ -1,4 +1,6 @@
-﻿namespace FilesManager.Core.Models.POCOs
+﻿using FilePath = System.IO.Path;
+
+namespace FilesManager.Core.Models.POCOs
 {
     /// <summary>
     /// The POCO model representing <see cref="File"/> metadata.
@@ -11,18 +13,8 @@
         public string Path { get; set; } = string.Empty;
 
         /// <summary>
-        /// The name of the file: <code>"Test"</code>
-        /// </summary>
-        public string Name { get; set; } = string.Empty;
-
-        /// <summary>
-        /// The extension of the file: <code>".txt"</code>
-        /// </summary>
-        public string Extension { get; set; } = string.Empty;
-
-        /// <summary>
         /// The file name with extension to be displayed on UI: <code>"Test.txt"</code>
         /// </summary>
-        public string DisplayName => $"{this.Name}{this.Extension}";
+        public string DisplayName => $"{FilePath.GetFileName(this.Path)}";
     }
 }

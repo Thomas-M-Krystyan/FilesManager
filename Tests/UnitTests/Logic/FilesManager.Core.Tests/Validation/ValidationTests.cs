@@ -70,12 +70,12 @@ namespace FilesManager.Core.Tests.Validation
         }
         #endregion
 
-        #region ContainsIllegalCharacters
+        #region HaveInvalidCharacters
         [TestCaseSource(nameof(TestInputs))]
-        public void ContainsIllegalCharacters_ForInvalidInput_ReturnsExpectedResult_AndValue((string[] TextInputs, bool ExpectedResult, string ExpectedValue) test)
+        public void HaveInvalidCharacters_ForGivenInput_ReturnsExpectedResult_AndValue((string[] TextInputs, bool ExpectedResult, string ExpectedValue) test)
         {
             // Act
-            bool actualResult = Validate.ContainsIllegalCharacters(test.TextInputs, out string actualValue);
+            (bool actualResult, string actualValue) = Validate.HaveInvalidCharacters(test.TextInputs);
 
             // Assert
             Assert.Multiple(() =>
@@ -85,21 +85,21 @@ namespace FilesManager.Core.Tests.Validation
             });
         }
 
-        private static IEnumerable<(string[]?, bool, string)> TestInputs()
+        private static IEnumerable<(string[], bool, string)> TestInputs()
         {
             yield return (Array.Empty<string>(), false, "");
-            yield return (null,                  false, "");
+            yield return (new[] { "All good" }, false, "");
 
             // Invalid characters:  \/:*?""<>|
-            yield return (new[] { @"n\ame" },    true,  @"n\ame");
-            yield return (new[] { @"name/" },    true,  @"name/");
-            yield return (new[] { @":name" },    true,  @":name");
-            yield return (new[] { @"*name" },    true,  @"*name");
-            yield return (new[] { @"name?" },    true,  @"name?");
-            yield return (new[] { @"""name" },   true,  @"""name");
-            yield return (new[] { @"nam<e" },    true,  @"nam<e");
-            yield return (new[] { @"na>me" },    true,  @"na>me");
-            yield return (new[] { @"na|me" },    true,  @"na|me");
+            yield return (new[] { @"n\ame" }, true, @"n\ame");
+            yield return (new[] { @"name/" }, true, @"name/");
+            yield return (new[] { @":name" }, true, @":name");
+            yield return (new[] { @"*name" }, true, @"*name");
+            yield return (new[] { @"name?" }, true, @"name?");
+            yield return (new[] { @"""name" }, true, @"""name");
+            yield return (new[] { @"nam<e" }, true, @"nam<e");
+            yield return (new[] { @"na>me" }, true, @"na>me");
+            yield return (new[] { @"na|me" }, true, @"na|me");
         }
         #endregion
     }
