@@ -2,12 +2,12 @@
 
 namespace FilesManager.UI.Desktop.Utilities
 {
-    public static class Message
+    internal static class Message
     {
         /// <summary>
         /// Displays ERROR (red) popup with a single "OK" acknowledge button.
         /// </summary>
-        public static MessageBoxResult ErrorOk(string messageBoxHeader, string messageBoxText)
+        internal static MessageBoxResult ErrorOk(string messageBoxHeader, string messageBoxText)
         {
             return MessageBox.Show(messageBoxText, messageBoxHeader, MessageBoxButton.OK, MessageBoxImage.Error);
         }
@@ -15,7 +15,7 @@ namespace FilesManager.UI.Desktop.Utilities
         /// <summary>
         /// Displays WARNING (yellow) popup with a single "OK" acknowledge button.
         /// </summary>
-        public static MessageBoxResult WarningOk(string messageBoxHeader, string messageBoxText)
+        internal static MessageBoxResult WarningOk(string messageBoxHeader, string messageBoxText)
         {
             return MessageBox.Show(messageBoxText, messageBoxHeader, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
@@ -23,7 +23,7 @@ namespace FilesManager.UI.Desktop.Utilities
         /// <summary>
         /// Displays INFORMATION (blue) popup with a single "OK" acknowledge button.
         /// </summary>
-        public static MessageBoxResult InfoOk(string messageBoxHeader, string messageBoxText)
+        internal static MessageBoxResult InfoOk(string messageBoxHeader, string messageBoxText)
         {
             return MessageBox.Show(messageBoxText, messageBoxHeader, MessageBoxButton.OK, MessageBoxImage.Information);
         }
