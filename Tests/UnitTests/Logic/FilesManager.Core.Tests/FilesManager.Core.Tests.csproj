@@ -2,12 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
+    
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
+  <!-- Packages -->
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.0">
       <PrivateAssets>all</PrivateAssets>
@@ -22,6 +24,7 @@
     </PackageReference>
   </ItemGroup>
 
+  <!-- Projects -->
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Layers\Logic\FilesManager.Core\FilesManager.Core.csproj" />
   </ItemGroup>
