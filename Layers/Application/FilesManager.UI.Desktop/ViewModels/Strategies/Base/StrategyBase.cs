@@ -67,5 +67,12 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
             this.IsEnabled = false;
         }
         #endregion
+
+        #region Abstract
+        /// <summary>
+        /// Executes logic related to this specific strategy.
+        /// </summary>
+        internal abstract void Process();
+        #endregion
     }
 }

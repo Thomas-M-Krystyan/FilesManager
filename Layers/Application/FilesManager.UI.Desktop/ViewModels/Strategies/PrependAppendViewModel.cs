@@ -81,6 +81,11 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         //}
 
         #region Polymorphism
+        /// <inheritdoc cref="StrategyBase.Process()"/>
+        internal override sealed void Process()
+        {
+        }
+
         /// <inheritdoc cref="ViewModelBase.Reset()"/>
         protected override sealed void Reset()  // NOTE: Speficic behavior for this concrete strategy. Overloading restricted
         {

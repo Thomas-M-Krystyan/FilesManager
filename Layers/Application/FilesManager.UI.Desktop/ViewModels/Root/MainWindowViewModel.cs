@@ -4,6 +4,7 @@ using FilesManager.UI.Desktop.Properties;
 using FilesManager.UI.Desktop.Utilities;
 using FilesManager.UI.Desktop.ViewModels.Base;
 using FilesManager.UI.Desktop.ViewModels.Strategies;
+using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
 using Microsoft.Xaml.Behaviors.Core;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -38,6 +39,8 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
 
         /// <inheritdoc cref="LeadingZerosViewModel"/>
         public LeadingZerosViewModel LeadingZerosStrategy { get; }
+
+        private StrategyBase? _activeStrategy = null;
         #endregion
 
         #region Commands
@@ -45,6 +48,11 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         /// Handles subscribed <see cref="LoadFiles(object)"/> action.
         /// </summary>
         public ICommand LoadFilesCommand => new ActionCommand(LoadFiles);
+
+        /// <summary>
+        /// Handles subscribed <see cref="Process"/> action.
+        /// </summary>
+        public ICommand ProcessCommand => new ActionCommand(Process);
         #endregion
 
         /// <summary>
@@ -90,23 +98,14 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         }
         #endregion
 
-        #region Subscriptions
-        private void SubscribeEvents()
-        {
-            this.IncrementNumberStrategy.OnSelected += Deselect;
-            this.PrependAppendStrategy.OnSelected += Deselect;
-            this.LeadingZerosStrategy.OnSelected += Deselect;
-        }
-
-        private void UnsubscribeEvents()
-        {
-            this.IncrementNumberStrategy.OnSelected -= Deselect;
-            this.PrependAppendStrategy.OnSelected -= Deselect;
-            this.LeadingZerosStrategy.OnSelected -= Deselect;
-        }
-        #endregion
-
         #region Private
+        /// <summary>
+        /// Loads the files details from those dragged and dropped into a dedicated UI section of <see cref="MainWindow"/>.
+        /// </summary>
+        /// <param name="parameter">
+        ///   The event's argument (<see cref="DragEventArgs"/>) passed
+        ///   when the specific trigger was activated on the XAML side.
+        /// </param>
         private void LoadFiles(object parameter)
         {
             if (parameter is DragEventArgs dragEvent &&
@@ -138,6 +137,51 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Processes the currently active strategy (a view model extending <see cref="StrategyBase"/>).
+        /// </summary>
+        private void Process()
+        {
+            this._activeStrategy = this.IncrementNumberStrategy.IsEnabled ? this.IncrementNumberStrategy :
+                                   this.PrependAppendStrategy.IsEnabled   ? this.PrependAppendStrategy   :
+                                   this.LeadingZerosStrategy.IsEnabled    ? this.LeadingZerosStrategy    :
+                                   null;
+
+            if (this._activeStrategy == null)
+            {
+                _ = Message.WarningOk(Resources.ERROR_Operation_NoStrategySelected_Header,
+                                      Resources.ERROR_Operation_NoStrategySelected_Text);
+            }
+            else
+            {
+                if (this.Files.Count == 0)
+                {
+                    _ = Message.WarningOk(Resources.ERROR_Operation_MissingFiles_Header,
+                                          Resources.ERROR_Operation_MissingFiles_Text);
+                }
+                else
+                {
+                    this._activeStrategy.Process();
+                }
+            }
+        }
+        #endregion
+
+        #region Subscriptions
+        private void SubscribeEvents()
+        {
+            this.IncrementNumberStrategy.OnSelected += Deselect;
+            this.PrependAppendStrategy.OnSelected += Deselect;
+            this.LeadingZerosStrategy.OnSelected += Deselect;
+        }
+
+        private void UnsubscribeEvents()
+        {
+            this.IncrementNumberStrategy.OnSelected -= Deselect;
+            this.PrependAppendStrategy.OnSelected -= Deselect;
+            this.LeadingZerosStrategy.OnSelected -= Deselect;
         }
         #endregion
     }

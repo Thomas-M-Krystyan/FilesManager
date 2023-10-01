@@ -97,6 +97,42 @@ namespace FilesManager.UI.Desktop.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Missing files.
+        /// </summary>
+        public static string ERROR_Operation_MissingFiles_Header {
+            get {
+                return ResourceManager.GetString("ERROR_Operation_MissingFiles_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The list of files is empty..
+        /// </summary>
+        public static string ERROR_Operation_MissingFiles_Text {
+            get {
+                return ResourceManager.GetString("ERROR_Operation_MissingFiles_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nothing selected.
+        /// </summary>
+        public static string ERROR_Operation_NoStrategySelected_Header {
+            get {
+                return ResourceManager.GetString("ERROR_Operation_NoStrategySelected_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No operation on a file was selected..
+        /// </summary>
+        public static string ERROR_Operation_NoStrategySelected_Text {
+            get {
+                return ResourceManager.GetString("ERROR_Operation_NoStrategySelected_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to RENAME FILES.
         /// </summary>
         public static string Header_General {

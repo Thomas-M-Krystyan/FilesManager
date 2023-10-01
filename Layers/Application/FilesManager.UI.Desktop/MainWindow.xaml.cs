@@ -19,42 +19,7 @@ namespace FilesManager.UI.Desktop
             this.SizeToContent = SizeToContent.WidthAndHeight;  // NOTE: Adjust window to its content in real-time
         }
 
-        #region Button handlers (common)
-        /// <summary>
-        /// Processes the selected renaming method.
-        /// </summary>
-        private void ProcessButton_Click(object sender, RoutedEventArgs @event)
-        {
-            // Validate if there are any files on the list
-            //if (this.FilesList.Items.Count == 0)
-            {
-                _ = Message.WarningOk("Missing files", "The list of files is empty.");
-            }
-            //else
-            {
-                // Methods control
-                //if (this.StartNumberRadioButton.IsChecked())
-                {
-                    //RenameWithIncrementedNumber();  // TODO: Uncomment
-                }
-                //else if (this.PrependAppendRadioButton.IsChecked())
-                {
-                    //RenameWithPrependAndAppendedText();  // TODO: Uncomment
-                }
-                //else if (this.SetLeadingZerosRadioButton.IsChecked())
-                {
-                    //RenameWithLeadingZeros();  // TODO: Uncomment
-                }
-                //else
-                {
-                    _ = Message.WarningOk("Nothing selected", "No renaming method was selected.");
-                }
-            }
-        }
-        #endregion
-
         #region Helper (partial) methods - used by strategies
-
         /// <summary>
         /// Validates if the provided text values contains illegal characters.
         /// </summary>

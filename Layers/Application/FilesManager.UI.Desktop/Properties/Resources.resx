@@ -129,6 +129,18 @@
   <data name="ERROR_Operation_FileNotRecognized_Text" xml:space="preserve">
     <value>Unrecognized type of file.</value>
   </data>
+  <data name="ERROR_Operation_MissingFiles_Header" xml:space="preserve">
+    <value>Missing files</value>
+  </data>
+  <data name="ERROR_Operation_MissingFiles_Text" xml:space="preserve">
+    <value>The list of files is empty.</value>
+  </data>
+  <data name="ERROR_Operation_NoStrategySelected_Header" xml:space="preserve">
+    <value>Nothing selected</value>
+  </data>
+  <data name="ERROR_Operation_NoStrategySelected_Text" xml:space="preserve">
+    <value>No operation on a file was selected.</value>
+  </data>
   <data name="Header_General" xml:space="preserve">
     <value>RENAME FILES</value>
   </data>

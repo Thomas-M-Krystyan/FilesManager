@@ -395,14 +395,18 @@
                     </behaviors:Interaction.Triggers>
                 </Button>
 
-                <Button xaml:Name="ProcessButton"
-                        Grid.Column="3"
+                <Button Grid.Column="3"
                         Grid.Row="1"
                         Content="{xaml:Static properties:Resources.Content_ProcessButton}"
                         Background="LightBlue"
-                        Click="ProcessButton_Click"
                         ToolTip="{xaml:Static properties:Resources.Tooltip_ProcessButton}"
-                        Style="{StaticResource ButtonStyle}" />
+                        Style="{StaticResource ButtonStyle}">
+                    <behaviors:Interaction.Triggers>
+                        <behaviors:EventTrigger EventName="Click">
+                            <behaviors:InvokeCommandAction Command="{Binding ProcessCommand, Mode=OneWay}" />
+                        </behaviors:EventTrigger>
+                    </behaviors:Interaction.Triggers>
+                </Button>
             </Grid>
         </Grid>
     </Grid>
