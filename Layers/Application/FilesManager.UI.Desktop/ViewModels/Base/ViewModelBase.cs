@@ -48,14 +48,12 @@ namespace FilesManager.UI.Desktop.ViewModels.Base
         }
         #endregion
 
-        #region Virtual
+        #region Abstract
         /// <summary>
         /// Selects certain elements or controls related to this view model.
         /// </summary>
-        protected virtual void Select() { }  // NOTE: "MainWindowViewModel" doesn't need to overload it
-        #endregion
+        protected abstract void Select();  // NOTE: Should be implemented by all view models
 
-        #region Abstract
         /// <summary>
         /// Deselects certain elements or controls related to this view model.
         /// </summary>

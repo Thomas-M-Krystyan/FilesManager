@@ -27,8 +27,6 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         #endregion
 
         #region Fields
-        private bool _isFileListLoaded;
-        private bool _isStrategySelected;
         private StrategyBase? _activeStrategy;
         #endregion
 
@@ -69,7 +67,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         }
         #endregion
 
-        #region Properties (read-only): View Models
+        #region Properties (read-only)
         /// <inheritdoc cref="IncrementNumberViewModel"/>
         public IncrementNumberViewModel IncrementNumberStrategy { get; }
 
@@ -78,6 +76,16 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
 
         /// <inheritdoc cref="LeadingZerosViewModel"/>
         public LeadingZerosViewModel LeadingZerosStrategy { get; }
+
+        /// <summary>
+        /// Determines if the list of files is already loaded.
+        /// </summary>
+        private bool IsFileListLoaded => this.Files.Count > 0;
+
+        /// <summary>
+        /// Determines if the current strategy is already set.
+        /// </summary>
+        private bool IsStrategySelected => this._activeStrategy != null;
         #endregion
 
         #region Commands (binding)
@@ -114,6 +122,19 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
 
         #region Polymorphism
         /// <summary>
+        /// Determines which strategy is selected (if any).
+        /// </summary>
+        protected override sealed void Select()
+        {
+            this._activeStrategy = this.IncrementNumberStrategy.IsEnabled ? this.IncrementNumberStrategy :
+                                   this.PrependAppendStrategy.IsEnabled   ? this.PrependAppendStrategy   :
+                                   this.LeadingZerosStrategy.IsEnabled    ? this.LeadingZerosStrategy    :
+                                   null;
+
+            UpdateMainButtons();
+        }
+
+        /// <summary>
         /// Deselects all strategies.
         /// </summary>
         protected override sealed void Deselect()  // NOTE: Specific behavior of the hub for other view models. Overloading restricted
@@ -129,12 +150,11 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         protected override sealed void Reset()  // NOTE: Specific behavior of the hub for other view models. Overloading restricted
         {
             this.Files.Clear();
-            this._isFileListLoaded = false;
 
             this.IncrementNumberStrategy.ResetCommand.Execute(null);
             this.PrependAppendStrategy.ResetCommand.Execute(null);
             this.LeadingZerosStrategy.ResetCommand.Execute(null);
-            this._isStrategySelected = false;
+            this._activeStrategy = null;
 
             UpdateMainButtons();
         }
@@ -174,15 +194,15 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
                     }
                     else
                     {
-                        _ = Message.ErrorOk(Resources.ERROR_Operation_FileNotRecognized_Header,
-                                            Resources.ERROR_Operation_FileNotRecognized_Text + $" \"{Path.GetFileName(filePath)}\"");
                         this.Files.Clear();
 
-                        return;
+                        _ = Message.ErrorOk(Resources.ERROR_Operation_FileNotRecognized_Header,
+                                            Resources.ERROR_Operation_FileNotRecognized_Text + $" \"{Path.GetFileName(filePath)}\"");
+                        break;
                     }
                 }
 
-                FileListIsLoaded();
+                UpdateMainButtons();
             }
         }
 
@@ -194,36 +214,18 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
             if (this.CanProcess)
             {
                 this._activeStrategy!.Process();
+
+                // TODO: Display success or failure message
             }
-        }
-
-        private void FileListIsLoaded()
-        {
-            // Set 1st condition
-            this._isFileListLoaded = true;
-
-            // Inform binding properties whether their conditions are met
-            UpdateMainButtons();
-        }
-
-        private void StrategyIsSelectd()
-        {
-            // Determine which specific strategy was activated
-            this._activeStrategy = this.IncrementNumberStrategy.IsEnabled ? this.IncrementNumberStrategy :
-                                   this.PrependAppendStrategy.IsEnabled   ? this.PrependAppendStrategy   :
-                                   this.LeadingZerosStrategy.IsEnabled    ? this.LeadingZerosStrategy    :
-                                   null;
-            // Set 2nd condition
-            this._isStrategySelected = this._activeStrategy != null;
-
-            // Inform binding properties whether their conditions are met
-            UpdateMainButtons();
         }
 
         private void UpdateMainButtons()
         {
-            this.CanReset = this._isFileListLoaded || this._isStrategySelected;
-            this.CanProcess = this._isFileListLoaded && this._isStrategySelected;
+            // NOTE: At least one condition is required
+            this.CanReset = this.IsFileListLoaded || this.IsStrategySelected;
+
+            // NOTE: All conditions are required
+            this.CanProcess = this.IsFileListLoaded && this.IsStrategySelected;
         }
         #endregion
 
@@ -231,25 +233,25 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         private void SubscribeEvents()
         {
             this.IncrementNumberStrategy.BeforeOnSelected += Deselect;
-            this.IncrementNumberStrategy.AfterOnSelected += StrategyIsSelectd;
+            this.IncrementNumberStrategy.AfterOnSelected += Select;
 
             this.PrependAppendStrategy.BeforeOnSelected += Deselect;
-            this.PrependAppendStrategy.AfterOnSelected += StrategyIsSelectd;
+            this.PrependAppendStrategy.AfterOnSelected += Select;
 
             this.LeadingZerosStrategy.BeforeOnSelected += Deselect;
-            this.LeadingZerosStrategy.AfterOnSelected += StrategyIsSelectd;
+            this.LeadingZerosStrategy.AfterOnSelected += Select;
         }
 
         private void UnsubscribeEvents()
         {
             this.IncrementNumberStrategy.BeforeOnSelected -= Deselect;
-            this.IncrementNumberStrategy.AfterOnSelected -= StrategyIsSelectd;
+            this.IncrementNumberStrategy.AfterOnSelected -= Select;
 
             this.PrependAppendStrategy.BeforeOnSelected -= Deselect;
-            this.PrependAppendStrategy.AfterOnSelected -= StrategyIsSelectd;
+            this.PrependAppendStrategy.AfterOnSelected -= Select;
 
             this.LeadingZerosStrategy.BeforeOnSelected -= Deselect;
-            this.LeadingZerosStrategy.AfterOnSelected -= StrategyIsSelectd;
+            this.LeadingZerosStrategy.AfterOnSelected -= Select;
         }
         #endregion
     }
