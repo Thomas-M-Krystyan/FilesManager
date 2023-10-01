@@ -12,24 +12,27 @@ namespace FilesManager.Core.Validation
         /// <summary>
         /// Determines whether the provided file has a valid extension.
         /// </summary>
-        /// <param name="dropFilePath">The file path of dragged and dropped file.</param>
+        /// <param name="filePath">The path of the file.</param>
         /// <returns>
         ///   The answer whether provided file has an invalid extension.
         /// </returns>
-        public static bool HasValidExtension(string dropFilePath)
+        public static bool HasValidExtension(string filePath)
         {
-            if (String.IsNullOrWhiteSpace(dropFilePath) || dropFilePath.Length < 3)  // a.h
+            const int dotLength = 1;
+            const int fileExtensionMinLength = 1;
+
+            if (string.IsNullOrWhiteSpace(filePath) ||  // Invalid example: "" or " "
+                !(filePath.Length > dotLength + fileExtensionMinLength))  // Invalid example: ".h"
             {
                 return false;
             }
 
-            string fileExtension = Path.GetExtension(dropFilePath);
+            string fileExtension = Path.GetExtension(filePath);
 
-            const int fileExtensionMinLength = 1;
             const int fileExtensionMaxLength = 4;
 
-            return fileExtension.Length > fileExtensionMinLength &&
-                   fileExtension.Length <= (1 + fileExtensionMaxLength);  // File extension length + dot
+            return fileExtension.Length is >= dotLength + fileExtensionMinLength    // Valid example: "a[.h]"
+                                        and <= dotLength + fileExtensionMaxLength;  // Valid example: "a[.jpeg]"
         }
 
         /// <summary>
@@ -42,7 +45,7 @@ namespace FilesManager.Core.Validation
         /// </returns>
         internal static Match IsFilePathValid(string filePath)
         {
-            return String.IsNullOrWhiteSpace(filePath)
+            return string.IsNullOrWhiteSpace(filePath)
                 ? Match.Empty
                 : RegexPatterns.FilePathPattern.Match(filePath);
         }
