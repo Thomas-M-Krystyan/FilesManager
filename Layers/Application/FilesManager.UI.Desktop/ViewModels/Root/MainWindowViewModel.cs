@@ -133,7 +133,8 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
                     }
                     else
                     {
-                        _ = Message.ErrorOk("File error", "Unrecognized type of file.");
+                        _ = Message.ErrorOk(Resources.ERROR_Operation_FileNotRecognized_Header,
+                                            Resources.ERROR_Operation_FileNotRecognized_Message);
                     }
                 }
             }

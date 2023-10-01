@@ -79,6 +79,24 @@ namespace FilesManager.UI.Desktop.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File error.
+        /// </summary>
+        public static string ERROR_Operation_FileNotRecognized_Header {
+            get {
+                return ResourceManager.GetString("ERROR_Operation_FileNotRecognized_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unrecognized type of file..
+        /// </summary>
+        public static string ERROR_Operation_FileNotRecognized_Message {
+            get {
+                return ResourceManager.GetString("ERROR_Operation_FileNotRecognized_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to RENAME FILES.
         /// </summary>
         public static string Header_General {
@@ -381,7 +399,7 @@ namespace FilesManager.UI.Desktop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to File Manager (v0.3.4-alpha).
+        ///   Looks up a localized string similar to File Manager (v0.3.5-alpha).
         /// </summary>
         public static string WindowTitle {
             get {
