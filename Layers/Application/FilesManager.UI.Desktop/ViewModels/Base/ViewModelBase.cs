@@ -38,7 +38,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Base
         {
         }
 
-        #region Listener
+        #region Notifier
         /// <summary>
         /// Notifies a specific view model whether its property was changed from XAML code.
         /// </summary>
