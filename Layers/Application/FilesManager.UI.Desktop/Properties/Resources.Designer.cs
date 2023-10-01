@@ -178,7 +178,7 @@ namespace FilesManager.UI.Desktop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Drag and drop files here.
+        ///   Looks up a localized string similar to INFO: Drag and drop files here.
         /// </summary>
         public static string Tooltip_FilesList {
             get {

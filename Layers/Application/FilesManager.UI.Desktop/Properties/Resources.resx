@@ -157,7 +157,7 @@
     <value>INFO: Optional text to be added at the end of the file name</value>
   </data>
   <data name="Tooltip_FilesList" xml:space="preserve">
-    <value>Drag and drop files here</value>
+    <value>INFO: Drag and drop files here</value>
   </data>
   <data name="Tooltip_Method_IncrementNumber" xml:space="preserve">
     <value>EXAMPLE
