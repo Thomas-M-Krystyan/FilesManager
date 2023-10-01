@@ -28,6 +28,21 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         /// A collection of files that were dragged and dropped on the specific UI section in the <see cref="MainWindow"/>.
         /// </summary>
         public ObservableCollection<FileData> Files { get; } = new ObservableCollection<FileData>();
+
+        private bool _canProcess;
+        
+        /// <summary>
+        /// Determines whether the "Process" button will be enabled on the UI.
+        /// </summary>
+        public bool CanProcess
+        {
+            get => this._canProcess;
+            set
+            {
+                this._canProcess = value;
+                OnPropertyChanged(nameof(this.CanProcess));
+            }
+        }
         #endregion
 
         #region View Models
@@ -95,6 +110,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
             this.IncrementNumberStrategy.ResetCommand.Execute(null);
             this.PrependAppendStrategy.ResetCommand.Execute(null);
             this.LeadingZerosStrategy.ResetCommand.Execute(null);
+            this.CanProcess = false;
         }
         #endregion
 
@@ -167,21 +183,36 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
                 }
             }
         }
+
+        private void SomethingIsSelected()
+        {
+            this.CanProcess = true;
+        }
         #endregion
 
         #region Subscriptions
         private void SubscribeEvents()
         {
             this.IncrementNumberStrategy.OnSelected += Deselect;
+            this.IncrementNumberStrategy.OnSelected += SomethingIsSelected;
+
             this.PrependAppendStrategy.OnSelected += Deselect;
+            this.PrependAppendStrategy.OnSelected += SomethingIsSelected;
+
             this.LeadingZerosStrategy.OnSelected += Deselect;
+            this.LeadingZerosStrategy.OnSelected += SomethingIsSelected;
         }
 
         private void UnsubscribeEvents()
         {
             this.IncrementNumberStrategy.OnSelected -= Deselect;
+            this.IncrementNumberStrategy.OnSelected -= SomethingIsSelected;
+
             this.PrependAppendStrategy.OnSelected -= Deselect;
+            this.PrependAppendStrategy.OnSelected -= SomethingIsSelected;
+
             this.LeadingZerosStrategy.OnSelected -= Deselect;
+            this.LeadingZerosStrategy.OnSelected -= SomethingIsSelected;
         }
         #endregion
     }
