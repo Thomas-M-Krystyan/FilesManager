@@ -1,5 +1,5 @@
-﻿using FilesManager.Core.DTOs;
-using FilesManager.Core.ExtensionMethods;
+﻿using FilesManager.Core.ExtensionMethods;
+using FilesManager.Core.Models.DTOs.Files;
 using FilesManager.Core.Validation;
 using System.Text.RegularExpressions;
 

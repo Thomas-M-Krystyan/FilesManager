@@ -1,4 +1,4 @@
-﻿using FilesManager.Core.DTOs;
+﻿using FilesManager.Core.Models.DTOs.Results;
 using FilesManager.Core.Validation;
 using FilesManager.UI.Desktop.Utilities;
 using System.IO;

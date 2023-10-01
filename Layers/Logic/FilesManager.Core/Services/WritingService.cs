@@ -1,4 +1,4 @@
-﻿using FilesManager.Core.DTOs;
+﻿using FilesManager.Core.Models.DTOs.Results;
 
 namespace FilesManager.Core.Services
 {

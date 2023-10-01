@@ -1,9 +1,9 @@
-﻿namespace FilesManager.Core.DTOs
+﻿namespace FilesManager.Core.Models.DTOs.Results
 {
     /// <summary>
     /// The renaming operation result DTO.
     /// </summary>
-    public class RenamingResultDto
+    public sealed record RenamingResultDto
     {
         /// <summary>
         /// Gets the result of renaming operation.
@@ -22,21 +22,23 @@
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="RenamingResultDto"/> class.
+        /// Initializes a new instance of the <see cref="RenamingResultDto"/> record.
         /// </summary>
         private RenamingResultDto(bool isSuccess)
         {
             this.IsSuccess = isSuccess;
         }
 
-        /// <inheritdoc cref="RenamingResultDto(Boolean)" />
-        private RenamingResultDto(bool isSuccess, string message) : this(isSuccess)
+        /// <inheritdoc cref="RenamingResultDto(bool)" />
+        private RenamingResultDto(bool isSuccess, string message)
+            : this(isSuccess)
         {
             this.Message = message;
         }
 
-        /// <inheritdoc cref="RenamingResultDto(Boolean)" />
-        private RenamingResultDto(bool isSuccess, string message, string newFilePath) : this(isSuccess, message)
+        /// <inheritdoc cref="RenamingResultDto(bool)" />
+        private RenamingResultDto(bool isSuccess, string message, string newFilePath)
+            : this(isSuccess, message)
         {
             this.NewFilePath = newFilePath;
         }

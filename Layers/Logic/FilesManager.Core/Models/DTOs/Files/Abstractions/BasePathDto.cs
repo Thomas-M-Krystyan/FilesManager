@@ -1,6 +1,9 @@
-﻿namespace FilesManager.Core.DTOs.Abstractions
+﻿namespace FilesManager.Core.Models.DTOs.Files.Abstractions
 {
-    public abstract class BasePathDto
+    /// <summary>
+    /// Parent class for all file-related Data Transfer Objects (DTOs).
+    /// </summary>
+    public abstract record BasePathDto
     {
         /// <summary>
         /// Gets the path of the file.
@@ -13,17 +16,15 @@
         public string Extension { get; } = string.Empty;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BasePathDto"/> class.
+        /// Initializes a new instance of the <see cref="BasePathDto"/> record.
         /// </summary>
-        protected BasePathDto() { }
-
-        /// <inheritdoc cref="BasePathDto()" />
-        protected BasePathDto(string path, string extension) : this()
+        protected BasePathDto(string path, string extension)
         {
             this.Path = path;
             this.Extension = extension;
         }
 
+        #region Methods
         /// <summary>
         /// Checks whether this instance is empty.
         /// </summary>
@@ -32,5 +33,6 @@
             return this.Path.Equals(string.Empty) ||
                    this.Extension.Equals(string.Empty);
         }
+        #endregion
     }
 }
