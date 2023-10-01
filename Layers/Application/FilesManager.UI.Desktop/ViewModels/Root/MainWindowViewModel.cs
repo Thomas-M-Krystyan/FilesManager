@@ -12,7 +12,6 @@ using System.Windows.Input;
 
 namespace FilesManager.UI.Desktop.ViewModels.Root
 {
-
     /// <summary>
     /// View model for the main window of the application.
     /// </summary>
@@ -25,7 +24,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
 
         #region Properties
         /// <summary>
-        /// A collection of loaded files visible on the application <see cref="MainWindow"/>.
+        /// A collection of files that were dragged and dropped on the specific UI section in the <see cref="MainWindow"/>.
         /// </summary>
         public ObservableCollection<FileData> Files { get; } = new ObservableCollection<FileData>();
         #endregion
@@ -42,6 +41,9 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         #endregion
 
         #region Commands
+        /// <summary>
+        /// Handles subscribed <see cref="LoadFiles(object)"/> action.
+        /// </summary>
         public ICommand LoadFilesCommand => new ActionCommand(LoadFiles);
         #endregion
 
@@ -81,6 +83,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         /// </summary>
         protected override sealed void Reset()  // NOTE: Specific behavior of the hub for other view models. Overloading restricted
         {
+            this.Files.Clear();
             this.IncrementNumberStrategy.ResetCommand.Execute(null);
             this.PrependAppendStrategy.ResetCommand.Execute(null);
             this.LeadingZerosStrategy.ResetCommand.Execute(null);
