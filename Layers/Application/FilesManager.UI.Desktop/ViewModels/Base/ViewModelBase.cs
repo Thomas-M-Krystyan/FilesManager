@@ -14,7 +14,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Base
         public event PropertyChangedEventHandler? PropertyChanged;
         #endregion
 
-        #region Commands
+        #region Commands (binding)
         /// <summary>
         /// Handles subscribed <see cref="Select()"/> action.
         /// </summary>

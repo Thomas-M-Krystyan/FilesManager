@@ -384,6 +384,7 @@
 
                 <Button Grid.Column="1"
                         Grid.Row="1"
+                        IsEnabled="{Binding CanReset, Mode=OneWay}"
                         Content="{xaml:Static properties:Resources.Content_ResetButton}"
                         Background="#FFDCB9B9"
                         ToolTip="{xaml:Static properties:Resources.Tooltip_ResetButton}"

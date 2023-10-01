@@ -275,7 +275,7 @@ Invalid characters:  \ / : * ? " &lt; &gt; |</value>
     <value>TIP: Only positive numbers from the range [0 - 7]</value>
   </data>
   <data name="WindowTitle" xml:space="preserve">
-    <value>File Manager (v0.3.5-alpha)</value>
+    <value>File Manager (v0.3.6-alpha)</value>
     <comment>Version</comment>
   </data>
 </root>

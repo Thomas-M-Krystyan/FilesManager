@@ -18,7 +18,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         public static readonly string Set_Tooltip = Resources.Tooltip_Set;
         #endregion
 
-        #region Properties
+        #region Properties (binding)
         private string _leadingZeros = string.Empty;
         public string LeadingZeros
         {

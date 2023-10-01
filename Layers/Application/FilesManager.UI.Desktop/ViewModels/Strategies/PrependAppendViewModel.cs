@@ -20,7 +20,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         public static readonly string Append_Tooltip = Resources.Tooltip_Append;
         #endregion
 
-        #region Properties
+        #region Properties (binding)
         private string _prependName = string.Empty;
         public string PrependName
         {

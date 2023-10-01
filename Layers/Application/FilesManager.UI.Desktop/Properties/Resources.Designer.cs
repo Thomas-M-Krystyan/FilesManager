@@ -399,7 +399,7 @@ namespace FilesManager.UI.Desktop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to File Manager (v0.3.5-alpha).
+        ///   Looks up a localized string similar to File Manager (v0.3.6-alpha).
         /// </summary>
         public static string WindowTitle {
             get {

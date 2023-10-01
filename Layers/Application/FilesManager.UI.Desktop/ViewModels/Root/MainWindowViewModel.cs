@@ -26,18 +26,37 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         public static string FilesList_Tooltip = Resources.Tooltip_FilesList;
         #endregion
 
-        #region Properties
+        #region Fields
+        private bool _isFileListLoaded;
+        private bool _isStrategySelected;
+        private StrategyBase? _activeStrategy;
+        #endregion
+
+        #region Properties (binding)
         /// <summary>
         /// A collection of files that were dragged and dropped on the specific UI section in the <see cref="MainWindow"/>.
         /// </summary>
         public ObservableCollection<FileData> Files { get; } = new ObservableCollection<FileData>();
 
-        private bool _isStrategySelected;
-        private bool _isFileListLoaded;
+        private bool _canReset;
+
+        /// <summary>
+        /// Determines whether the "Reset" button is enabled on the UI.
+        /// </summary>
+        public bool CanReset
+        {
+            get => this._canReset;
+            set
+            {
+                this._canReset = value;
+                OnPropertyChanged(nameof(this.CanReset));
+            }
+        }
+
         private bool _canProcess;
         
         /// <summary>
-        /// Determines whether the "Process" button will be enabled on the UI.
+        /// Determines whether the "Process" button is enabled on the UI.
         /// </summary>
         public bool CanProcess
         {
@@ -50,7 +69,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         }
         #endregion
 
-        #region View Models
+        #region Properties (read-only): View Models
         /// <inheritdoc cref="IncrementNumberViewModel"/>
         public IncrementNumberViewModel IncrementNumberStrategy { get; }
 
@@ -59,14 +78,9 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
 
         /// <inheritdoc cref="LeadingZerosViewModel"/>
         public LeadingZerosViewModel LeadingZerosStrategy { get; }
-
-        /// <summary>
-        /// The currently active strategy.
-        /// </summary>
-        private StrategyBase? _activeStrategy;
         #endregion
 
-        #region Commands
+        #region Commands (binding)
         /// <summary>
         /// Handles subscribed <see cref="LoadFiles(object)"/> action.
         /// </summary>
@@ -122,7 +136,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
             this.LeadingZerosStrategy.ResetCommand.Execute(null);
             this._isStrategySelected = false;
 
-            this.CanProcess = this._isFileListLoaded && this._isStrategySelected;
+            UpdateMainButtons();
         }
         #endregion
 
@@ -188,8 +202,8 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
             // Set 1st condition
             this._isFileListLoaded = true;
 
-            // Inform binding property whether both conditions are met
-            this.CanProcess = this._isFileListLoaded && this._isStrategySelected;
+            // Inform binding properties whether their conditions are met
+            UpdateMainButtons();
         }
 
         private void StrategyIsSelectd()
@@ -202,7 +216,13 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
             // Set 2nd condition
             this._isStrategySelected = this._activeStrategy != null;
 
-            // Inform binding property whether both conditions are met
+            // Inform binding properties whether their conditions are met
+            UpdateMainButtons();
+        }
+
+        private void UpdateMainButtons()
+        {
+            this.CanReset = this._isFileListLoaded || this._isStrategySelected;
             this.CanProcess = this._isFileListLoaded && this._isStrategySelected;
         }
         #endregion

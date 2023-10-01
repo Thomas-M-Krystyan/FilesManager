@@ -22,7 +22,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         public static readonly string Postfix_Tooltip = Resources.Tooltip_Postfix;
         #endregion
 
-        #region Properties
+        #region Properties (binding)
         private string _namePrefix = string.Empty;
         public string NamePrefix
         {
