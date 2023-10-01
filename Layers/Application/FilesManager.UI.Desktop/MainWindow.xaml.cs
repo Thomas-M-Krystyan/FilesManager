@@ -21,24 +21,16 @@ namespace FilesManager.UI.Desktop
 
         #region Button handlers (common)
         /// <summary>
-        /// Clears list of files and any methods values.
-        /// </summary>
-        private void ResetButton_Click(object sender, RoutedEventArgs @event)
-        {
-            ClearFilesList();
-        }
-
-        /// <summary>
         /// Processes the selected renaming method.
         /// </summary>
         private void ProcessButton_Click(object sender, RoutedEventArgs @event)
         {
             // Validate if there are any files on the list
-            if (this.FilesList.Items.Count == 0)
+            //if (this.FilesList.Items.Count == 0)
             {
                 _ = Message.WarningOk("Missing files", "The list of files is empty.");
             }
-            else
+            //else
             {
                 // Methods control
                 //if (this.StartNumberRadioButton.IsChecked())
@@ -62,13 +54,6 @@ namespace FilesManager.UI.Desktop
         #endregion
 
         #region Helper (partial) methods - used by strategies
-        /// <summary>
-        /// Clears the list of dropped files.
-        /// </summary>
-        private void ClearFilesList()
-        {
-            this.FilesList.Items.Clear();
-        }
 
         /// <summary>
         /// Validates if the provided text values contains illegal characters.
@@ -104,34 +89,34 @@ namespace FilesManager.UI.Desktop
         /// <summary>
         /// Loads files drag-and-dropped (using mouse) into the list of files.
         /// </summary>
-        private void Drop_Files(object sender, DragEventArgs @event)
-        {
-            if (@event.Data.GetDataPresent(DataFormats.FileDrop))
-            {
-                ClearFilesList();
+        //private void Drop_Files(object sender, DragEventArgs @event)
+        //{
+        //    if (@event.Data.GetDataPresent(DataFormats.FileDrop))
+        //    {
+        //        ClearFilesList();
 
-                // Load dropped files
-                string[] droppedFilesPaths = (string[])@event.Data.GetData(format: DataFormats.FileDrop, autoConvert: true);
+        //        // Load dropped files
+        //        string[] droppedFilesPaths = (string[])@event.Data.GetData(format: DataFormats.FileDrop, autoConvert: true);
 
-                // Populate the list
-                foreach (string filePath in droppedFilesPaths)
-                {
-                    ListBoxItem listBoxItem = new();
+        //        // Populate the list
+        //        foreach (string filePath in droppedFilesPaths)
+        //        {
+        //            ListBoxItem listBoxItem = new();
 
-                    if (Validate.HasValidExtension(filePath))  // Ignore folders and files with non-standard extensions
-                    {
-                        listBoxItem.Content = Path.GetFileName(filePath);
-                        listBoxItem.ToolTip = filePath;
+        //            if (Validate.HasValidExtension(filePath))  // Ignore folders and files with non-standard extensions
+        //            {
+        //                listBoxItem.Content = Path.GetFileName(filePath);
+        //                listBoxItem.ToolTip = filePath;
 
-                        _ = this.FilesList.Items.Add(listBoxItem);
-                    }
-                    else
-                    {
-                        _ = Message.ErrorOk("File error", "Unrecognized type of file.");
-                    }
-                }
-            }
-        }
+        //                //_ = this.FilesList.Items.Add(listBoxItem);
+        //            }
+        //            else
+        //            {
+        //                _ = Message.ErrorOk("File error", "Unrecognized type of file.");
+        //            }
+        //        }
+        //    }
+        //}
         #endregion
     }
 }

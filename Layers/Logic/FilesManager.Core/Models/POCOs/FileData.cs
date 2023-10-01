@@ -19,5 +19,10 @@
         /// The extension of the file: <code>".txt"</code>
         /// </summary>
         public string Extension { get; set; } = string.Empty;
+
+        /// <summary>
+        /// The file name with extension to be displayed on UI: <code>"Test.txt"</code>
+        /// </summary>
+        public string DisplayName => $"{this.Name}{this.Extension}";
     }
 }

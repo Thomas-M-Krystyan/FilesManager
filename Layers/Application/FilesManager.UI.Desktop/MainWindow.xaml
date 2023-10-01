@@ -4,10 +4,11 @@
         xmlns:xaml="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:markup="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:customBehaviors="clr-namespace:FilesManager.UI.Desktop.Behaviors"
         xmlns:properties="clr-namespace:FilesManager.UI.Desktop.Properties"
-        xmlns:main="clr-namespace:FilesManager.UI.Desktop.ViewModels.Root"
+        xmlns:root="clr-namespace:FilesManager.UI.Desktop.ViewModels.Root"
         xmlns:strategies="clr-namespace:FilesManager.UI.Desktop.ViewModels.Strategies"
-        data:DataContext="{data:DesignInstance Type=main:MainWindowViewModel}"
+        data:DataContext="{data:DesignInstance Type=root:MainWindowViewModel}"
         markup:Ignorable="data"
         
         Title="{xaml:Static properties:Resources.WindowTitle}"
@@ -39,9 +40,9 @@
         <!-- ################################# -->
         <!-- ###  LEFT PART OF THE SCREEN  ### -->
         <!-- ################################# -->
-            <!-- List of loaded files -->
-        <ListBox xaml:Name="FilesList"
-                 Grid.Column="0"
+        
+        <!-- List of loaded files -->
+        <ListBox Grid.Column="0"
                  Grid.Row="0"
                  Height="400"
                  Width="300"
@@ -49,9 +50,15 @@
                  HorizontalAlignment="Left"
                  VerticalAlignment="Top"
                  AllowDrop="True"
-                 Drop="Drop_Files"
-                 ToolTip="{xaml:Static properties:Resources.Tooltip_FilesList}"
-                 Style="{StaticResource ControlWithResponsiveToolTips}" />
+                 ItemsSource="{Binding Files, Mode=OneWay}"
+                 ToolTip="{xaml:Static root:MainWindowViewModel.FilesList_Tooltip}"
+                 Style="{StaticResource ControlWithResponsiveToolTips}">
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="Drop">
+                    <customBehaviors:InvokeCommandAction Command="{Binding LoadFilesCommand, Mode=OneWay}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </ListBox>
 
         <!-- ################################## -->
         <!-- ###  RIGHT PART OF THE SCREEN  ### -->
@@ -71,7 +78,7 @@
                 <RowDefinition Height="Auto" />  <!-- Buttons -->
             </Grid.RowDefinitions>
 
-            <!-- Main row -->
+            <!-- The main header -->
             <Label Grid.Column="0"
                    Grid.Row="0"
                    Margin="0,5,0,0"
@@ -370,8 +377,7 @@
                     <RowDefinition Height="{StaticResource SeparatorHeight}" />
                 </Grid.RowDefinitions>
 
-                <Button xaml:Name="ClearListButton"
-                        Grid.Column="1"
+                <Button Grid.Column="1"
                         Grid.Row="1"
                         Content="{xaml:Static properties:Resources.Content_ResetButton}"
                         Background="#FFDCB9B9"

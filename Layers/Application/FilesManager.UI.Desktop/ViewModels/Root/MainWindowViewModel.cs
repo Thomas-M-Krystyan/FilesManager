@@ -1,23 +1,48 @@
-﻿using FilesManager.UI.Desktop.ViewModels.Base;
+﻿using FilesManager.Core.Models.POCOs;
+using FilesManager.Core.Validation;
+using FilesManager.UI.Desktop.Properties;
+using FilesManager.UI.Desktop.Utilities;
+using FilesManager.UI.Desktop.ViewModels.Base;
 using FilesManager.UI.Desktop.ViewModels.Strategies;
+using Microsoft.Xaml.Behaviors.Core;
+using System.Collections.ObjectModel;
+using System.IO;
+using System.Windows;
+using System.Windows.Input;
 
 namespace FilesManager.UI.Desktop.ViewModels.Root
 {
+
     /// <summary>
     /// View model for the main window of the application.
     /// </summary>
     /// <seealso cref="ViewModelBase" />
     internal sealed class MainWindowViewModel : ViewModelBase
     {
+        #region Texts
+        public static string FilesList_Tooltip = Resources.Tooltip_FilesList;
+        #endregion
+
+        #region Properties
+        /// <summary>
+        /// A collection of loaded files visible on the application <see cref="MainWindow"/>.
+        /// </summary>
+        public ObservableCollection<FileData> Files { get; } = new ObservableCollection<FileData>();
+        #endregion
+
         #region View Models
         /// <inheritdoc cref="IncrementNumberViewModel"/>
-        public IncrementNumberViewModel IncrementNumberStrategy { get; internal set; } = new();
+        public IncrementNumberViewModel IncrementNumberStrategy { get; }
 
         /// <inheritdoc cref="PrependAppendViewModel"/>
-        public PrependAppendViewModel PrependAppendStrategy { get; internal set; } = new();
+        public PrependAppendViewModel PrependAppendStrategy { get; }
 
         /// <inheritdoc cref="LeadingZerosViewModel"/>
-        public LeadingZerosViewModel LeadingZerosStrategy { get; internal set; } = new();
+        public LeadingZerosViewModel LeadingZerosStrategy { get; }
+        #endregion
+
+        #region Commands
+        public ICommand LoadFilesCommand => new ActionCommand(LoadFiles);
         #endregion
 
         /// <summary>
@@ -25,6 +50,10 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         /// </summary>
         internal MainWindowViewModel() : base()
         {
+            this.IncrementNumberStrategy = new();
+            this.PrependAppendStrategy = new();
+            this.LeadingZerosStrategy = new();
+
             SubscribeEvents();
         }
 
@@ -71,6 +100,40 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
             this.IncrementNumberStrategy.OnSelected -= Deselect;
             this.PrependAppendStrategy.OnSelected -= Deselect;
             this.LeadingZerosStrategy.OnSelected -= Deselect;
+        }
+        #endregion
+
+        #region Private
+        private void LoadFiles(object parameter)
+        {
+            if (parameter is DragEventArgs dragEvent &&
+                dragEvent.Data.GetDataPresent(format: DataFormats.FileDrop))
+            {
+                // Clear the previous state of the files list
+                this.Files.Clear();
+
+                // Get paths from dragged files
+                string[] droppedFilesPaths = (string[])dragEvent.Data.GetData(format: DataFormats.FileDrop, autoConvert: true);
+
+                // Populate the list
+                foreach (string filePath in droppedFilesPaths)
+                {
+                    if (Validate.HasValidExtension(filePath))  // Ignore files that doesn't match the pattern "[name].[extension]"
+                    {
+                        this.Files.Add(
+                            new FileData
+                            {
+                                Path = filePath,
+                                Name = Path.GetFileNameWithoutExtension(filePath),
+                                Extension = Path.GetExtension(filePath)
+                            });
+                    }
+                    else
+                    {
+                        _ = Message.ErrorOk("File error", "Unrecognized type of file.");
+                    }
+                }
+            }
         }
         #endregion
     }
