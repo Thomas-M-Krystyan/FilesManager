@@ -88,7 +88,7 @@ namespace FilesManager.UI.Desktop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unrecognized type of file: .
+        ///   Looks up a localized string similar to Unrecognized type of file:.
         /// </summary>
         public static string ERROR_Operation_FileNotRecognized_Text {
             get {
@@ -399,7 +399,7 @@ namespace FilesManager.UI.Desktop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to File Manager (v0.3.6-alpha).
+        ///   Looks up a localized string similar to File Manager (v0.3.7-alpha).
         /// </summary>
         public static string WindowTitle {
             get {

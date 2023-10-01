@@ -175,7 +175,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
                     else
                     {
                         _ = Message.ErrorOk(Resources.ERROR_Operation_FileNotRecognized_Header,
-                                            Resources.ERROR_Operation_FileNotRecognized_Text + $"\"{Path.GetFileName(filePath)}\"");
+                                            Resources.ERROR_Operation_FileNotRecognized_Text + $" \"{Path.GetFileName(filePath)}\"");
                         this.Files.Clear();
 
                         return;

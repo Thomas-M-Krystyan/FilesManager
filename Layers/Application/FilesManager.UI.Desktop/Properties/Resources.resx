@@ -127,7 +127,7 @@
     <value>File loading error</value>
   </data>
   <data name="ERROR_Operation_FileNotRecognized_Text" xml:space="preserve">
-    <value>Unrecognized type of file: </value>
+    <value>Unrecognized type of file:</value>
   </data>
   <data name="Header_General" xml:space="preserve">
     <value>OPTIONS</value>
@@ -275,7 +275,7 @@ Invalid characters:  \ / : * ? " &lt; &gt; |</value>
     <value>TIP: Only positive numbers from the range [0 - 7]</value>
   </data>
   <data name="WindowTitle" xml:space="preserve">
-    <value>File Manager (v0.3.6-alpha)</value>
+    <value>File Manager (v0.3.7-alpha)</value>
     <comment>Version</comment>
   </data>
 </root>
