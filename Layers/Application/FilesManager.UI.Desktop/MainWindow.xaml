@@ -53,6 +53,11 @@
                  ItemsSource="{Binding Files, Mode=OneWay}"
                  ToolTip="{xaml:Static root:MainWindowViewModel.FilesList_Tooltip}"
                  Style="{StaticResource ControlWithResponsiveToolTips}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding DisplayName, Mode=OneWay}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="Drop">
                     <customBehaviors:InvokeCommandAction Command="{Binding LoadFilesCommand, Mode=OneWay}" />
