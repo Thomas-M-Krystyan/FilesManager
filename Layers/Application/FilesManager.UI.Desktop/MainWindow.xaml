@@ -89,9 +89,9 @@
                    Margin="0,5,0,0"
                    HorizontalAlignment="Left"
                    VerticalAlignment="Top"
-                   Content="{xaml:Static properties:Resources.Header_General}"
+                   Content="{xaml:Static root:MainWindowViewModel.GeneralSection_Header}"
                    FontWeight="ExtraBold"
-                   ToolTip="{xaml:Static properties:Resources.Tooltip_RenamingHeader}"
+                   ToolTip="{xaml:Static root:MainWindowViewModel.GeneralSection_Tooltip}"
                    Style="{StaticResource ControlWithResponsiveToolTips}" />
 
             <!-- Strategy #1: Increment number -->

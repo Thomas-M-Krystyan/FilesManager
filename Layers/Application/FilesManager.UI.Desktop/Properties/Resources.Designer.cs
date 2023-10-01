@@ -79,7 +79,7 @@ namespace FilesManager.UI.Desktop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to File error.
+        ///   Looks up a localized string similar to File loading error.
         /// </summary>
         public static string ERROR_Operation_FileNotRecognized_Header {
             get {
@@ -88,7 +88,7 @@ namespace FilesManager.UI.Desktop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unrecognized type of file..
+        ///   Looks up a localized string similar to Unrecognized type of file: .
         /// </summary>
         public static string ERROR_Operation_FileNotRecognized_Text {
             get {
@@ -97,43 +97,7 @@ namespace FilesManager.UI.Desktop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Missing files.
-        /// </summary>
-        public static string ERROR_Operation_MissingFiles_Header {
-            get {
-                return ResourceManager.GetString("ERROR_Operation_MissingFiles_Header", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The list of files is empty..
-        /// </summary>
-        public static string ERROR_Operation_MissingFiles_Text {
-            get {
-                return ResourceManager.GetString("ERROR_Operation_MissingFiles_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Nothing selected.
-        /// </summary>
-        public static string ERROR_Operation_NoStrategySelected_Header {
-            get {
-                return ResourceManager.GetString("ERROR_Operation_NoStrategySelected_Header", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No operation on a file was selected..
-        /// </summary>
-        public static string ERROR_Operation_NoStrategySelected_Text {
-            get {
-                return ResourceManager.GetString("ERROR_Operation_NoStrategySelected_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to RENAME FILES.
+        ///   Looks up a localized string similar to OPTIONS.
         /// </summary>
         public static string Header_General {
             get {
@@ -237,6 +201,15 @@ namespace FilesManager.UI.Desktop.Properties {
         public static string Tooltip_FilesList {
             get {
                 return ResourceManager.GetString("Tooltip_FilesList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to INFO: The operations on files that can be performed.
+        /// </summary>
+        public static string Tooltip_General {
+            get {
+                return ResourceManager.GetString("Tooltip_General", resourceCulture);
             }
         }
         
@@ -366,15 +339,6 @@ namespace FilesManager.UI.Desktop.Properties {
         public static string Tooltip_RadioButton {
             get {
                 return ResourceManager.GetString("Tooltip_RadioButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to INFO: File extensions will remain intact. Only file names will be affected.
-        /// </summary>
-        public static string Tooltip_RenamingHeader {
-            get {
-                return ResourceManager.GetString("Tooltip_RenamingHeader", resourceCulture);
             }
         }
         

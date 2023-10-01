@@ -124,25 +124,13 @@
     <value>Reset</value>
   </data>
   <data name="ERROR_Operation_FileNotRecognized_Header" xml:space="preserve">
-    <value>File error</value>
+    <value>File loading error</value>
   </data>
   <data name="ERROR_Operation_FileNotRecognized_Text" xml:space="preserve">
-    <value>Unrecognized type of file.</value>
-  </data>
-  <data name="ERROR_Operation_MissingFiles_Header" xml:space="preserve">
-    <value>Missing files</value>
-  </data>
-  <data name="ERROR_Operation_MissingFiles_Text" xml:space="preserve">
-    <value>The list of files is empty.</value>
-  </data>
-  <data name="ERROR_Operation_NoStrategySelected_Header" xml:space="preserve">
-    <value>Nothing selected</value>
-  </data>
-  <data name="ERROR_Operation_NoStrategySelected_Text" xml:space="preserve">
-    <value>No operation on a file was selected.</value>
+    <value>Unrecognized type of file: </value>
   </data>
   <data name="Header_General" xml:space="preserve">
-    <value>RENAME FILES</value>
+    <value>OPTIONS</value>
   </data>
   <data name="Header_Method_IncrementNumber" xml:space="preserve">
     <value>"Replace name" ([old name] → prefix? + number + postfix?)</value>
@@ -176,6 +164,9 @@
   </data>
   <data name="Tooltip_FilesList" xml:space="preserve">
     <value>INFO: Drag and drop files here</value>
+  </data>
+  <data name="Tooltip_General" xml:space="preserve">
+    <value>INFO: The operations on files that can be performed</value>
   </data>
   <data name="Tooltip_Method_IncrementNumber" xml:space="preserve">
     <value>EXAMPLE
@@ -262,9 +253,6 @@ RESULT:
   </data>
   <data name="Tooltip_RadioButton" xml:space="preserve">
     <value>INFO: Select to activate this method</value>
-  </data>
-  <data name="Tooltip_RenamingHeader" xml:space="preserve">
-    <value>INFO: File extensions will remain intact. Only file names will be affected</value>
   </data>
   <data name="Tooltip_ResetButton" xml:space="preserve">
     <value>INFO: Clears loaded files and all values from methods</value>

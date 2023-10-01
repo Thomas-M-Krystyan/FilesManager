@@ -37,9 +37,14 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
 
         #region Events
         /// <summary>
-        /// Occurs when <see cref="Select()"/> operation was requested on this view model.
+        /// Occurs BEFORE the <see cref="Select()"/> - when it was requested on this view model.
         /// </summary>
-        public event Action OnSelected = () => { };
+        public event Action? BeforeOnSelected;
+
+        /// <summary>
+        /// Occurs AFTER the <see cref="Select()"/> - when it was requested on this view model.
+        /// </summary>
+        public event Action? AfterOnSelected;
         #endregion
 
         /// <summary>
@@ -55,9 +60,9 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         {
             if (!this.IsEnabled)
             {
-                OnSelected();  // NOTE: Accepts an action (through subscription) which precedes activation of the radio button
-
+                this.BeforeOnSelected?.Invoke();  // NOTE: Subscribed action to be invoked BEFORE the selection
                 this.IsEnabled = true;
+                this.AfterOnSelected?.Invoke();  // NOTE: Subscribed action to be invoked AFTER the selection
             }
         }
 

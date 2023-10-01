@@ -20,6 +20,9 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
     internal sealed class MainWindowViewModel : ViewModelBase
     {
         #region Texts
+        public static string GeneralSection_Header = Resources.Header_General;
+        public static string GeneralSection_Tooltip = Resources.Tooltip_General;
+
         public static string FilesList_Tooltip = Resources.Tooltip_FilesList;
         #endregion
 
@@ -29,6 +32,8 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         /// </summary>
         public ObservableCollection<FileData> Files { get; } = new ObservableCollection<FileData>();
 
+        private bool _isStrategySelected;
+        private bool _isFileListLoaded;
         private bool _canProcess;
         
         /// <summary>
@@ -55,7 +60,10 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         /// <inheritdoc cref="LeadingZerosViewModel"/>
         public LeadingZerosViewModel LeadingZerosStrategy { get; }
 
-        private StrategyBase? _activeStrategy = null;
+        /// <summary>
+        /// The currently active strategy.
+        /// </summary>
+        private StrategyBase? _activeStrategy;
         #endregion
 
         #region Commands
@@ -107,10 +115,14 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         protected override sealed void Reset()  // NOTE: Specific behavior of the hub for other view models. Overloading restricted
         {
             this.Files.Clear();
+            this._isFileListLoaded = false;
+
             this.IncrementNumberStrategy.ResetCommand.Execute(null);
             this.PrependAppendStrategy.ResetCommand.Execute(null);
             this.LeadingZerosStrategy.ResetCommand.Execute(null);
-            this.CanProcess = false;
+            this._isStrategySelected = false;
+
+            this.CanProcess = this._isFileListLoaded && this._isStrategySelected;
         }
         #endregion
 
@@ -149,9 +161,14 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
                     else
                     {
                         _ = Message.ErrorOk(Resources.ERROR_Operation_FileNotRecognized_Header,
-                                            Resources.ERROR_Operation_FileNotRecognized_Text);
+                                            Resources.ERROR_Operation_FileNotRecognized_Text + $"\"{Path.GetFileName(filePath)}\"");
+                        this.Files.Clear();
+
+                        return;
                     }
                 }
+
+                FileListIsLoaded();
             }
         }
 
@@ -160,59 +177,59 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         /// </summary>
         private void Process()
         {
+            if (this.CanProcess)
+            {
+                this._activeStrategy!.Process();
+            }
+        }
+
+        private void FileListIsLoaded()
+        {
+            // Set 1st condition
+            this._isFileListLoaded = true;
+
+            // Inform binding property whether both conditions are met
+            this.CanProcess = this._isFileListLoaded && this._isStrategySelected;
+        }
+
+        private void StrategyIsSelectd()
+        {
+            // Determine which specific strategy was activated
             this._activeStrategy = this.IncrementNumberStrategy.IsEnabled ? this.IncrementNumberStrategy :
                                    this.PrependAppendStrategy.IsEnabled   ? this.PrependAppendStrategy   :
                                    this.LeadingZerosStrategy.IsEnabled    ? this.LeadingZerosStrategy    :
                                    null;
+            // Set 2nd condition
+            this._isStrategySelected = this._activeStrategy != null;
 
-            if (this._activeStrategy == null)
-            {
-                _ = Message.WarningOk(Resources.ERROR_Operation_NoStrategySelected_Header,
-                                      Resources.ERROR_Operation_NoStrategySelected_Text);
-            }
-            else
-            {
-                if (this.Files.Count == 0)
-                {
-                    _ = Message.WarningOk(Resources.ERROR_Operation_MissingFiles_Header,
-                                          Resources.ERROR_Operation_MissingFiles_Text);
-                }
-                else
-                {
-                    this._activeStrategy.Process();
-                }
-            }
-        }
-
-        private void SomethingIsSelected()
-        {
-            this.CanProcess = true;
+            // Inform binding property whether both conditions are met
+            this.CanProcess = this._isFileListLoaded && this._isStrategySelected;
         }
         #endregion
 
         #region Subscriptions
         private void SubscribeEvents()
         {
-            this.IncrementNumberStrategy.OnSelected += Deselect;
-            this.IncrementNumberStrategy.OnSelected += SomethingIsSelected;
+            this.IncrementNumberStrategy.BeforeOnSelected += Deselect;
+            this.IncrementNumberStrategy.AfterOnSelected += StrategyIsSelectd;
 
-            this.PrependAppendStrategy.OnSelected += Deselect;
-            this.PrependAppendStrategy.OnSelected += SomethingIsSelected;
+            this.PrependAppendStrategy.BeforeOnSelected += Deselect;
+            this.PrependAppendStrategy.AfterOnSelected += StrategyIsSelectd;
 
-            this.LeadingZerosStrategy.OnSelected += Deselect;
-            this.LeadingZerosStrategy.OnSelected += SomethingIsSelected;
+            this.LeadingZerosStrategy.BeforeOnSelected += Deselect;
+            this.LeadingZerosStrategy.AfterOnSelected += StrategyIsSelectd;
         }
 
         private void UnsubscribeEvents()
         {
-            this.IncrementNumberStrategy.OnSelected -= Deselect;
-            this.IncrementNumberStrategy.OnSelected -= SomethingIsSelected;
+            this.IncrementNumberStrategy.BeforeOnSelected -= Deselect;
+            this.IncrementNumberStrategy.AfterOnSelected -= StrategyIsSelectd;
 
-            this.PrependAppendStrategy.OnSelected -= Deselect;
-            this.PrependAppendStrategy.OnSelected -= SomethingIsSelected;
+            this.PrependAppendStrategy.BeforeOnSelected -= Deselect;
+            this.PrependAppendStrategy.AfterOnSelected -= StrategyIsSelectd;
 
-            this.LeadingZerosStrategy.OnSelected -= Deselect;
-            this.LeadingZerosStrategy.OnSelected -= SomethingIsSelected;
+            this.LeadingZerosStrategy.BeforeOnSelected -= Deselect;
+            this.LeadingZerosStrategy.AfterOnSelected -= StrategyIsSelectd;
         }
         #endregion
     }
