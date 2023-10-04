@@ -84,7 +84,10 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         /// <inheritdoc cref="ViewModelBase.Deselect()"/>
         protected override sealed void Deselect()  // NOTE: Default behavior for all strategies, no need to change it. Overloading restricted
         {
-            this.IsEnabled = false;
+            if (this.IsEnabled)
+            {
+                this.IsEnabled = false;
+            }
         }
         #endregion
 
@@ -131,7 +134,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
             }
             else
             {
-                ReportInvalidCommandUsage(nameof(ValidateNumericInput));
+                Validate.ReportInvalidCommandUsage(nameof(ValidateNumericInput));
             }
         }
         #endregion

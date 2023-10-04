@@ -67,5 +67,19 @@ namespace FilesManager.Core.Validation
                       _ => RenamingResultDto.Success(),
                   };
         }
+
+        /// <summary>
+        /// Reports the invalid usage of an event.
+        /// <para>
+        ///   Used for development purposes to monitor if an event from the XAML side was binded to a command
+        ///   subscribing to a method which is using a received object parameter as a proper event argument.
+        /// </para>
+        /// </summary>
+        /// <param name="methodName">The name of the method.</param>
+        /// <exception cref="InvalidOperationException">The event argument is invalid.</exception>
+        public static void ReportInvalidCommandUsage(string methodName)
+        {
+            throw new InvalidOperationException($"The method is used with a wrong event: {methodName}");
+        }
     }
 }

@@ -203,7 +203,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
             }
             else
             {
-                ReportInvalidCommandUsage(nameof(LoadFiles));
+                Validate.ReportInvalidCommandUsage(nameof(LoadFiles));
             }
         }
 

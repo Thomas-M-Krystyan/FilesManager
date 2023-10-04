@@ -129,9 +129,6 @@
   <data name="ERROR_Operation_FileNotRecognized_Text" xml:space="preserve">
     <value>Unrecognized type of file:</value>
   </data>
-  <data name="ERROR_Operation_WrongEventArg_Exception" xml:space="preserve">
-    <value>The method is used with a wrong event:</value>
-  </data>
   <data name="Header_General" xml:space="preserve">
     <value>OPTIONS</value>
   </data>

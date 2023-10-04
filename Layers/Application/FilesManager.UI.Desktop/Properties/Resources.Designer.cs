@@ -97,15 +97,6 @@ namespace FilesManager.UI.Desktop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The method is used with a wrong event:.
-        /// </summary>
-        public static string ERROR_Operation_WrongEventArg_Exception {
-            get {
-                return ResourceManager.GetString("ERROR_Operation_WrongEventArg_Exception", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to OPTIONS.
         /// </summary>
         public static string Header_General {
