@@ -1,6 +1,4 @@
-﻿using FilesManager.UI.Desktop.Properties;
-using Microsoft.Xaml.Behaviors.Core;
-using System;
+﻿using Microsoft.Xaml.Behaviors.Core;
 using System.ComponentModel;
 using System.Windows.Input;
 
