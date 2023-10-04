@@ -7,6 +7,7 @@ using FilesManager.UI.Desktop.ViewModels.Base;
 using FilesManager.UI.Desktop.ViewModels.Strategies;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
 using Microsoft.Xaml.Behaviors.Core;
+using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
@@ -172,13 +173,13 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         private void LoadFiles(object parameter)
         {
             if (parameter is DragEventArgs dragEvent &&
-                dragEvent.Data.GetDataPresent(format: DataFormats.FileDrop))
+                dragEvent.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 // Clear the previous state of the files list
                 this.Files.Clear();
 
                 // Get paths from dragged files
-                string[] droppedFilesPaths = (string[])dragEvent.Data.GetData(format: DataFormats.FileDrop, autoConvert: true);
+                string[] droppedFilesPaths = (string[])dragEvent.Data.GetData(DataFormats.FileDrop, autoConvert: true);
 
                 // Populate the list
                 foreach (string filePath in droppedFilesPaths)
@@ -199,6 +200,10 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
                 }
 
                 UpdateMainButtons();
+            }
+            else
+            {
+                ReportInvalidCommandUsage(nameof(LoadFiles));
             }
         }
 

@@ -1,4 +1,6 @@
-﻿using Microsoft.Xaml.Behaviors.Core;
+﻿using FilesManager.UI.Desktop.Properties;
+using Microsoft.Xaml.Behaviors.Core;
+using System;
 using System.ComponentModel;
 using System.Windows.Input;
 
@@ -63,6 +65,13 @@ namespace FilesManager.UI.Desktop.ViewModels.Base
         /// Clears certain elements or controls related to this view model.
         /// </summary>
         protected abstract void Reset();  // NOTE: Should be implemented by all view models
+        #endregion
+
+        #region Protected
+        protected static void ReportInvalidCommandUsage(string methodName)
+        {
+            throw new InvalidOperationException($"{Resources.ERROR_Operation_WrongEventArg_Exception} {methodName}");
+        }
         #endregion
     }
 }

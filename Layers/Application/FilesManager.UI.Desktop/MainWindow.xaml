@@ -177,6 +177,9 @@
                             <behaviors:EventTrigger EventName="GotFocus">
                                 <behaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
                             </behaviors:EventTrigger>
+                            <behaviors:EventTrigger EventName="PreviewTextInput">
+                                <customBehaviors:InvokeCommandAction Command="{Binding ValidNumInputCommand, Mode=OneWay}" />
+                            </behaviors:EventTrigger>
                         </behaviors:Interaction.Triggers>
                     </TextBox>
 

@@ -5,7 +5,7 @@ namespace FilesManager.Core.Validation
     /// <summary>
     /// A set of handful Regular Expression patterns.
     /// </summary>
-    internal static class RegexPatterns
+    public static class RegexPatterns
     {
         // -----------
         // Group names
@@ -19,6 +19,11 @@ namespace FilesManager.Core.Validation
         // --------------
         // Regex patterns
         // --------------
+
+        /// <summary>
+        /// Captures anything that is not a digit.
+        /// </summary>
+        public static readonly Regex NotDigit = new("[^0-9]+", RegexOptions.Compiled);
 
         /// <summary>
         /// Captures invalid characters in files names.
