@@ -40,8 +40,8 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             }
         }
 
-        private string _startingNumber = string.Empty;
-        public string StartingNumber
+        private ushort _startingNumber;
+        public ushort StartingNumber
         {
             get => this._startingNumber;
             set
@@ -77,17 +77,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             // ----------------------------------
             // 1. Validate mandatory input fields
             // ----------------------------------
-            if (string.IsNullOrWhiteSpace(this.StartingNumber))  // Empty
-            {
-                return RenamingResultDto.Failure("Provide \"Start number\".");
-            }
-
-            if (!ushort.TryParse(this.StartingNumber, out ushort startNumber))  // Too small (negative) or too large (already above ushort.MaxValue)
-            {
-                return RenamingResultDto.Failure($"Invalid \"Start number\" value: {this.StartingNumber}.");
-            }
-
-            if (startNumber + loadedFiles.Count - 1 > ushort.MaxValue)  // Exceeding the maximum possible value
+            if (this.StartingNumber + loadedFiles.Count - 1 > ushort.MaxValue)  // Exceeding the maximum possible value
             {
                 // EXAMPLE: "startNumber" is 65530 and there is 6 files on the list. The result of ++ would be 65536 => which is more than maximum for ushort
                 return RenamingResultDto.Failure($"Some numbers would eventually exceed the max value for \"Start number\" (65535) if the renaming continue.");
@@ -110,7 +100,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             for (int index = 0; index < loadedFiles.Count; index++)
             {
                 FileData file = loadedFiles[index];
-                result = RenamingService.ReplaceWithNumber(file.Path, this.NamePrefix, startNumber++, this.NamePostfix);
+                result = RenamingService.ReplaceWithNumber(file.Path, this.NamePrefix, this.StartingNumber++, this.NamePostfix);
 
                 if (result.IsSuccess)
                 {
@@ -129,9 +119,9 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             if (result.IsSuccess)
             {
                 // Set the last number as the new start number
-                this.StartingNumber = startNumber is 0
-                    ? (--startNumber).ToString()  // Revert the effect of "startNumber" value overflow (ushort.MaxValue + 1 => 0)
-                    : startNumber.ToString(CultureInfo.InvariantCulture);
+                this.StartingNumber = this.StartingNumber is 0
+                    ? --this.StartingNumber  // Revert the effect of value overflow (ushort.MaxValue + 1 => 0)
+                    : this.StartingNumber;
             }
 
             return result;
@@ -143,7 +133,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             Deselect();
 
             this.NamePrefix = string.Empty;
-            this.StartingNumber = string.Empty;
+            this.StartingNumber = default;
             this.NamePostfix = string.Empty;
         }
         #endregion
