@@ -52,7 +52,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         /// <summary>
         /// Occurs AFTER the <see cref="Select()"/> - when it was requested on this view model.
         /// </summary>
-        public event Action? AfterOnSelected;
+        public event Action<object>? AfterOnSelected;
         #endregion
 
         #region Commands (binding)
@@ -71,13 +71,13 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
 
         #region Polymorphism
         /// <inheritdoc cref="ViewModelBase.Select()"/>
-        protected override sealed void Select()  // NOTE: Default behavior for all strategies, no need to change it. Overloading restricted
+        protected override sealed void Select(object parameter)  // NOTE: Default behavior for all strategies, no need to change it. Overloading restricted
         {
             if (!this.IsEnabled)
             {
                 this.BeforeOnSelected?.Invoke();  // NOTE: Subscribed action to be invoked BEFORE the selection
                 this.IsEnabled = true;
-                this.AfterOnSelected?.Invoke();  // NOTE: Subscribed action to be invoked AFTER the selection
+                this.AfterOnSelected?.Invoke(parameter);  // NOTE: Subscribed action to be invoked AFTER the selection
             }
         }
 

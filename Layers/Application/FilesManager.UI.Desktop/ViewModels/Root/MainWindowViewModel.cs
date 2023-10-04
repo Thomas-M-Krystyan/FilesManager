@@ -7,7 +7,6 @@ using FilesManager.UI.Desktop.ViewModels.Base;
 using FilesManager.UI.Desktop.ViewModels.Strategies;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
 using Microsoft.Xaml.Behaviors.Core;
-using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
@@ -33,6 +32,15 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         #endregion
 
         #region Properties (binding)
+        /// <inheritdoc cref="IncrementNumberViewModel"/>
+        public IncrementNumberViewModel IncrementNumberStrategy { get; }
+
+        /// <inheritdoc cref="PrependAppendViewModel"/>
+        public PrependAppendViewModel PrependAppendStrategy { get; }
+
+        /// <inheritdoc cref="LeadingZerosViewModel"/>
+        public LeadingZerosViewModel LeadingZerosStrategy { get; }
+
         /// <summary>
         /// A collection of files that were dragged and dropped on the specific UI section in the <see cref="MainWindow"/>.
         /// </summary>
@@ -69,16 +77,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         }
         #endregion
 
-        #region Properties (read-only)
-        /// <inheritdoc cref="IncrementNumberViewModel"/>
-        public IncrementNumberViewModel IncrementNumberStrategy { get; }
-
-        /// <inheritdoc cref="PrependAppendViewModel"/>
-        public PrependAppendViewModel PrependAppendStrategy { get; }
-
-        /// <inheritdoc cref="LeadingZerosViewModel"/>
-        public LeadingZerosViewModel LeadingZerosStrategy { get; }
-
+        #region Properties
         /// <summary>
         /// Determines if the list of files is already loaded.
         /// </summary>
@@ -126,8 +125,19 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         /// <summary>
         /// Determines which strategy is selected (if any).
         /// </summary>
-        protected override sealed void Select()
+        /// <param name="parameter">
+        ///   The event's argument (<see cref="MouseButtonEventArgs"/>) passed
+        ///   when the specific trigger was activated on the XAML side.
+        /// </param>
+        protected override sealed void Select(object parameter)
         {
+            // When any "Label" is clicked ("MouseLeftButtonDown" event) remove focus from all "TextBox" controls
+            if (parameter is MouseButtonEventArgs)
+            {
+                Keyboard.ClearFocus();
+            }
+
+            // Check which strategy is active
             this._activeStrategy = this.IncrementNumberStrategy.IsEnabled ? this.IncrementNumberStrategy :
                                    this.PrependAppendStrategy.IsEnabled   ? this.PrependAppendStrategy   :
                                    this.LeadingZerosStrategy.IsEnabled    ? this.LeadingZerosStrategy    :

@@ -129,7 +129,7 @@
                                  Style="{StaticResource RadioButtonStyle}">
                         <behaviors:Interaction.Triggers>
                             <behaviors:EventTrigger EventName="Checked">
-                                <behaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
+                                <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
                             </behaviors:EventTrigger>
                         </behaviors:Interaction.Triggers>
                     </RadioButton>
@@ -141,7 +141,7 @@
                            Style="{StaticResource LabelStyle}">
                         <behaviors:Interaction.Triggers>
                             <behaviors:EventTrigger EventName="MouseLeftButtonDown">
-                                <behaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
+                                <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
                             </behaviors:EventTrigger>
                         </behaviors:Interaction.Triggers>
                     </Label>
@@ -152,7 +152,7 @@
                              Style="{StaticResource TextBoxStyle_120}">
                         <behaviors:Interaction.Triggers>
                             <behaviors:EventTrigger EventName="GotFocus">
-                                <behaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
+                                <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
                             </behaviors:EventTrigger>
                         </behaviors:Interaction.Triggers>
                     </TextBox>
@@ -164,7 +164,7 @@
                            Style="{StaticResource LabelStyle}">
                         <behaviors:Interaction.Triggers>
                             <behaviors:EventTrigger EventName="MouseLeftButtonDown">
-                                <behaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
+                                <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
                             </behaviors:EventTrigger>
                         </behaviors:Interaction.Triggers>
                     </Label>
@@ -175,7 +175,7 @@
                              Style="{StaticResource TextBoxStyle_60}">
                         <behaviors:Interaction.Triggers>
                             <behaviors:EventTrigger EventName="GotFocus">
-                                <behaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
+                                <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
                             </behaviors:EventTrigger>
                             <behaviors:EventTrigger EventName="PreviewTextInput">
                                 <customBehaviors:InvokeCommandAction Command="{Binding ValidNumInputCommand, Mode=OneWay}" />
@@ -190,7 +190,7 @@
                            Style="{StaticResource LabelStyle}">
                         <behaviors:Interaction.Triggers>
                             <behaviors:EventTrigger EventName="MouseLeftButtonDown">
-                                <behaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
+                                <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
                             </behaviors:EventTrigger>
                         </behaviors:Interaction.Triggers>
                     </Label>
@@ -201,7 +201,7 @@
                              Style="{StaticResource TextBoxStyle_120}">
                         <behaviors:Interaction.Triggers>
                             <behaviors:EventTrigger EventName="GotFocus">
-                                <behaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
+                                <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
                             </behaviors:EventTrigger>
                         </behaviors:Interaction.Triggers>
                     </TextBox>
@@ -253,7 +253,7 @@
                                      Style="{StaticResource RadioButtonStyle}">
                             <behaviors:Interaction.Triggers>
                                 <behaviors:EventTrigger EventName="Checked">
-                                    <behaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
+                                    <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
                                 </behaviors:EventTrigger>
                             </behaviors:Interaction.Triggers>
                         </RadioButton>
@@ -265,7 +265,7 @@
                                Style="{StaticResource LabelStyle}">
                             <behaviors:Interaction.Triggers>
                                 <behaviors:EventTrigger EventName="MouseLeftButtonDown">
-                                    <behaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
+                                    <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
                                 </behaviors:EventTrigger>
                             </behaviors:Interaction.Triggers>
                         </Label>
@@ -276,7 +276,7 @@
                                  Style="{StaticResource TextBoxStyle_120}">
                             <behaviors:Interaction.Triggers>
                                 <behaviors:EventTrigger EventName="GotFocus">
-                                    <behaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
+                                    <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
                                 </behaviors:EventTrigger>
                             </behaviors:Interaction.Triggers>
                         </TextBox>
@@ -288,7 +288,7 @@
                                Style="{StaticResource LabelStyle}">
                             <behaviors:Interaction.Triggers>
                                 <behaviors:EventTrigger EventName="MouseLeftButtonDown">
-                                    <behaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
+                                    <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
                                 </behaviors:EventTrigger>
                             </behaviors:Interaction.Triggers>
                         </Label>
@@ -299,7 +299,7 @@
                                  Style="{StaticResource TextBoxStyle_120}">
                             <behaviors:Interaction.Triggers>
                                 <behaviors:EventTrigger EventName="GotFocus">
-                                    <behaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
+                                    <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
                                 </behaviors:EventTrigger>
                             </behaviors:Interaction.Triggers>
                         </TextBox>
@@ -337,7 +337,7 @@
                                      Style="{StaticResource RadioButtonStyle}">
                             <behaviors:Interaction.Triggers>
                                 <behaviors:EventTrigger EventName="Checked">
-                                    <behaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
+                                    <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
                                 </behaviors:EventTrigger>
                             </behaviors:Interaction.Triggers>
                         </RadioButton>
@@ -349,7 +349,7 @@
                                Style="{StaticResource LabelStyle}">
                             <behaviors:Interaction.Triggers>
                                 <behaviors:EventTrigger EventName="MouseLeftButtonDown">
-                                    <behaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
+                                    <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
                                 </behaviors:EventTrigger>
                             </behaviors:Interaction.Triggers>
                         </Label>
@@ -359,7 +359,7 @@
                                  Style="{StaticResource TextBoxStyle_60}">
                             <behaviors:Interaction.Triggers>
                                 <behaviors:EventTrigger EventName="GotFocus">
-                                    <behaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
+                                    <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
                                 </behaviors:EventTrigger>
                             </behaviors:Interaction.Triggers>
                         </TextBox>

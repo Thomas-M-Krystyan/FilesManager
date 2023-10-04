@@ -19,14 +19,14 @@ namespace FilesManager.UI.Desktop.ViewModels.Base
 
         #region Commands (binding)
         /// <summary>
-        /// Handles subscribed <see cref="Select()"/> action.
+        /// Handles subscribed <see cref="Select(object)"/> action.
         /// </summary>
         public ICommand SelectCommand => new ActionCommand(Select);
 
         /// <summary>
         /// Handles subscribed <see cref="Deselect()"/> action.
         /// </summary>
-        public ICommand DeselectCommand => new ActionCommand(Deselect);
+        internal ICommand DeselectCommand => new ActionCommand(Deselect);  // NOTE: This command doesn't need to have binding
 
         /// <summary>
         /// Handles subscribed <see cref="Reset()"/> action.
@@ -55,7 +55,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Base
         /// <summary>
         /// Selects certain elements or controls related to this view model.
         /// </summary>
-        protected abstract void Select();  // NOTE: Should be implemented by all view models
+        protected abstract void Select(object parameter);  // NOTE: Should be implemented by all view models
 
         /// <summary>
         /// Deselects certain elements or controls related to this view model.

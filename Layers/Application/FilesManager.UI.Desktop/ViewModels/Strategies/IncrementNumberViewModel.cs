@@ -6,7 +6,6 @@ using FilesManager.UI.Desktop.Properties;
 using FilesManager.UI.Desktop.ViewModels.Base;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
 using System.Collections.ObjectModel;
-using System.Globalization;
 
 namespace FilesManager.UI.Desktop.ViewModels.Strategies
 {
