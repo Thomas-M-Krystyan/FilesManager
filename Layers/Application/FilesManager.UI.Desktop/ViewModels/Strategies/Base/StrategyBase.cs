@@ -6,7 +6,7 @@ using FilesManager.UI.Desktop.Utilities;
 using FilesManager.UI.Desktop.ViewModels.Base;
 using Microsoft.Xaml.Behaviors.Core;
 using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 
@@ -101,7 +101,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         ///     It will never be null or empty.
         ///   </para>
         /// </param>
-        internal abstract RenamingResultDto Process(ObservableCollection<FileData> loadedFiles);
+        internal abstract RenamingResultDto Process(IList<FileData> loadedFiles);
         #endregion
 
         #region Virtual

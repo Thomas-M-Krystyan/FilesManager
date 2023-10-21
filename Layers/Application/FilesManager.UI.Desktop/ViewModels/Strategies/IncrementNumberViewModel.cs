@@ -5,6 +5,7 @@ using FilesManager.Core.Validation;
 using FilesManager.UI.Desktop.Properties;
 using FilesManager.UI.Desktop.ViewModels.Base;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace FilesManager.UI.Desktop.ViewModels.Strategies
@@ -71,7 +72,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
 
         #region Polymorphism
         /// <inheritdoc cref="StrategyBase.Process(ObservableCollection{FileData})"/>
-        internal override sealed RenamingResultDto Process(ObservableCollection<FileData> loadedFiles)
+        internal override sealed RenamingResultDto Process(IList<FileData> loadedFiles)
         {
             // ----------------------------------
             // 1. Validate mandatory input fields

@@ -7,6 +7,7 @@ using FilesManager.UI.Desktop.ViewModels.Base;
 using FilesManager.UI.Desktop.ViewModels.Strategies;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
 using Microsoft.Xaml.Behaviors.Core;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
@@ -44,7 +45,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         /// <summary>
         /// A collection of files that were dragged and dropped on the specific UI section in the <see cref="MainWindow"/>.
         /// </summary>
-        public ObservableCollection<FileData> Files { get; } = new ObservableCollection<FileData>();
+        public IList<FileData> Files { get; } = new ObservableCollection<FileData>();
 
         private bool _canReset;
 
