@@ -109,8 +109,8 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         internal virtual void DisplayPopup(RenamingResultDto result)
         {
             _ = result.IsSuccess
-                ? Message.InfoOk("Operation successful", "All files were renamed!")
-                : Message.ErrorOk("Operation failed", result.Message);
+                ? Message.InfoOk(Resources.RESULT_Operation_Success_Header, Resources.RESULT_Operation_Success_Text)
+                : Message.ErrorOk(Resources.RESULT_Operation_Failure, result.Message);
         }
         #endregion
     }

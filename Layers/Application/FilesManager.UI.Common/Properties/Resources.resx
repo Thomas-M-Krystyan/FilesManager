@@ -132,12 +132,6 @@
   <data name="ERROR_Internal_WrongCommandSubscribed" xml:space="preserve">
     <value>The method is used with a wrong event:</value>
   </data>
-  <data name="ERROR_Operation_FileNotRecognized_Header" xml:space="preserve">
-    <value>File loading error</value>
-  </data>
-  <data name="ERROR_Operation_FileNotRecognized_Text" xml:space="preserve">
-    <value>Unrecognized type of file:</value>
-  </data>
   <data name="ERROR_Validation_Field_ContainsIllegalCharacter" xml:space="preserve">
     <value>The given value contains illegal characters</value>
   </data>
@@ -149,6 +143,12 @@
   </data>
   <data name="ERROR_Validation_FileName_HasNoPreceedingNumber" xml:space="preserve">
     <value>The file name does not contain preceeding numeric part:</value>
+  </data>
+  <data name="ERROR_Validation_Files_PathNotRecognized_Header" xml:space="preserve">
+    <value>File loading error</value>
+  </data>
+  <data name="ERROR_Validation_Files_PathNotRecognized_Text" xml:space="preserve">
+    <value>Unrecognized type of file:</value>
   </data>
   <data name="Header_General" xml:space="preserve">
     <value>OPTIONS</value>
@@ -179,6 +179,15 @@
   </data>
   <data name="Label_StartNumber" xml:space="preserve">
     <value>Start number:</value>
+  </data>
+  <data name="RESULT_Operation_Failure" xml:space="preserve">
+    <value>Operation failed</value>
+  </data>
+  <data name="RESULT_Operation_Success_Header" xml:space="preserve">
+    <value>Operation successful</value>
+  </data>
+  <data name="RESULT_Operation_Success_Text" xml:space="preserve">
+    <value>All files were renamed!</value>
   </data>
   <data name="Tooltip_Append" xml:space="preserve">
     <value>INFO: Optional text to be added at the end of the file name</value>

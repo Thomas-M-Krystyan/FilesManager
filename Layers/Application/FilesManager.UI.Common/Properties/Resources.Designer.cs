@@ -106,24 +106,6 @@ namespace FilesManager.UI.Common.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to File loading error.
-        /// </summary>
-        public static string ERROR_Operation_FileNotRecognized_Header {
-            get {
-                return ResourceManager.GetString("ERROR_Operation_FileNotRecognized_Header", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unrecognized type of file:.
-        /// </summary>
-        public static string ERROR_Operation_FileNotRecognized_Text {
-            get {
-                return ResourceManager.GetString("ERROR_Operation_FileNotRecognized_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The given value contains illegal characters.
         /// </summary>
         public static string ERROR_Validation_Field_ContainsIllegalCharacter {
@@ -156,6 +138,24 @@ namespace FilesManager.UI.Common.Properties {
         public static string ERROR_Validation_FileName_HasNoPreceedingNumber {
             get {
                 return ResourceManager.GetString("ERROR_Validation_FileName_HasNoPreceedingNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File loading error.
+        /// </summary>
+        public static string ERROR_Validation_Files_PathNotRecognized_Header {
+            get {
+                return ResourceManager.GetString("ERROR_Validation_Files_PathNotRecognized_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unrecognized type of file:.
+        /// </summary>
+        public static string ERROR_Validation_Files_PathNotRecognized_Text {
+            get {
+                return ResourceManager.GetString("ERROR_Validation_Files_PathNotRecognized_Text", resourceCulture);
             }
         }
         
@@ -246,6 +246,33 @@ namespace FilesManager.UI.Common.Properties {
         public static string Label_StartNumber {
             get {
                 return ResourceManager.GetString("Label_StartNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Operation failed.
+        /// </summary>
+        public static string RESULT_Operation_Failure {
+            get {
+                return ResourceManager.GetString("RESULT_Operation_Failure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Operation successful.
+        /// </summary>
+        public static string RESULT_Operation_Success_Header {
+            get {
+                return ResourceManager.GetString("RESULT_Operation_Success_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All files were renamed!.
+        /// </summary>
+        public static string RESULT_Operation_Success_Text {
+            get {
+                return ResourceManager.GetString("RESULT_Operation_Success_Text", resourceCulture);
             }
         }
         
