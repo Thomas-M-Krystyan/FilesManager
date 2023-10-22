@@ -24,7 +24,7 @@ namespace FileManager.Layers.Logic
         ///   - appending a text after the original file name but before its extension.
         /// </para>
         /// </summary>
-        public static RenamingResultDto EnrichWithPrependAndAppend(string oldFilePath, string textToPrepend, string textToAppend)
+        public static RenamingResultDto UpdateWithPrependAndAppend(string oldFilePath, string textToPrepend, string textToAppend)
         {
             return WritingService.RenameFile(oldFilePath, () => PrependAppend.GetPrependedAndAppendedName(oldFilePath, textToPrepend, textToAppend));
         }

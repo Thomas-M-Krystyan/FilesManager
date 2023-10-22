@@ -25,10 +25,10 @@ namespace FilesManager.Core.UnitTests.Services
 
         [TestCase("")]
         [TestCase(" ")]
-        public void EnrichWithPrependAndAppend_ForInvalidPath_ReturnsFailureDto(string invalidPath)
+        public void UpdateWithPrependAndAppend_ForInvalidPath_ReturnsFailureDto(string invalidPath)
         {
             // Act
-            RenamingResultDto actualResult = RenamingService.EnrichWithPrependAndAppend(invalidPath, "Prepend", "Append");
+            RenamingResultDto actualResult = RenamingService.UpdateWithPrependAndAppend(invalidPath, "Prepend", "Append");
 
             // Assert
             Assert.Multiple(() =>
