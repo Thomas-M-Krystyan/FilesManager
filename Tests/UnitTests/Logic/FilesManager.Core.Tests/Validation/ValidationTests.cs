@@ -1,6 +1,7 @@
 using FilesManager.Core.Validation;
+using Moq;
 using NUnit.Framework;
-using System.Text.RegularExpressions;
+using Match = System.Text.RegularExpressions.Match;
 
 namespace FilesManager.Core.Tests.Validation
 {
@@ -96,6 +97,39 @@ namespace FilesManager.Core.Tests.Validation
             yield return (@"<name", true);
             yield return (@"na>me", true);
             yield return (@"na|me", true);
+        }
+
+        internal abstract class TestClass
+        {
+            public abstract void SuccessAction();
+
+            public abstract void FailureAction();
+        }
+
+        [Test]
+        public void ContainInvalidCharacters_ForValidationFailure_PassedFailureMethodIsExecuted()
+        {
+            // Arrange
+            var mockedTestClass = new Mock<TestClass>();
+
+            // Act
+            _ = Validate.ContainInvalidCharacters(">Invalid<", failureAction: mockedTestClass.Object.FailureAction);
+
+            // Assert
+            mockedTestClass.Verify(mock => mock.FailureAction(), Times.Once);
+        }
+
+        [Test]
+        public void ContainInvalidCharacters_ForValidationSuccess_PassedSuccessMethodIsExecuted()
+        {
+            // Arrange
+            var mockedTestClass = new Mock<TestClass>();
+
+            // Act
+            _ = Validate.ContainInvalidCharacters("Valid", successAction: mockedTestClass.Object.SuccessAction);
+
+            // Assert
+            mockedTestClass.Verify(mock => mock.SuccessAction(), Times.Once);
         }
         #endregion
     }

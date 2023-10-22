@@ -40,18 +40,18 @@ namespace FilesManager.Core.Validation
         /// <exception cref="RegexMatchTimeoutException" />
         public static bool ContainInvalidCharacters(string textInput, Action? successAction = null, Action? failureAction = null)
         {
-            bool isSuccess = RegexPatterns.InvalidCharactersPattern.IsMatch(textInput);
+            bool isFailure = RegexPatterns.InvalidCharactersPattern.IsMatch(textInput);
 
-            if (isSuccess)
-            {
-                successAction?.Invoke();
-            }
-            else
+            if (isFailure)
             {
                 failureAction?.Invoke();
             }
+            else
+            {
+                successAction?.Invoke();
+            }
 
-            return isSuccess;
+            return isFailure;
         }
 
         /// <summary>
