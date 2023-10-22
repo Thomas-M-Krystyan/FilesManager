@@ -12,11 +12,12 @@ namespace FilesManager.Core.Services
         /// <returns>Result of renamed file.</returns>
         internal static RenamingResultDto RenameFile(string oldFilePath, Func<string> renameMethod)
         {
+            // TODO: Introduce backups for files
             try
             {
                 string newFilePath = renameMethod();
 
-                if (String.IsNullOrEmpty(newFilePath))
+                if (string.IsNullOrEmpty(newFilePath))
                 {
                     throw new ArgumentException($"Cannot rename the file \"{oldFilePath}\"");
                 }
