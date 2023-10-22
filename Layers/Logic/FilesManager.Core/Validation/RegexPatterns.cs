@@ -21,11 +21,6 @@ namespace FilesManager.Core.Validation
         // --------------
 
         /// <summary>
-        /// Captures anything that is not a digit.
-        /// </summary>
-        public static readonly Regex NotDigit = new("[^0-9]+", RegexOptions.Compiled);
-
-        /// <summary>
         /// Captures invalid characters in files names.
         /// </summary>
         internal static readonly Regex InvalidCharactersPattern = new("[" +

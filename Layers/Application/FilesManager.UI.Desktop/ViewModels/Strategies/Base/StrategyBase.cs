@@ -1,14 +1,11 @@
 ﻿using FilesManager.Core.Models.DTOs.Results;
 using FilesManager.Core.Models.POCOs;
-using FilesManager.Core.Validation;
 using FilesManager.UI.Desktop.Properties;
 using FilesManager.UI.Desktop.Utilities;
 using FilesManager.UI.Desktop.ViewModels.Base;
-using Microsoft.Xaml.Behaviors.Core;
 using System;
 using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Input;
 
 namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
 {
@@ -53,13 +50,6 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         /// Occurs AFTER the <see cref="Select()"/> - when it was requested on this view model.
         /// </summary>
         public event Action<object>? AfterOnSelected;
-        #endregion
-
-        #region Commands (binding)
-        /// <summary>
-        /// Handles subscribed <see cref="ValidateNumericInput(object)"/> action.
-        /// </summary>
-        public ICommand ValidNumInputCommand => new ActionCommand(ValidateNumericInput);
         #endregion
 
         /// <summary>
@@ -121,28 +111,6 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
             _ = result.IsSuccess
                 ? Message.InfoOk("Operation successful", "All files were renamed!")
                 : Message.ErrorOk("Operation failed", result.Message);
-        }
-        #endregion
-
-        #region Private
-        /// <summary>
-        /// Validates whether the provided input contains only numeric values.
-        /// </summary>
-        /// <param name="parameter">
-        ///   The event's argument (<see cref="TextCompositionEventArgs"/>) passed
-        ///   when the specific trigger was activated on the XAML side.
-        /// </param>
-        private void ValidateNumericInput(object parameter)
-        {
-            if (parameter is TextCompositionEventArgs textInputEvent)
-            {
-                // Prevents providing even a single non-digit character in the guarded text box field
-                textInputEvent.Handled = RegexPatterns.NotDigit.IsMatch(textInputEvent.Text);
-            }
-            else
-            {
-                Validate.ReportInvalidCommandUsage(nameof(ValidateNumericInput));
-            }
         }
         #endregion
     }

@@ -147,7 +147,7 @@
                     </Label>
                     <TextBox Grid.Column="2"
                              Grid.Row="1"
-                             Text="{Binding NamePrefix, Mode=TwoWay}"
+                             Text="{Binding NamePrefix, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                              ToolTip="{xaml:Static strategies:IncrementNumberViewModel.Content_NonEmptyField_Tooltip}"
                              Style="{StaticResource TextBoxStyle_120}">
                         <behaviors:Interaction.Triggers>
@@ -170,15 +170,12 @@
                     </Label>
                     <TextBox Grid.Column="4"
                              Grid.Row="1"
-                             Text="{Binding StartingNumber, Mode=TwoWay}"
+                             Text="{Binding StartingNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                              ToolTip="{xaml:Static strategies:IncrementNumberViewModel.Content_OnlyPositives_Tooltip}"
                              Style="{StaticResource TextBoxStyle_60}">
                         <behaviors:Interaction.Triggers>
                             <behaviors:EventTrigger EventName="GotFocus">
                                 <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
-                            </behaviors:EventTrigger>
-                            <behaviors:EventTrigger EventName="PreviewTextInput">
-                                <customBehaviors:InvokeCommandAction Command="{Binding ValidNumInputCommand, Mode=OneWay}" />
                             </behaviors:EventTrigger>
                         </behaviors:Interaction.Triggers>
                     </TextBox>
@@ -196,7 +193,7 @@
                     </Label>
                     <TextBox Grid.Column="6"
                              Grid.Row="1"
-                             Text="{Binding NamePostfix, Mode=TwoWay}"
+                             Text="{Binding NamePostfix, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                              ToolTip="{xaml:Static strategies:IncrementNumberViewModel.Content_NonEmptyField_Tooltip}"
                              Style="{StaticResource TextBoxStyle_120}">
                         <behaviors:Interaction.Triggers>

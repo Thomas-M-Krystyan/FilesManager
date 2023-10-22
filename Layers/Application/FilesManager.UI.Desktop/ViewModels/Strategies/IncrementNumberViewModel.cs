@@ -35,18 +35,18 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             set
             {
                 this._namePrefix = value;
-                ValidateProperty(nameof(this.NamePrefix), value);
+                ValidateIllegalChars(nameof(this.NamePrefix), value);
                 OnPropertyChanged(nameof(this.NamePrefix));
             }
         }
 
         private ushort _startingNumber;
-        public ushort StartingNumber
+        public string StartingNumber
         {
-            get => this._startingNumber;
+            get => this._startingNumber.ToString();
             set
             {
-                this._startingNumber = value;
+                ValidateOnlyNumbers(nameof(this.StartingNumber), value);  // NOTE: Set value inside
                 OnPropertyChanged(nameof(this.StartingNumber));
             }
         }
@@ -58,7 +58,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             set
             {
                 this._namePostfix = value;
-                ValidateProperty(nameof(this.NamePostfix), value);
+                ValidateIllegalChars(nameof(this.NamePostfix), value);
                 OnPropertyChanged(nameof(this.NamePostfix));
             }
         }
@@ -75,21 +75,21 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         /// <inheritdoc cref="StrategyBase.Process(IList{FileData})"/>
         internal override sealed RenamingResultDto Process(IList<FileData> loadedFiles)
         {
-            // ----------------------------------
-            // 1. Validate mandatory input fields
-            // ----------------------------------
-            if (this.StartingNumber + loadedFiles.Count - 1 > ushort.MaxValue)  // Exceeding the maximum possible value
-            {
-                // EXAMPLE: "startNumber" is 65530 and there is 6 files on the list. The result of ++ would be 65536 => which is more than maximum for ushort
-                return RenamingResultDto.Failure($"Some numbers would eventually exceed the max value for \"Start number\" (65535) if the renaming continue.");
-            }
-
             // -----------------------------------------
-            // 2. Validate if there are any input errors
+            // 1. Validate if there are any input errors
             // -----------------------------------------
             if (this.HasErrors)
             {
                 return RenamingResultDto.Failure(GetAllErrors());
+            }
+
+            // ---------------------------------
+            // 2. Validate additional conditions
+            // ---------------------------------
+            if (this._startingNumber + loadedFiles.Count - 1 > ushort.MaxValue)  // Exceeding the maximum possible value
+            {
+                // EXAMPLE: "startNumber" is 65530 and there is 6 files on the list. The result of ++ would be 65536 => which is more than maximum for ushort
+                return RenamingResultDto.Failure($"Some numbers would eventually exceed the max value for \"Start number\" (65535) if the renaming continue.");
             }
 
             // --------------------------------
@@ -100,7 +100,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             for (int index = 0; index < loadedFiles.Count; index++)
             {
                 FileData file = loadedFiles[index];
-                result = RenamingService.ReplaceWithNumber(file.Path, this.NamePrefix, this.StartingNumber++, this.NamePostfix);
+                result = RenamingService.ReplaceWithNumber(file.Path, this.NamePrefix, this._startingNumber++, this.NamePostfix);
 
                 if (result.IsSuccess)
                 {
@@ -119,9 +119,9 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             if (result.IsSuccess)
             {
                 // Set the last number as the new start number
-                this.StartingNumber = this.StartingNumber is 0
-                    ? --this.StartingNumber  // Revert the effect of value overflow (ushort.MaxValue + 1 => 0)
-                    : this.StartingNumber;
+                this._startingNumber = this._startingNumber is 0
+                    ? --this._startingNumber  // Revert the effect of value overflow (ushort.MaxValue + 1 => 0)
+                    : this._startingNumber;
             }
 
             return result;
@@ -131,19 +131,31 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         protected override sealed void Reset()  // NOTE: Speficic behavior for this concrete strategy. Overloading restricted
         {
             this.NamePrefix = string.Empty;
-            this.StartingNumber = default;
+            this.StartingNumber = default(ushort).ToString();
             this.NamePostfix = string.Empty;
 
             base.Reset();
         }
         #endregion
 
-        #region Helper methods
-        private void ValidateProperty(string propertyName, string value)
+        #region Validation
+        private void ValidateIllegalChars(string propertyName, string value)
         {
             if (Validate.HaveInvalidCharacters(value))
             {
                 AddError(propertyName, Resources.ERROR_Validation_IllegalCharacter + $" {value}");
+            }
+            else
+            {
+                ClearErrors(propertyName);
+            }
+        }
+
+        private void ValidateOnlyNumbers(string propertyName, string value)
+        {
+            if (ushort.TryParse(value, out this._startingNumber))
+            {
+                AddError(propertyName, Resources.ERROR_Validation_NotANumber + $" {value}");
             }
             else
             {

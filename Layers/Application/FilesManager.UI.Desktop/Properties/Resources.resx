@@ -132,6 +132,9 @@
   <data name="ERROR_Validation_IllegalCharacter" xml:space="preserve">
     <value>The given value contains illegal characters:</value>
   </data>
+  <data name="ERROR_Validation_NotANumber" xml:space="preserve">
+    <value>The given value contains not a number:</value>
+  </data>
   <data name="Header_General" xml:space="preserve">
     <value>OPTIONS</value>
   </data>

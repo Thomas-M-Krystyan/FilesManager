@@ -110,7 +110,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Base
         {
             if (this._propertyErrors.ContainsKey(propertyName))
             {
-                this._propertyErrors[propertyName].Clear();
+                this._propertyErrors.Remove(propertyName);
             }
         }
 

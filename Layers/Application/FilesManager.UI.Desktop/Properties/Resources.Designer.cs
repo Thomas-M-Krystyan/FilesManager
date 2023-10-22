@@ -106,6 +106,15 @@ namespace FilesManager.UI.Desktop.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The given value contains not a number:.
+        /// </summary>
+        public static string ERROR_Validation_NotANumber {
+            get {
+                return ResourceManager.GetString("ERROR_Validation_NotANumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OPTIONS.
         /// </summary>
         public static string Header_General {
