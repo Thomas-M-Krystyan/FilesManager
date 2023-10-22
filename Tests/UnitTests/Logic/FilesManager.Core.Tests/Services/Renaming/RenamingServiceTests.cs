@@ -3,7 +3,7 @@ using FilesManager.Core.Models.DTOs.Results;
 using FilesManager.Core.Services.Renaming;
 using FilesManager.UI.Common.Properties;
 
-namespace FilesManager.Core.UnitTests.Services
+namespace FilesManager.Core.UnitTests.Services.Renaming
 {
     [TestFixture]
     internal class RenamingServiceTests
