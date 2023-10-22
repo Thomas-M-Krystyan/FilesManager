@@ -165,6 +165,10 @@
     <value>Unrecognized type of file:</value>
     <comment>UI message</comment>
   </data>
+  <data name="ERROR_Validation_File_NotRenamed" xml:space="preserve">
+    <value>The given file couldn't be renamed:</value>
+    <comment>UI message</comment>
+  </data>
   <data name="Header_General" xml:space="preserve">
     <value>OPTIONS</value>
     <comment>XAML</comment>

@@ -1,6 +1,7 @@
 ﻿using FileManager.Layers.Logic;
 using FilesManager.Core.Models.DTOs.Files;
 using FilesManager.Core.Models.DTOs.Results;
+using FilesManager.UI.Common.Properties;
 
 namespace FilesManager.Core.UnitTests.Services
 {
@@ -18,7 +19,7 @@ namespace FilesManager.Core.UnitTests.Services
             Assert.Multiple(() =>
             {
                 Assert.That(actualResult.IsSuccess, Is.False);
-                Assert.That(actualResult.Message, Does.StartWith("Cannot rename the file"));
+                Assert.That(actualResult.Message, Does.StartWith(Resources.ERROR_Validation_File_NotRenamed));
                 Assert.That(actualResult.NewFilePath, Is.Empty);
             });
         }
@@ -34,7 +35,7 @@ namespace FilesManager.Core.UnitTests.Services
             Assert.Multiple(() =>
             {
                 Assert.That(actualResult.IsSuccess, Is.False);
-                Assert.That(actualResult.Message, Does.StartWith("Cannot rename the file"));
+                Assert.That(actualResult.Message, Does.StartWith(Resources.ERROR_Validation_File_NotRenamed));
                 Assert.That(actualResult.NewFilePath, Is.Empty);
             });
         }
@@ -56,7 +57,7 @@ namespace FilesManager.Core.UnitTests.Services
             Assert.Multiple(() =>
             {
                 Assert.That(actualResult.IsSuccess, Is.False);
-                Assert.That(actualResult.Message, Is.EqualTo(test.Exception));
+                Assert.That(actualResult.Message, Does.StartWith(test.Exception));
                 Assert.That(actualResult.NewFilePath, Is.Empty);
             });
         }
@@ -64,16 +65,16 @@ namespace FilesManager.Core.UnitTests.Services
         private static IEnumerable<TestData> LeadingZerosTestCases(string filePath)
         {
             // DTO without name or extension
-            yield return new($"{filePath}", new("", "00", "1", "Test", ""), "Internal (RegEx) error: The file \"001Test\" was't parsed properly");
-            yield return new($"{filePath}", new("C:/Users/", "00", "1", "Test", ""), "Internal (RegEx) error: The file \"001Test\" was't parsed properly");
-            yield return new($"{filePath}", new("", "00", "1", "Test", ".zip"), "Internal (RegEx) error: The file \"001Test\" was't parsed properly");
+            yield return new($"{filePath}", new("", "00", "1", "Test", ""), Resources.ERROR_Validation_File_NotRenamed);
+            yield return new($"{filePath}", new("C:/Users/", "00", "1", "Test", ""), Resources.ERROR_Validation_File_NotRenamed);
+            yield return new($"{filePath}", new("", "00", "1", "Test", ".zip"), Resources.ERROR_Validation_File_NotRenamed);
 
             // DTO without zeroes or digits
-            yield return new($"{filePath}", new("C:/Users/", "", "", "", ".jpg"), "The file name \"\" does not contain preceeding numeric part");
-            yield return new($"{filePath}", new("C:/Users/", "", "", "Test", ".jpg"), "The file name \"Test\" does not contain preceeding numeric part");
+            yield return new($"{filePath}", new("C:/Users/", "", "", "", ".jpg"), Resources.ERROR_Validation_FileName_HasNoPreceedingNumber);
+            yield return new($"{filePath}", new("C:/Users/", "", "", "Test", ".jpg"), Resources.ERROR_Validation_FileName_HasNoPreceedingNumber);
 
             // Invalid source path
-            yield return new($"{filePath}", new("C:/Users/", "00", "1", "Test", ".jpg"), $"Cannot rename the file \"{filePath}\"");
+            yield return new($"{filePath}", new("C:/Users/", "00", "1", "Test", ".jpg"), Resources.ERROR_Validation_File_NotRenamed);
         }
 
         internal sealed record TestData(string OriginalPath, TestFileData File, string Exception);

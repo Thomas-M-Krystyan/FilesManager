@@ -142,6 +142,15 @@ namespace FilesManager.UI.Common.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The given file couldn&apos;t be renamed:.
+        /// </summary>
+        public static string ERROR_Validation_File_NotRenamed {
+            get {
+                return ResourceManager.GetString("ERROR_Validation_File_NotRenamed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The file name does not contain preceeding numeric part:.
         /// </summary>
         public static string ERROR_Validation_FileName_HasNoPreceedingNumber {

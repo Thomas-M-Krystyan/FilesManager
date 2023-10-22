@@ -1,4 +1,5 @@
 ﻿using FilesManager.Core.Models.DTOs.Results;
+using FilesManager.UI.Common.Properties;
 
 namespace FilesManager.Core.Services
 {
@@ -17,9 +18,9 @@ namespace FilesManager.Core.Services
             {
                 string newFilePath = renameMethod();
 
-                if (string.IsNullOrEmpty(newFilePath))
+                if (string.IsNullOrWhiteSpace(newFilePath))
                 {
-                    throw new ArgumentException($"Cannot rename the file \"{oldFilePath}\"");
+                    return RenamingResultDto.Failure(Resources.ERROR_Validation_File_NotRenamed + $" \"{oldFilePath}\"");
                 }
 
                 File.Move(oldFilePath, newFilePath);
