@@ -8,6 +8,13 @@ namespace FilesManager.Core.Tests.Validation
     [TestFixture]
     public class ValidationTests
     {
+        internal abstract class TestClass
+        {
+            public abstract void SuccessAction();
+
+            public abstract void FailureAction();
+        }
+
         #region IsFilePathValid
         // Missing path
         [TestCase("File", false, "", "", "")]
@@ -99,13 +106,6 @@ namespace FilesManager.Core.Tests.Validation
             yield return (@"na|me", true);
         }
 
-        internal abstract class TestClass
-        {
-            public abstract void SuccessAction();
-
-            public abstract void FailureAction();
-        }
-
         [Test]
         public void ContainInvalidCharacters_ForValidationFailure_PassedFailureMethodIsExecuted()
         {
@@ -130,6 +130,79 @@ namespace FilesManager.Core.Tests.Validation
 
             // Assert
             mockedTestClass.Verify(mock => mock.SuccessAction(), Times.Once);
+        }
+        #endregion
+
+        #region IsUshort
+        [Test]
+        public void IsUshort_ForGivenValidNumber_ReturnsTrue_AndValue()
+        {
+            // Act
+            bool actualResult = Validate.IsUshort("5", out ushort actualNumber);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(actualResult, Is.True);
+                Assert.That(actualNumber, Is.EqualTo(5));
+            });
+        }
+
+        [TestCase("-1", 0)]     // Negative
+        [TestCase("99999", 0)]  // Too large
+        public void IsUshort_ForGivenInvalidNumber_ReturnsFalse_AndValue(string textInput, int expectedNumber)
+        {
+            // Act
+            bool actualResult = Validate.IsUshort(textInput, out ushort actualNumber);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(actualResult, Is.False);
+                Assert.That(actualNumber, Is.EqualTo((ushort)expectedNumber));
+            });
+        }
+
+        [TestCase("a", 0)]  // Lowercase letter
+        [TestCase("Z", 0)]  // Uppercase letter
+        [TestCase("+", 0)]  // Special character
+        public void IsUshort_ForGivenInvalidValue_ReturnsFalse_AndValue(string textInput, int expectedNumber)
+        {
+            // Act
+            bool actualResult = Validate.IsUshort(textInput, out ushort actualNumber);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(actualResult, Is.False);
+                Assert.That(actualNumber, Is.EqualTo((ushort)expectedNumber));
+            });
+        }
+
+        [Test]
+        public void IsUshort_ForValidationSuccess_PassedSuccessMethodIsExecuted()
+        {
+            // Arrange
+            var mockedTestClass = new Mock<TestClass>();
+
+            // Act
+            _ = Validate.IsUshort("1", out _, successAction: mockedTestClass.Object.SuccessAction);
+
+            // Assert
+            mockedTestClass.Verify(mock => mock.SuccessAction(), Times.Once);
+        }
+
+        [Test]
+        public void IsUshort_ForValidationFailure_PassedFailureMethodIsExecuted()
+        {
+            // Arrange
+            var mockedTestClass = new Mock<TestClass>();
+
+            // Act
+            _ = Validate.IsUshort("-1", out _, failureAction: mockedTestClass.Object.FailureAction);
+
+            // Assert
+            mockedTestClass.Verify(mock => mock.FailureAction(), Times.Once);
         }
         #endregion
     }

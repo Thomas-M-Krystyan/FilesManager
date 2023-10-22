@@ -66,7 +66,7 @@ namespace FilesManager.Core.Validation
         /// </returns>
         public static bool IsUshort(string value, out ushort number, Action? successAction = null, Action? failureAction = null)
         {
-            bool isSuccess = !ushort.TryParse(value, out number);
+            bool isSuccess = ushort.TryParse(value, out number);
 
             if (isSuccess)
             {
