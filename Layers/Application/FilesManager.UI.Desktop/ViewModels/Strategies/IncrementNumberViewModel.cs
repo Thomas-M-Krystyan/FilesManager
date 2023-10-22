@@ -93,7 +93,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             if (this._validStartingNumber + loadedFiles.Count - 1 > ushort.MaxValue)  // Exceeding the maximum possible value
             {
                 // EXAMPLE: "startNumber" is 65530 and there is 6 files on the list. The result of ++ would be 65536 => which is more than maximum for ushort
-                return RenamingResultDto.Failure($"Some numbers would eventually exceed the max value for \"Start number\" (65535) if the renaming continue.");
+                return RenamingResultDto.Failure(Resources.ERROR_Validation_AboveUshortMaxValue);
             }
 
             // --------------------------------

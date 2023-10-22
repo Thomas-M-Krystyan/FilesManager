@@ -97,6 +97,15 @@ namespace FilesManager.UI.Desktop.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Some numbers would eventually exceed the max value for &apos;Start number&apos; (65535) if the renaming continue..
+        /// </summary>
+        public static string ERROR_Validation_AboveUshortMaxValue {
+            get {
+                return ResourceManager.GetString("ERROR_Validation_AboveUshortMaxValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The given value contains illegal characters.
         /// </summary>
         public static string ERROR_Validation_IllegalCharacter {

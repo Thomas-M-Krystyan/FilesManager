@@ -129,6 +129,9 @@
   <data name="ERROR_Operation_FileNotRecognized_Text" xml:space="preserve">
     <value>Unrecognized type of file:</value>
   </data>
+  <data name="ERROR_Validation_AboveUshortMaxValue" xml:space="preserve">
+    <value>Some numbers would eventually exceed the max value for 'Start number' (65535) if the renaming continue.</value>
+  </data>
   <data name="ERROR_Validation_IllegalCharacter" xml:space="preserve">
     <value>The given value contains illegal characters</value>
   </data>
