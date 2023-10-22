@@ -1,7 +1,6 @@
 ﻿using FileManager.Layers.Logic;
 using FilesManager.Core.Models.DTOs.Results;
 using FilesManager.Core.Models.POCOs;
-using FilesManager.Core.Validation;
 using FilesManager.UI.Common.Properties;
 using FilesManager.UI.Desktop.ViewModels.Base;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
@@ -140,22 +139,6 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             this.NamePostfix = string.Empty;
 
             base.Reset();
-        }
-        #endregion
-
-        #region Validation
-        private void ValidateIllegalChars(string propertyName, string value)
-        {
-            _ = Validate.ContainInvalidCharacters(value,
-                () => ClearErrors(propertyName),
-                () => AddError(propertyName, Resources.ERROR_Validation_Field_ContainsIllegalCharacter, value));
-        }
-
-        private void ValidateOnlyNumbers(string propertyName, string value, out ushort validStartingNumber)
-        {
-            _ = Validate.IsUshort(value, out validStartingNumber,
-                () => ClearErrors(propertyName),
-                () => AddError(propertyName, Resources.ERROR_Validation_Field_ContainsNotDigits, value));
         }
         #endregion
     }

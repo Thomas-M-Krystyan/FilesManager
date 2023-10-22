@@ -1,5 +1,6 @@
 ﻿using FilesManager.Core.Models.DTOs.Results;
 using FilesManager.Core.Models.POCOs;
+using FilesManager.Core.Validation;
 using FilesManager.UI.Common.Properties;
 using FilesManager.UI.Desktop.Utilities;
 using FilesManager.UI.Desktop.ViewModels.Base;
@@ -112,6 +113,22 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
             _ = result.IsSuccess
                 ? Message.InfoOk(Resources.RESULT_Operation_Success_Header, Resources.RESULT_Operation_Success_Text)
                 : Message.ErrorOk(Resources.RESULT_Operation_Failure, result.Message);
+        }
+        #endregion
+
+        #region Concrete (Validation)
+        protected void ValidateIllegalChars(string propertyName, string value)
+        {
+            _ = Validate.ContainInvalidCharacters(value,
+                () => ClearErrors(propertyName),
+                () => AddError(propertyName, Resources.ERROR_Validation_Field_ContainsIllegalCharacter, value));
+        }
+
+        protected void ValidateOnlyNumbers(string propertyName, string value, out ushort validStartingNumber)
+        {
+            _ = Validate.IsUshort(value, out validStartingNumber,
+                () => ClearErrors(propertyName),
+                () => AddError(propertyName, Resources.ERROR_Validation_Field_ContainsNotDigits, value));
         }
         #endregion
     }
