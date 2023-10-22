@@ -42,8 +42,8 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             }
         }
 
-        private ushort _validStartingNumber;
-        private string _startingNumber = DefaultStartingNumber;
+        private ushort _validStartingNumber;                     // NOTE: Logic
+        private string _startingNumber = DefaultStartingNumber;  // NOTE: UI
         public string StartingNumber
         {
             get => this._startingNumber;
@@ -136,7 +136,6 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         {
             this.NamePrefix = string.Empty;
             this.StartingNumber = DefaultStartingNumber;
-            this._validStartingNumber = default;
             this.NamePostfix = string.Empty;
 
             base.Reset();
