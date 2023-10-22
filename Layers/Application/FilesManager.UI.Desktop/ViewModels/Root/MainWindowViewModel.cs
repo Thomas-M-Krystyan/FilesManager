@@ -32,6 +32,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         private StrategyBase? _activeStrategy;
         #endregion
 
+        // NOTE: All binding elements should be public
         #region Properties (binding)
         /// <inheritdoc cref="IncrementNumberViewModel"/>
         public IncrementNumberViewModel IncrementNumberStrategy { get; }
@@ -105,6 +106,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         private bool IsStrategySelected => this._activeStrategy != null;
         #endregion
 
+        // NOTE: All binding elements should be public
         #region Commands (binding)
         /// <summary>
         /// Handles subscribed <see cref="LoadFiles(object)"/> action.

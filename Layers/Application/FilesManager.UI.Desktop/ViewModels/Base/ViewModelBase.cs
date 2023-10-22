@@ -15,6 +15,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Base
     /// <seealso cref="INotifyPropertyChanged"/>
     internal abstract class ViewModelBase : INotifyPropertyChanged, INotifyDataErrorInfo
     {
+        // NOTE: All binding elements should be public
         #region Commands (binding)
         /// <summary>
         /// Handles subscribed <see cref="Select(object)"/> action.

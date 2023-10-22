@@ -23,6 +23,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         public static readonly string Content_OnlyVerySmallPositives_Tooltip = Resources.Tooltip_Tip_Content_OnlyVerySmallPositives;
         #endregion
 
+        // NOTE: All binding elements should be public
         #region Properties (binding)
         private bool _isEnabled = false;
 
