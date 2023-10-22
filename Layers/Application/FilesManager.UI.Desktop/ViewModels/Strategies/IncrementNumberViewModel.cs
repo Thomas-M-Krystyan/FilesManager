@@ -35,16 +35,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             set
             {
                 this._namePrefix = value;
-
-                if (Validate.HaveInvalidCharacters(value))
-                {
-                    AddError(nameof(this.NamePrefix), Resources.ERROR_Validation_IllegalCharacter + $" {value}");
-                }
-                else
-                {
-                    ClearErrors(nameof(this.NamePrefix));
-                }
-
+                ValidateProperty(nameof(this.NamePrefix), value);
                 OnPropertyChanged(nameof(this.NamePrefix));
             }
         }
@@ -67,16 +58,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             set
             {
                 this._namePostfix = value;
-
-                if (Validate.HaveInvalidCharacters(value))
-                {
-                    AddError(nameof(this.NamePostfix), Resources.ERROR_Validation_IllegalCharacter + $" {value}");
-                }
-                else
-                {
-                    ClearErrors(nameof(this.NamePostfix));
-                }
-
+                ValidateProperty(nameof(this.NamePostfix), value);
                 OnPropertyChanged(nameof(this.NamePostfix));
             }
         }
@@ -153,6 +135,20 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             this.NamePostfix = string.Empty;
 
             base.Reset();
+        }
+        #endregion
+
+        #region Helper methods
+        private void ValidateProperty(string propertyName, string value)
+        {
+            if (Validate.HaveInvalidCharacters(value))
+            {
+                AddError(propertyName, Resources.ERROR_Validation_IllegalCharacter + $" {value}");
+            }
+            else
+            {
+                ClearErrors(propertyName);
+            }
         }
         #endregion
     }
