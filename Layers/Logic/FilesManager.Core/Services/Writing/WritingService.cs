@@ -1,7 +1,7 @@
 ﻿using FilesManager.Core.Models.DTOs.Results;
 using FilesManager.UI.Common.Properties;
 
-namespace FilesManager.Core.Services
+namespace FilesManager.Core.Services.Writing
 {
     internal static class WritingService
     {
