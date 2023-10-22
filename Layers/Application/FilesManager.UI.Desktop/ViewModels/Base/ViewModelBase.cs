@@ -80,7 +80,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Base
         /// <summary>
         /// Adds new validation error related to the given property.
         /// </summary>
-        protected void AddError(string propertyName, string errorMessage)
+        protected void AddError<T>(string propertyName, string errorMessage, T value)
         {
             if (string.IsNullOrWhiteSpace(propertyName) ||
                 string.IsNullOrWhiteSpace(errorMessage))
@@ -93,7 +93,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Base
                 this._propertyErrors.Add(propertyName, new List<string>());
             }
 
-            this._propertyErrors[propertyName].Add($"{propertyName}: {errorMessage}");
+            this._propertyErrors[propertyName].Add($"{propertyName}: {errorMessage}: \"{value}\"");
             
             OnErrorsChanged(propertyName);
         }

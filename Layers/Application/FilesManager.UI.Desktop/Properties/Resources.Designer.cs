@@ -97,7 +97,7 @@ namespace FilesManager.UI.Desktop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The given value contains illegal characters:.
+        ///   Looks up a localized string similar to The given value contains illegal characters.
         /// </summary>
         public static string ERROR_Validation_IllegalCharacter {
             get {
@@ -106,7 +106,7 @@ namespace FilesManager.UI.Desktop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The given value contains not a number:.
+        ///   Looks up a localized string similar to The given value contains not a number.
         /// </summary>
         public static string ERROR_Validation_NotANumber {
             get {

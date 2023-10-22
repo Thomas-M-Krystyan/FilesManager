@@ -148,7 +148,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         {
             if (Validate.HaveInvalidCharacters(value))
             {
-                AddError(propertyName, Resources.ERROR_Validation_IllegalCharacter + $" {value}");
+                AddError(propertyName, Resources.ERROR_Validation_IllegalCharacter, value);
             }
             else
             {
@@ -164,7 +164,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             }
             else
             {
-                AddError(propertyName, Resources.ERROR_Validation_NotANumber + $" {value}");
+                AddError(propertyName, Resources.ERROR_Validation_NotANumber, value);
             }
         }
         #endregion
