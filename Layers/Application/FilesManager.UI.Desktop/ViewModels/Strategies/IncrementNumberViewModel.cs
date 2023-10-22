@@ -15,6 +15,8 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
     /// <seealso cref="ViewModelBase"/>
     internal sealed class IncrementNumberViewModel : StrategyBase
     {
+        private const string DefaultStartingNumber = "0";
+
         #region Texts
         public static readonly string Method_Header = Resources.Header_Method_IncrementNumber;
         public static readonly string Method_Tooltip = Resources.Tooltip_Method_IncrementNumber;
@@ -40,13 +42,15 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             }
         }
 
-        private ushort _startingNumber;
+        private ushort _validStartingNumber;
+        private string _startingNumber = DefaultStartingNumber;
         public string StartingNumber
         {
-            get => this._startingNumber.ToString();
+            get => this._startingNumber;
             set
             {
-                ValidateOnlyNumbers(nameof(this.StartingNumber), value);  // NOTE: Set value inside
+                this._startingNumber = value;
+                ValidateOnlyNumbers(nameof(this.StartingNumber), value, out this._validStartingNumber);
                 OnPropertyChanged(nameof(this.StartingNumber));
             }
         }
@@ -86,7 +90,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             // ---------------------------------
             // 2. Validate additional conditions
             // ---------------------------------
-            if (this._startingNumber + loadedFiles.Count - 1 > ushort.MaxValue)  // Exceeding the maximum possible value
+            if (this._validStartingNumber + loadedFiles.Count - 1 > ushort.MaxValue)  // Exceeding the maximum possible value
             {
                 // EXAMPLE: "startNumber" is 65530 and there is 6 files on the list. The result of ++ would be 65536 => which is more than maximum for ushort
                 return RenamingResultDto.Failure($"Some numbers would eventually exceed the max value for \"Start number\" (65535) if the renaming continue.");
@@ -100,7 +104,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             for (int index = 0; index < loadedFiles.Count; index++)
             {
                 FileData file = loadedFiles[index];
-                result = RenamingService.ReplaceWithNumber(file.Path, this.NamePrefix, this._startingNumber++, this.NamePostfix);
+                result = RenamingService.ReplaceWithNumber(file.Path, this.NamePrefix, this._validStartingNumber++, this.NamePostfix);
 
                 if (result.IsSuccess)
                 {
@@ -119,9 +123,9 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             if (result.IsSuccess)
             {
                 // Set the last number as the new start number
-                this._startingNumber = this._startingNumber is 0
-                    ? --this._startingNumber  // Revert the effect of value overflow (ushort.MaxValue + 1 => 0)
-                    : this._startingNumber;
+                this._validStartingNumber = this._validStartingNumber is 0
+                    ? --this._validStartingNumber  // Revert the effect of value overflow (ushort.MaxValue + 1 => 0)
+                    : this._validStartingNumber;
             }
 
             return result;
@@ -131,7 +135,8 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         protected override sealed void Reset()  // NOTE: Speficic behavior for this concrete strategy. Overloading restricted
         {
             this.NamePrefix = string.Empty;
-            this.StartingNumber = default(ushort).ToString();
+            this.StartingNumber = DefaultStartingNumber;
+            this._validStartingNumber = default;
             this.NamePostfix = string.Empty;
 
             base.Reset();
@@ -151,9 +156,9 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             }
         }
 
-        private void ValidateOnlyNumbers(string propertyName, string value)
+        private void ValidateOnlyNumbers(string propertyName, string value, out ushort validStartingNumber)
         {
-            if (ushort.TryParse(value, out this._startingNumber))
+            if (ushort.TryParse(value, out validStartingNumber))
             {
                 ClearErrors(propertyName);
             }
