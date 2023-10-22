@@ -3,7 +3,7 @@
 namespace FilesManager.Core.UnitTests.Helpers
 {
     [TestFixture]
-    public class HelperTests
+    internal sealed class HelperTests
     {
         [TestCaseSource(nameof(GetTestFileNames))]
         public void GetMaxLength_ForValidInput_ReturnsExpectedMaxFileLength((string[] Names, int ExpectedCount) testData)

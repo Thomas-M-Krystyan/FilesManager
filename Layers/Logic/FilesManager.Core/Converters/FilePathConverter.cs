@@ -1,4 +1,4 @@
-﻿using FilesManager.Core.ExtensionMethods;
+﻿using FilesManager.Core.Extensions;
 using FilesManager.Core.Models.DTOs.Files;
 using FilesManager.Core.Validation;
 using FilesManager.UI.Common.Properties;
@@ -9,7 +9,7 @@ namespace FilesManager.Core.Converters
     /// <summary>
     /// Converts back and forth data associated with file <see cref="Path"/>.
     /// </summary>
-    public static class FilePathConverter
+    internal static class FilePathConverter
     {
         #region Path + Name + Extension
         /// <summary>
@@ -18,7 +18,7 @@ namespace FilesManager.Core.Converters
         /// <returns>
         ///   Empty <see cref="PathNameExtensionDto"/> if the provided file path is invalid.
         /// </returns>
-        public static PathNameExtensionDto GetPathNameExtension(string filePath)
+        internal static PathNameExtensionDto GetPathNameExtension(string filePath)
         {
             // NOTE: Split the file path into path, name, and extension groups
             Match filePathMatch = RegexPatterns.FileComponentsPattern().Match(filePath);
@@ -38,7 +38,7 @@ namespace FilesManager.Core.Converters
         /// <returns>
         ///   Empty <see cref="PathNameExtensionDto"/> if the provided file path is invalid.
         /// </returns>
-        public static PathZerosDigitsExtensionDto GetPathZerosDigitsExtension(string filePath)
+        internal static PathZerosDigitsExtensionDto GetPathZerosDigitsExtension(string filePath)
         {
             // NOTE: Split the file path into path, name, and extension groups
             Match fileComponentsMatch = RegexPatterns.FileComponentsPattern().Match(filePath);
@@ -67,7 +67,7 @@ namespace FilesManager.Core.Converters
         /// <summary>
         /// Converts path + name + extension back into a consolidated file's <see cref="Path"/>.
         /// </summary>
-        public static string GetFilePath(string path, string name, string extension)
+        internal static string GetFilePath(string path, string name, string extension)
         {
             return Path.Combine(path, name + extension);
         }

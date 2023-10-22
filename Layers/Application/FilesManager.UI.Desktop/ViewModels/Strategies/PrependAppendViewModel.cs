@@ -1,9 +1,12 @@
-﻿using FilesManager.Core.Models.DTOs.Results;
+﻿using FilesManager.Core.Converters;
+using FilesManager.Core.Models.DTOs.Results;
 using FilesManager.Core.Models.POCOs;
+using FilesManager.Core.Validation;
 using FilesManager.UI.Common.Properties;
 using FilesManager.UI.Desktop.ViewModels.Base;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace FilesManager.UI.Desktop.ViewModels.Strategies
 {
@@ -98,6 +101,23 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             this.AppendName = string.Empty;
 
             base.Reset();
+        }
+
+        /// <inheritdoc cref="StrategyBase.GetNewFilePath(string)"/>
+        protected internal override sealed string GetNewFilePath(string oldFilePath)
+        {
+            //Match filePathMatch = Validate.IsFilePathValid(oldFilePath);
+
+            //return filePathMatch.Success
+            //    ? FilePathConverter.GetFilePath(
+            //        path: filePathMatch.Value(RegexPatterns.PathGroup),
+            //        name: $"{this.PrependName.GetValueOrEmpty()}" +
+            //              $"{filePathMatch.Value(RegexPatterns.NameGroup)}" +
+            //              $"{this.AppendName.GetValueOrEmpty()}",
+            //        extension: filePathMatch.Value(RegexPatterns.ExtensionGroup))
+            //    : string.Empty;
+
+            return string.Empty;
         }
         #endregion
     }

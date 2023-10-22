@@ -3,22 +3,22 @@
     /// <summary>
     /// The renaming operation result DTO.
     /// </summary>
-    public sealed record RenamingResultDto
+    internal sealed record RenamingResultDto
     {
         /// <summary>
         /// Gets the result of renaming operation.
         /// </summary>
-        public bool IsSuccess { get; }
+        internal bool IsSuccess { get; }
 
         /// <summary>
         /// Gets the renaming result message (information, warning, error).
         /// </summary>
-        public string Message { get; } = string.Empty;
+        internal string Message { get; } = string.Empty;
 
         /// <summary>
         /// Gets new renamed file path.
         /// </summary>
-        public string NewFilePath { get; } = string.Empty;
+        internal string NewFilePath { get; } = string.Empty;
 
         #region Constructors
         /// <summary>
@@ -48,13 +48,13 @@
         /// <summary>
         /// Renaming operation was successful.
         /// </summary>
-        public static RenamingResultDto Success()
+        internal static RenamingResultDto Success()
         {
             return new RenamingResultDto(true);
         }
 
         /// <inheritdoc cref="Success" />
-        public static RenamingResultDto Success(string newFilePath)
+        internal static RenamingResultDto Success(string newFilePath)
         {
             return new RenamingResultDto(true, "Success", newFilePath);
         }
@@ -62,13 +62,13 @@
         /// <summary>
         /// Renaming operation was unsuccessful.
         /// </summary>
-        public static RenamingResultDto Failure()
+        internal static RenamingResultDto Failure()
         {
             return new RenamingResultDto(false, "Failure");
         }
 
         /// <inheritdoc cref="Failure" />
-        public static RenamingResultDto Failure(string message)
+        internal static RenamingResultDto Failure(string message)
         {
             return new RenamingResultDto(false, message);
         }

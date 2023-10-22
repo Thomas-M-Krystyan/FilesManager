@@ -3,7 +3,7 @@ using FilesManager.Core.Validation;
 namespace FilesManager.Core.UnitTests.Validation
 {
     [TestFixture]
-    public class ValidationTests
+    internal sealed class ValidationTests
     {
         internal abstract class TestClass
         {

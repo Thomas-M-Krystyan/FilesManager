@@ -1,11 +1,11 @@
-﻿using FilesManager.Core.ExtensionMethods;
+﻿using FilesManager.Core.Extensions;
 
 namespace FilesManager.Core.Helpers
 {
     /// <summary>
     /// Helper methods for common usage.
     /// </summary>
-    public static class Helper
+    internal static class Helper
     {
         /// <summary>
         /// Gets the length of the longest text from the provided input.
@@ -19,7 +19,7 @@ namespace FilesManager.Core.Helpers
         ///   </para>
         /// </param>
         /// <returns>Length of the longest text input.</returns>
-        public static int GetMaxLength(string[] inputs)
+        internal static int GetMaxLength(string[] inputs)
         {
             if (inputs.IsNullOrEmpty())
             {

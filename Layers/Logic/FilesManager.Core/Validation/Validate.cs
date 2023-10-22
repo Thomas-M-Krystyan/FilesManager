@@ -9,9 +9,8 @@ namespace FilesManager.Core.Validation
     /// <summary>
     /// Validation methods.
     /// </summary>
-    public static class Validate
+    internal static class Validate
     {
-        #region Public
         /// <summary>
         /// Determines whether the given file path is valid.
         /// </summary>
@@ -21,7 +20,7 @@ namespace FilesManager.Core.Validation
         ///   <inheritdoc cref="Regex.Match(string)"/>
         /// </returns>
         /// <exception cref="RegexMatchTimeoutException" />
-        public static Match IsFilePathValid(string filePath)
+        internal static Match IsFilePathValid(string filePath)
         {
             return string.IsNullOrWhiteSpace(filePath)
                 ? Match.Empty
@@ -38,7 +37,7 @@ namespace FilesManager.Core.Validation
         ///   <inheritdoc cref="Regex.IsMatch(string)"/>
         /// </returns>
         /// <exception cref="RegexMatchTimeoutException" />
-        public static bool ContainInvalidCharacters(string textInput, Action? successAction = null, Action? failureAction = null)
+        internal static bool ContainInvalidCharacters(string textInput, Action? successAction = null, Action? failureAction = null)
         {
             bool isFailure = RegexPatterns.InvalidCharactersPattern.IsMatch(textInput);
 
@@ -64,7 +63,7 @@ namespace FilesManager.Core.Validation
         /// <returns>
         ///   <inheritdoc cref="ushort.TryParse(string?, out ushort)"/>
         /// </returns>
-        public static bool IsUshort(string value, out ushort number, Action? successAction = null, Action? failureAction = null)
+        internal static bool IsUshort(string value, out ushort number, Action? successAction = null, Action? failureAction = null)
         {
             bool isSuccess = ushort.TryParse(value, out number);
 
@@ -89,13 +88,11 @@ namespace FilesManager.Core.Validation
         /// </summary>
         /// <param name="methodName">The name of the method.</param>
         /// <exception cref="InvalidOperationException">The event argument is invalid.</exception>
-        public static void ReportInvalidCommandUsage(string methodName)
+        internal static void ReportInvalidCommandUsage(string methodName)
         {
             throw new InvalidOperationException(Resources.ERROR_Internal_WrongCommandSubscribed + $" {methodName}");
         }
-        #endregion
 
-        #region Internal
         /// <summary>
         /// Checks if the given DTO is valid.
         /// </summary>
@@ -113,6 +110,5 @@ namespace FilesManager.Core.Validation
                 _ => RenamingResultDto.Success(),
             };
         }
-        #endregion
     }
 }

@@ -3,7 +3,7 @@
 namespace FilesManager.Core.UnitTests.Validation
 {
     [TestFixture]
-    internal class RegexPatternsTests
+    internal sealed class RegexPatternsTests
     {
         #region RegEx for invalid characters
         [TestCase("", false)]

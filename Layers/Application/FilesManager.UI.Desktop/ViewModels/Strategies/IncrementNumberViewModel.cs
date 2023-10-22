@@ -1,10 +1,14 @@
-﻿using FilesManager.Core.Models.DTOs.Results;
+﻿using FilesManager.Core.Converters;
+using FilesManager.Core.Extensions;
+using FilesManager.Core.Models.DTOs.Results;
 using FilesManager.Core.Models.POCOs;
-using FilesManager.Core.Services.Renaming;
+using FilesManager.Core.Services.Writing;
+using FilesManager.Core.Validation;
 using FilesManager.UI.Common.Properties;
 using FilesManager.UI.Desktop.ViewModels.Base;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace FilesManager.UI.Desktop.ViewModels.Strategies
 {
@@ -42,7 +46,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             }
         }
 
-        private ushort _validStartingNumber;                     // NOTE: Logic
+        private ushort _currentStartingNumber;                   // NOTE: Logic
         private string _startingNumber = DefaultStartingNumber;  // NOTE: UI
         public string StartingNumber
         {
@@ -50,7 +54,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             set
             {
                 this._startingNumber = value;
-                ValidateOnlyNumbers(nameof(this.StartingNumber), value, out this._validStartingNumber);
+                ValidateOnlyNumbers(nameof(this.StartingNumber), value, out this._currentStartingNumber);
                 OnPropertyChanged(nameof(this.StartingNumber));
             }
         }
@@ -90,7 +94,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             // ---------------------------------
             // 2. Validate additional conditions
             // ---------------------------------
-            if (this._validStartingNumber + loadedFiles.Count - 1 > ushort.MaxValue)  // Exceeding the maximum possible value
+            if (this._currentStartingNumber + loadedFiles.Count - 1 > ushort.MaxValue)  // Exceeding the maximum possible value
             {
                 // EXAMPLE: "startNumber" is 65530 and there is 6 files on the list. The result of ++ would be 65536 => which is more than maximum for ushort
                 return RenamingResultDto.Failure(Resources.ERROR_Validation_Field_ValueWillExceedUshortMax);
@@ -100,11 +104,12 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             // 3. Process renaming of the files
             // --------------------------------
             var result = RenamingResultDto.Failure();
+            FileData file;
 
             for (int index = 0; index < loadedFiles.Count; index++)
             {
-                FileData file = loadedFiles[index];
-                result = RenamingService.ReplaceWithNumber(file.Path, this.NamePrefix, this._validStartingNumber++, this.NamePostfix);
+                file = loadedFiles[index];
+                result = WritingService.RenameFile(file.Path, GetNewFilePath(file.Path));
 
                 if (result.IsSuccess)
                 {
@@ -123,9 +128,9 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             if (result.IsSuccess)
             {
                 // Set the last number as the new start number
-                this._validStartingNumber = this._validStartingNumber is 0
-                    ? --this._validStartingNumber  // Revert the effect of value overflow (ushort.MaxValue + 1 => 0). Keep the ushort.MaxValue
-                    : this._validStartingNumber;
+                this._currentStartingNumber = this._currentStartingNumber is 0
+                    ? --this._currentStartingNumber  // Revert the effect of value overflow (ushort.MaxValue + 1 => 0). Keep the ushort.MaxValue
+                    : this._currentStartingNumber;
             }
 
             return result;
@@ -139,6 +144,21 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             this.NamePostfix = string.Empty;
 
             base.Reset();
+        }
+
+        /// <inheritdoc cref="StrategyBase.GetNewFilePath(string)"/>
+        protected internal override sealed string GetNewFilePath(string oldFilePath)
+        {
+            Match filePathMatch = Validate.IsFilePathValid(oldFilePath);
+
+            return filePathMatch.Success
+                ? FilePathConverter.GetFilePath(
+                    path: filePathMatch.Value(RegexPatterns.PathGroup),
+                    name: $"{this.NamePrefix.GetValueOrEmpty()}" +
+                          $"{this._currentStartingNumber++}" +      // NOTE: Very important! Keep incrementing the current number
+                          $"{this.NamePostfix.GetValueOrEmpty()}",
+                    extension: filePathMatch.Value(RegexPatterns.ExtensionGroup))
+                : string.Empty;
         }
         #endregion
     }

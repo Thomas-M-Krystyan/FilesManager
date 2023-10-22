@@ -1,9 +1,9 @@
-﻿using FilesManager.Core.ExtensionMethods;
+﻿using FilesManager.Core.Extensions;
 
 namespace FilesManager.Core.UnitTests.ExtensionMethods
 {
     [TestFixture]
-    internal class StringExtensionsTests
+    internal sealed class StringExtensionsTests
     {
         [TestCase("", "")]
         [TestCase(" ", "")]

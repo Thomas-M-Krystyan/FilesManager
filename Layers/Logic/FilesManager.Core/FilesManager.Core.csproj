@@ -7,14 +7,15 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <!-- Visibility -->
-  <ItemGroup>
-    <InternalsVisibleTo Include="FilesManager.Core.UnitTests" />
-  </ItemGroup>
-
   <!-- Projects -->
   <ItemGroup>
     <ProjectReference Include="..\..\Application\FilesManager.UI.Common\FilesManager.UI.Common.csproj" />
+  </ItemGroup>
+
+  <!-- Visibility -->
+  <ItemGroup>
+    <InternalsVisibleTo Include="FileManager" />
+    <InternalsVisibleTo Include="FilesManager.Core.UnitTests" />
   </ItemGroup>
 
 </Project>

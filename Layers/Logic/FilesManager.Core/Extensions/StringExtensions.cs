@@ -1,4 +1,4 @@
-﻿namespace FilesManager.Core.ExtensionMethods
+﻿namespace FilesManager.Core.Extensions
 {
     /// <summary>
     /// Extension methods for <see langword="string"/>s.
@@ -10,7 +10,7 @@
         /// </summary>
         internal static string GetValueOrEmpty(this string value)
         {
-            return String.IsNullOrWhiteSpace(value) ? string.Empty : value;
+            return string.IsNullOrWhiteSpace(value) ? string.Empty : value;
         }
     }
 }

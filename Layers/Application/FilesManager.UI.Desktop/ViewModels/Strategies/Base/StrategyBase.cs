@@ -100,7 +100,19 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         ///     It will never be null or empty.
         ///   </para>
         /// </param>
+        /// <returns>
+        ///   <inheritdoc cref="RenamingResultDto" path="/summary"/>
+        /// </returns>
         internal abstract RenamingResultDto Process(IList<FileData> loadedFiles);
+
+        /// <summary>
+        /// Gets the new file path for a file to be renamed.
+        /// </summary>
+        /// <param name="oldFilePath">The old file path to be used.</param>
+        /// <returns>
+        ///   The new file path (changed by the current renaming strategy).
+        /// </returns>
+        protected internal abstract string GetNewFilePath(string oldFilePath);
         #endregion
 
         #region Virtual

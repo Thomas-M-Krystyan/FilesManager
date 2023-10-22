@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net7.0-windows</TargetFramework>
     
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
@@ -22,12 +22,12 @@
 
   <!-- Projects -->
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Layers\Logic\FilesManager.Core\FilesManager.Core.csproj" />
+    <ProjectReference Include="..\..\..\..\Layers\Application\FilesManager.UI.Desktop\FilesManager.UI.Desktop.csproj" />
   </ItemGroup>
 
   <!-- Visibility -->
   <ItemGroup>
     <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
   </ItemGroup>
-  
+
 </Project>

@@ -5,7 +5,7 @@ namespace FilesManager.Core.Validation
     /// <summary>
     /// A set of handful Regular Expression patterns.
     /// </summary>
-    public static partial class RegexPatterns
+    internal static partial class RegexPatterns
     {
         // -----------
         // Group names

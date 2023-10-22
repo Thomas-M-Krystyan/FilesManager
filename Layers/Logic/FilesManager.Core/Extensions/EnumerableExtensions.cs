@@ -1,4 +1,4 @@
-﻿namespace FilesManager.Core.ExtensionMethods
+﻿namespace FilesManager.Core.Extensions
 {
     /// <summary>
     /// Extension methods for <see cref="IEnumerable{T}"/>s.
