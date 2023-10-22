@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FilesManager.UI.Desktop.Properties {
+namespace FilesManager.UI.Common.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace FilesManager.UI.Desktop.Properties {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("FilesManager.UI.Desktop.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("FilesManager.UI.Common.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -79,6 +79,33 @@ namespace FilesManager.UI.Desktop.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The file was&apos;t parsed properly by RegEx in FilePathConverter:.
+        /// </summary>
+        public static string ERROR_Internal_InvalidFilePathDto {
+            get {
+                return ResourceManager.GetString("ERROR_Internal_InvalidFilePathDto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The property name or error message shouldn&apos;t be empty!.
+        /// </summary>
+        public static string ERROR_Internal_PropertyOrMessageAreEmpty {
+            get {
+                return ResourceManager.GetString("ERROR_Internal_PropertyOrMessageAreEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The method is used with a wrong event:.
+        /// </summary>
+        public static string ERROR_Internal_WrongCommandSubscribed {
+            get {
+                return ResourceManager.GetString("ERROR_Internal_WrongCommandSubscribed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File loading error.
         /// </summary>
         public static string ERROR_Operation_FileNotRecognized_Header {
@@ -97,29 +124,38 @@ namespace FilesManager.UI.Desktop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Some numbers would eventually exceed the max value for &apos;Start number&apos; (65535) if the renaming continue..
-        /// </summary>
-        public static string ERROR_Validation_AboveUshortMaxValue {
-            get {
-                return ResourceManager.GetString("ERROR_Validation_AboveUshortMaxValue", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The given value contains illegal characters.
         /// </summary>
-        public static string ERROR_Validation_IllegalCharacter {
+        public static string ERROR_Validation_Field_ContainsIllegalCharacter {
             get {
-                return ResourceManager.GetString("ERROR_Validation_IllegalCharacter", resourceCulture);
+                return ResourceManager.GetString("ERROR_Validation_Field_ContainsIllegalCharacter", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to The given value contains not a number.
         /// </summary>
-        public static string ERROR_Validation_NotANumber {
+        public static string ERROR_Validation_Field_ContainsNotDigits {
             get {
-                return ResourceManager.GetString("ERROR_Validation_NotANumber", resourceCulture);
+                return ResourceManager.GetString("ERROR_Validation_Field_ContainsNotDigits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Some numbers would eventually exceed the max value for &apos;Start number&apos; (65535) if the renaming continue..
+        /// </summary>
+        public static string ERROR_Validation_Field_ValueWillExceedUshortMax {
+            get {
+                return ResourceManager.GetString("ERROR_Validation_Field_ValueWillExceedUshortMax", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The file name does not contain preceeding numeric part:.
+        /// </summary>
+        public static string ERROR_Validation_FileName_HasNoPreceedingNumber {
+            get {
+                return ResourceManager.GetString("ERROR_Validation_FileName_HasNoPreceedingNumber", resourceCulture);
             }
         }
         
@@ -426,7 +462,7 @@ namespace FilesManager.UI.Desktop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to File Manager (v0.3.7-alpha).
+        ///   Looks up a localized string similar to File Manager (v0.3.8-alpha).
         /// </summary>
         public static string WindowTitle {
             get {

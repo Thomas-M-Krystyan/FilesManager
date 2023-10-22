@@ -14,10 +14,13 @@ namespace FilesManager.Core.Converters
         /// <summary>
         /// Converts file path into dedicated groups of values: path, name, and extension.
         /// </summary>
-        /// <returns>Empty <see cref="PathNameExtensionDto"/> if the provided file path is invalid.</returns>
+        /// <returns>
+        ///   Empty <see cref="PathNameExtensionDto"/> if the provided file path is invalid.
+        /// </returns>
         public static PathNameExtensionDto GetPathNameExtension(string filePath)
         {
-            Match filePathMatch = RegexPatterns.FilePathPattern.Match(filePath);
+            // NOTE: Split the file path into path, name, and extension groups
+            Match filePathMatch = RegexPatterns.FileComponentsPattern.Match(filePath);
 
             return filePathMatch.Success
                 ? new PathNameExtensionDto(path: filePathMatch.Value(RegexPatterns.PathGroup),
@@ -27,30 +30,32 @@ namespace FilesManager.Core.Converters
         }
         #endregion
 
-        #region Path + Zeros + Digits + Extension
+        #region Path + Zeros + Digits + Name + Extension
         /// <summary>
-        /// Converts file path into dedicated groups of values: path, zeros, digits, and extension.
+        /// Converts file path into dedicated groups of values: path, zeros, digits, name, and extension.
         /// </summary>
-        /// <returns>Empty <see cref="PathNameExtensionDto"/> if the provided file path is invalid.</returns>
+        /// <returns>
+        ///   Empty <see cref="PathNameExtensionDto"/> if the provided file path is invalid.
+        /// </returns>
         public static PathZerosDigitsExtensionDto GetPathZerosDigitsExtension(string filePath)
         {
-            Match filePathMatch = RegexPatterns.FilePathPattern.Match(filePath);
+            // NOTE: Split the file path into path, name, and extension groups
+            Match fileComponentsMatch = RegexPatterns.FileComponentsPattern.Match(filePath);
 
-            if (filePathMatch.Success)
+            if (fileComponentsMatch.Success)
             {
-                string path = filePathMatch.Value(RegexPatterns.PathGroup);
-                string name = filePathMatch.Value(RegexPatterns.NameGroup);
-                string extension = filePathMatch.Value(RegexPatterns.ExtensionGroup);
-
-                Match digitsNameMatch = RegexPatterns.DigitsNamePattern.Match(name);
+                // NOTE: Split the file name into dedicated zeros, digits, and name groups
+                Match digitsNameMatch = RegexPatterns.DigitsNamePattern.Match(
+                    fileComponentsMatch.Value(RegexPatterns.NameGroup));
 
                 if (digitsNameMatch.Success)
                 {
-                    string zeros = digitsNameMatch.Value(RegexPatterns.ZerosGroup);
-                    string digits = digitsNameMatch.Value(RegexPatterns.DigitsGroup);
-                    name = digitsNameMatch.Value(RegexPatterns.NameGroup);
-
-                    return new PathZerosDigitsExtensionDto(path, zeros, digits, name, extension);
+                    return new PathZerosDigitsExtensionDto(
+                        path: fileComponentsMatch.Value(RegexPatterns.PathGroup),
+                        zeros: digitsNameMatch.Value(RegexPatterns.ZerosGroup),
+                        digits: digitsNameMatch.Value(RegexPatterns.DigitsGroup),
+                        name: digitsNameMatch.Value(RegexPatterns.NameGroup),
+                        extension: fileComponentsMatch.Value(RegexPatterns.ExtensionGroup));
                 }
             }
 
@@ -59,7 +64,7 @@ namespace FilesManager.Core.Converters
         #endregion
 
         /// <summary>
-        /// Converts path + name + extension back into a consolidated file <see cref="Path"/>.
+        /// Converts path + name + extension back into a consolidated file's <see cref="Path"/>.
         /// </summary>
         public static string GetFilePath(string path, string name, string extension)
         {

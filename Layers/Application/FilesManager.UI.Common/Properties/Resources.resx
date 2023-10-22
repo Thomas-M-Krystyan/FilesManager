@@ -123,20 +123,32 @@
   <data name="Content_ResetButton" xml:space="preserve">
     <value>Reset</value>
   </data>
+  <data name="ERROR_Internal_InvalidFilePathDto" xml:space="preserve">
+    <value>The file was't parsed properly by RegEx in FilePathConverter:</value>
+  </data>
+  <data name="ERROR_Internal_PropertyOrMessageAreEmpty" xml:space="preserve">
+    <value>The property name or error message shouldn't be empty!</value>
+  </data>
+  <data name="ERROR_Internal_WrongCommandSubscribed" xml:space="preserve">
+    <value>The method is used with a wrong event:</value>
+  </data>
   <data name="ERROR_Operation_FileNotRecognized_Header" xml:space="preserve">
     <value>File loading error</value>
   </data>
   <data name="ERROR_Operation_FileNotRecognized_Text" xml:space="preserve">
     <value>Unrecognized type of file:</value>
   </data>
-  <data name="ERROR_Validation_AboveUshortMaxValue" xml:space="preserve">
-    <value>Some numbers would eventually exceed the max value for 'Start number' (65535) if the renaming continue.</value>
-  </data>
-  <data name="ERROR_Validation_IllegalCharacter" xml:space="preserve">
+  <data name="ERROR_Validation_Field_ContainsIllegalCharacter" xml:space="preserve">
     <value>The given value contains illegal characters</value>
   </data>
-  <data name="ERROR_Validation_NotANumber" xml:space="preserve">
+  <data name="ERROR_Validation_Field_ContainsNotDigits" xml:space="preserve">
     <value>The given value contains not a number</value>
+  </data>
+  <data name="ERROR_Validation_Field_ValueWillExceedUshortMax" xml:space="preserve">
+    <value>Some numbers would eventually exceed the max value for 'Start number' (65535) if the renaming continue.</value>
+  </data>
+  <data name="ERROR_Validation_FileName_HasNoPreceedingNumber" xml:space="preserve">
+    <value>The file name does not contain preceeding numeric part:</value>
   </data>
   <data name="Header_General" xml:space="preserve">
     <value>OPTIONS</value>
@@ -284,7 +296,7 @@ Invalid characters:  \ / : * ? " &lt; &gt; |</value>
     <value>TIP: Only positive numbers from the range [0 - 7]</value>
   </data>
   <data name="WindowTitle" xml:space="preserve">
-    <value>File Manager (v0.3.7-alpha)</value>
+    <value>File Manager (v0.3.8-alpha)</value>
     <comment>Version</comment>
   </data>
 </root>

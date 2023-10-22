@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net7.0-windows</TargetFramework>
     
     <OutputType>WinExe</OutputType>
     <UseWPF>true</UseWPF>
@@ -21,21 +21,7 @@
   <!-- Projects -->
   <ItemGroup>
     <ProjectReference Include="..\..\Logic\FilesManager.Core\FilesManager.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <!-- Generating resources class from .resx-->
-    <Compile Update="Properties\Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-
-    <!-- Embedding resources class to be used in XAML -->
-    <EmbeddedResource Update="Properties\Resources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    <ProjectReference Include="..\FilesManager.UI.Common\FilesManager.UI.Common.csproj" />
   </ItemGroup>
   
 </Project>

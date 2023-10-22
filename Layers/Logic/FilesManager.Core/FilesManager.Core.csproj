@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
@@ -10,6 +10,11 @@
   <!-- Visibility -->
   <ItemGroup>
     <InternalsVisibleTo Include="FilesManager.Core.Tests" />
+  </ItemGroup>
+
+  <!-- Projects -->
+  <ItemGroup>
+    <ProjectReference Include="..\..\Application\FilesManager.UI.Common\FilesManager.UI.Common.csproj" />
   </ItemGroup>
 
 </Project>

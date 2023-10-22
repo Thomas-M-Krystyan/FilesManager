@@ -1,4 +1,5 @@
-﻿using Microsoft.Xaml.Behaviors.Core;
+﻿using FilesManager.UI.Common.Properties;
+using Microsoft.Xaml.Behaviors.Core;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -63,7 +64,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Base
         /// <inheritdoc cref="INotifyDataErrorInfo.GetErrors(string?)"/>
         public IEnumerable GetErrors(string? propertyName)
         {
-            return propertyName is null
+            return string.IsNullOrWhiteSpace(propertyName)
                 ? Array.Empty<string>()
                 : this._propertyErrors.GetValueOrDefault(propertyName, Array.Empty<string>());
         }
@@ -73,8 +74,8 @@ namespace FilesManager.UI.Desktop.ViewModels.Base
         /// </summary>
         protected string GetAllErrors()
         {
-            return string.Join(Environment.NewLine, this._propertyErrors.Select(property =>
-                string.Join(Environment.NewLine, property.Value)));
+            return string.Join(Environment.NewLine, this._propertyErrors.Select(errors =>
+                string.Join(Environment.NewLine, GetErrors(errors.Key))));
         }
 
         /// <summary>
@@ -85,7 +86,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Base
             if (string.IsNullOrWhiteSpace(propertyName) ||
                 string.IsNullOrWhiteSpace(errorMessage))
             {
-                return;
+                throw new InvalidOperationException(Resources.ERROR_Internal_PropertyOrMessageAreEmpty);
             }
 
             if (!this._propertyErrors.ContainsKey(propertyName))
@@ -108,10 +109,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Base
         /// </summary>
         protected void ClearErrors(string propertyName)
         {
-            if (this._propertyErrors.ContainsKey(propertyName))
-            {
-                this._propertyErrors.Remove(propertyName);
-            }
+            _ = this._propertyErrors.Remove(propertyName);
         }
 
         /// <summary>

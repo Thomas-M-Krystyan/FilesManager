@@ -1,6 +1,7 @@
 ﻿using FilesManager.Core.Models.DTOs.Files;
 using FilesManager.Core.Models.DTOs.Files.Abstractions;
 using FilesManager.Core.Models.DTOs.Results;
+using FilesManager.UI.Common.Properties;
 using System.Text.RegularExpressions;
 
 namespace FilesManager.Core.Validation
@@ -22,7 +23,7 @@ namespace FilesManager.Core.Validation
         {
             return string.IsNullOrWhiteSpace(filePath)
                 ? Match.Empty
-                : RegexPatterns.FilePathPattern.Match(filePath);
+                : RegexPatterns.FileComponentsPattern.Match(filePath);
         }
 
         /// <summary>
@@ -44,13 +45,13 @@ namespace FilesManager.Core.Validation
             where T : BasePathDto
         {
             return pathDto.IsEmpty()
-                ? RenamingResultDto.Failure($"Internal (RegEx) error: The file \"{previousFileName}\" was't parsed properly")
+                ? RenamingResultDto.Failure(Resources.ERROR_Internal_InvalidFilePathDto + $" \"{previousFileName}\"")
                 : pathDto switch
                   {
                       // Zeros-Digits type of DTO with missing Zeros and Digits values
                       PathZerosDigitsExtensionDto zerosDigitsDto when zerosDigitsDto.Zeros == string.Empty &&
                                                                       zerosDigitsDto.Digits == string.Empty
-                        => RenamingResultDto.Failure($"The file name \"{previousFileName}\" does not contain preceeding numeric part"),
+                        => RenamingResultDto.Failure(Resources.ERROR_Validation_FileName_HasNoPreceedingNumber + $" \"{previousFileName}\""),
                       
                       // Default
                       _ => RenamingResultDto.Success(),
@@ -68,7 +69,7 @@ namespace FilesManager.Core.Validation
         /// <exception cref="InvalidOperationException">The event argument is invalid.</exception>
         public static void ReportInvalidCommandUsage(string methodName)
         {
-            throw new InvalidOperationException($"The method is used with a wrong event: {methodName}");
+            throw new InvalidOperationException(Resources.ERROR_Internal_WrongCommandSubscribed + $" {methodName}");
         }
     }
 }

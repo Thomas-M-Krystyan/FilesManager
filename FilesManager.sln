@@ -33,6 +33,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Snippets", "Snippets", "{C6
 		Snippets\Inheritdoc.snippet = Snippets\Inheritdoc.snippet
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilesManager.UI.Common", "Layers\Application\FilesManager.UI.Common\FilesManager.UI.Common.csproj", "{9984B560-D922-4013-B358-93B829DA52FB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{ECB4B9B3-DA49-42B7-B122-2357EA40F2FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ECB4B9B3-DA49-42B7-B122-2357EA40F2FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ECB4B9B3-DA49-42B7-B122-2357EA40F2FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9984B560-D922-4013-B358-93B829DA52FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9984B560-D922-4013-B358-93B829DA52FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9984B560-D922-4013-B358-93B829DA52FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9984B560-D922-4013-B358-93B829DA52FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -63,6 +69,7 @@ Global
 		{9715E9B2-7312-4AFA-8F71-D83AAB9D78B3} = {8731CBEE-5822-41B3-AA74-8B0631DA7EFE}
 		{6AA3BDE4-052A-4ACB-9DED-9323DB1680DE} = {CF65D38B-89A5-450D-9F06-CED46747B62B}
 		{ECB4B9B3-DA49-42B7-B122-2357EA40F2FE} = {B9D720A0-4ACF-4994-8FD2-A4FE74F69CCC}
+		{9984B560-D922-4013-B358-93B829DA52FB} = {B9D720A0-4ACF-4994-8FD2-A4FE74F69CCC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D41DB821-0B95-41F5-A3FB-7645BEA42B44}

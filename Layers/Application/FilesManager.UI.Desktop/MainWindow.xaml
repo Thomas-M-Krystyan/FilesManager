@@ -5,7 +5,7 @@
         xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:markup="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:customBehaviors="clr-namespace:FilesManager.UI.Desktop.Behaviors"
-        xmlns:properties="clr-namespace:FilesManager.UI.Desktop.Properties"
+        xmlns:properties="clr-namespace:FilesManager.UI.Common.Properties;assembly=FilesManager.UI.Common"
         xmlns:root="clr-namespace:FilesManager.UI.Desktop.ViewModels.Root"
         xmlns:strategies="clr-namespace:FilesManager.UI.Desktop.ViewModels.Strategies"
         data:DataContext="{data:DesignInstance Type=root:MainWindowViewModel}"

@@ -2,7 +2,7 @@
 using FilesManager.Core.Models.DTOs.Results;
 using FilesManager.Core.Models.POCOs;
 using FilesManager.Core.Validation;
-using FilesManager.UI.Desktop.Properties;
+using FilesManager.UI.Common.Properties;
 using FilesManager.UI.Desktop.ViewModels.Base;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
 using System.Collections.Generic;
@@ -93,7 +93,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             if (this._validStartingNumber + loadedFiles.Count - 1 > ushort.MaxValue)  // Exceeding the maximum possible value
             {
                 // EXAMPLE: "startNumber" is 65530 and there is 6 files on the list. The result of ++ would be 65536 => which is more than maximum for ushort
-                return RenamingResultDto.Failure(Resources.ERROR_Validation_AboveUshortMaxValue);
+                return RenamingResultDto.Failure(Resources.ERROR_Validation_Field_ValueWillExceedUshortMax);
             }
 
             // --------------------------------
@@ -148,7 +148,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         {
             if (Validate.HaveInvalidCharacters(value))
             {
-                AddError(propertyName, Resources.ERROR_Validation_IllegalCharacter, value);
+                AddError(propertyName, Resources.ERROR_Validation_Field_ContainsIllegalCharacter, value);
             }
             else
             {
@@ -160,7 +160,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         {
             if (!ushort.TryParse(value, out validStartingNumber))
             {
-                AddError(propertyName, Resources.ERROR_Validation_NotANumber, value);
+                AddError(propertyName, Resources.ERROR_Validation_Field_ContainsNotDigits, value);
             }
             else
             {
