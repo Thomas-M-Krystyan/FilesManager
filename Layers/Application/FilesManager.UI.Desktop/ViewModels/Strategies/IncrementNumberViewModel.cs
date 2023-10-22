@@ -158,13 +158,13 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
 
         private void ValidateOnlyNumbers(string propertyName, string value, out ushort validStartingNumber)
         {
-            if (ushort.TryParse(value, out validStartingNumber))
+            if (!ushort.TryParse(value, out validStartingNumber))
             {
-                ClearErrors(propertyName);
+                AddError(propertyName, Resources.ERROR_Validation_NotANumber, value);
             }
             else
             {
-                AddError(propertyName, Resources.ERROR_Validation_NotANumber, value);
+                ClearErrors(propertyName);
             }
         }
         #endregion
