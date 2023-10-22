@@ -1,6 +1,6 @@
-﻿using FileManager.Layers.Logic;
-using FilesManager.Core.Models.DTOs.Results;
+﻿using FilesManager.Core.Models.DTOs.Results;
 using FilesManager.Core.Models.POCOs;
+using FilesManager.Core.Services.Renaming;
 using FilesManager.UI.Common.Properties;
 using FilesManager.UI.Desktop.ViewModels.Base;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Base;

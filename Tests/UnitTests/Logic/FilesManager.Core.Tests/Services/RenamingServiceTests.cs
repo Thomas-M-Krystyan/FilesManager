@@ -1,6 +1,6 @@
-﻿using FileManager.Layers.Logic;
-using FilesManager.Core.Models.DTOs.Files;
+﻿using FilesManager.Core.Models.DTOs.Files;
 using FilesManager.Core.Models.DTOs.Results;
+using FilesManager.Core.Services.Renaming;
 using FilesManager.UI.Common.Properties;
 
 namespace FilesManager.Core.UnitTests.Services

@@ -3,7 +3,7 @@ using FilesManager.Core.Models.DTOs.Results;
 using FilesManager.Core.Services.Strategies;
 using FilesManager.Core.Services.Writing;
 
-namespace FileManager.Layers.Logic
+namespace FilesManager.Core.Services.Renaming
 {
     public static class RenamingService
     {
