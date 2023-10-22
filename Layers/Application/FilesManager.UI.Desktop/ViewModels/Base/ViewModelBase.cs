@@ -93,7 +93,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Base
                 this._propertyErrors.Add(propertyName, new List<string>());
             }
 
-            this._propertyErrors[propertyName].Add(errorMessage);
+            this._propertyErrors[propertyName].Add($"{propertyName}: {errorMessage}");
             
             OnErrorsChanged(propertyName);
         }
