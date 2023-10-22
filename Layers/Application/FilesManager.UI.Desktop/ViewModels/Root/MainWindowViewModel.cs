@@ -62,6 +62,21 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
             }
         }
 
+        private bool _canClear;
+
+        /// <summary>
+        /// Determines whether the "Clear" button is enabled on the UI.
+        /// </summary>
+        public bool CanClear
+        {
+            get => this._canClear;
+            set
+            {
+                this._canClear = value;
+                OnPropertyChanged(nameof(this.CanClear));
+            }
+        }
+
         private bool _canProcess;
         
         /// <summary>
@@ -97,7 +112,12 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         public ICommand LoadFilesCommand => new ActionCommand(LoadFiles);
 
         /// <summary>
-        /// Handles subscribed <see cref="Process"/> action.
+        /// Handles subscribed <see cref="ClearStrategies()"/> action.
+        /// </summary>
+        public ICommand ClearCommand => new ActionCommand(ClearStrategies);
+
+        /// <summary>
+        /// Handles subscribed <see cref="Process()"/> action.
         /// </summary>
         public ICommand ProcessCommand => new ActionCommand(Process);
         #endregion
@@ -164,12 +184,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         {
             this.Files.Clear();
 
-            this.IncrementNumberStrategy.ResetCommand.Execute(null);
-            this.PrependAppendStrategy.ResetCommand.Execute(null);
-            this.LeadingZerosStrategy.ResetCommand.Execute(null);
-            this._activeStrategy = null;
-
-            UpdateMainButtons();
+            ClearStrategies();
         }
         #endregion
 
@@ -231,10 +246,26 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
             }
         }
 
+        /// <summary>
+        /// Clears certain elements or controls related to this view model.
+        /// </summary>
+        private void ClearStrategies()
+        {
+            this.IncrementNumberStrategy.ResetCommand.Execute(null);
+            this.PrependAppendStrategy.ResetCommand.Execute(null);
+            this.LeadingZerosStrategy.ResetCommand.Execute(null);
+            this._activeStrategy = null;
+
+            UpdateMainButtons();
+        }
+
         private void UpdateMainButtons()
         {
             // NOTE: At least one condition is required
             this.CanReset = this.IsFileListLoaded || this.IsStrategySelected;
+
+            // NOTE: Just ony condition is required
+            this.CanClear = this.IsStrategySelected;
 
             // NOTE: All conditions are required
             this.CanProcess = this.IsFileListLoaded && this.IsStrategySelected;

@@ -61,6 +61,15 @@ namespace FilesManager.UI.Common.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        public static string Content_ClearButton {
+            get {
+                return ResourceManager.GetString("Content_ClearButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Process.
         /// </summary>
         public static string Content_ProcessButton {
@@ -286,6 +295,15 @@ namespace FilesManager.UI.Common.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to INFO: Clears only the values from the methods (keeps the files).
+        /// </summary>
+        public static string Tooltip_ClearButton {
+            get {
+                return ResourceManager.GetString("Tooltip_ClearButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to INFO: Drag and drop files here.
         /// </summary>
         public static string Tooltip_FilesList {
@@ -415,7 +433,7 @@ namespace FilesManager.UI.Common.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to INFO: Starts processing given files based on a selected method.
+        ///   Looks up a localized string similar to INFO: Starts processing the given files based on a selected method.
         /// </summary>
         public static string Tooltip_ProcessButton {
             get {
@@ -433,7 +451,7 @@ namespace FilesManager.UI.Common.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to INFO: Clears loaded files and all values from methods.
+        ///   Looks up a localized string similar to INFO: Resets loaded files and all the values from the methods.
         /// </summary>
         public static string Tooltip_ResetButton {
             get {

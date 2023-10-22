@@ -117,6 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Content_ClearButton" xml:space="preserve">
+    <value>Clear</value>
+    <comment>XAML</comment>
+  </data>
   <data name="Content_ProcessButton" xml:space="preserve">
     <value>Process</value>
     <comment>XAML</comment>
@@ -217,6 +221,10 @@
     <value>INFO: Optional text to be added at the end of the file name</value>
     <comment>XAML</comment>
   </data>
+  <data name="Tooltip_ClearButton" xml:space="preserve">
+    <value>INFO: Clears only the values from the methods (keeps the files)</value>
+    <comment>XAML</comment>
+  </data>
   <data name="Tooltip_FilesList" xml:space="preserve">
     <value>INFO: Drag and drop files here</value>
     <comment>XAML</comment>
@@ -312,7 +320,7 @@ RESULT:
     <comment>XAML</comment>
   </data>
   <data name="Tooltip_ProcessButton" xml:space="preserve">
-    <value>INFO: Starts processing given files based on a selected method</value>
+    <value>INFO: Starts processing the given files based on a selected method</value>
     <comment>XAML</comment>
   </data>
   <data name="Tooltip_RadioButton" xml:space="preserve">
@@ -320,7 +328,7 @@ RESULT:
     <comment>XAML</comment>
   </data>
   <data name="Tooltip_ResetButton" xml:space="preserve">
-    <value>INFO: Clears loaded files and all values from methods</value>
+    <value>INFO: Resets loaded files and all the values from the methods</value>
     <comment>XAML</comment>
   </data>
   <data name="Tooltip_Set" xml:space="preserve">

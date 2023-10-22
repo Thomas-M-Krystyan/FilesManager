@@ -133,7 +133,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Base
         protected abstract void Deselect();  // NOTE: Should be implemented by all view models
 
         /// <summary>
-        /// Clears certain elements or controls related to this view model.
+        /// Resets certain elements or controls related to this view model.
         /// </summary>
         protected abstract void Reset();  // NOTE: Should be implemented by all view models
         #endregion
