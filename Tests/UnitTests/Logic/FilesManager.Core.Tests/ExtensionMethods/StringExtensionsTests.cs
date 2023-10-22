@@ -1,5 +1,4 @@
 ﻿using FilesManager.Core.ExtensionMethods;
-using NUnit.Framework;
 
 namespace FilesManager.Core.UnitTests.ExtensionMethods
 {

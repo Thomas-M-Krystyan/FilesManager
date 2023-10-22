@@ -1,7 +1,6 @@
 ﻿using FileManager.Layers.Logic;
 using FilesManager.Core.Models.DTOs.Files;
 using FilesManager.Core.Models.DTOs.Results;
-using NUnit.Framework;
 
 namespace FilesManager.Core.UnitTests.Services
 {

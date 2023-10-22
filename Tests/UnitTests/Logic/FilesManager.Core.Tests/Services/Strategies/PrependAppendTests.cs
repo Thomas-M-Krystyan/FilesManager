@@ -1,5 +1,4 @@
 ﻿using FilesManager.Core.Services.Strategies;
-using NUnit.Framework;
 
 namespace FilesManager.Core.UnitTests.Services.Strategies
 {

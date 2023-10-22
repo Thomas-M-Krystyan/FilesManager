@@ -1,6 +1,4 @@
 ﻿using FilesManager.Core.Validation;
-using NUnit.Framework;
-using System.Text.RegularExpressions;
 
 namespace FilesManager.Core.UnitTests.Validation
 {

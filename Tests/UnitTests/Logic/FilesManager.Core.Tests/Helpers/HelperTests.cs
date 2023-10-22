@@ -1,5 +1,4 @@
 ﻿using FilesManager.Core.Helpers;
-using NUnit.Framework;
 
 namespace FilesManager.Core.UnitTests.Helpers
 {

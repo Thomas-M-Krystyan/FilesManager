@@ -1,7 +1,4 @@
 using FilesManager.Core.Validation;
-using Moq;
-using NUnit.Framework;
-using Match = System.Text.RegularExpressions.Match;
 
 namespace FilesManager.Core.UnitTests.Validation
 {
