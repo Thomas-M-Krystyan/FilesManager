@@ -8,14 +8,6 @@ namespace FilesManager.Core.Models.DTOs.Files
     /// <seealso cref="BasePathDto"/>
     public record PathNameExtensionDto : BasePathDto
     {
-        #region Default
-        /// <summary>
-        /// Returns an empty instance of <see cref="PathNameExtensionDto"/>.
-        /// </summary>
-        public static readonly PathNameExtensionDto Empty =
-            new(string.Empty, string.Empty, string.Empty);
-        #endregion
-
         /// <summary>
         /// Gets the name of the file.
         /// </summary>

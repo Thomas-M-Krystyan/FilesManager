@@ -102,18 +102,16 @@ namespace FilesManager.Core.Validation
         internal static RenamingResultDto IsPathDtoValid<T>(T pathDto, string previousFileName)
             where T : BasePathDto
         {
-            return pathDto.IsEmpty()
-                ? RenamingResultDto.Failure(Resources.ERROR_Internal_InvalidFilePathDto + $" \"{previousFileName}\"")
-                : pathDto switch
-                  {
-                      // Zeros-Digits type of DTO with missing Zeros and Digits values
-                      PathZerosDigitsExtensionDto zerosDigitsDto when zerosDigitsDto.Zeros == string.Empty &&
-                                                                      zerosDigitsDto.Digits == string.Empty
-                        => RenamingResultDto.Failure(Resources.ERROR_Validation_FileName_HasNoPreceedingNumber + $" \"{previousFileName}\""),
+            return pathDto switch
+            {
+                // Zeros-Digits type of DTO with missing Zeros and Digits values
+                PathZerosDigitsExtensionDto zerosDigitsDto when zerosDigitsDto.Zeros == string.Empty &&
+                                                                zerosDigitsDto.Digits == string.Empty
+                => RenamingResultDto.Failure(Resources.ERROR_Validation_FileName_HasNoPreceedingNumber + $" \"{previousFileName}\""),
                       
-                      // Default
-                      _ => RenamingResultDto.Success(),
-                  };
+                // Default
+                _ => RenamingResultDto.Success(),
+            };
         }
         #endregion
     }

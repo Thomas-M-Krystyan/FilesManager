@@ -1,6 +1,7 @@
 ﻿using FilesManager.Core.ExtensionMethods;
 using FilesManager.Core.Models.DTOs.Files;
 using FilesManager.Core.Validation;
+using FilesManager.UI.Common.Properties;
 using System.Text.RegularExpressions;
 
 namespace FilesManager.Core.Converters
@@ -26,7 +27,7 @@ namespace FilesManager.Core.Converters
                 ? new PathNameExtensionDto(path: filePathMatch.Value(RegexPatterns.PathGroup),
                                            name: filePathMatch.Value(RegexPatterns.NameGroup),
                                            extension: filePathMatch.Value(RegexPatterns.ExtensionGroup))
-                : PathNameExtensionDto.Empty;
+                : throw new InvalidOperationException(Resources.ERROR_Internal_InvalidFilePathDto + $" \"{filePath}\"");
         }
         #endregion
 
@@ -58,8 +59,8 @@ namespace FilesManager.Core.Converters
                         extension: fileComponentsMatch.Value(RegexPatterns.ExtensionGroup));
                 }
             }
-
-            return PathZerosDigitsExtensionDto.Empty;
+            
+            throw new InvalidOperationException(Resources.ERROR_Internal_InvalidFilePathDto + $" \"{filePath}\"");
         }
         #endregion
 

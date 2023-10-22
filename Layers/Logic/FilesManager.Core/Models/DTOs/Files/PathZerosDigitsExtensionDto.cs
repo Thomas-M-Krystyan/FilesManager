@@ -6,14 +6,6 @@
     /// <seealso cref="PathNameExtensionDto"/>
     public sealed record PathZerosDigitsExtensionDto : PathNameExtensionDto
     {
-        #region Default
-        /// <summary>
-        /// Returns an empty instance of <see cref="PathZerosDigitsExtensionDto"/>.
-        /// </summary>
-        public static new readonly PathZerosDigitsExtensionDto Empty =
-            new(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
-        #endregion
-
         /// <summary>
         /// Gets the zeros part of the name of the file.
         /// </summary>

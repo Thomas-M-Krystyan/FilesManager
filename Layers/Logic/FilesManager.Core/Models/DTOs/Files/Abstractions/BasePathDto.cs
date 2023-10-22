@@ -23,16 +23,5 @@
             this.Path = path;
             this.Extension = extension;
         }
-
-        #region Methods
-        /// <summary>
-        /// Checks whether this instance is empty.
-        /// </summary>
-        public bool IsEmpty()
-        {
-            return this.Path.Equals(string.Empty) ||
-                   this.Extension.Equals(string.Empty);
-        }
-        #endregion
     }
 }
