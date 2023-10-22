@@ -119,84 +119,111 @@
   </resheader>
   <data name="Content_ProcessButton" xml:space="preserve">
     <value>Process</value>
+    <comment>XAML</comment>
   </data>
   <data name="Content_ResetButton" xml:space="preserve">
     <value>Reset</value>
+    <comment>XAML</comment>
   </data>
   <data name="ERROR_Internal_InvalidFilePathDto" xml:space="preserve">
     <value>The file was't parsed properly by RegEx in FilePathConverter:</value>
+    <comment>Exception message</comment>
   </data>
   <data name="ERROR_Internal_PropertyOrMessageAreEmpty" xml:space="preserve">
     <value>The property name or error message shouldn't be empty!</value>
+    <comment>Exception message</comment>
   </data>
   <data name="ERROR_Internal_WrongCommandSubscribed" xml:space="preserve">
     <value>The method is used with a wrong event:</value>
+    <comment>Exception message</comment>
   </data>
   <data name="ERROR_Validation_Field_ContainsIllegalCharacter" xml:space="preserve">
     <value>The given value contains illegal characters</value>
+    <comment>UI message</comment>
   </data>
   <data name="ERROR_Validation_Field_ContainsNotDigits" xml:space="preserve">
     <value>The given value contains not a number</value>
+    <comment>UI message</comment>
   </data>
   <data name="ERROR_Validation_Field_ValueWillExceedUshortMax" xml:space="preserve">
     <value>Some numbers would eventually exceed the max value for 'Start number' (65535) if the renaming continue.</value>
+    <comment>UI message</comment>
   </data>
   <data name="ERROR_Validation_FileName_HasNoPreceedingNumber" xml:space="preserve">
     <value>The file name does not contain preceeding numeric part:</value>
+    <comment>UI message</comment>
   </data>
   <data name="ERROR_Validation_Files_PathNotRecognized_Header" xml:space="preserve">
     <value>File loading error</value>
+    <comment>UI message</comment>
   </data>
   <data name="ERROR_Validation_Files_PathNotRecognized_Text" xml:space="preserve">
     <value>Unrecognized type of file:</value>
+    <comment>UI message</comment>
   </data>
   <data name="Header_General" xml:space="preserve">
     <value>OPTIONS</value>
+    <comment>XAML</comment>
   </data>
   <data name="Header_Method_IncrementNumber" xml:space="preserve">
     <value>"Replace name" ([old name] → prefix? + number + postfix?)</value>
+    <comment>XAML</comment>
   </data>
   <data name="Header_Method_LeadingZeros" xml:space="preserve">
     <value>"Leading zeros"</value>
+    <comment>XAML</comment>
   </data>
   <data name="Header_Method_PrependAppend" xml:space="preserve">
     <value>"Update name" (prepend? + [unchanged name] + append?)</value>
+    <comment>XAML</comment>
   </data>
   <data name="Label_Append" xml:space="preserve">
     <value>Append:</value>
+    <comment>XAML</comment>
   </data>
   <data name="Label_Postfix" xml:space="preserve">
     <value>Postfix:</value>
+    <comment>XAML</comment>
   </data>
   <data name="Label_Prefix" xml:space="preserve">
     <value>Prefix:</value>
+    <comment>XAML</comment>
   </data>
   <data name="Label_Prepend" xml:space="preserve">
     <value>Prepend:</value>
+    <comment>XAML</comment>
   </data>
   <data name="Label_Set" xml:space="preserve">
     <value>Set:</value>
+    <comment>XAML</comment>
   </data>
   <data name="Label_StartNumber" xml:space="preserve">
     <value>Start number:</value>
+    <comment>XAML</comment>
   </data>
   <data name="RESULT_Operation_Failure" xml:space="preserve">
     <value>Operation failed</value>
+    <comment>UI message</comment>
   </data>
   <data name="RESULT_Operation_Success_Header" xml:space="preserve">
     <value>Operation successful</value>
+    <comment>UI message</comment>
   </data>
   <data name="RESULT_Operation_Success_Text" xml:space="preserve">
     <value>All files were renamed!</value>
+    <comment>UI message</comment>
   </data>
   <data name="Tooltip_Append" xml:space="preserve">
     <value>INFO: Optional text to be added at the end of the file name</value>
+    <comment>XAML</comment>
   </data>
   <data name="Tooltip_FilesList" xml:space="preserve">
     <value>INFO: Drag and drop files here</value>
+    <comment>XAML</comment>
   </data>
   <data name="Tooltip_General" xml:space="preserve">
     <value>INFO: The operations on files that can be performed</value>
+    <comment>XAML</comment>
   </data>
   <data name="Tooltip_Method_IncrementNumber" xml:space="preserve">
     <value>EXAMPLE
@@ -225,6 +252,7 @@ files in the following way: "image (" + "1" + ")"
 resulting with this output: "image (1).jpg" which
 is a similar behavior to Microsoft Windows renaming
 strategy (adding numbers to avoid conflicting names).</value>
+    <comment>XAML</comment>
   </data>
   <data name="Tooltip_Method_LeadingZeros" xml:space="preserve">
     <value>EXAMPLE
@@ -255,6 +283,7 @@ Lexicographically:        Mathematically:
 1.txt                                01.txt
 10.txt                              02.txt
 2.txt                                10.txt</value>
+    <comment>XAML</comment>
   </data>
   <data name="Tooltip_Method_PrependAppend" xml:space="preserve">
     <value>EXAMPLE
@@ -268,44 +297,56 @@ PARAMETERS:
 
 RESULT:
 - My_[Archive]_2022.zip</value>
+    <comment>XAML</comment>
   </data>
   <data name="Tooltip_Postfix" xml:space="preserve">
     <value>INFO: Optional text to be added after the number</value>
+    <comment>XAML</comment>
   </data>
   <data name="Tooltip_Prefix" xml:space="preserve">
     <value>INFO: Optional text to be added before the number</value>
+    <comment>XAML</comment>
   </data>
   <data name="Tooltip_Prepend" xml:space="preserve">
     <value>INFO: Optional text to be added at the beginning of the file name</value>
+    <comment>XAML</comment>
   </data>
   <data name="Tooltip_ProcessButton" xml:space="preserve">
     <value>INFO: Starts processing given files based on a selected method</value>
+    <comment>XAML</comment>
   </data>
   <data name="Tooltip_RadioButton" xml:space="preserve">
     <value>INFO: Select to activate this method</value>
+    <comment>XAML</comment>
   </data>
   <data name="Tooltip_ResetButton" xml:space="preserve">
     <value>INFO: Clears loaded files and all values from methods</value>
+    <comment>XAML</comment>
   </data>
   <data name="Tooltip_Set" xml:space="preserve">
     <value>INFO: Set the amount of leading zeros before the file name</value>
+    <comment>XAML</comment>
   </data>
   <data name="Tooltip_StartNumber" xml:space="preserve">
     <value>INFO: Rename given files using an incremented start number</value>
+    <comment>XAML</comment>
   </data>
   <data name="Tooltip_Tip_Content_NonEmptyField" xml:space="preserve">
     <value>TIP: Empty or only whitespaces content will be ignored
 
 Invalid characters:  \ / : * ? " &lt; &gt; |</value>
+    <comment>XAML</comment>
   </data>
   <data name="Tooltip_Tip_Content_OnlyPositives" xml:space="preserve">
     <value>TIP: Only positive numbers from the range [0 - 65 535]</value>
+    <comment>XAML</comment>
   </data>
   <data name="Tooltip_Tip_Content_OnlyVerySmallPositives" xml:space="preserve">
     <value>TIP: Only positive numbers from the range [0 - 7]</value>
+    <comment>XAML</comment>
   </data>
   <data name="WindowTitle" xml:space="preserve">
     <value>File Manager (v0.3.8-alpha)</value>
-    <comment>Version</comment>
+    <comment>Application</comment>
   </data>
 </root>
