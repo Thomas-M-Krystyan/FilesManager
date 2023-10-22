@@ -70,12 +70,12 @@ namespace FilesManager.Core.Tests.Validation
         }
         #endregion
 
-        #region HaveInvalidCharacters
+        #region ContainInvalidCharacters
         [TestCaseSource(nameof(TestInputs))]
-        public void HaveInvalidCharacters_ForGivenInput_ReturnsExpectedResult_AndValue((string TextInput, bool ExpectedResult) test)
+        public void ContainInvalidCharacters_ForGivenInput_ReturnsExpectedResult_AndValue((string TextInput, bool ExpectedResult) test)
         {
             // Act
-            bool actualResult = Validate.HaveInvalidCharacters(test.TextInput);
+            bool actualResult = Validate.ContainInvalidCharacters(test.TextInput);
 
             // Assert
             Assert.That(actualResult, Is.EqualTo(test.ExpectedResult));

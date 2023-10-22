@@ -11,14 +11,16 @@ namespace FilesManager.Core.Validation
     /// </summary>
     public static class Validate
     {
+        #region Public
         /// <summary>
         /// Determines whether the given file path is valid.
         /// </summary>
         /// <param name="filePath">The file path.</param>
         /// <param name="match">The matched result.</param>
         /// <returns>
-        ///   The answer if file path is valid.
+        ///   <inheritdoc cref="Regex.Match(string)"/>
         /// </returns>
+        /// <exception cref="RegexMatchTimeoutException" />
         public static Match IsFilePathValid(string filePath)
         {
             return string.IsNullOrWhiteSpace(filePath)
@@ -30,14 +32,70 @@ namespace FilesManager.Core.Validation
         /// Determines whether the given <see langword="string"/> contains illegal characters.
         /// </summary>
         /// <param name="textInputs">The text input to be validated.</param>
+        /// <param name="successAction">The action to be executed in case of success.</param>
+        /// <param name="failureAction">The action to be executed in case of failure.</param>
         /// <returns>
-        ///   The answer whether the provided input contains illegal characters.
+        ///   <inheritdoc cref="Regex.IsMatch(string)"/>
         /// </returns>
-        public static bool HaveInvalidCharacters(string textInput)
+        /// <exception cref="RegexMatchTimeoutException" />
+        public static bool ContainInvalidCharacters(string textInput, Action? successAction = null, Action? failureAction = null)
         {
-            return RegexPatterns.InvalidCharactersPattern.IsMatch(textInput);
+            bool isSuccess = RegexPatterns.InvalidCharactersPattern.IsMatch(textInput);
+
+            if (isSuccess)
+            {
+                successAction?.Invoke();
+            }
+            else
+            {
+                failureAction?.Invoke();
+            }
+
+            return isSuccess;
         }
 
+        /// <summary>
+        /// Determines whether the given value is a valid <see langword="ushort"/> digit or number.
+        /// </summary>
+        /// <param name="value">The text value to be checked.</param>
+        /// <param name="number">The valid number to be returned.</param>
+        /// <param name="successAction">The action to be executed in case of success.</param>
+        /// <param name="failureAction">The action to be executed in case of failure.</param>
+        /// <returns>
+        ///   <inheritdoc cref="ushort.TryParse(string?, out ushort)"/>
+        /// </returns>
+        public static bool IsUshort(string value, out ushort number, Action? successAction = null, Action? failureAction = null)
+        {
+            bool isSuccess = !ushort.TryParse(value, out number);
+
+            if (isSuccess)
+            {
+                successAction?.Invoke();
+            }
+            else
+            {
+                failureAction?.Invoke();
+            }
+
+            return isSuccess;
+        }
+
+        /// <summary>
+        /// Reports an invalid usage of an event.
+        /// <para>
+        ///   Used for development purposes to monitor if an event from the XAML side was binded to a command
+        ///   subscribing to a method which is using a received object parameter as a proper event argument.
+        /// </para>
+        /// </summary>
+        /// <param name="methodName">The name of the method.</param>
+        /// <exception cref="InvalidOperationException">The event argument is invalid.</exception>
+        public static void ReportInvalidCommandUsage(string methodName)
+        {
+            throw new InvalidOperationException(Resources.ERROR_Internal_WrongCommandSubscribed + $" {methodName}");
+        }
+        #endregion
+
+        #region Internal
         /// <summary>
         /// Checks if the given DTO is valid.
         /// </summary>
@@ -57,19 +115,6 @@ namespace FilesManager.Core.Validation
                       _ => RenamingResultDto.Success(),
                   };
         }
-
-        /// <summary>
-        /// Reports the invalid usage of an event.
-        /// <para>
-        ///   Used for development purposes to monitor if an event from the XAML side was binded to a command
-        ///   subscribing to a method which is using a received object parameter as a proper event argument.
-        /// </para>
-        /// </summary>
-        /// <param name="methodName">The name of the method.</param>
-        /// <exception cref="InvalidOperationException">The event argument is invalid.</exception>
-        public static void ReportInvalidCommandUsage(string methodName)
-        {
-            throw new InvalidOperationException(Resources.ERROR_Internal_WrongCommandSubscribed + $" {methodName}");
-        }
+        #endregion
     }
 }

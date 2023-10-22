@@ -146,26 +146,16 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         #region Validation
         private void ValidateIllegalChars(string propertyName, string value)
         {
-            if (Validate.HaveInvalidCharacters(value))
-            {
-                AddError(propertyName, Resources.ERROR_Validation_Field_ContainsIllegalCharacter, value);
-            }
-            else
-            {
-                ClearErrors(propertyName);
-            }
+            _ = Validate.ContainInvalidCharacters(value,
+                () => AddError(propertyName, Resources.ERROR_Validation_Field_ContainsIllegalCharacter, value),
+                () => ClearErrors(propertyName));
         }
 
         private void ValidateOnlyNumbers(string propertyName, string value, out ushort validStartingNumber)
         {
-            if (!ushort.TryParse(value, out validStartingNumber))
-            {
-                AddError(propertyName, Resources.ERROR_Validation_Field_ContainsNotDigits, value);
-            }
-            else
-            {
-                ClearErrors(propertyName);
-            }
+            _ = Validate.IsUshort(value, out validStartingNumber,
+                () => AddError(propertyName, Resources.ERROR_Validation_Field_ContainsNotDigits, value),
+                () => ClearErrors(propertyName));
         }
         #endregion
     }
