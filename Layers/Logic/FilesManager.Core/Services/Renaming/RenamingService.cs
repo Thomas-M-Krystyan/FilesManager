@@ -1,6 +1,6 @@
 using FilesManager.Core.Models.DTOs.Files;
 using FilesManager.Core.Models.DTOs.Results;
-using FilesManager.Core.Services.Strategies;
+using FilesManager.Core.Services.Renaming.Strategies;
 using FilesManager.Core.Services.Writing;
 
 namespace FilesManager.Core.Services.Renaming

@@ -4,7 +4,7 @@ using FilesManager.Core.Models.DTOs.Results;
 using FilesManager.Core.Validation;
 using System.Text.RegularExpressions;
 
-namespace FilesManager.Core.Services.Strategies
+namespace FilesManager.Core.Services.Renaming.Strategies
 {
     internal static class LeadingZeros
     {

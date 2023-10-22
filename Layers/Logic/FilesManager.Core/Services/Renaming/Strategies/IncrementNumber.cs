@@ -3,7 +3,7 @@ using FilesManager.Core.ExtensionMethods;
 using FilesManager.Core.Validation;
 using System.Text.RegularExpressions;
 
-namespace FilesManager.Core.Services.Strategies
+namespace FilesManager.Core.Services.Renaming.Strategies
 {
     internal static class IncrementNumber
     {

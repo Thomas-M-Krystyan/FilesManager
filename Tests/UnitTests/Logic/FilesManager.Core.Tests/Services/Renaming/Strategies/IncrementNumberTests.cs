@@ -1,6 +1,6 @@
-﻿using FilesManager.Core.Services.Strategies;
+﻿using FilesManager.Core.Services.Renaming.Strategies;
 
-namespace FilesManager.Core.UnitTests.Services.Strategies
+namespace FilesManager.Core.UnitTests.Services.Renaming.Strategies
 {
     [TestFixture]
     internal class IncrementNumberTests
