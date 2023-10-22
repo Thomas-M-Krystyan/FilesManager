@@ -25,7 +25,7 @@ namespace FilesManager.Core.Validation
         {
             return string.IsNullOrWhiteSpace(filePath)
                 ? Match.Empty
-                : RegexPatterns.FileComponentsPattern.Match(filePath);
+                : RegexPatterns.FileComponentsPattern().Match(filePath);
         }
 
         /// <summary>

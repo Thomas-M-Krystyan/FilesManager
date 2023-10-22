@@ -5,7 +5,7 @@ namespace FilesManager.Core.Validation
     /// <summary>
     /// A set of handful Regular Expression patterns.
     /// </summary>
-    public static class RegexPatterns
+    public static partial class RegexPatterns
     {
         // -----------
         // Group names
@@ -30,11 +30,13 @@ namespace FilesManager.Core.Validation
         /// <summary>
         /// Captures path, name, and extensions components of the file path.
         /// </summary>
-        internal static readonly Regex FileComponentsPattern = new($@"^(?<{PathGroup}>[A-Z]{{1}}\:\\.+\\)(?<{NameGroup}>[a-zA-Z0-9 ._-]+)(?<{ExtensionGroup}>\.[aA-zZ0-9]{{1,6}})$", RegexOptions.Compiled);
+        [GeneratedRegex($@"^(?<{PathGroup}>[A-Z]{{1}}\:\\.+\\)(?<{NameGroup}>[a-zA-Z0-9 ._-]+)(?<{ExtensionGroup}>\.[aA-zZ0-9]{{1,6}})$", RegexOptions.Compiled)]
+        internal static partial Regex FileComponentsPattern();
 
         /// <summary>
         /// Captures zeroes, digits, and non-numeric components of the file name.
         /// </summary>
-        internal static readonly Regex DigitsNamePattern = new($@"(?<{ZerosGroup}>0*)?(?<{DigitsGroup}>\d*)?(?<{NameGroup}>.*)", RegexOptions.Compiled);
+        [GeneratedRegex($@"(?<{ZerosGroup}>0*)?(?<{DigitsGroup}>\d*)?(?<{NameGroup}>.*)", RegexOptions.Compiled)]
+        internal static partial Regex DigitsNamePattern();
     }
 }

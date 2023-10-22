@@ -49,7 +49,7 @@ namespace FilesManager.Core.Tests.Validation
         public void TestField_LeadingZerosPattern_WithRegExPattern_ReturnsAllMatchGroups(string fileName, bool isSuccess, string expectedZeros, string expectedDigits, string exetedName)
         {
             // Act
-            Match match = RegexPatterns.DigitsNamePattern.Match(fileName);
+            Match match = RegexPatterns.DigitsNamePattern().Match(fileName);
 
             // Arrange
             Assert.Multiple(() =>

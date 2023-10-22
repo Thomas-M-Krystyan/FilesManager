@@ -20,7 +20,7 @@ namespace FilesManager.Core.Converters
         public static PathNameExtensionDto GetPathNameExtension(string filePath)
         {
             // NOTE: Split the file path into path, name, and extension groups
-            Match filePathMatch = RegexPatterns.FileComponentsPattern.Match(filePath);
+            Match filePathMatch = RegexPatterns.FileComponentsPattern().Match(filePath);
 
             return filePathMatch.Success
                 ? new PathNameExtensionDto(path: filePathMatch.Value(RegexPatterns.PathGroup),
@@ -40,12 +40,12 @@ namespace FilesManager.Core.Converters
         public static PathZerosDigitsExtensionDto GetPathZerosDigitsExtension(string filePath)
         {
             // NOTE: Split the file path into path, name, and extension groups
-            Match fileComponentsMatch = RegexPatterns.FileComponentsPattern.Match(filePath);
+            Match fileComponentsMatch = RegexPatterns.FileComponentsPattern().Match(filePath);
 
             if (fileComponentsMatch.Success)
             {
                 // NOTE: Split the file name into dedicated zeros, digits, and name groups
-                Match digitsNameMatch = RegexPatterns.DigitsNamePattern.Match(
+                Match digitsNameMatch = RegexPatterns.DigitsNamePattern().Match(
                     fileComponentsMatch.Value(RegexPatterns.NameGroup));
 
                 if (digitsNameMatch.Success)
