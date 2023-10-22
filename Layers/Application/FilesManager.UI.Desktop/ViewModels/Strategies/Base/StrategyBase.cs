@@ -70,7 +70,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         }
 
         #region Polymorphism
-        /// <inheritdoc cref="ViewModelBase.Select()"/>
+        /// <inheritdoc cref="ViewModelBase.Select(object)"/>
         protected override sealed void Select(object parameter)  // NOTE: Default behavior for all strategies, no need to change it. Overloading restricted
         {
             if (!this.IsEnabled)
@@ -88,6 +88,13 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
             {
                 this.IsEnabled = false;
             }
+        }
+
+        /// <inheritdoc cref="ViewModelBase.Reset()"/>
+        protected override void Reset()
+        {
+            Deselect();
+            ClearAllErrors();
         }
         #endregion
 

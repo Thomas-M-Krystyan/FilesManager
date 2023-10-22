@@ -97,6 +97,15 @@ namespace FilesManager.UI.Desktop.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The given value contains illegal characters:.
+        /// </summary>
+        public static string ERROR_Validation_IllegalCharacter {
+            get {
+                return ResourceManager.GetString("ERROR_Validation_IllegalCharacter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OPTIONS.
         /// </summary>
         public static string Header_General {

@@ -129,6 +129,9 @@
   <data name="ERROR_Operation_FileNotRecognized_Text" xml:space="preserve">
     <value>Unrecognized type of file:</value>
   </data>
+  <data name="ERROR_Validation_IllegalCharacter" xml:space="preserve">
+    <value>The given value contains illegal characters:</value>
+  </data>
   <data name="Header_General" xml:space="preserve">
     <value>OPTIONS</value>
   </data>

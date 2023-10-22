@@ -28,24 +28,13 @@ namespace FilesManager.Core.Validation
         /// <summary>
         /// Determines whether the given <see langword="string"/> contains illegal characters.
         /// </summary>
-        /// <param name="textInputs">The probe of text inputs to be validated.</param>
-        /// <param name="invalidInput">The specific input that contains invalid characters.</param>
+        /// <param name="textInputs">The text input to be validated.</param>
         /// <returns>
-        ///   The answer whether any of the provided inputs contain illegal characters.
+        ///   The answer whether the provided input contains illegal characters.
         /// </returns>
-        public static (bool ContainsInvalid, string InvalidInput) HaveInvalidCharacters(params string[] textInputs)
+        public static bool HaveInvalidCharacters(string textInput)
         {
-            for (int index = 0; index < textInputs.Length; index++)
-            {
-                string currentInput = textInputs[index];
-
-                if (RegexPatterns.InvalidCharactersPattern.IsMatch(currentInput))
-                {
-                    return (true, currentInput);
-                }
-            }
-
-            return (false, string.Empty);
+            return RegexPatterns.InvalidCharactersPattern.IsMatch(textInput);
         }
 
         /// <summary>

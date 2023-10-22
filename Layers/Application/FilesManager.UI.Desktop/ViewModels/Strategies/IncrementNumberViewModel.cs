@@ -6,7 +6,6 @@ using FilesManager.UI.Desktop.Properties;
 using FilesManager.UI.Desktop.ViewModels.Base;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 namespace FilesManager.UI.Desktop.ViewModels.Strategies
 {
@@ -36,6 +35,16 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             set
             {
                 this._namePrefix = value;
+
+                if (Validate.HaveInvalidCharacters(value))
+                {
+                    AddError(nameof(this.NamePrefix), Resources.ERROR_Validation_IllegalCharacter + $" {value}");
+                }
+                else
+                {
+                    ClearErrors(nameof(this.NamePrefix));
+                }
+
                 OnPropertyChanged(nameof(this.NamePrefix));
             }
         }
@@ -58,6 +67,16 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             set
             {
                 this._namePostfix = value;
+
+                if (Validate.HaveInvalidCharacters(value))
+                {
+                    AddError(nameof(this.NamePostfix), Resources.ERROR_Validation_IllegalCharacter + $" {value}");
+                }
+                else
+                {
+                    ClearErrors(nameof(this.NamePostfix));
+                }
+
                 OnPropertyChanged(nameof(this.NamePostfix));
             }
         }
@@ -71,7 +90,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         }
 
         #region Polymorphism
-        /// <inheritdoc cref="StrategyBase.Process(ObservableCollection{FileData})"/>
+        /// <inheritdoc cref="StrategyBase.Process(IList{FileData})"/>
         internal override sealed RenamingResultDto Process(IList<FileData> loadedFiles)
         {
             // ----------------------------------
@@ -83,13 +102,12 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
                 return RenamingResultDto.Failure($"Some numbers would eventually exceed the max value for \"Start number\" (65535) if the renaming continue.");
             }
 
-            // ---------------------------------
-            // 2. Validate optional input fields
-            // ---------------------------------
-            (bool isInvalid, string faultyInput) = Validate.HaveInvalidCharacters(this.NamePrefix, this.NamePostfix);
-            if (isInvalid)
+            // -----------------------------------------
+            // 2. Validate if there are any input errors
+            // -----------------------------------------
+            if (this.HasErrors)
             {
-                return RenamingResultDto.Failure($"The given value contains illegal characters: \"{faultyInput}\"");
+                return RenamingResultDto.Failure(GetAllErrors());
             }
 
             // --------------------------------
@@ -127,14 +145,14 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             return result;
         }
 
-        /// <inheritdoc cref="ViewModelBase.Reset()"/>
+        /// <inheritdoc cref="StrategyBase.Reset()"/>
         protected override sealed void Reset()  // NOTE: Speficic behavior for this concrete strategy. Overloading restricted
         {
-            Deselect();
-
             this.NamePrefix = string.Empty;
             this.StartingNumber = default;
             this.NamePostfix = string.Empty;
+
+            base.Reset();
         }
         #endregion
     }

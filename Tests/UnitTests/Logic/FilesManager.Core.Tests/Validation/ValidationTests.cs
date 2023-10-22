@@ -72,34 +72,30 @@ namespace FilesManager.Core.Tests.Validation
 
         #region HaveInvalidCharacters
         [TestCaseSource(nameof(TestInputs))]
-        public void HaveInvalidCharacters_ForGivenInput_ReturnsExpectedResult_AndValue((string[] TextInputs, bool ExpectedResult, string ExpectedValue) test)
+        public void HaveInvalidCharacters_ForGivenInput_ReturnsExpectedResult_AndValue((string TextInput, bool ExpectedResult) test)
         {
             // Act
-            (bool actualResult, string actualValue) = Validate.HaveInvalidCharacters(test.TextInputs);
+            bool actualResult = Validate.HaveInvalidCharacters(test.TextInput);
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(actualResult, Is.EqualTo(test.ExpectedResult));
-                Assert.That(actualValue, Is.EqualTo(test.ExpectedValue));
-            });
+            Assert.That(actualResult, Is.EqualTo(test.ExpectedResult));
         }
 
-        private static IEnumerable<(string[], bool, string)> TestInputs()
+        private static IEnumerable<(string, bool)> TestInputs()
         {
-            yield return (Array.Empty<string>(), false, "");
-            yield return (new[] { "All good" }, false, "");
+            yield return ("", false);
+            yield return ("All good", false);
 
             // Invalid characters:  \/:*?""<>|
-            yield return (new[] { @"n\ame" }, true, @"n\ame");
-            yield return (new[] { @"name/" }, true, @"name/");
-            yield return (new[] { @":name" }, true, @":name");
-            yield return (new[] { @"*name" }, true, @"*name");
-            yield return (new[] { @"name?" }, true, @"name?");
-            yield return (new[] { @"""name" }, true, @"""name");
-            yield return (new[] { @"nam<e" }, true, @"nam<e");
-            yield return (new[] { @"na>me" }, true, @"na>me");
-            yield return (new[] { @"na|me" }, true, @"na|me");
+            yield return (@"n\ame", true);
+            yield return (@"name/", true);
+            yield return (@"nam:e", true);
+            yield return (@"*name", true);
+            yield return (@"name?", true);
+            yield return (@"""name", true);
+            yield return (@"<name", true);
+            yield return (@"na>me", true);
+            yield return (@"na|me", true);
         }
         #endregion
     }

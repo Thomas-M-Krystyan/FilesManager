@@ -1,10 +1,8 @@
 ﻿using FilesManager.Core.Models.DTOs.Results;
 using FilesManager.Core.Models.POCOs;
 using FilesManager.UI.Desktop.Properties;
-using FilesManager.UI.Desktop.ViewModels.Base;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 namespace FilesManager.UI.Desktop.ViewModels.Strategies
 {
@@ -87,18 +85,18 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         //}
 
         #region Polymorphism
-        /// <inheritdoc cref="StrategyBase.Process(ObservableCollection{FileData})"/>
+        /// <inheritdoc cref="StrategyBase.Process(IList{FileData})"/>
         internal override sealed RenamingResultDto Process(IList<FileData> loadedFiles)
         {
             return RenamingResultDto.Success();
         }
 
-        /// <inheritdoc cref="ViewModelBase.Reset()"/>
+        /// <inheritdoc cref="StrategyBase.Reset()"/>
         protected override sealed void Reset()  // NOTE: Speficic behavior for this concrete strategy. Overloading restricted
         {
-            Deselect();
-
             this.LeadingZeros = string.Empty;
+
+            base.Reset();
         }
         #endregion
     }

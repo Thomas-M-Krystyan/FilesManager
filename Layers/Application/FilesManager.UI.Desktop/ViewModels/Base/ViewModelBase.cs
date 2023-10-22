@@ -1,5 +1,9 @@
 ﻿using Microsoft.Xaml.Behaviors.Core;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Input;
 
 namespace FilesManager.UI.Desktop.ViewModels.Base
@@ -8,13 +12,8 @@ namespace FilesManager.UI.Desktop.ViewModels.Base
     /// Base class for all view models in MVVM architecture.
     /// </summary>
     /// <seealso cref="INotifyPropertyChanged"/>
-    internal abstract class ViewModelBase : INotifyPropertyChanged
+    internal abstract class ViewModelBase : INotifyPropertyChanged, INotifyDataErrorInfo
     {
-        #region Events
-        /// <inheritdoc cref="INotifyPropertyChanged.PropertyChanged"/>
-        public event PropertyChangedEventHandler? PropertyChanged;
-        #endregion
-
         #region Commands (binding)
         /// <summary>
         /// Handles subscribed <see cref="Select(object)"/> action.
@@ -40,12 +39,87 @@ namespace FilesManager.UI.Desktop.ViewModels.Base
         }
 
         #region INotifyPropertyChanged
+        /// <inheritdoc cref="INotifyPropertyChanged.PropertyChanged"/>
+        public event PropertyChangedEventHandler? PropertyChanged;
+
         /// <summary>
         /// Notifies a specific view model whether its property was changed from XAML code.
         /// </summary>
         protected void OnPropertyChanged(string propertyName)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        #endregion
+
+        #region INotifyDataErrorInfo
+        private readonly Dictionary<string /* Property name */, ICollection<string> /* Errors */> _propertyErrors = new();
+        
+        /// <inheritdoc cref="INotifyDataErrorInfo.ErrorsChanged"/>
+        public event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;
+
+        /// <inheritdoc cref="INotifyDataErrorInfo.HasErrors"/>
+        public bool HasErrors => this._propertyErrors.Count > 0;
+
+        /// <inheritdoc cref="INotifyDataErrorInfo.GetErrors(string?)"/>
+        public IEnumerable GetErrors(string? propertyName)
+        {
+            return propertyName is null
+                ? Array.Empty<string>()
+                : this._propertyErrors.GetValueOrDefault(propertyName, Array.Empty<string>());
+        }
+
+        /// <summary>
+        /// Lists all errors of all properties from the current view model.
+        /// </summary>
+        protected string GetAllErrors()
+        {
+            return string.Join(Environment.NewLine, this._propertyErrors.Select(property =>
+                string.Join(Environment.NewLine, property.Value)));
+        }
+
+        /// <summary>
+        /// Adds new validation error related to the given property.
+        /// </summary>
+        protected void AddError(string propertyName, string errorMessage)
+        {
+            if (string.IsNullOrWhiteSpace(propertyName) ||
+                string.IsNullOrWhiteSpace(errorMessage))
+            {
+                return;
+            }
+
+            if (!this._propertyErrors.ContainsKey(propertyName))
+            {
+                this._propertyErrors.Add(propertyName, new List<string>());
+            }
+
+            this._propertyErrors[propertyName].Add(errorMessage);
+            
+            OnErrorsChanged(propertyName);
+        }
+
+        private void OnErrorsChanged(string propertyName)
+        {
+            this.ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
+        }
+
+        /// <summary>
+        /// Clears all validation errors related to the given property.
+        /// </summary>
+        protected void ClearErrors(string propertyName)
+        {
+            if (this._propertyErrors.ContainsKey(propertyName))
+            {
+                this._propertyErrors[propertyName].Clear();
+            }
+        }
+
+        /// <summary>
+        /// Clears all validation errors of all properties from the current view model.
+        /// </summary>
+        protected void ClearAllErrors()
+        {
+            this._propertyErrors.Clear();
         }
         #endregion
 
