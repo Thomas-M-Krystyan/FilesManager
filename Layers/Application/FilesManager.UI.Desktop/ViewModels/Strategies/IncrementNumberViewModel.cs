@@ -155,11 +155,11 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         {
             if (ushort.TryParse(value, out this._startingNumber))
             {
-                AddError(propertyName, Resources.ERROR_Validation_NotANumber + $" {value}");
+                ClearErrors(propertyName);
             }
             else
             {
-                ClearErrors(propertyName);
+                AddError(propertyName, Resources.ERROR_Validation_NotANumber + $" {value}");
             }
         }
         #endregion
