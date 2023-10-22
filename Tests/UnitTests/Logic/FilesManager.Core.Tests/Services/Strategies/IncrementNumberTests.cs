@@ -1,7 +1,7 @@
 ﻿using FilesManager.Core.Services.Strategies;
 using NUnit.Framework;
 
-namespace FilesManager.Core.Tests.Services.Strategies
+namespace FilesManager.Core.UnitTests.Services.Strategies
 {
     [TestFixture]
     internal class IncrementNumberTests

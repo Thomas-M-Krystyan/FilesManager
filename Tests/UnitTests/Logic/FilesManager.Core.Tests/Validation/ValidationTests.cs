@@ -3,7 +3,7 @@ using Moq;
 using NUnit.Framework;
 using Match = System.Text.RegularExpressions.Match;
 
-namespace FilesManager.Core.Tests.Validation
+namespace FilesManager.Core.UnitTests.Validation
 {
     [TestFixture]
     public class ValidationTests

@@ -1,7 +1,7 @@
 ﻿using FilesManager.Core.Helpers;
 using NUnit.Framework;
 
-namespace FilesManager.Core.Tests.Helpers
+namespace FilesManager.Core.UnitTests.Helpers
 {
     [TestFixture]
     public class HelperTests

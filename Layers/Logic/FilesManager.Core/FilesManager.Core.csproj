@@ -9,7 +9,7 @@
 
   <!-- Visibility -->
   <ItemGroup>
-    <InternalsVisibleTo Include="FilesManager.Core.Tests" />
+    <InternalsVisibleTo Include="FilesManager.Core.UnitTests" />
   </ItemGroup>
 
   <!-- Projects -->

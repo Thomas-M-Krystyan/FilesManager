@@ -24,7 +24,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".SolutionItems", ".Solution
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilesManager.Core", "Layers\Logic\FilesManager.Core\FilesManager.Core.csproj", "{9715E9B2-7312-4AFA-8F71-D83AAB9D78B3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilesManager.Core.Tests", "Tests\UnitTests\Logic\FilesManager.Core.Tests\FilesManager.Core.Tests.csproj", "{6AA3BDE4-052A-4ACB-9DED-9323DB1680DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilesManager.Core.UnitTests", "Tests\UnitTests\Logic\FilesManager.Core.Tests\FilesManager.Core.UnitTests.csproj", "{6AA3BDE4-052A-4ACB-9DED-9323DB1680DE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilesManager.UI.Desktop", "Layers\Application\FilesManager.UI.Desktop\FilesManager.UI.Desktop.csproj", "{ECB4B9B3-DA49-42B7-B122-2357EA40F2FE}"
 EndProject

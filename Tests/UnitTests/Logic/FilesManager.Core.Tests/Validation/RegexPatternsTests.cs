@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using System.Text.RegularExpressions;
 
-namespace FilesManager.Core.Tests.Validation
+namespace FilesManager.Core.UnitTests.Validation
 {
     [TestFixture]
     internal class RegexPatternsTests
