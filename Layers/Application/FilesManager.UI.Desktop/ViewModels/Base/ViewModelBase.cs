@@ -75,7 +75,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Base
         protected string GetAllErrors()
         {
             return string.Join(Environment.NewLine, this._propertyErrors.Select(errors =>
-                string.Join(Environment.NewLine, GetErrors(errors.Key))));
+                string.Join(Environment.NewLine, GetErrors(errors.Key).Cast<string>())));
         }
 
         /// <summary>
