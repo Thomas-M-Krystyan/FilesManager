@@ -124,7 +124,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             {
                 // Set the last number as the new start number
                 this._validStartingNumber = this._validStartingNumber is 0
-                    ? --this._validStartingNumber  // Revert the effect of value overflow (ushort.MaxValue + 1 => 0)
+                    ? --this._validStartingNumber  // Revert the effect of value overflow (ushort.MaxValue + 1 => 0). Keep the ushort.MaxValue
                     : this._validStartingNumber;
             }
 
