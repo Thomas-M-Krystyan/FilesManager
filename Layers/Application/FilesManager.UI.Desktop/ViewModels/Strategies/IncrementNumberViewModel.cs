@@ -146,15 +146,15 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         private void ValidateIllegalChars(string propertyName, string value)
         {
             _ = Validate.ContainInvalidCharacters(value,
-                () => AddError(propertyName, Resources.ERROR_Validation_Field_ContainsIllegalCharacter, value),
-                () => ClearErrors(propertyName));
+                () => ClearErrors(propertyName),
+                () => AddError(propertyName, Resources.ERROR_Validation_Field_ContainsIllegalCharacter, value));
         }
 
         private void ValidateOnlyNumbers(string propertyName, string value, out ushort validStartingNumber)
         {
             _ = Validate.IsUshort(value, out validStartingNumber,
-                () => AddError(propertyName, Resources.ERROR_Validation_Field_ContainsNotDigits, value),
-                () => ClearErrors(propertyName));
+                () => ClearErrors(propertyName),
+                () => AddError(propertyName, Resources.ERROR_Validation_Field_ContainsNotDigits, value));
         }
         #endregion
     }
