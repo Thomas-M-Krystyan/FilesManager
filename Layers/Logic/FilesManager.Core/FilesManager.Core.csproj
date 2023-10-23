@@ -16,6 +16,7 @@
   <ItemGroup>
     <InternalsVisibleTo Include="FileManager" />
     <InternalsVisibleTo Include="FilesManager.Core.UnitTests" />
+    <InternalsVisibleTo Include="FilesManager.UI.Desktop.UnitTests" />
   </ItemGroup>
 
 </Project>

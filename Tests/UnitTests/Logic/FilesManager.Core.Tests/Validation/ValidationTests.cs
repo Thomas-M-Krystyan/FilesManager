@@ -51,15 +51,15 @@ namespace FilesManager.Core.UnitTests.Validation
         [TestCase(@"C:\Folder\num1.jpeg", true, "C:\\Folder\\", "num1", ".jpeg")]
         [TestCase(@"C:\Folder\Is.png.jpeg", true, "C:\\Folder\\", "Is.png", ".jpeg")]
         [TestCase(@"C:\Folder\Is.Gr3go_r-20.jpeg", true, "C:\\Folder\\", "Is.Gr3go_r-20", ".jpeg")]
-        public void IsFilePathValid_ForGivenInput_ReturnsExpectedMatch(string testPath, bool isSuccess, string expectedPath, string expectedName, string expectedExtension)
+        public void IsFilePathValid_ForGivenInput_ReturnsExpectedMatch(string testPath, bool expectedIsSuccess, string expectedPath, string expectedName, string expectedExtension)
         {
             // Act
-            Match actualResult = Validate.IsFilePathValid(testPath);
+            bool actualIsSuccess = Validate.IsFilePathValid(testPath, out Match actualResult);
 
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(actualResult.Success, Is.EqualTo(isSuccess));
+                Assert.That(actualIsSuccess, Is.EqualTo(expectedIsSuccess));
                 
                 if (actualResult.Success)
                 {

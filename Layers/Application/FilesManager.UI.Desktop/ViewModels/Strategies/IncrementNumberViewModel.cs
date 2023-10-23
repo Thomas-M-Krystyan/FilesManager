@@ -1,9 +1,9 @@
 ﻿using FilesManager.Core.Converters;
 using FilesManager.Core.Extensions;
+using FilesManager.Core.Models.DTOs.Files;
 using FilesManager.Core.Models.DTOs.Results;
 using FilesManager.Core.Models.POCOs;
 using FilesManager.Core.Services.Writing;
-using FilesManager.Core.Validation;
 using FilesManager.UI.Common.Properties;
 using FilesManager.UI.Desktop.ViewModels.Base;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
@@ -109,7 +109,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             for (int index = 0; index < loadedFiles.Count; index++)
             {
                 file = loadedFiles[index];
-                result = WritingService.RenameFile(file.Path, GetNewFilePath(file.Path));
+                result = WritingService.RenameFile(file.Path, GetNewFilePath(file.Match));
 
                 if (result.IsSuccess)
                 {
@@ -146,19 +146,17 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             base.Reset();
         }
 
-        /// <inheritdoc cref="StrategyBase.GetNewFilePath(string)"/>
-        protected internal override sealed string GetNewFilePath(string oldFilePath)
+        /// <inheritdoc cref="StrategyBase.GetNewFilePath(Match)"/>
+        protected internal override sealed string GetNewFilePath(Match filePathMatch)
         {
-            Match filePathMatch = Validate.IsFilePathValid(oldFilePath);
+            PathNameExtensionDto file = FilePathConverter.GetPathNameExtension(filePathMatch);
 
-            return filePathMatch.Success
-                ? FilePathConverter.GetFilePath(
-                    path: filePathMatch.Value(RegexPatterns.PathGroup),
-                    name: $"{this.NamePrefix.GetValueOrEmpty()}" +
-                          $"{this._currentStartingNumber++}" +      // NOTE: Very important! Keep incrementing the current number
-                          $"{this.NamePostfix.GetValueOrEmpty()}",
-                    extension: filePathMatch.Value(RegexPatterns.ExtensionGroup))
-                : string.Empty;
+            return FilePathConverter.GetFilePath(
+                path: file.Path,
+                name: $"{this.NamePrefix.GetValueOrEmpty()}" +
+                      $"{this._currentStartingNumber++}" +      // NOTE: Very important! Keep incrementing the current number
+                      $"{this.NamePostfix.GetValueOrEmpty()}",
+                extension: file.Extension);
         }
         #endregion
     }

@@ -1,8 +1,11 @@
-﻿using FilesManager.Core.Models.DTOs.Results;
+﻿using FilesManager.Core.Converters;
+using FilesManager.Core.Models.DTOs.Files;
+using FilesManager.Core.Models.DTOs.Results;
 using FilesManager.Core.Models.POCOs;
 using FilesManager.UI.Common.Properties;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace FilesManager.UI.Desktop.ViewModels.Strategies
 {
@@ -104,29 +107,20 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             base.Reset();
         }
 
-        /// <inheritdoc cref="StrategyBase.GetNewFilePath(string)"/>
-        protected internal override sealed string GetNewFilePath(string oldFilePath)
+        /// <inheritdoc cref="StrategyBase.GetNewFilePath(Match)"/>
+        protected internal override sealed string GetNewFilePath(Match filePathMatch)
         {
-            //var dto = FilePathConverter.GetPathZerosDigitsExtension(oldFilePath);
+            PathZerosDigitsExtensionDto file = FilePathConverter.GetPathZerosDigitsExtension(filePathMatch);
+            
+            string initialNumberics = file.Digits.Length > 0
+                ? file.Digits
+                : file.Zeros;
 
-            //RenamingResultDto result = Validate.IsPathDtoValid(dto, dto.FullName);
-
-            //if (!result.IsSuccess)
-            //{
-            //    throw new InvalidOperationException(result.Message);
-            //}
-
-            //Match filePathMatch = Validate.IsFilePathValid(dto.Path);
-
-            //return filePathMatch.Success
-            //    ? FilePathConverter.GetFilePath(
-            //        path: dto.Path,
-            //        name: $"{GetDigitsWithLeadingZeros(dto.Digits, this.LeadingZeros, this.MaxFileLength)}" +
-            //              $"{dto.Name}",
-            //        extension: dto.Extension)
-            //    : string.Empty;
-
-            return string.Empty;
+            return FilePathConverter.GetFilePath(
+                path: file.Path,
+                name: $"{GetDigitsWithLeadingZeros(initialNumberics, this.LeadingZeros, this.MaxFileLength)}" +
+                      $"{file.Name}",
+                extension: file.Extension);
         }
         #endregion
 
@@ -134,22 +128,24 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         /// <summary>
         /// Adds the leading zeros to the beginning of the file.
         /// </summary>
-        /// <param name="initialDigits">The extracted digits part of the file name.</param>
-        /// <param name="zerosCount">The amount of zeros to be added. Cannot be 0.</param>
-        /// <param name="maxNumberLength">The lenght of the longest numeric component.</param>
-        /// <returns>New file name preceeded by zeros.</returns>
-        internal static string GetDigitsWithLeadingZeros(string initialDigits, byte zerosCount, int maxNumberLength)
+        /// <param name="initialNumberics">The extracted numeric part of the file name (zeros or digits).</param>
+        /// <param name="zerosCount">The amount of zeros to be added (cannot be 0).</param>
+        /// <param name="maxNumberLength">The lenght of the longest numeric component (cannot be 0).</param>
+        /// <returns>
+        ///   The new file name preceeded by zeros.
+        /// </returns>
+        private static string GetDigitsWithLeadingZeros(string initialNumberics, byte zerosCount, ushort maxNumberLength)
         {
-            if (zerosCount == 0 || maxNumberLength <= 0)
+            if (zerosCount == 0 || maxNumberLength == 0)
             {
-                return initialDigits;
+                return initialNumberics;
             }
 
-            int zerosToAdd = initialDigits.Length == maxNumberLength
+            int zerosToAdd = initialNumberics.Length == maxNumberLength
                 ? zerosCount
-                : maxNumberLength - initialDigits.Length + zerosCount;
+                : maxNumberLength - initialNumberics.Length + zerosCount;
 
-            return $"{new string('0', zerosToAdd)}{initialDigits}";
+            return $"{new string('0', zerosToAdd)}{initialNumberics}";
         }
         #endregion
     }

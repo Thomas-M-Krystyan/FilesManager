@@ -130,7 +130,7 @@
     <comment>XAML</comment>
   </data>
   <data name="ERROR_Internal_InvalidFilePathDto" xml:space="preserve">
-    <value>The file was't parsed properly by RegEx in FilePathConverter:</value>
+    <value>The file was't parsed properly by RegEx in FilePathConverter.</value>
     <comment>Exception message</comment>
   </data>
   <data name="ERROR_Internal_PropertyOrMessageAreEmpty" xml:space="preserve">

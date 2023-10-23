@@ -1,7 +1,8 @@
 ﻿using FilesManager.Core.Converters;
+using FilesManager.Core.Extensions;
+using FilesManager.Core.Models.DTOs.Files;
 using FilesManager.Core.Models.DTOs.Results;
 using FilesManager.Core.Models.POCOs;
-using FilesManager.Core.Validation;
 using FilesManager.UI.Common.Properties;
 using FilesManager.UI.Desktop.ViewModels.Base;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
@@ -35,6 +36,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             set
             {
                 this._prependName = value;
+                ValidateIllegalChars(nameof(this.PrependName), value);
                 OnPropertyChanged(nameof(this.PrependName));
             }
         }
@@ -46,6 +48,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             set
             {
                 this._appendName = value;
+                ValidateIllegalChars(nameof(this.AppendName), value);
                 OnPropertyChanged(nameof(this.AppendName));
             }
         }
@@ -103,21 +106,17 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             base.Reset();
         }
 
-        /// <inheritdoc cref="StrategyBase.GetNewFilePath(string)"/>
-        protected internal override sealed string GetNewFilePath(string oldFilePath)
+        /// <inheritdoc cref="StrategyBase.GetNewFilePath(Match)"/>
+        protected internal override sealed string GetNewFilePath(Match filePathMatch)
         {
-            //Match filePathMatch = Validate.IsFilePathValid(oldFilePath);
+            PathNameExtensionDto file = FilePathConverter.GetPathNameExtension(filePathMatch);
 
-            //return filePathMatch.Success
-            //    ? FilePathConverter.GetFilePath(
-            //        path: filePathMatch.Value(RegexPatterns.PathGroup),
-            //        name: $"{this.PrependName.GetValueOrEmpty()}" +
-            //              $"{filePathMatch.Value(RegexPatterns.NameGroup)}" +
-            //              $"{this.AppendName.GetValueOrEmpty()}",
-            //        extension: filePathMatch.Value(RegexPatterns.ExtensionGroup))
-            //    : string.Empty;
-
-            return string.Empty;
+            return FilePathConverter.GetFilePath(
+                path: file.Path,
+                name: $"{this.PrependName.GetValueOrEmpty()}" +
+                      $"{file.Name}" +
+                      $"{this.AppendName.GetValueOrEmpty()}",
+                extension: file.Extension);
         }
         #endregion
     }

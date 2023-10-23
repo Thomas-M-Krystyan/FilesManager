@@ -1,7 +1,4 @@
-﻿using FilesManager.Core.Models.DTOs.Files;
-using FilesManager.Core.Models.DTOs.Files.Abstractions;
-using FilesManager.Core.Models.DTOs.Results;
-using FilesManager.UI.Common.Properties;
+﻿using FilesManager.UI.Common.Properties;
 using System.Text.RegularExpressions;
 
 namespace FilesManager.Core.Validation
@@ -14,17 +11,26 @@ namespace FilesManager.Core.Validation
         /// <summary>
         /// Determines whether the given file path is valid.
         /// </summary>
-        /// <param name="filePath">The file path.</param>
-        /// <param name="match">The matched result.</param>
+        /// <param name="filePath">The file path to be validated.</param>
+        /// <param name="filePathMatch">
+        ///   <inheritdoc cref="Regex.Match(string)" path="/returns"/>.
+        /// </param>
         /// <returns>
-        ///   <inheritdoc cref="Regex.Match(string)"/>
+        ///   <see langword="true"/> if the file path is valid; otherwise, <see langword="false"/>.
         /// </returns>
         /// <exception cref="RegexMatchTimeoutException" />
-        internal static Match IsFilePathValid(string filePath)
+        internal static bool IsFilePathValid(string filePath, out Match filePathMatch)
         {
-            return string.IsNullOrWhiteSpace(filePath)
-                ? Match.Empty
-                : RegexPatterns.FileComponentsPattern().Match(filePath);
+            if (string.IsNullOrWhiteSpace(filePath))
+            {
+                filePathMatch = Match.Empty;
+                
+                return false;
+            }
+
+            filePathMatch = RegexPatterns.FileComponentsPattern().Match(filePath);
+
+            return filePathMatch.Success;
         }
 
         /// <summary>
@@ -91,24 +97,6 @@ namespace FilesManager.Core.Validation
         internal static void ReportInvalidCommandUsage(string methodName)
         {
             throw new InvalidOperationException(Resources.ERROR_Internal_WrongCommandSubscribed + $" {methodName}");
-        }
-
-        /// <summary>
-        /// Checks if the given DTO is valid.
-        /// </summary>
-        internal static RenamingResultDto IsPathDtoValid<T>(T pathDto, string previousFileName)
-            where T : BasePathDto
-        {
-            return pathDto switch
-            {
-                // Zeros-Digits type of DTO with missing Zeros and Digits values
-                PathZerosDigitsExtensionDto zerosDigitsDto when zerosDigitsDto.Zeros == string.Empty &&
-                                                                zerosDigitsDto.Digits == string.Empty
-                => RenamingResultDto.Failure(Resources.ERROR_Validation_FileName_HasNoPreceedingNumber + $" \"{previousFileName}\""),
-                      
-                // Default
-                _ => RenamingResultDto.Success(),
-            };
         }
     }
 }

@@ -10,6 +10,7 @@ using Microsoft.Xaml.Behaviors.Core;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
 
@@ -212,9 +213,9 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
                 // Populate the list
                 foreach (string filePath in droppedFilesPaths)
                 {
-                    if (Validate.IsFilePathValid(filePath).Success)  // Ignore files that doesn't match the pattern "[name].[extension]"
+                    if (Validate.IsFilePathValid(filePath, out Match filePathMatch))  // Ignore files that doesn't match the pattern "[name].[extension]"
                     {
-                        this.Files.Add(new FileData { Path = filePath });
+                        this.Files.Add(new FileData { Path = filePath, Match = filePathMatch });
                     }
                     else
                     {

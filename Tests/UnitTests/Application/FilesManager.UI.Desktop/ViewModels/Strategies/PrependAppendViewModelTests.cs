@@ -1,4 +1,6 @@
-﻿using FilesManager.UI.Desktop.ViewModels.Strategies;
+﻿using FilesManager.UI.Common.Properties;
+using FilesManager.UI.Desktop.UnitTests._TestHelpers;
+using FilesManager.UI.Desktop.ViewModels.Strategies;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
 
 namespace FilesManager.Core.UnitTests.Services.Renaming.Strategies
@@ -18,14 +20,14 @@ namespace FilesManager.Core.UnitTests.Services.Renaming.Strategies
                 AppendName = string.Empty
             };
 
-            const string ActualOldFilePath = @"C:\Drive\Folder\Subfolder\Test.jpg";
             string expectedNewFilePath = @$"C:\Drive\Folder\Subfolder\{expectedPrepend}Test.jpg";
 
             // Act
-            string actualFilePath = strategy.GetNewFilePath(ActualOldFilePath);
+            string actualNewFilePath = strategy.GetNewFilePath(
+                TestHelpers.GetMockedMatch(@"C:\Drive\Folder\Subfolder\", "Test", ".jpg"));
 
             // Assert
-            Assert.That(actualFilePath, Is.EqualTo(expectedNewFilePath));
+            Assert.That(actualNewFilePath, Is.EqualTo(expectedNewFilePath));
         }
 
         [TestCase("", "")]
@@ -40,34 +42,36 @@ namespace FilesManager.Core.UnitTests.Services.Renaming.Strategies
                 AppendName = testAppend
             };
 
-            const string ActualOldFilePath = @"C:\Drive\Folder\Subfolder\Test.jpg";
             string expectedNewFilePath = @$"C:\Drive\Folder\Subfolder\Test{expectedAppend}.jpg";
 
             // Act
-            string actualFilePath = strategy.GetNewFilePath(ActualOldFilePath);
+            string actualNewFilePath = strategy.GetNewFilePath(
+                TestHelpers.GetMockedMatch(@"C:\Drive\Folder\Subfolder\", "Test", ".jpg"));
 
             // Assert
-            Assert.That(actualFilePath, Is.EqualTo(expectedNewFilePath));
+            Assert.That(actualNewFilePath, Is.EqualTo(expectedNewFilePath));
         }
 
-        [TestCase("")]
-        [TestCase(" ")]
-        [TestCase(@"abc.jpg")]              // No path
-        [TestCase(@"C:\Drive\Folder\abc")]  // No extension
-        public void GetNewFilePath_ForInvalidPath_WithOtherParameters_ReturnsEmptyString(string testPath)
+        [TestCase("", "", "")]
+        [TestCase(" ", " ", " ")]
+        [TestCase("", "abc", ".jpg")]               // No path
+        [TestCase(@"C:\Drive\Folder\", "abc", "")]  // No extension
+        [TestCase("", "abc", "")]                   // No path and extension
+        public void GetNewFilePath_ForInvalidPath_WithOtherParameters_ReturnsEmptyString(string testPath, string testName, string testExtension)
         {
             // Arrange
-            StrategyBase strategy = new PrependAppendViewModel
+            PrependAppendViewModel strategy = new PrependAppendViewModel
             {
                 PrependName = "a",
                 AppendName = "z"
             };
 
-            // Act
-            string actualFilePath = strategy.GetNewFilePath(testPath);
+            Match testMatch = TestHelpers.GetMockedMatch(testPath, testName, testExtension);
 
-            // Assert
-            Assert.That(actualFilePath, Is.Empty);
+            // Act & Assert
+            InvalidOperationException? exception = Assert.Throws<InvalidOperationException>(() => strategy.GetNewFilePath(testMatch));
+
+            Assert.That(exception?.Message?.StartsWith(Resources.ERROR_Internal_InvalidFilePathDto), Is.True);
         }
     }
 }

@@ -6,6 +6,7 @@ using FilesManager.UI.Desktop.Utilities;
 using FilesManager.UI.Desktop.ViewModels.Base;
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Windows;
 
 namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
@@ -108,11 +109,11 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         /// <summary>
         /// Gets the new file path for a file to be renamed.
         /// </summary>
-        /// <param name="oldFilePath">The old file path to be used.</param>
+        /// <param name="filePathMatch">The file path RegEx match.</param>
         /// <returns>
         ///   The new file path (changed by the current renaming strategy).
         /// </returns>
-        protected internal abstract string GetNewFilePath(string oldFilePath);
+        protected internal abstract string GetNewFilePath(Match filePathMatch);
         #endregion
 
         #region Virtual

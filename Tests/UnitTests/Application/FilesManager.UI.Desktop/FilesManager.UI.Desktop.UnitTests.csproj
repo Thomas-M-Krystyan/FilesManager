@@ -23,6 +23,7 @@
   <!-- Projects -->
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Layers\Application\FilesManager.UI.Desktop\FilesManager.UI.Desktop.csproj" />
+    <ProjectReference Include="..\..\..\..\Layers\Logic\FilesManager.Core\FilesManager.Core.csproj" />
   </ItemGroup>
 
   <!-- Visibility -->

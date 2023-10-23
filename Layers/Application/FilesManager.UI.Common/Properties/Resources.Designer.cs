@@ -88,7 +88,7 @@ namespace FilesManager.UI.Common.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The file was&apos;t parsed properly by RegEx in FilePathConverter:.
+        ///   Looks up a localized string similar to The file was&apos;t parsed properly by RegEx in FilePathConverter..
         /// </summary>
         public static string ERROR_Internal_InvalidFilePathDto {
             get {

@@ -1,4 +1,5 @@
 ﻿using FilePath = System.IO.Path;
+using RegexMatch = System.Text.RegularExpressions.Match;
 
 namespace FilesManager.Core.Models.POCOs
 {
@@ -16,5 +17,8 @@ namespace FilesManager.Core.Models.POCOs
         /// The file name with extension to be displayed on UI: <code>"Test.txt"</code>
         /// </summary>
         public string DisplayName => $"{FilePath.GetFileName(this.Path)}";
+
+        /// <inheritdoc cref="RegexMatch"/>
+        internal RegexMatch Match { get; set; } = RegexMatch.Empty;
     }
 }

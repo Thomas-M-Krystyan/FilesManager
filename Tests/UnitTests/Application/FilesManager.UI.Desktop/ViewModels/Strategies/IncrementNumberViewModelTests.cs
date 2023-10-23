@@ -1,4 +1,6 @@
-﻿using FilesManager.UI.Desktop.ViewModels.Strategies;
+﻿using FilesManager.UI.Common.Properties;
+using FilesManager.UI.Desktop.UnitTests._TestHelpers;
+using FilesManager.UI.Desktop.ViewModels.Strategies;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
 
 namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Strategies
@@ -13,18 +15,18 @@ namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Strategies
             StrategyBase strategy = new IncrementNumberViewModel
             {
                 NamePrefix = string.Empty,
-                StartingNumber = "7",
+                StartingNumber = "4",
                 NamePostfix = string.Empty
             };
 
-            const string ActualOldFilePath = @"C:\Drive\Folder\abc.jpg";
-            const string ExpectedNewFilePath = @"C:\Drive\Folder\7.jpg";
-
+            const string ExpectedNewFilePath = @"C:\Drive\Folder\Subfolder\4.jpg";
+            
             // Act
-            string actualFilePath = strategy.GetNewFilePath(ActualOldFilePath);
+            string actualNewFilePath = strategy.GetNewFilePath(
+                TestHelpers.GetMockedMatch(@$"C:\Drive\Folder\Subfolder\", "7", ".jpg"));
 
             // Assert
-            Assert.That(actualFilePath, Is.EqualTo(ExpectedNewFilePath));
+            Assert.That(actualNewFilePath, Is.EqualTo(ExpectedNewFilePath));
         }
 
         [TestCase("", "")]
@@ -40,14 +42,14 @@ namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Strategies
                 NamePostfix = string.Empty
             };
 
-            const string ActualOldFilePath = @"C:\Drive\Folder\Subfolder\1.jpg";
             string expectedNewFilePath = @$"C:\Drive\Folder\Subfolder\{expectedPrefix}4.jpg";
 
             // Act
-            string actualFilePath = strategy.GetNewFilePath(ActualOldFilePath);
+            string actualNewFilePath = strategy.GetNewFilePath(
+                TestHelpers.GetMockedMatch(@"C:\Drive\Folder\Subfolder\", "4", ".jpg"));
 
             // Assert
-            Assert.That(actualFilePath, Is.EqualTo(expectedNewFilePath));
+            Assert.That(actualNewFilePath, Is.EqualTo(expectedNewFilePath));
         }
 
         [TestCase("", "")]
@@ -63,21 +65,21 @@ namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Strategies
                 NamePostfix = testPostfix
             };
 
-            const string ActualOldFilePath = @"C:\Drive\Folder\Subfolder\1.jpg";
             string expectedNewFilePath = @$"C:\Drive\Folder\Subfolder\4{expectedPostfix}.jpg";
 
             // Act
-            string actualFilePath = strategy.GetNewFilePath(ActualOldFilePath);
+            string actualNewFilePath = strategy.GetNewFilePath(
+                TestHelpers.GetMockedMatch(@"C:\Drive\Folder\Subfolder\", "ABC", ".jpg"));
 
             // Assert
-            Assert.That(actualFilePath, Is.EqualTo(expectedNewFilePath));
+            Assert.That(actualNewFilePath, Is.EqualTo(expectedNewFilePath));
         }
 
-        [TestCase("")]
-        [TestCase(" ")]
-        [TestCase(@"abc.jpg")]              // No path
-        [TestCase(@"C:\Drive\Folder\abc")]  // No extension
-        public void GetNewFilePath_ForInvalidPath_WithOtherParameters_ReturnsEmptyString(string testPath)
+        [TestCase("", "")]
+        [TestCase(" ", " ")]
+        [TestCase("", ".jpg")]                  // No path
+        [TestCase(@"C:\Drive\Folder\abc", "")]  // No extension
+        public void GetNewFilePath_ForInvalidPath_WithOtherParameters_ReturnsEmptyString(string testPath, string testExtension)
         {
             // Arrange
             StrategyBase strategy = new IncrementNumberViewModel
@@ -87,11 +89,12 @@ namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Strategies
                 NamePostfix = "z"
             };
 
-            // Act
-            string actualFilePath = strategy.GetNewFilePath(testPath);
+            Match testMatch = TestHelpers.GetMockedMatch(testPath, "Test_#1", testExtension);
 
-            // Assert
-            Assert.That(actualFilePath, Is.EqualTo(string.Empty));
+            // Act & Assert
+            InvalidOperationException? exception = Assert.Throws<InvalidOperationException>(() => strategy.GetNewFilePath(testMatch));
+
+            Assert.That(exception?.Message?.StartsWith(Resources.ERROR_Internal_InvalidFilePathDto), Is.True);
         }
     }
 }
