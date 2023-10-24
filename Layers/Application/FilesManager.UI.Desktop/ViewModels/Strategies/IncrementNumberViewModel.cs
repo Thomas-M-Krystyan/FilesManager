@@ -18,8 +18,6 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
     /// <seealso cref="ViewModelBase"/>
     internal sealed class IncrementNumberViewModel : StrategyBase
     {
-        private const string DefaultStartingNumber = "0";
-
         #region Texts
         public static readonly string Method_Header = Resources.Header_Method_IncrementNumber;
         public static readonly string Method_Tooltip = Resources.Tooltip_Method_IncrementNumber;
@@ -149,14 +147,14 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         /// <inheritdoc cref="StrategyBase.GetNewFilePath(Match)"/>
         protected internal override sealed string GetNewFilePath(Match filePathMatch)
         {
-            PathNameExtensionDto file = FilePathConverter.GetPathNameExtension(filePathMatch);
+            PathNameExtensionDto fileDto = FilePathConverter.GetPathNameExtension(filePathMatch);
 
             return FilePathConverter.GetFilePath(
-                path: file.Path,
+                path: fileDto.Path,
                 name: $"{this.NamePrefix.GetValueOrEmpty()}" +
                       $"{this._currentStartingNumber++}" +      // NOTE: Very important! Keep incrementing the current number
                       $"{this.NamePostfix.GetValueOrEmpty()}",
-                extension: file.Extension);
+                extension: fileDto.Extension);
         }
         #endregion
     }

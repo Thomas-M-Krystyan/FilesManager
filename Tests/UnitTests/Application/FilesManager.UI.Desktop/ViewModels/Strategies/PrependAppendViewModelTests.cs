@@ -3,7 +3,7 @@ using FilesManager.UI.Desktop.UnitTests._TestHelpers;
 using FilesManager.UI.Desktop.ViewModels.Strategies;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
 
-namespace FilesManager.Core.UnitTests.Services.Renaming.Strategies
+namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Strategies
 {
     [TestFixture]
     internal sealed class PrependAppendViewModelTests

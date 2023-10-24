@@ -25,6 +25,10 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         public static readonly string Content_OnlyVerySmallPositives_Tooltip = Resources.Tooltip_Tip_Content_OnlyVerySmallPositives;
         #endregion
 
+        #region Fields
+        protected const string DefaultStartingNumber = "0";
+        #endregion
+
         // NOTE: All binding elements should be public
         #region Properties (binding)
         private bool _isEnabled = false;
@@ -137,11 +141,18 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
                 () => AddError(propertyName, Resources.ERROR_Validation_Field_ContainsIllegalCharacter, value));
         }
 
-        protected void ValidateOnlyNumbers(string propertyName, string value, out ushort validStartingNumber)
+        protected void ValidateOnlyNumbers(string propertyName, string value, out ushort validStartingNumber, int? maxLimit = null)
         {
-            _ = Validate.IsUshort(value, out validStartingNumber,
+            bool isSuccess = Validate.IsUshort(value, out validStartingNumber,
                 () => ClearErrors(propertyName),
                 () => AddError(propertyName, Resources.ERROR_Validation_Field_ContainsNotDigits, value));
+
+            if (isSuccess && maxLimit != null)
+            {
+                _ = Validate.WithinLimit(validStartingNumber, maxLimit.Value,
+                () => ClearErrors(propertyName),
+                () => AddError(propertyName, Resources.ERROR_Validation_Field_ExceedsMaxLimit, maxLimit));
+            }
         }
         #endregion
     }

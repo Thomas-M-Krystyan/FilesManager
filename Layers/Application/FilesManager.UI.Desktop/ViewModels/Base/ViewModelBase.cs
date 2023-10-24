@@ -95,7 +95,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Base
                 this._propertyErrors.Add(propertyName, new List<string>());
             }
 
-            this._propertyErrors[propertyName].Add($"{propertyName}: {errorMessage}: \"{value}\".");
+            this._propertyErrors[propertyName].Add($"{propertyName} | {errorMessage}: \"{value}\".");
             
             OnErrorsChanged(propertyName);
         }

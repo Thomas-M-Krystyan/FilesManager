@@ -25,20 +25,22 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
 
         // NOTE: All binding elements should be public
         #region Properties (binding)
-        private byte _leadingZeros;
-        public byte LeadingZeros
+        private ushort _currentLeadingZeros;                   // NOTE: Logic
+        private string _leadingZeros = DefaultStartingNumber;  // NOTE: UI
+        public string LeadingZeros
         {
             get => this._leadingZeros;
             set
             {
                 this._leadingZeros = value;
+                ValidateOnlyNumbers(nameof(this.LeadingZeros), value, out this._currentLeadingZeros, maxLimit: 7);
                 OnPropertyChanged(nameof(this.LeadingZeros));
             }
         }
         #endregion
 
         #region Properties
-        internal ushort MaxFileLength { get; set; }
+        internal int MaxFileLength { get; set; }
         #endregion
 
         /// <summary>
@@ -102,7 +104,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         /// <inheritdoc cref="StrategyBase.Reset()"/>
         protected override sealed void Reset()  // NOTE: Speficic behavior for this concrete strategy. Overloading restricted
         {
-            this.LeadingZeros = default;
+            this.LeadingZeros = DefaultStartingNumber;
 
             base.Reset();
         }
@@ -110,17 +112,13 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         /// <inheritdoc cref="StrategyBase.GetNewFilePath(Match)"/>
         protected internal override sealed string GetNewFilePath(Match filePathMatch)
         {
-            PathZerosDigitsExtensionDto file = FilePathConverter.GetPathZerosDigitsExtension(filePathMatch);
-            
-            string initialNumberics = file.Digits.Length > 0
-                ? file.Digits
-                : file.Zeros;
+            PathZerosDigitsExtensionDto fileDto = FilePathConverter.GetPathZerosDigitsExtension(filePathMatch);
 
             return FilePathConverter.GetFilePath(
-                path: file.Path,
-                name: $"{GetDigitsWithLeadingZeros(initialNumberics, this.LeadingZeros, this.MaxFileLength)}" +
-                      $"{file.Name}",
-                extension: file.Extension);
+                path: fileDto.Path,
+                name: $"{GetDigitsWithLeadingZeros(fileDto)}" +
+                      $"{fileDto.Name}",
+                extension: fileDto.Extension);
         }
         #endregion
 
@@ -128,24 +126,33 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         /// <summary>
         /// Adds the leading zeros to the beginning of the file.
         /// </summary>
-        /// <param name="initialNumberics">The extracted numeric part of the file name (zeros or digits).</param>
-        /// <param name="zerosCount">The amount of zeros to be added (cannot be 0).</param>
-        /// <param name="maxNumberLength">The lenght of the longest numeric component (cannot be 0).</param>
+        /// <param name="file">The file DTO with extracted parts of the file name (zeros or digits).</param>
         /// <returns>
         ///   The new file name preceeded by zeros.
         /// </returns>
-        private static string GetDigitsWithLeadingZeros(string initialNumberics, byte zerosCount, ushort maxNumberLength)
+        private string GetDigitsWithLeadingZeros(PathZerosDigitsExtensionDto fileDto)
         {
-            if (zerosCount == 0 || maxNumberLength == 0)
+            // There is no point to process further
+            if (this.HasErrors)
             {
-                return initialNumberics;
+                return fileDto.Zeros + fileDto.Digits;
             }
 
-            int zerosToAdd = initialNumberics.Length == maxNumberLength
-                ? zerosCount
-                : maxNumberLength - initialNumberics.Length + zerosCount;
+            // Removing zeros mode
+            if (this._currentLeadingZeros == 0)
+            {
+                return fileDto.Digits.Length > 0
+                    ? fileDto.Digits  // Handle cases "01.jpg" => "1.jpg" (return trimmed digits without zeros)
+                    : fileDto.Name.Length > 0
+                        ? string.Empty    // Handle cases "0test.jpg" => "test.jpg" (name will be added later so, for now return just empty)
+                        : fileDto.Zeros;  // Handle cases "0.jpg" (if there is no name or digits but "no zeros" was requested. Prevent ".jpg")
+            }
 
-            return $"{new string('0', zerosToAdd)}{initialNumberics}";
+            //int zerosToAdd = fileDto.Digits.Length == this.MaxFileLength
+            //    ? this.LeadingZeros
+            //    : this.MaxFileLength - fileDto.Digits.Length + this.LeadingZeros;
+
+            return $"{new string('0', this._currentLeadingZeros)}{fileDto.Digits}";
         }
         #endregion
     }

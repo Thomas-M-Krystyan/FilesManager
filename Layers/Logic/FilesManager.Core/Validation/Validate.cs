@@ -86,6 +86,32 @@ namespace FilesManager.Core.Validation
         }
 
         /// <summary>
+        /// Determines whether the given number fits within the specifiex max limit.
+        /// </summary>
+        /// <param name="number">The number to be checked.</param>
+        /// <param name="maxLimit">The maximum limit for a given number.</param>
+        /// <param name="successAction">The action to be executed in case of success.</param>
+        /// <param name="failureAction">The action to be executed in case of failure.</param>
+        /// <returns>
+        ///   <see langword="true"/> if the number is smaller or equal to the max limit; otherwise, <see langword="false"/>.
+        /// </returns>
+        internal static bool WithinLimit(double number, int maxLimit, Action? successAction = null, Action? failureAction = null)
+        {
+            bool isSuccess = number <= maxLimit;
+
+            if (isSuccess)
+            {
+                successAction?.Invoke();
+            }
+            else
+            {
+                failureAction?.Invoke();
+            }
+
+            return isSuccess;
+        }
+
+        /// <summary>
         /// Reports an invalid usage of an event.
         /// <para>
         ///   Used for development purposes to monitor if an event from the XAML side was binded to a command

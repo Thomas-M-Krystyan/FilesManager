@@ -88,7 +88,7 @@ namespace FilesManager.UI.Common.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The file was&apos;t parsed properly by RegEx in FilePathConverter..
+        ///   Looks up a localized string similar to The file was&apos;t parsed properly by RegEx in FilePathConverter.
         /// </summary>
         public static string ERROR_Internal_InvalidFilePathDto {
             get {
@@ -124,11 +124,20 @@ namespace FilesManager.UI.Common.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The given value contains not a number.
+        ///   Looks up a localized string similar to The given value contains not a number (NaN).
         /// </summary>
         public static string ERROR_Validation_Field_ContainsNotDigits {
             get {
                 return ResourceManager.GetString("ERROR_Validation_Field_ContainsNotDigits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The given number is larger than allowed maximum limit of.
+        /// </summary>
+        public static string ERROR_Validation_Field_ExceedsMaxLimit {
+            get {
+                return ResourceManager.GetString("ERROR_Validation_Field_ExceedsMaxLimit", resourceCulture);
             }
         }
         

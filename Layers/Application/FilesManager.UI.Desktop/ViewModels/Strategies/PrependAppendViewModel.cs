@@ -109,14 +109,14 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         /// <inheritdoc cref="StrategyBase.GetNewFilePath(Match)"/>
         protected internal override sealed string GetNewFilePath(Match filePathMatch)
         {
-            PathNameExtensionDto file = FilePathConverter.GetPathNameExtension(filePathMatch);
+            PathNameExtensionDto fileDto = FilePathConverter.GetPathNameExtension(filePathMatch);
 
             return FilePathConverter.GetFilePath(
-                path: file.Path,
+                path: fileDto.Path,
                 name: $"{this.PrependName.GetValueOrEmpty()}" +
-                      $"{file.Name}" +
+                      $"{fileDto.Name}" +
                       $"{this.AppendName.GetValueOrEmpty()}",
-                extension: file.Extension);
+                extension: fileDto.Extension);
         }
         #endregion
     }

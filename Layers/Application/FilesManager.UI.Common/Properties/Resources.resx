@@ -130,7 +130,7 @@
     <comment>XAML</comment>
   </data>
   <data name="ERROR_Internal_InvalidFilePathDto" xml:space="preserve">
-    <value>The file was't parsed properly by RegEx in FilePathConverter.</value>
+    <value>The file was't parsed properly by RegEx in FilePathConverter</value>
     <comment>Exception message</comment>
   </data>
   <data name="ERROR_Internal_PropertyOrMessageAreEmpty" xml:space="preserve">
@@ -146,7 +146,11 @@
     <comment>UI message</comment>
   </data>
   <data name="ERROR_Validation_Field_ContainsNotDigits" xml:space="preserve">
-    <value>The given value contains not a number</value>
+    <value>The given value contains not a number (NaN)</value>
+    <comment>UI message</comment>
+  </data>
+  <data name="ERROR_Validation_Field_ExceedsMaxLimit" xml:space="preserve">
+    <value>The given number is larger than allowed maximum limit of</value>
     <comment>UI message</comment>
   </data>
   <data name="ERROR_Validation_Field_ValueWillExceedUshortMax" xml:space="preserve">
