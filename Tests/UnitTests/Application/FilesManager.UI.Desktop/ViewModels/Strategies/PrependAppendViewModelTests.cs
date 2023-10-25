@@ -60,7 +60,7 @@ namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Strategies
         public void GetNewFilePath_ForInvalidPath_WithOtherParameters_ReturnsEmptyString(string testPath, string testName, string testExtension)
         {
             // Arrange
-            PrependAppendViewModel strategy = new PrependAppendViewModel
+            PrependAppendViewModel strategy = new()
             {
                 PrependName = "a",
                 AppendName = "z"

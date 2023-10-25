@@ -13,8 +13,7 @@ namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Strategies
             // Arrange
             StrategyBase strategy = new LeadingZerosViewModel
             {
-                LeadingZeros = data.LeadingZeros,
-                MaxFileLength = Math.Max(data.TestNames[0].Length, data.TestNames[1].Length)
+                LeadingZeros = data.LeadingZeros
             };
 
             // Act
@@ -105,7 +104,7 @@ namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Strategies
             yield return (55, new[] { "00000001", "2" }, "0", new[] { @"C:\Drive\Folder\Subfolder\1.jpg",        @"C:\Drive\Folder\Subfolder\2.jpg" });
 
             // Zeros + Digits + Name
-            yield return (56, new[] { "01Test", "2Test1" }, "2", new[] { @"C:\Drive\Folder\Subfolder\001Test.jpg", @"C:\Drive\Folder\Subfolder\002Test1.jpg" });
+            yield return (56, new[] { "01Test", "2Test15" }, "2", new[] { @"C:\Drive\Folder\Subfolder\001Test.jpg", @"C:\Drive\Folder\Subfolder\002Test15.jpg" });
         }
     }
 }
