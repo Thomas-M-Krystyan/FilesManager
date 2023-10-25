@@ -25,7 +25,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         public static readonly string Content_OnlyVerySmallPositives_Tooltip = Resources.Tooltip_Tip_Content_OnlyVerySmallPositives;
         #endregion
 
-        #region Fields
+        #region Const
         protected const string DefaultStartingNumber = "0";
         #endregion
 
