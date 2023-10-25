@@ -95,9 +95,12 @@ namespace FilesManager.Core.Validation
         /// <returns>
         ///   <see langword="true"/> if the number is smaller or equal to the max limit; otherwise, <see langword="false"/>.
         /// </returns>
-        internal static bool WithinLimit(double number, int maxLimit, Action? successAction = null, Action? failureAction = null)
+        internal static bool WithinLimit<TNumber>(TNumber number, TNumber maxLimit, Action? successAction = null, Action? failureAction = null)
+            where TNumber : struct, IComparable, IComparable<TNumber>, IConvertible, IEquatable<TNumber>, IFormattable  // NOTE: Numeric type
+            // NOTE: For two different numeric types (doesn't matter if there are floating point or integer ones)
+            // the one fitting for both will be used (e.g., "int + double" => "double", "ushort + byte" => "ushort")
         {
-            bool isSuccess = number <= maxLimit;
+            bool isSuccess = number.CompareTo(maxLimit) <= 0;
 
             if (isSuccess)
             {

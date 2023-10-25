@@ -202,5 +202,132 @@ namespace FilesManager.Core.UnitTests.Validation
             mockedTestClass.Verify(mock => mock.FailureAction(), Times.Once);
         }
         #endregion
+
+        #region WithinLimit
+        // sbyte + short
+        [TestCase(1, (sbyte)1, (short)2, true)]
+        [TestCase(2, (sbyte)2, (short)2, true)]
+        [TestCase(3, (sbyte)3, (short)2, false)]
+        // sbyte + int
+        [TestCase(4, (sbyte)1, (int)2, true)]
+        [TestCase(5, (sbyte)2, (int)2, true)]
+        [TestCase(6, (sbyte)3, (int)2, false)]
+        // sbyte + float
+        [TestCase(7, (sbyte)1, (float)2, true)]
+        [TestCase(8, (sbyte)2, (float)2, true)]
+        [TestCase(9, (sbyte)3, (float)2, false)]
+        // sbyte + double
+        [TestCase(10, (sbyte)1, (double)2, true)]
+        [TestCase(11, (sbyte)2, (double)2, true)]
+        [TestCase(12, (sbyte)3, (double)2, false)]
+        // byte + short
+        [TestCase(13, (byte)1, (short)2, true)]
+        [TestCase(14, (byte)2, (short)2, true)]
+        [TestCase(15, (byte)3, (short)2, false)]
+        // byte + ushort
+        [TestCase(16, (byte)1, (ushort)2, true)]
+        [TestCase(17, (byte)2, (ushort)2, true)]
+        [TestCase(18, (byte)3, (ushort)2, false)]
+        // byte + int
+        [TestCase(19, (byte)1, (int)2, true)]
+        [TestCase(20, (byte)2, (int)2, true)]
+        [TestCase(21, (byte)3, (int)2, false)]
+        // byte + uint
+        [TestCase(22, (byte)1, (uint)2, true)]
+        [TestCase(23, (byte)2, (uint)2, true)]
+        [TestCase(24, (byte)3, (uint)2, false)]
+        // byte + float
+        [TestCase(25, (byte)1, (float)2, true)]
+        [TestCase(26, (byte)2, (float)2, true)]
+        [TestCase(27, (byte)3, (float)2, false)]
+        // byte + double
+        [TestCase(28, (byte)1, (double)2, true)]
+        [TestCase(29, (byte)2, (double)2, true)]
+        [TestCase(30, (byte)3, (double)2, false)]
+        // short + int
+        [TestCase(31, (short)1, (int)2, true)]
+        [TestCase(32, (short)2, (int)2, true)]
+        [TestCase(33, (short)3, (int)2, false)]
+        // short + float
+        [TestCase(34, (short)1, (float)2, true)]
+        [TestCase(35, (short)2, (float)2, true)]
+        [TestCase(36, (short)3, (float)2, false)]
+        // short + double
+        [TestCase(37, (short)1, (double)2, true)]
+        [TestCase(38, (short)2, (double)2, true)]
+        [TestCase(39, (short)3, (double)2, false)]
+        // ushort + int
+        [TestCase(40, (ushort)1, (int)2, true)]
+        [TestCase(41, (ushort)2, (int)2, true)]
+        [TestCase(42, (ushort)3, (int)2, false)]
+        // ushort + uint
+        [TestCase(43, (ushort)1, (uint)2, true)]
+        [TestCase(44, (ushort)2, (uint)2, true)]
+        [TestCase(45, (ushort)3, (uint)2, false)]
+        // ushort + float
+        [TestCase(46, (ushort)1, (float)2, true)]
+        [TestCase(47, (ushort)2, (float)2, true)]
+        [TestCase(48, (ushort)3, (float)2, false)]
+        // ushort + double
+        [TestCase(49, (ushort)1, (double)2, true)]
+        [TestCase(50, (ushort)2, (double)2, true)]
+        [TestCase(51, (ushort)3, (double)2, false)]
+        // int + float
+        [TestCase(52, (int)1, (float)2, true)]
+        [TestCase(53, (int)2, (float)2, true)]
+        [TestCase(54, (int)3, (float)2, false)]
+        // int + double
+        [TestCase(55, (int)1, (double)2, true)]
+        [TestCase(56, (int)2, (double)2, true)]
+        [TestCase(57, (int)3, (double)2, false)]
+        // uint + float
+        [TestCase(58, (uint)1, (float)2, true)]
+        [TestCase(59, (uint)2, (float)2, true)]
+        [TestCase(60, (uint)3, (float)2, false)]
+        // uint + double
+        [TestCase(61, (uint)1, (double)2, true)]
+        [TestCase(62, (uint)2, (double)2, true)]
+        [TestCase(63, (uint)3, (double)2, false)]
+        // float + double
+        [TestCase(64, (float)1, (double)2, true)]
+        [TestCase(65, (float)2, (double)2, true)]
+        [TestCase(66, (float)3, (double)2, false)]
+        // Forbidden: sbyte + byte, sbyte + ushort, sbyte + uint, short + ushort, ushort + uint, int + uint
+        public void WithinLimit_ForGivenValidNumbers_ReturnsTrue<TNumber>(int testId, TNumber testNumber1, TNumber testNumber2, bool expectedResult)
+            where TNumber : struct, IComparable, IComparable<TNumber>, IConvertible, IEquatable<TNumber>, IFormattable  // NOTE: Numeric type
+        {
+            // Act
+            bool actualResult = Validate.WithinLimit(testNumber1, testNumber2);
+
+            // Assert
+            Assert.That(actualResult, Is.EqualTo(expectedResult), message: $"Test with id failed: {testId}");
+        }
+
+        [Test]
+        public void WithinLimit_ForValidationSuccess_PassedSuccessMethodIsExecuted()
+        {
+            // Arrange
+            var mockedTestClass = new Mock<TestClass>();
+
+            // Act
+            _ = Validate.WithinLimit(1, 2, successAction: mockedTestClass.Object.SuccessAction);
+
+            // Assert
+            mockedTestClass.Verify(mock => mock.SuccessAction(), Times.Once);
+        }
+
+        [Test]
+        public void WithinLimit_ForValidationFailure_PassedFailureMethodIsExecuted()
+        {
+            // Arrange
+            var mockedTestClass = new Mock<TestClass>();
+
+            // Act
+            _ = Validate.WithinLimit(2, 1, failureAction: mockedTestClass.Object.FailureAction);
+
+            // Assert
+            mockedTestClass.Verify(mock => mock.FailureAction(), Times.Once);
+        }
+        #endregion
     }
 }
