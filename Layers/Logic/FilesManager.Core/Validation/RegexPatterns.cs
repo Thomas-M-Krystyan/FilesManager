@@ -36,7 +36,7 @@ namespace FilesManager.Core.Validation
         /// <summary>
         /// Captures zeroes, digits, and non-numeric components of the file name.
         /// </summary>
-        [GeneratedRegex($@"^(?<{ZerosGroup}>0*)?(?<{DigitsGroup}>\d*)?(?<{NameGroup}>.*)$", RegexOptions.Compiled)]
+        [GeneratedRegex($@"^(?<{ZerosGroup}>0*)(?<{DigitsGroup}>\d*)(?<{NameGroup}>.*)$", RegexOptions.Compiled)]
         internal static partial Regex DigitsNamePattern();
     }
 }

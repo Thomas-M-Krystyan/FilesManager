@@ -142,15 +142,19 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             if (this._currentLeadingZeros == 0)
             {
                 return fileDto.Digits.Length > 0
-                    ? fileDto.Digits  // Handle cases "01.jpg" => "1.jpg" (return trimmed digits without zeros)
+                    ? fileDto.Digits                 // Cases: "01.jpg" => "1.jpg" or "01a.png" => "1a.png" (return trimmed digits without zeros)
+                    // There is no digits
                     : fileDto.Name.Length > 0
-                        ? string.Empty    // Handle cases "0test.jpg" => "test.jpg" (name will be added later so, for now return just empty)
-                        : fileDto.Zeros;  // Handle cases "0.jpg" (if there is no name or digits but "no zeros" was requested. Prevent ".jpg")
+                        ? string.Empty               // Cases: "0test.jpg" => "test.jpg" (name will be added later so, for now return just empty)
+                        // There is no name
+                        : fileDto.Zeros.Length > 1
+                            ? DefaultStartingNumber  // Cases: "00.jpg" => "0.jpg" (try to reduce number of zeros to none, but prevent ".jpg")
+                            : fileDto.Zeros;         // Cases: "0.jpg" (if there is no name or digits but "no zeros" was requested. Prevent ".jpg")
             }
 
-            //int zerosToAdd = fileDto.Digits.Length == this.MaxFileLength
-            //    ? this.LeadingZeros
-            //    : this.MaxFileLength - fileDto.Digits.Length + this.LeadingZeros;
+            //int zerosToAdd = fileDto.Digits.Length == this._currentLeadingZeros
+            //    ? this._currentLeadingZeros
+            //    : this.MaxFileLength - fileDto.Digits.Length + this._currentLeadingZeros;
 
             return $"{new string('0', this._currentLeadingZeros)}{fileDto.Digits}";
         }
