@@ -292,7 +292,7 @@ namespace FilesManager.Core.UnitTests.Validation
         [TestCase(64, (float)1, (double)2, true)]
         [TestCase(65, (float)2, (double)2, true)]
         [TestCase(66, (float)3, (double)2, false)]
-        // Forbidden: sbyte + byte, sbyte + ushort, sbyte + uint, short + ushort, ushort + uint, int + uint
+        // Forbidden: sbyte + byte, sbyte + ushort, sbyte + uint, short + ushort, ushort + uint, int + uint, anything with decimal
         public void WithinLimit_ForGivenValidNumbers_ReturnsTrue<TNumber>(int testId, TNumber testNumber1, TNumber testNumber2, bool expectedResult)
             where TNumber : struct, IComparable, IComparable<TNumber>, IConvertible, IEquatable<TNumber>, IFormattable  // NOTE: Numeric type
         {
