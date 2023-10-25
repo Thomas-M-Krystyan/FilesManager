@@ -69,20 +69,23 @@ namespace FilesManager.Core.Validation
         /// <returns>
         ///   <inheritdoc cref="ushort.TryParse(string?, out ushort)"/>
         /// </returns>
-        internal static bool IsUshort(string value, out ushort number, Action? successAction = null, Action? failureAction = null)
+        internal static bool Is<TNumber>(string value, out TNumber number, Action? successAction = null, Action? failureAction = null)
+            where TNumber : struct, IComparable, IComparable<TNumber>, IConvertible, IEquatable<TNumber>, IFormattable  // NOTE: Numeric type
         {
-            bool isSuccess = ushort.TryParse(value, out number);
-
-            if (isSuccess)
+            try
             {
+                number = (TNumber)Convert.ChangeType(value, typeof(TNumber));
                 successAction?.Invoke();
-            }
-            else
-            {
-                failureAction?.Invoke();
-            }
 
-            return isSuccess;
+                return true;
+            }
+            catch
+            {
+                number = default;
+                failureAction?.Invoke();
+
+                return false;
+            }
         }
 
         /// <summary>

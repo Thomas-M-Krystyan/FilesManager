@@ -130,12 +130,12 @@ namespace FilesManager.Core.UnitTests.Validation
         }
         #endregion
 
-        #region IsUshort
+        #region Is<ushort>(out ushort)
         [Test]
-        public void IsUshort_ForGivenValidNumber_ReturnsTrue_AndValue()
+        public void Is_Ushort_ForGivenValidNumber_ReturnsTrue_AndValue()
         {
             // Act
-            bool actualResult = Validate.IsUshort("5", out ushort actualNumber);
+            bool actualResult = Validate.Is("5", out ushort actualNumber);
 
             // Assert
             Assert.Multiple(() =>
@@ -147,10 +147,10 @@ namespace FilesManager.Core.UnitTests.Validation
 
         [TestCase("-1", 0)]     // Negative
         [TestCase("99999", 0)]  // Too large
-        public void IsUshort_ForGivenInvalidNumber_ReturnsFalse_AndValue(string textInput, int expectedNumber)
+        public void Is_Ushort_ForGivenInvalidNumber_ReturnsFalse_AndValue(string textInput, int expectedNumber)
         {
             // Act
-            bool actualResult = Validate.IsUshort(textInput, out ushort actualNumber);
+            bool actualResult = Validate.Is(textInput, out ushort actualNumber);
 
             // Assert
             Assert.Multiple(() =>
@@ -163,10 +163,10 @@ namespace FilesManager.Core.UnitTests.Validation
         [TestCase("a", 0)]  // Lowercase letter
         [TestCase("Z", 0)]  // Uppercase letter
         [TestCase("+", 0)]  // Special character
-        public void IsUshort_ForGivenInvalidValue_ReturnsFalse_AndValue(string textInput, int expectedNumber)
+        public void Is_Ushort_ForGivenInvalidValue_ReturnsFalse_AndValue(string textInput, int expectedNumber)
         {
             // Act
-            bool actualResult = Validate.IsUshort(textInput, out ushort actualNumber);
+            bool actualResult = Validate.Is(textInput, out ushort actualNumber);
 
             // Assert
             Assert.Multiple(() =>
@@ -177,26 +177,26 @@ namespace FilesManager.Core.UnitTests.Validation
         }
 
         [Test]
-        public void IsUshort_ForValidationSuccess_PassedSuccessMethodIsExecuted()
+        public void Is_Ushort_ForValidationSuccess_PassedSuccessMethodIsExecuted()
         {
             // Arrange
             var mockedTestClass = new Mock<TestClass>();
 
             // Act
-            _ = Validate.IsUshort("1", out _, successAction: mockedTestClass.Object.SuccessAction);
+            _ = Validate.Is("1", out ushort _, successAction: mockedTestClass.Object.SuccessAction);
 
             // Assert
             mockedTestClass.Verify(mock => mock.SuccessAction(), Times.Once);
         }
 
         [Test]
-        public void IsUshort_ForValidationFailure_PassedFailureMethodIsExecuted()
+        public void Is_Ushort_ForValidationFailure_PassedFailureMethodIsExecuted()
         {
             // Arrange
             var mockedTestClass = new Mock<TestClass>();
 
             // Act
-            _ = Validate.IsUshort("-1", out _, failureAction: mockedTestClass.Object.FailureAction);
+            _ = Validate.Is("-1", out ushort _, failureAction: mockedTestClass.Object.FailureAction);
 
             // Assert
             mockedTestClass.Verify(mock => mock.FailureAction(), Times.Once);
