@@ -152,10 +152,6 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
                             : fileDto.Zeros;         // Cases: "0.jpg" (if there is no name or digits but "no zeros" was requested. Prevent ".jpg")
             }
 
-            //int zerosToAdd = fileDto.Digits.Length == this._currentLeadingZeros
-            //    ? this._currentLeadingZeros
-            //    : this.MaxFileLength - fileDto.Digits.Length + this._currentLeadingZeros;
-
             return $"{new string('0', this._currentLeadingZeros)}{fileDto.Digits}";
         }
         #endregion
