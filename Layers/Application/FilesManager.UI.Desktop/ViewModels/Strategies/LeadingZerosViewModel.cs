@@ -143,7 +143,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
                             : fileDto.Zeros;         // Cases: "0.jpg" (if there is no name or digits but "no zeros" was requested. Prevent ".jpg")
             }
 
-            int zerosToAdd = fileDto.Digits.Length == this.MaxDigitLength  // MIN: "1" (Length: 1), MAX: "10" (Length: 2)
+            int zerosToAdd = fileDto.Digits.Length == this.MaxDigitLength  // For 2n => MIN: "1" (Length: 1), MAX: "10" (Length: 2)
                 ? this._currentLeadingZeros  // (Count: 1) => "0"
                 : this.MaxDigitLength + this._currentLeadingZeros - fileDto.Digits.Length;  // 2 (max) + 1 (count) - 1 (min) => "00" + "1"
 
