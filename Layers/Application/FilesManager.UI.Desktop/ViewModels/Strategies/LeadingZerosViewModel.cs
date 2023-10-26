@@ -64,6 +64,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             this.MaxDigitLength = Helper.GetMaxLength(
                 loadedFiles.Select(file =>
                     FilePathConverter.GetPathZerosDigitsExtension(file.Match).Digits));
+            // TODO: GetPathZerosDigitsExtension is used twice! (2nd time in GetNewFilePath())
 
             var result = RenamingResultDto.Failure();
             FileData file;
