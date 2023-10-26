@@ -7,7 +7,7 @@ using FilesManager.Core.Services.Writing;
 using FilesManager.UI.Common.Properties;
 using FilesManager.UI.Desktop.ViewModels.Base;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 
 namespace FilesManager.UI.Desktop.ViewModels.Strategies
@@ -78,8 +78,8 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         }
 
         #region Polymorphism
-        /// <inheritdoc cref="StrategyBase.Process(IList{FileData})"/>
-        internal override sealed RenamingResultDto Process(IList<FileData> loadedFiles)
+        /// <inheritdoc cref="StrategyBase.Process(ObservableCollection{FileData})"/>
+        internal override sealed RenamingResultDto Process(ObservableCollection<FileData> loadedFiles)
         {
             // -----------------------------------------
             // 1. Validate if there are any input errors
@@ -111,10 +111,11 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
 
                 if (result.IsSuccess)
                 {
-                    // NOTE: Removing the old and inserting the modified item is necessary to notify ObservableCollection<T> about item updates
-                    loadedFiles.RemoveAt(index);
-                    file.Path = result.NewFilePath;
-                    loadedFiles.Insert(index, file);
+                    UpdateFilesList(loadedFiles, index, () =>
+                    {
+                        file.Path = result.NewFilePath;
+                        return file;
+                    });
                 }
                 else
                 {
@@ -123,10 +124,13 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
                 }
             }
 
+            // ------------------------------
+            // 4. Finalization of the process
+            // ------------------------------
             if (result.IsSuccess)
             {
                 // Set the last number as the new start number
-                this._currentStartingNumber = this._currentStartingNumber is 0
+                this._currentStartingNumber = this._currentStartingNumber is ushort.MinValue
                     ? --this._currentStartingNumber  // Revert the effect of value overflow (ushort.MaxValue + 1 => 0). Keep the ushort.MaxValue
                     : this._currentStartingNumber;
             }

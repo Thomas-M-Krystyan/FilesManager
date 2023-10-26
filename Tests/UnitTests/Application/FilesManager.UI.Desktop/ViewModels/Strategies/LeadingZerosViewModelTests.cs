@@ -1,6 +1,7 @@
 ﻿using FilesManager.UI.Desktop.UnitTests._TestHelpers;
 using FilesManager.UI.Desktop.ViewModels.Strategies;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
+using System.Text.RegularExpressions;
 
 namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Strategies
 {
@@ -13,8 +14,22 @@ namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Strategies
             // Arrange
             StrategyBase strategy = new LeadingZerosViewModel
             {
-                LeadingZeros = data.LeadingZeros
+                LeadingZeros = data.LeadingZeros,
+                MaxDigitLength = GetMaxLength(data.TestNames)
             };
+
+            static int GetMaxLength(string[] testNames)
+            {
+                int maxLength = 0;
+
+                for (int name = 0; name < testNames.Length; name++)
+                {
+                    maxLength = Math.Max(maxLength,
+                        Regex.Match(testNames[name], @"(0*)(?<Digits>[0-9]+)?").Groups["Digits"].Value.Length);
+                }
+
+                return maxLength;
+            }
 
             // Act
             string[] actualPaths = data.TestNames.Select(name =>
@@ -105,6 +120,12 @@ namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Strategies
 
             // Zeros + Digits + Name
             yield return (56, new[] { "01Test", "2Test15" }, "2", new[] { @"C:\Drive\Folder\Subfolder\001Test.jpg", @"C:\Drive\Folder\Subfolder\002Test15.jpg" });
+
+            // Numbers
+            yield return (57, new[] { "010", "002" }, "3", new[] { @"C:\Drive\Folder\Subfolder\00010.jpg", @"C:\Drive\Folder\Subfolder\00002.jpg" });
+            yield return (58, new[] { "010", "002" }, "2", new[] { @"C:\Drive\Folder\Subfolder\0010.jpg",  @"C:\Drive\Folder\Subfolder\0002.jpg" });
+            yield return (59, new[] { "010", "002" }, "1", new[] { @"C:\Drive\Folder\Subfolder\010.jpg",   @"C:\Drive\Folder\Subfolder\002.jpg" });
+            yield return (60, new[] { "010", "002" }, "0", new[] { @"C:\Drive\Folder\Subfolder\10.jpg",   @"C:\Drive\Folder\Subfolder\2.jpg" });
         }
     }
 }

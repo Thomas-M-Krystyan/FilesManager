@@ -1,10 +1,13 @@
 ﻿using FilesManager.Core.Converters;
+using FilesManager.Core.Helpers;
 using FilesManager.Core.Models.DTOs.Files;
 using FilesManager.Core.Models.DTOs.Results;
 using FilesManager.Core.Models.POCOs;
+using FilesManager.Core.Services.Writing;
 using FilesManager.UI.Common.Properties;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace FilesManager.UI.Desktop.ViewModels.Strategies
@@ -40,65 +43,52 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         #endregion
 
         #region Properties
-        internal int MaxFileLength { get; set; }
+        internal int MaxDigitLength { get; set; }
         #endregion
 
-        /// <summary>
-        /// Renames given files adding a specific amount of leading zeros before the name.
-        /// </summary>
-        //private void RenameWithLeadingZeros()
-        //{
-        //    var result = RenamingResultDto.Failure();
-
-        //    // Validate input value (cannot be converted to small positive number; it's either too small, equal to "0", or too large)
-        //    if (byte.TryParse(this.LeadingZeros.Text, out byte zerosCount) &&
-        //        zerosCount >= 0 && zerosCount <= 7)
-        //    {
-        //        // Raw items from the files list
-        //        ListBoxItem[] listBoxItems = this.FilesList.Items.Cast<ListBoxItem>().ToArray();
-
-        //        // Paths converted into components
-        //        PathZerosDigitsExtensionDto[] filePaths = listBoxItems
-        //            .Select(fileItem => FilePathConverter.GetPathZerosDigitsExtension((string)fileItem.ToolTip))
-        //            .ToArray();
-
-        //        // Only digits components of the names
-        //        string[] filesNamesDigits = filePaths.Select(filePath => filePath.Digits)
-        //                                             .ToArray();
-
-        //        int maxDigitLength = Helper.GetMaxLength(filesNamesDigits);
-
-        //        // Process renaming of the file
-        //        for (int index = 0; index < this.FilesList.Items.Count; index++)
-        //        {
-        //            result = RenamingService.SetLeadingZeros((string)listBoxItems[index].ToolTip, filePaths[index],
-        //                                                     zerosCount, maxDigitLength);
-        //            // Validate renaming result
-        //            if (!result.IsSuccess)
-        //            {
-        //                break;
-        //            }
-
-        //            UpdateNameOnList(listBoxItems[index], result.NewFilePath);
-        //        }
-
-        //        // Reset input field
-        //        this.LeadingZeros.Text = string.Empty;
-        //    }
-        //    else
-        //    {
-        //        result = RenamingResultDto.Failure($"Invalid value in \"Leading zeros\": " +
-        //            $"{(string.IsNullOrWhiteSpace(this.LeadingZeros.Text) ? "Empty" : this.LeadingZeros.Text)}.");
-        //    }
-
-        //    DisplayPopup(result);
-        //}
-
         #region Polymorphism
-        /// <inheritdoc cref="StrategyBase.Process(IList{FileData})"/>
-        internal override sealed RenamingResultDto Process(IList<FileData> loadedFiles)
+        /// <inheritdoc cref="StrategyBase.Process(ObservableCollection{FileData})"/>
+        internal override sealed RenamingResultDto Process(ObservableCollection<FileData> loadedFiles)
         {
-            return RenamingResultDto.Success();
+            // -----------------------------------------
+            // 1. Validate if there are any input errors
+            // -----------------------------------------
+            if (this.HasErrors)
+            {
+                return RenamingResultDto.Failure(GetAllErrors());
+            }
+
+            // --------------------------------
+            // 2. Process renaming of the files
+            // --------------------------------
+            this.MaxDigitLength = Helper.GetMaxLength(
+                loadedFiles.Select(file =>
+                    FilePathConverter.GetPathZerosDigitsExtension(file.Match).Digits));
+
+            var result = RenamingResultDto.Failure();
+            FileData file;
+
+            for (int index = 0; index < loadedFiles.Count; index++)
+            {
+                file = loadedFiles[index];
+                result = WritingService.RenameFile(file.Path, GetNewFilePath(file.Match));
+
+                if (result.IsSuccess)
+                {
+                    UpdateFilesList(loadedFiles, index, () =>
+                    {
+                        file.Path = result.NewFilePath;
+                        return file;
+                    });
+                }
+            }
+
+            // ------------------------------
+            // 3. Finalization of the process
+            // ------------------------------
+            this.LeadingZeros = DefaultStartingNumber;
+
+            return result;
         }
 
         /// <inheritdoc cref="StrategyBase.Reset()"/>
@@ -152,7 +142,11 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
                             : fileDto.Zeros;         // Cases: "0.jpg" (if there is no name or digits but "no zeros" was requested. Prevent ".jpg")
             }
 
-            return $"{new string(char.Parse(DefaultStartingNumber), this._currentLeadingZeros)}{fileDto.Digits}";
+            int zerosToAdd = fileDto.Digits.Length == this.MaxDigitLength  // MIN: "1" (Length: 1), MAX: "10" (Length: 2)
+                ? this._currentLeadingZeros  // (Count: 1) => "0"
+                : this.MaxDigitLength + this._currentLeadingZeros - fileDto.Digits.Length;  // 2 (max) + 1 (count) - 1 (min) => "00" + "1"
+
+            return $"{new string(char.Parse(DefaultStartingNumber), zerosToAdd)}{fileDto.Digits}";
         }
         #endregion
     }

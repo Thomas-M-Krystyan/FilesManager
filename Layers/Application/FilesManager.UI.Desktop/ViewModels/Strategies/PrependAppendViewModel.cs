@@ -6,7 +6,7 @@ using FilesManager.Core.Models.POCOs;
 using FilesManager.UI.Common.Properties;
 using FilesManager.UI.Desktop.ViewModels.Base;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 
 namespace FilesManager.UI.Desktop.ViewModels.Strategies
@@ -91,8 +91,8 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         //}
 
         #region Polymorphism
-        /// <inheritdoc cref="StrategyBase.Process(IList{FileData})"/>
-        internal override sealed RenamingResultDto Process(IList<FileData> loadedFiles)
+        /// <inheritdoc cref="StrategyBase.Process(ObservableCollection{FileData})"/>
+        internal override sealed RenamingResultDto Process(ObservableCollection<FileData> loadedFiles)
         {
             return RenamingResultDto.Success();
         }

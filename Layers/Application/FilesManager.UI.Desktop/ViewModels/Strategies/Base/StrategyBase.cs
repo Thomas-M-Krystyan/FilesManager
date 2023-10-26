@@ -5,7 +5,7 @@ using FilesManager.UI.Common.Properties;
 using FilesManager.UI.Desktop.Utilities;
 using FilesManager.UI.Desktop.ViewModels.Base;
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 using System.Windows;
 
@@ -108,7 +108,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         /// <returns>
         ///   <inheritdoc cref="RenamingResultDto" path="/summary"/>
         /// </returns>
-        internal abstract RenamingResultDto Process(IList<FileData> loadedFiles);
+        internal abstract RenamingResultDto Process(ObservableCollection<FileData> loadedFiles);
 
         /// <summary>
         /// Gets the new file path for a file to be renamed.
@@ -134,25 +134,62 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         #endregion
 
         #region Concrete (Validation)
-        protected void ValidateIllegalChars(string propertyName, string value)
+        /// <summary>
+        /// Validates if the value of the specified property contains any illegal characters.
+        /// <para>
+        ///   A specific <see cref="Action"/>s will be invoked in case of success or failure.
+        /// </para>
+        /// </summary>
+        /// <param name="propertyName">The name of the property.</param>
+        /// <param name="propertyValue">The value of the property.</param>
+        protected void ValidateIllegalChars(string propertyName, string propertyValue)
         {
-            _ = Validate.ContainInvalidCharacters(value,
+            _ = Validate.ContainInvalidCharacters(propertyValue,
                 () => ClearErrors(propertyName),
-                () => AddError(propertyName, Resources.ERROR_Validation_Field_ContainsIllegalCharacter, value));
+                () => AddError(propertyName, Resources.ERROR_Validation_Field_ContainsIllegalCharacter, propertyValue));
         }
 
-        protected void ValidateOnlyNumbers(string propertyName, string value, out ushort validStartingNumber, int? maxLimit = null)
+        /// <summary>
+        /// Validates if the value of the specified property contains only numbers (optional: within a specified maximum range).
+        /// <para>
+        ///   A specific <see cref="Action"/>s will be invoked in case of success or failure.
+        /// </para>
+        /// </summary>
+        /// <param name="propertyName">The name of the property.</param>
+        /// <param name="propertyValue">The value of the property.</param>
+        /// <param name="number">The result of string to <paramref name="TNumber"/> conversion.</param>
+        /// <param name="maxLimit">The maximum limit of the output number.</param>
+        protected void ValidateOnlyNumbers<TNumber>(string propertyName, string propertyValue, out TNumber number, TNumber? maxLimit = null)
+            where TNumber : struct, IComparable, IComparable<TNumber>, IConvertible, IEquatable<TNumber>, IFormattable  // NOTE: Numeric type
         {
-            bool isSuccess = Validate.IsUshort(value, out validStartingNumber,
+            bool isSuccess = Validate.Is(propertyValue, out number,
                 () => ClearErrors(propertyName),
-                () => AddError(propertyName, Resources.ERROR_Validation_Field_ContainsNotDigits, value));
+                () => AddError(propertyName, Resources.ERROR_Validation_Field_ContainsNotDigits, propertyValue));
 
             if (isSuccess && maxLimit != null)
             {
-                _ = Validate.WithinLimit(validStartingNumber, maxLimit.Value,
+                _ = Validate.WithinLimit(number, maxLimit.Value,
                 () => ClearErrors(propertyName),
                 () => AddError(propertyName, Resources.ERROR_Validation_Field_ExceedsMaxLimit, maxLimit));
             }
+        }
+        #endregion
+
+        #region Concrete (Logic)
+        /// <summary>
+        /// Updates the <see cref="ObservableCollection{T}"/> of files.
+        /// </summary>
+        /// <param name="loadedFiles">The list of files to by updated.</param>
+        /// <param name="index">The index of the element to be modified.</param>
+        /// <param name="updateLogic">The specific logic how to update selected element.</param>
+        protected internal static void UpdateFilesList(ObservableCollection<FileData> loadedFiles, int index, Func<FileData> updateLogic)
+        {
+            loadedFiles.RemoveAt(index);  // NOTE: Triggers OnCollectionChanged event
+
+            // Update the file
+            FileData file = updateLogic.Invoke();
+
+            loadedFiles.Insert(index, file);  // NOTE: Triggers OnCollectionChanged event
         }
         #endregion
     }
