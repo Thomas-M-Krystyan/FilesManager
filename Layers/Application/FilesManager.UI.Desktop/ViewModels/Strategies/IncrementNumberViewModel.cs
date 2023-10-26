@@ -1,6 +1,7 @@
 ﻿using FilesManager.Core.Converters;
 using FilesManager.Core.Extensions;
 using FilesManager.Core.Models.DTOs.Files;
+using FilesManager.Core.Models.DTOs.Files.Abstractions;
 using FilesManager.Core.Models.DTOs.Results;
 using FilesManager.Core.Models.POCOs;
 using FilesManager.Core.Services.Writing;
@@ -8,7 +9,6 @@ using FilesManager.UI.Common.Properties;
 using FilesManager.UI.Desktop.ViewModels.Base;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
 using System.Collections.ObjectModel;
-using System.Text.RegularExpressions;
 
 namespace FilesManager.UI.Desktop.ViewModels.Strategies
 {
@@ -16,7 +16,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
     /// The strategy to update the file name by using prefix, incremented number, and postfix.
     /// </summary>
     /// <seealso cref="ViewModelBase"/>
-    internal sealed class IncrementNumberViewModel : StrategyBase
+    internal sealed class IncrementNumberViewModel : StrategyBase<BasePathDto>
     {
         #region Texts
         public static readonly string Method_Header = Resources.Header_Method_IncrementNumber;
@@ -103,11 +103,14 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             // --------------------------------
             var result = RenamingResultDto.Failure();
             FileData file;
+            PathNameExtensionDto dto;
 
             for (int index = 0; index < loadedFiles.Count; index++)
             {
                 file = loadedFiles[index];
-                result = WritingService.RenameFile(file.Path, GetNewFilePath(file.Match));
+                dto = FilePathConverter.GetPathNameExtension(file.Match);
+
+                result = WritingService.RenameFile(file.Path, GetNewFilePath(dto));
 
                 if (result.IsSuccess)
                 {
@@ -148,11 +151,9 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             base.Reset();
         }
 
-        /// <inheritdoc cref="StrategyBase.GetNewFilePath(Match)"/>
-        protected internal override sealed string GetNewFilePath(Match filePathMatch)
+        /// <inheritdoc cref="StrategyBase{TFileDto}.GetNewFilePath(TFileDto)"/>
+        protected internal override sealed string GetNewFilePath(BasePathDto fileDto)
         {
-            PathNameExtensionDto fileDto = FilePathConverter.GetPathNameExtension(filePathMatch);
-
             return FilePathConverter.GetFilePath(
                 path: fileDto.Path,
                 name: $"{this.NamePrefix.GetValueOrEmpty()}" +

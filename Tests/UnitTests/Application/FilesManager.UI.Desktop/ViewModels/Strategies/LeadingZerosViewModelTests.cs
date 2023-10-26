@@ -1,4 +1,6 @@
-﻿using FilesManager.UI.Desktop.UnitTests._TestHelpers;
+﻿using FilesManager.Core.Helpers;
+using FilesManager.Core.Models.DTOs.Files;
+using FilesManager.UI.Desktop.UnitTests._TestHelpers;
 using FilesManager.UI.Desktop.ViewModels.Strategies;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
 using System.Text.RegularExpressions;
@@ -12,29 +14,20 @@ namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Strategies
         public void GetNewFilePath_ForGivenInput_ReturnsExpectedFileName((int Id, string[] TestNames, string LeadingZeros, string[] ExpectedPaths) data)
         {
             // Arrange
-            StrategyBase strategy = new LeadingZerosViewModel
+            StrategyBase<PathZerosDigitsExtensionDto> strategy = new LeadingZerosViewModel
             {
                 LeadingZeros = data.LeadingZeros,
-                MaxDigitLength = GetMaxLength(data.TestNames)
+                MaxDigitLength = data.TestNames.Select(name =>
+                    #pragma warning disable SYSLIB1045  // Do not convert to 'GeneratedRegexAttribute'
+                    Regex.Match(name, @"(0*)(?<Digits>[0-9]+)?").Groups["Digits"].Value)
+                    #pragma warning restore SYSLIB1045
+                    .GetMaxLength()
             };
-
-            static int GetMaxLength(string[] testNames)
-            {
-                int maxLength = 0;
-
-                for (int name = 0; name < testNames.Length; name++)
-                {
-                    maxLength = Math.Max(maxLength,
-                        Regex.Match(testNames[name], @"(0*)(?<Digits>[0-9]+)?").Groups["Digits"].Value.Length);
-                }
-
-                return maxLength;
-            }
 
             // Act
             string[] actualPaths = data.TestNames.Select(name =>
                 strategy.GetNewFilePath(
-                    TestHelpers.GetMockedMatch(@"C:\Drive\Folder\Subfolder\", name, ".jpg")))
+                    TestHelpers.GetMockedDto(@"C:\Drive\Folder\Subfolder\", name, ".jpg")))
                     .ToArray();
 
             // Assert

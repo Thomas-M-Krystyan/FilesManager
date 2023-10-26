@@ -1,10 +1,10 @@
-﻿using FilesManager.Core.Models.DTOs.Results;
+﻿using FilesManager.Core.Models.DTOs.Files.Abstractions;
+using FilesManager.Core.Models.DTOs.Results;
 using FilesManager.Core.Models.POCOs;
 using FilesManager.Core.Validation;
 using FilesManager.UI.Common.Properties;
 using FilesManager.UI.Desktop.Utilities;
 using FilesManager.UI.Desktop.ViewModels.Base;
-using System;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -15,7 +15,8 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
     /// Base class for all file manipulation strategies.
     /// </summary>
     /// <seealso cref="ViewModelBase"/>
-    internal abstract class StrategyBase : ViewModelBase
+    internal abstract class StrategyBase<TFileDto> : ViewModelBase
+        where TFileDto : BasePathDto
     {
         #region Texts
         public static readonly string RadioButton_Tooltip = Resources.Tooltip_RadioButton;
@@ -113,11 +114,13 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         /// <summary>
         /// Gets the new file path for a file to be renamed.
         /// </summary>
-        /// <param name="filePathMatch">The file path RegEx match.</param>
+        /// <param name="fileDto">The file DTO composed from RegEx <see cref="Match"/>.</param>
         /// <returns>
         ///   The new file path (changed by the current renaming strategy).
         /// </returns>
-        protected internal abstract string GetNewFilePath(Match filePathMatch);
+        /// <exception cref="ArgumentException"/>
+        /// <exception cref="ArgumentNullException"/>
+        protected internal abstract string GetNewFilePath(TFileDto fileDto);
         #endregion
 
         #region Virtual

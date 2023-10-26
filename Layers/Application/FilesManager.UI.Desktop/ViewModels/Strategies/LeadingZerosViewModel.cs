@@ -1,5 +1,4 @@
 ﻿using FilesManager.Core.Converters;
-using FilesManager.Core.Helpers;
 using FilesManager.Core.Models.DTOs.Files;
 using FilesManager.Core.Models.DTOs.Results;
 using FilesManager.Core.Models.POCOs;
@@ -8,7 +7,6 @@ using FilesManager.UI.Common.Properties;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace FilesManager.UI.Desktop.ViewModels.Strategies
 {
@@ -16,7 +14,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
     /// The strategy to update the file name by appending to it leading zeroes.
     /// </summary>
     /// <seealso cref="StrategyBase"/>
-    internal sealed class LeadingZerosViewModel : StrategyBase
+    internal sealed class LeadingZerosViewModel : StrategyBase<PathZerosDigitsExtensionDto>
     {
         #region Texts
         public static readonly string Method_Header = Resources.Header_Method_LeadingZeros;
@@ -59,20 +57,32 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             }
 
             // --------------------------------
-            // 2. Process renaming of the files
+            // 2. Preparing the processing data
             // --------------------------------
-            this.MaxDigitLength = Helper.GetMaxLength(
-                loadedFiles.Select(file =>
-                    FilePathConverter.GetPathZerosDigitsExtension(file.Match).Digits));
-            // TODO: GetPathZerosDigitsExtension is used twice! (2nd time in GetNewFilePath())
+            this.MaxDigitLength = default;
 
+            PathZerosDigitsExtensionDto[] dtos = loadedFiles.Select(file =>  // NOTE: Executing both logics at once
+            {
+                // Conversion to DTO
+                PathZerosDigitsExtensionDto dto = FilePathConverter.GetPathZerosDigitsExtension(file.Match);
+                
+                // Counting max length
+                this.MaxDigitLength = Math.Max(this.MaxDigitLength, dto.Digits.Length);
+
+                return dto;
+            })
+            .ToArray();
+
+            // --------------------------------
+            // 3. Process renaming of the files
+            // --------------------------------
             var result = RenamingResultDto.Failure();
             FileData file;
 
             for (int index = 0; index < loadedFiles.Count; index++)
             {
                 file = loadedFiles[index];
-                result = WritingService.RenameFile(file.Path, GetNewFilePath(file.Match));
+                result = WritingService.RenameFile(file.Path, GetNewFilePath(dtos[index]));
 
                 if (result.IsSuccess)
                 {
@@ -85,7 +95,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             }
 
             // ------------------------------
-            // 3. Finalization of the process
+            // 4. Finalization of the process
             // ------------------------------
             this.LeadingZeros = DefaultStartingNumber;
 
@@ -100,11 +110,9 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             base.Reset();
         }
 
-        /// <inheritdoc cref="StrategyBase.GetNewFilePath(Match)"/>
-        protected internal override sealed string GetNewFilePath(Match filePathMatch)
+        /// <inheritdoc cref="StrategyBase{TFileDto}.GetNewFilePath(TFileDto)"/>
+        protected internal override sealed string GetNewFilePath(PathZerosDigitsExtensionDto fileDto)
         {
-            PathZerosDigitsExtensionDto fileDto = FilePathConverter.GetPathZerosDigitsExtension(filePathMatch);
-
             return FilePathConverter.GetFilePath(
                 path: fileDto.Path,
                 name: $"{GetDigitsWithLeadingZeros(fileDto)}" +
@@ -145,7 +153,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
 
             int zerosToAdd = fileDto.Digits.Length == this.MaxDigitLength  // For 2n => MIN: "1" (Length: 1), MAX: "10" (Length: 2)
                 ? this._currentLeadingZeros  // (Count: 1) => "0"
-                : this.MaxDigitLength + this._currentLeadingZeros - fileDto.Digits.Length;  // 2 (max) + 1 (count) - 1 (min) => "00" + "1"
+                : this.MaxDigitLength + this._currentLeadingZeros - fileDto.Digits.Length;  // 2 (max len) + 1 (count) - 1 (min len) => "00" + "1"
 
             return $"{new string(char.Parse(DefaultStartingNumber), zerosToAdd)}{fileDto.Digits}";
         }

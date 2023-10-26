@@ -9,7 +9,7 @@ namespace FilesManager.Core.UnitTests.Helpers
         public void GetMaxLength_ForValidInput_ReturnsExpectedMaxFileLength((string[] Names, int ExpectedCount) testData)
         {
             // Act
-            int result = Helper.GetMaxLength(testData.Names);
+            int result = testData.Names.GetMaxLength();
 
             // Assert
             Assert.That(result, Is.EqualTo(testData.ExpectedCount));

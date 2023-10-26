@@ -7,7 +7,6 @@ using FilesManager.UI.Common.Properties;
 using FilesManager.UI.Desktop.ViewModels.Base;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
 using System.Collections.ObjectModel;
-using System.Text.RegularExpressions;
 
 namespace FilesManager.UI.Desktop.ViewModels.Strategies
 {
@@ -15,7 +14,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
     /// The strategy to add text before and after the original file name.
     /// </summary>
     /// <seealso cref="ViewModelBase"/>
-    internal sealed class PrependAppendViewModel : StrategyBase
+    internal sealed class PrependAppendViewModel : StrategyBase<PathNameExtensionDto>
     {
         #region Texts
         public static readonly string Method_Header = Resources.Header_Method_PrependAppend;
@@ -60,6 +59,9 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         internal PrependAppendViewModel() : base()
         {
         }
+
+        // PathNameExtensionDto fileDto = FilePathConverter.GetPathNameExtension(file.Match);
+
 
         //private void RenameWithPrependAndAppendedText()
         //{
@@ -106,11 +108,9 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             base.Reset();
         }
 
-        /// <inheritdoc cref="StrategyBase.GetNewFilePath(Match)"/>
-        protected internal override sealed string GetNewFilePath(Match filePathMatch)
+        /// <inheritdoc cref="StrategyBase{TFileDto}.GetNewFilePath(TFileDto)"/>
+        protected internal override sealed string GetNewFilePath(PathNameExtensionDto fileDto)
         {
-            PathNameExtensionDto fileDto = FilePathConverter.GetPathNameExtension(filePathMatch);
-
             return FilePathConverter.GetFilePath(
                 path: fileDto.Path,
                 name: $"{this.PrependName.GetValueOrEmpty()}" +

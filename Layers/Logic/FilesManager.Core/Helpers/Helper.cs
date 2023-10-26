@@ -12,16 +12,9 @@
         /// <returns>
         ///   The size of the longest <see langword="string"/>.
         /// </returns>
-        internal static int GetMaxLength(IEnumerable<string> inputs)
+        internal static int GetMaxLength(this IEnumerable<string> inputs)
         {
-            int count = 0;
-
-            foreach (string input in inputs)
-            {
-                count = Math.Max(count, input.Length);
-            }
-
-            return count;
+            return inputs.Max(input => input.Length);
         }
     }
 }

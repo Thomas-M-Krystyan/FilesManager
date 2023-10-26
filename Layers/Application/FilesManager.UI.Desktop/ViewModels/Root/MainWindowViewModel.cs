@@ -5,7 +5,6 @@ using FilesManager.UI.Common.Properties;
 using FilesManager.UI.Desktop.Utilities;
 using FilesManager.UI.Desktop.ViewModels.Base;
 using FilesManager.UI.Desktop.ViewModels.Strategies;
-using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
 using Microsoft.Xaml.Behaviors.Core;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -29,7 +28,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         #endregion
 
         #region Fields
-        private StrategyBase? _activeStrategy;
+        private dynamic? _activeStrategy;
         #endregion
 
         // NOTE: All binding elements should be public

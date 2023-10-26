@@ -1,4 +1,5 @@
-﻿using FilesManager.UI.Common.Properties;
+﻿using FilesManager.Core.Models.DTOs.Files;
+using FilesManager.UI.Common.Properties;
 using FilesManager.UI.Desktop.UnitTests._TestHelpers;
 using FilesManager.UI.Desktop.ViewModels.Strategies;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
@@ -14,7 +15,7 @@ namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Strategies
         public void GetNewFilePath_ForValidPath_AndPrepend_AddsPrependToChangedName(string testPrepend, string expectedPrepend)
         {
             // Arrange
-            StrategyBase strategy = new PrependAppendViewModel
+            StrategyBase<PathNameExtensionDto> strategy = new PrependAppendViewModel
             {
                 PrependName = testPrepend,
                 AppendName = string.Empty
@@ -24,7 +25,7 @@ namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Strategies
 
             // Act
             string actualNewFilePath = strategy.GetNewFilePath(
-                TestHelpers.GetMockedMatch(@"C:\Drive\Folder\Subfolder\", "Test", ".jpg"));
+                TestHelpers.GetMockedDto(@"C:\Drive\Folder\Subfolder\", "Test", ".jpg"));
 
             // Assert
             Assert.That(actualNewFilePath, Is.EqualTo(expectedNewFilePath));
@@ -36,7 +37,7 @@ namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Strategies
         public void GetNewFilePath_ForValidPath_AndAppend_AddsAppendToChangedName(string testAppend, string expectedAppend)
         {
             // Arrange
-            StrategyBase strategy = new PrependAppendViewModel
+            StrategyBase<PathNameExtensionDto> strategy = new PrependAppendViewModel
             {
                 PrependName = string.Empty,
                 AppendName = testAppend
@@ -46,7 +47,7 @@ namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Strategies
 
             // Act
             string actualNewFilePath = strategy.GetNewFilePath(
-                TestHelpers.GetMockedMatch(@"C:\Drive\Folder\Subfolder\", "Test", ".jpg"));
+                TestHelpers.GetMockedDto(@"C:\Drive\Folder\Subfolder\", "Test", ".jpg"));
 
             // Assert
             Assert.That(actualNewFilePath, Is.EqualTo(expectedNewFilePath));
@@ -66,10 +67,10 @@ namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Strategies
                 AppendName = "z"
             };
 
-            Match testMatch = TestHelpers.GetMockedMatch(testPath, testName, testExtension);
+            PathZerosDigitsExtensionDto dto = TestHelpers.GetMockedDto(testPath, testName, testExtension);
 
             // Act & Assert
-            InvalidOperationException? exception = Assert.Throws<InvalidOperationException>(() => strategy.GetNewFilePath(testMatch));
+            InvalidOperationException? exception = Assert.Throws<InvalidOperationException>(() => strategy.GetNewFilePath(dto));
 
             Assert.That(exception?.Message?.StartsWith(Resources.ERROR_Internal_InvalidFilePathDto), Is.True);
         }
