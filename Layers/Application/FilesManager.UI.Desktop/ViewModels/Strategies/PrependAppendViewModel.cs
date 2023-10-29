@@ -62,7 +62,6 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
 
         // PathNameExtensionDto fileDto = FilePathConverter.GetPathNameExtension(file.Match);
 
-
         //private void RenameWithPrependAndAppendedText()
         //{
         //    // Validate strings which are going to be used in file name
@@ -93,13 +92,13 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         //}
 
         #region Polymorphism
-        /// <inheritdoc cref="StrategyBase.Process(ObservableCollection{FileData})"/>
+        /// <inheritdoc cref="StrategyBase{TFileDto}.Process(ObservableCollection{FileData})"/>
         internal override sealed RenamingResultDto Process(ObservableCollection<FileData> loadedFiles)
         {
             return RenamingResultDto.Success();
         }
 
-        /// <inheritdoc cref="StrategyBase.Reset()"/>
+        /// <inheritdoc cref="StrategyBase{TFileDto}.Reset()"/>
         protected override sealed void Reset()  // NOTE: Speficic behavior for this concrete strategy. Overloading restricted
         {
             this.PrependName = string.Empty;

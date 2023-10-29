@@ -78,7 +78,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         }
 
         #region Polymorphism
-        /// <inheritdoc cref="StrategyBase.Process(ObservableCollection{FileData})"/>
+        /// <inheritdoc cref="StrategyBase{TFileDto}.Process(ObservableCollection{FileData}))"/>
         internal override sealed RenamingResultDto Process(ObservableCollection<FileData> loadedFiles)
         {
             // -----------------------------------------
@@ -142,7 +142,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             return result;
         }
 
-        /// <inheritdoc cref="StrategyBase.Reset()"/>
+        /// <inheritdoc cref="StrategyBase{TFileDto}.Reset()"/>
         protected override sealed void Reset()  // NOTE: Speficic behavior for this concrete strategy. Overloading restricted
         {
             this.NamePrefix = string.Empty;
