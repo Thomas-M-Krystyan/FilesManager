@@ -59,10 +59,15 @@ namespace FilesManager.Core.Converters
         /// <summary>
         /// Converts path + name + extension back into a consolidated file's <see cref="Path"/>.
         /// </summary>
-        /// <exception cref="ArgumentException"/>
-        /// <exception cref="ArgumentNullException"/>
         internal static string GetFilePath(string path, string name, string extension)
         {
+            if (string.IsNullOrEmpty(path) ||
+                string.IsNullOrEmpty(name) ||
+                string.IsNullOrEmpty(extension))
+            {
+                return string.Empty;
+            }
+
             return Path.Combine(path, name + extension);
         }
     }

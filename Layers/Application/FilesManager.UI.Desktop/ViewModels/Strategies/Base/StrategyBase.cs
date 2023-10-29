@@ -110,8 +110,6 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         ///   <inheritdoc cref="RenamingResultDto" path="/summary"/>
         /// </returns>
         /// <exception cref="InvalidOperationException"/>
-        /// <exception cref="ArgumentException"/>
-        /// <exception cref="ArgumentNullException"/>
         internal abstract RenamingResultDto Process(ObservableCollection<FileData> loadedFiles);
 
         /// <summary>
@@ -121,8 +119,6 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         /// <returns>
         ///   The new file path (changed by the current renaming strategy).
         /// </returns>
-        /// <exception cref="ArgumentException"/>
-        /// <exception cref="ArgumentNullException"/>
         protected internal abstract string GetNewFilePath(TFileDto fileDto);
         #endregion
 
