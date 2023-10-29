@@ -19,6 +19,7 @@ namespace FilesManager.Core.Converters
         /// <returns>
         ///   Empty <see cref="PathNameExtensionDto"/> if the provided file path is invalid.
         /// </returns>
+        /// <exception cref="InvalidOperationException"/>
         internal static PathNameExtensionDto GetPathNameExtension(Match filePathMatch)
         {
             return filePathMatch.Success
@@ -37,6 +38,7 @@ namespace FilesManager.Core.Converters
         /// <returns>
         ///   Empty <see cref="PathNameExtensionDto"/> if the provided file path is invalid.
         /// </returns>
+        /// <exception cref="InvalidOperationException"/>
         internal static PathZerosDigitsExtensionDto GetPathZerosDigitsExtension(Match filePathMatch)
         {
             // NOTE: Split the file name into dedicated zeros, digits, and name groups

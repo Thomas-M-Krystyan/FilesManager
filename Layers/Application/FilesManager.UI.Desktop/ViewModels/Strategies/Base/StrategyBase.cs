@@ -109,6 +109,9 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         /// <returns>
         ///   <inheritdoc cref="RenamingResultDto" path="/summary"/>
         /// </returns>
+        /// <exception cref="InvalidOperationException"/>
+        /// <exception cref="ArgumentException"/>
+        /// <exception cref="ArgumentNullException"/>
         internal abstract RenamingResultDto Process(ObservableCollection<FileData> loadedFiles);
 
         /// <summary>
@@ -185,7 +188,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         /// <param name="loadedFiles">The list of files to by updated.</param>
         /// <param name="index">The index of the element to be modified.</param>
         /// <param name="updateLogic">The specific logic how to update selected element.</param>
-        protected internal static void UpdateFilesList(ObservableCollection<FileData> loadedFiles, int index, Func<FileData> updateLogic)
+        protected internal static void UpdateFilesList(ObservableCollection<FileData> loadedFiles, ushort index, Func<FileData> updateLogic)
         {
             loadedFiles.RemoveAt(index);  // NOTE: Triggers OnCollectionChanged event
 
