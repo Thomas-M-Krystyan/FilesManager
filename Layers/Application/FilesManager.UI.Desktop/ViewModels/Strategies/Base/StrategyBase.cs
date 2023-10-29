@@ -190,6 +190,11 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         /// <param name="updateLogic">The specific logic how to update selected element.</param>
         protected internal static void UpdateFilesList(ObservableCollection<FileData> loadedFiles, ushort index, Func<FileData> updateLogic)
         {
+            if (index > loadedFiles.Count - 1)
+            {
+                return;  // Index would be out of range
+            }
+
             loadedFiles.RemoveAt(index);  // NOTE: Triggers OnCollectionChanged event
 
             // Update the file
