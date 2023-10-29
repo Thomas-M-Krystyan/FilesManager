@@ -19,7 +19,7 @@ namespace FilesManager.Core.Services.Writing
 
                 return RenamingResultDto.Success(newFilePath);
             }
-            catch (Exception exception)
+            catch (Exception exception)  // 8 types of exceptions
             {
                 return RenamingResultDto.Failure(exception.Message);
             }
