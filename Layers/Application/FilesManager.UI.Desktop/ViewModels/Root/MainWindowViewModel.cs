@@ -110,6 +110,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         /// <summary>
         /// Handles subscribed <see cref="LoadFiles(object)"/> action.
         /// </summary>
+        /// <exception cref="InvalidOperationException"/>
         public ICommand LoadFilesCommand => new ActionCommand(LoadFiles);
 
         /// <summary>
@@ -197,6 +198,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         ///   The event's argument (<see cref="DragEventArgs"/>) passed
         ///   when the specific trigger was activated on the XAML side.
         /// </param>
+        /// <exception cref="InvalidOperationException"/>
         private void LoadFiles(object parameter)
         {
             if (parameter is DragEventArgs dragEvent &&

@@ -18,19 +18,25 @@ namespace FilesManager.Core.Validation
         /// <returns>
         ///   <see langword="true"/> if the file path is valid; otherwise, <see langword="false"/>.
         /// </returns>
-        /// <exception cref="RegexMatchTimeoutException" />
         internal static bool IsFilePathValid(string filePath, out Match filePathMatch)
         {
-            if (string.IsNullOrWhiteSpace(filePath))
+            filePathMatch = Match.Empty;
+
+            try
             {
-                filePathMatch = Match.Empty;
-                
+                if (string.IsNullOrWhiteSpace(filePath))
+                {
+                    return false;
+                }
+
+                filePathMatch = RegexPatterns.FileComponentsPattern().Match(filePath);
+
+                return filePathMatch.Success;
+            }
+            catch
+            {
                 return false;
             }
-
-            filePathMatch = RegexPatterns.FileComponentsPattern().Match(filePath);
-
-            return filePathMatch.Success;
         }
 
         /// <summary>
@@ -42,21 +48,27 @@ namespace FilesManager.Core.Validation
         /// <returns>
         ///   <inheritdoc cref="Regex.IsMatch(string)"/>
         /// </returns>
-        /// <exception cref="RegexMatchTimeoutException" />
         internal static bool ContainInvalidCharacters(string textInput, Action? successAction = null, Action? failureAction = null)
         {
-            bool isFailure = RegexPatterns.InvalidCharactersPattern.IsMatch(textInput);
-
-            if (isFailure)
+            try
             {
-                failureAction?.Invoke();
-            }
-            else
-            {
-                successAction?.Invoke();
-            }
+                bool isFailure = RegexPatterns.InvalidCharactersPattern.IsMatch(textInput);
 
-            return isFailure;
+                if (isFailure)
+                {
+                    failureAction?.Invoke();
+                }
+                else
+                {
+                    successAction?.Invoke();
+                }
+
+                return isFailure;
+            }
+            catch
+            {
+                return true;
+            }
         }
 
         /// <summary>

@@ -23,6 +23,7 @@ namespace FilesManager.Core.Validation
         /// <summary>
         /// Captures invalid characters in files names.
         /// </summary>
+        /// <exception cref="ArgumentNullException"/>
         internal static readonly Regex InvalidCharactersPattern = new("[" +
             $"{Regex.Escape(new string(Path.GetInvalidFileNameChars()))}" +
             "]", RegexOptions.Compiled);
