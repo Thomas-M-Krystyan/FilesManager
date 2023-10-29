@@ -109,7 +109,6 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         /// <returns>
         ///   <inheritdoc cref="RenamingResultDto" path="/summary"/>
         /// </returns>
-        /// <exception cref="InvalidOperationException"/>
         internal abstract RenamingResultDto Process(ObservableCollection<FileData> loadedFiles);
 
         /// <summary>

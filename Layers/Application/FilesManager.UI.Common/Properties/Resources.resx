@@ -129,10 +129,6 @@
     <value>Reset</value>
     <comment>XAML</comment>
   </data>
-  <data name="ERROR_Internal_InvalidFilePathDto" xml:space="preserve">
-    <value>The file was't parsed properly by RegEx in FilePathConverter</value>
-    <comment>Exception message</comment>
-  </data>
   <data name="ERROR_Internal_PropertyOrMessageAreEmpty" xml:space="preserve">
     <value>The property name or error message shouldn't be empty!</value>
     <comment>Exception message</comment>

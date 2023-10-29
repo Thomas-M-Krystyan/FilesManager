@@ -19,14 +19,11 @@ namespace FilesManager.Core.Converters
         /// <returns>
         ///   Empty <see cref="PathNameExtensionDto"/> if the provided file path is invalid.
         /// </returns>
-        /// <exception cref="InvalidOperationException"/>
         internal static PathNameExtensionDto GetPathNameExtension(Match filePathMatch)
         {
-            return filePathMatch.Success
-                ? new PathNameExtensionDto(path: filePathMatch.Value(RegexPatterns.PathGroup),
-                                           name: filePathMatch.Value(RegexPatterns.NameGroup),
-                                           extension: filePathMatch.Value(RegexPatterns.ExtensionGroup))
-                : throw new InvalidOperationException(Resources.ERROR_Internal_InvalidFilePathDto);
+            return new PathNameExtensionDto(path:      filePathMatch.Value(RegexPatterns.PathGroup),
+                                            name:      filePathMatch.Value(RegexPatterns.NameGroup),
+                                            extension: filePathMatch.Value(RegexPatterns.ExtensionGroup));
         }
         #endregion
 
@@ -38,21 +35,17 @@ namespace FilesManager.Core.Converters
         /// <returns>
         ///   Empty <see cref="PathNameExtensionDto"/> if the provided file path is invalid.
         /// </returns>
-        /// <exception cref="InvalidOperationException"/>
         internal static PathZerosDigitsExtensionDto GetPathZerosDigitsExtension(Match filePathMatch)
         {
             // NOTE: Split the file name into dedicated zeros, digits, and name groups
             Match digitsNameMatch = RegexPatterns.DigitsNamePattern().Match(
                 filePathMatch.Value(RegexPatterns.NameGroup));
 
-            return digitsNameMatch.Success
-                ? new PathZerosDigitsExtensionDto(
-                    path: filePathMatch.Value(RegexPatterns.PathGroup),
-                    zeros: digitsNameMatch.Value(RegexPatterns.ZerosGroup),
-                    digits: digitsNameMatch.Value(RegexPatterns.DigitsGroup),
-                    name: digitsNameMatch.Value(RegexPatterns.NameGroup),
-                    extension: filePathMatch.Value(RegexPatterns.ExtensionGroup))
-                : throw new InvalidOperationException(Resources.ERROR_Internal_InvalidFilePathDto);
+            return new PathZerosDigitsExtensionDto(path:      filePathMatch.Value(RegexPatterns.PathGroup),
+                                                   zeros:     digitsNameMatch.Value(RegexPatterns.ZerosGroup),
+                                                   digits:    digitsNameMatch.Value(RegexPatterns.DigitsGroup),
+                                                   name:      digitsNameMatch.Value(RegexPatterns.NameGroup),
+                                                   extension: filePathMatch.Value(RegexPatterns.ExtensionGroup));
         }
         #endregion
 

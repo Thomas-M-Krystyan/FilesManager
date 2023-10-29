@@ -88,15 +88,6 @@ namespace FilesManager.UI.Common.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The file was&apos;t parsed properly by RegEx in FilePathConverter.
-        /// </summary>
-        public static string ERROR_Internal_InvalidFilePathDto {
-            get {
-                return ResourceManager.GetString("ERROR_Internal_InvalidFilePathDto", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The property name or error message shouldn&apos;t be empty!.
         /// </summary>
         public static string ERROR_Internal_PropertyOrMessageAreEmpty {
