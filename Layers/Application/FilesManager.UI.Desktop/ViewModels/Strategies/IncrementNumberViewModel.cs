@@ -105,7 +105,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             FileData file;
             PathNameExtensionDto dto;
 
-            for (int index = 0; index < loadedFiles.Count; index++)
+            for (ushort index = 0; index < loadedFiles.Count; index++)
             {
                 file = loadedFiles[index];
                 dto = FilePathConverter.GetPathNameExtension(file.Match);

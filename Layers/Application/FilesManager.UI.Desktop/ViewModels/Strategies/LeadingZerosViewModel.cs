@@ -79,7 +79,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             var result = RenamingResultDto.Failure();
             FileData file;
 
-            for (int index = 0; index < loadedFiles.Count; index++)
+            for (ushort index = 0; index < loadedFiles.Count; index++)
             {
                 file = loadedFiles[index];
                 result = WritingService.RenameFile(file.Path, GetNewFilePath(dtos[index]));
