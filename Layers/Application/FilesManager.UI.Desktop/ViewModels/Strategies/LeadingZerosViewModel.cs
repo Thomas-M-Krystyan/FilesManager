@@ -59,7 +59,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             // --------------------------------
             // 2. Preparing the processing data
             // --------------------------------
-            this.MaxDigitLength = default;
+            this.MaxDigitLength = default;  // Reset value
 
             PathZerosDigitsExtensionDto[] dtos = loadedFiles.Select(file =>  // NOTE: Executing both logics at once
             {
@@ -89,6 +89,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
                     UpdateFilesList(loadedFiles, index, () =>
                     {
                         file.Path = result.NewFilePath;
+
                         return file;
                     });
                 }

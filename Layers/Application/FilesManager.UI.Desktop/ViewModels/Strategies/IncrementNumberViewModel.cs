@@ -117,6 +117,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
                     UpdateFilesList(loadedFiles, index, () =>
                     {
                         file.Path = result.NewFilePath;
+
                         return file;
                     });
                 }
