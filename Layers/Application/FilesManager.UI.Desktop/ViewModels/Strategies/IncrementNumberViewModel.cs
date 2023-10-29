@@ -109,7 +109,6 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             {
                 file = loadedFiles[index];
                 dto = FilePathConverter.GetPathNameExtension(file.Match);
-
                 result = WritingService.RenameFile(file.Path, GetNewFilePath(dto));
 
                 if (result.IsSuccess)

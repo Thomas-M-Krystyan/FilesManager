@@ -1,7 +1,6 @@
 ﻿using FilesManager.Core.Extensions;
 using FilesManager.Core.Models.DTOs.Files;
 using FilesManager.Core.Validation;
-using FilesManager.UI.Common.Properties;
 using System.Text.RegularExpressions;
 
 namespace FilesManager.Core.Converters
@@ -54,14 +53,9 @@ namespace FilesManager.Core.Converters
         /// </summary>
         internal static string GetFilePath(string path, string name, string extension)
         {
-            if (string.IsNullOrEmpty(path) ||
-                string.IsNullOrEmpty(name) ||
-                string.IsNullOrEmpty(extension))
-            {
-                return string.Empty;
-            }
-
-            return Path.Combine(path, name + extension);
+            return string.IsNullOrEmpty(path) || string.IsNullOrEmpty(name) || string.IsNullOrEmpty(extension)
+                ? string.Empty
+                : Path.Combine(path, name + extension);
         }
     }
 }

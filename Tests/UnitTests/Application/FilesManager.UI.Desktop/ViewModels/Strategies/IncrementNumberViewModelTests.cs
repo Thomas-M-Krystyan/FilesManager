@@ -1,6 +1,5 @@
 ﻿using FilesManager.Core.Models.DTOs.Files;
 using FilesManager.Core.Models.DTOs.Files.Abstractions;
-using FilesManager.UI.Common.Properties;
 using FilesManager.UI.Desktop.UnitTests._TestHelpers;
 using FilesManager.UI.Desktop.ViewModels.Strategies;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
@@ -95,10 +94,11 @@ namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Strategies
 
             PathZerosDigitsExtensionDto dto = TestHelpers.GetMockedDto(testPath, "Test_#1", testExtension);
 
-            // Act & Assert
-            InvalidOperationException? exception = Assert.Throws<InvalidOperationException>(() => this._strategy.GetNewFilePath(dto));
+            // Act
+            string actualResult = this._strategy.GetNewFilePath(dto);
 
-            Assert.That(exception?.Message?.StartsWith(Resources.ERROR_Internal_InvalidFilePathDto), Is.True);
+            // Assery
+            Assert.That(actualResult, Is.Empty);
         }
     }
 }

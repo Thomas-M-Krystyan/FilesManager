@@ -10,11 +10,13 @@ namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Strategies
     [TestFixture]
     internal sealed class LeadingZerosViewModelTests
     {
+        private StrategyBase<PathZerosDigitsExtensionDto>? _strategy;
+
         [TestCaseSource(nameof(GetTestCases))]
         public void GetNewFilePath_ForGivenInput_ReturnsExpectedFileName((int Id, string[] TestNames, string LeadingZeros, string[] ExpectedPaths) data)
         {
             // Arrange
-            StrategyBase<PathZerosDigitsExtensionDto> strategy = new LeadingZerosViewModel
+            this._strategy = new LeadingZerosViewModel
             {
                 LeadingZeros = data.LeadingZeros,
                 MaxDigitLength = data.TestNames.Select(name =>
@@ -26,7 +28,7 @@ namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Strategies
 
             // Act
             string[] actualPaths = data.TestNames.Select(name =>
-                strategy.GetNewFilePath(
+                this._strategy.GetNewFilePath(
                     TestHelpers.GetMockedDto(@"C:\Drive\Folder\Subfolder\", name, ".jpg")))
                     .ToArray();
 
