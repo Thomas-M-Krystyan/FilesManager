@@ -343,7 +343,8 @@ namespace FilesManager.UI.Common.Properties {
         ///EXPLANATION:
         ///
         ///Mode ON:    Clears zeros absolutely, as much as possible. Do not clear the last 0 to avoid &quot;.gif&quot; case
-        ///Mode OFF:   Clears zeros relatively, indenting them to the length of the longest [rest of string was truncated]&quot;;.
+        ///
+        ///Mode OFF:   Clears zeros relatively, indenting them to the length of the longe [rest of string was truncated]&quot;;.
         /// </summary>
         public static string Tooltip_ClearZeros {
             get {
