@@ -25,6 +25,9 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         public static string GeneralSection_Tooltip = Resources.Tooltip_General;
 
         public static string FilesList_Tooltip = Resources.Tooltip_FilesList;
+
+        public static string FilesCounter_Label = Resources.Label_FilesCounter;
+        public static string FilesCounter_Tooltip = Resources.Tooltip_FilesCounter;
         #endregion
 
         #region Fields
@@ -46,6 +49,21 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         /// A collection of files that were dragged and dropped on the specific UI section in the <see cref="MainWindow"/>.
         /// </summary>
         public ObservableCollection<FileData> Files { get; } = new();
+
+        private int _counter;
+
+        /// <summary>
+        /// Holds the number of loaded files.
+        /// </summary>
+        public int Counter
+        {
+            get => this._counter;
+            set
+            {
+                this._counter = value;
+                OnPropertyChanged(nameof(this.Counter));
+            }
+        }
 
         private bool _canReset;
 
@@ -172,7 +190,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         /// <summary>
         /// Deselects all strategies.
         /// </summary>
-        protected override sealed void Deselect()  // NOTE: Specific behavior of the hub for other view models. Overloading restricted
+        protected override sealed void Deselect()  // NOTE: Specific behavior for the hub of other view models. Overloading restricted
         {
             this.IncrementNumberStrategy.DeselectCommand.Execute(null);
             this.PrependAppendStrategy.DeselectCommand.Execute(null);
@@ -180,12 +198,11 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         }
 
         /// <summary>
-        /// Resets all strategies.
+        /// Clears the list of files and resets all of the strategies.
         /// </summary>
-        protected override sealed void Reset()  // NOTE: Specific behavior of the hub for other view models. Overloading restricted
+        protected override sealed void Reset()  // NOTE: Specific behavior for the hub of other view models. Overloading restricted
         {
-            this.Files.Clear();
-
+            ClearFiles();
             ClearStrategies();
         }
         #endregion
@@ -205,7 +222,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
                 dragEvent.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 // Clear the previous state of the files list
-                this.Files.Clear();
+                ClearFiles();
 
                 // Get paths from dragged files
                 string[] droppedFilesPaths = (string[])dragEvent.Data.GetData(DataFormats.FileDrop, autoConvert: true);
@@ -219,7 +236,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
                     }
                     else
                     {
-                        this.Files.Clear();
+                        ClearFiles();
                         UpdateMainButtons();  // NOTE: Cleaning up "Reset" button would be blocked until user click "OK" on the pupup
 
                         _ = Message.ErrorOk(Resources.ERROR_Validation_Files_PathNotRecognized_Header,
@@ -228,12 +245,23 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
                     }
                 }
 
+                this.Counter = this.Files.Count;
+
                 UpdateMainButtons();
             }
             else
             {
                 Validate.ReportInvalidCommandUsage(nameof(LoadFiles));
             }
+        }
+
+        /// <summary>
+        /// Clears the loaded files and their count.
+        /// </summary>
+        private void ClearFiles()
+        {
+            this.Files.Clear();
+            this.Counter = default;
         }
 
         /// <summary>

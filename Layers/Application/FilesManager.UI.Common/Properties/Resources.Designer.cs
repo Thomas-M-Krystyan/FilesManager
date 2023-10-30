@@ -223,6 +223,15 @@ namespace FilesManager.UI.Common.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Counter:.
+        /// </summary>
+        public static string Label_FilesCounter {
+            get {
+                return ResourceManager.GetString("Label_FilesCounter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Postfix:.
         /// </summary>
         public static string Label_Postfix {
@@ -309,6 +318,15 @@ namespace FilesManager.UI.Common.Properties {
         public static string Tooltip_ClearButton {
             get {
                 return ResourceManager.GetString("Tooltip_ClearButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The number of currently loaded files.
+        /// </summary>
+        public static string Tooltip_FilesCounter {
+            get {
+                return ResourceManager.GetString("Tooltip_FilesCounter", resourceCulture);
             }
         }
         
@@ -516,7 +534,7 @@ namespace FilesManager.UI.Common.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to File Manager (v0.3.8-alpha).
+        ///   Looks up a localized string similar to File Manager (v0.3.9-alpha).
         /// </summary>
         public static string WindowTitle {
             get {

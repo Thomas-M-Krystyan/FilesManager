@@ -189,6 +189,10 @@
     <value>Append:</value>
     <comment>XAML</comment>
   </data>
+  <data name="Label_FilesCounter" xml:space="preserve">
+    <value>Counter:</value>
+    <comment>XAML</comment>
+  </data>
   <data name="Label_Postfix" xml:space="preserve">
     <value>Postfix:</value>
     <comment>XAML</comment>
@@ -227,6 +231,10 @@
   </data>
   <data name="Tooltip_ClearButton" xml:space="preserve">
     <value>INFO: Clears only the values from the methods (keeps the files)</value>
+    <comment>XAML</comment>
+  </data>
+  <data name="Tooltip_FilesCounter" xml:space="preserve">
+    <value>The number of currently loaded files</value>
     <comment>XAML</comment>
   </data>
   <data name="Tooltip_FilesList" xml:space="preserve">
@@ -358,7 +366,7 @@ Invalid characters:  \ / : * ? " &lt; &gt; |</value>
     <comment>XAML</comment>
   </data>
   <data name="WindowTitle" xml:space="preserve">
-    <value>File Manager (v0.3.8-alpha)</value>
+    <value>File Manager (v0.3.9-alpha)</value>
     <comment>Application</comment>
   </data>
 </root>

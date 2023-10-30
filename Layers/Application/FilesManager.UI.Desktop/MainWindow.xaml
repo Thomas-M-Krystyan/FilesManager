@@ -15,7 +15,8 @@
         
         Background="LightGray"
         WindowStyle="SingleBorderWindow"
-        ResizeMode="CanMinimize">  <!-- NOTE: Enable minimize / maximize buttons -->
+        ResizeMode="CanMinimize">
+    <!-- NOTE: Enable minimize / maximize buttons -->
 
     <!-- RESOURCES -->
     <Window.Resources>
@@ -40,7 +41,7 @@
         <!-- ################################# -->
         <!-- ###  LEFT PART OF THE SCREEN  ### -->
         <!-- ################################# -->
-        
+
         <!-- List of loaded files -->
         <ListBox Grid.Column="0"
                  Grid.Row="0"
@@ -75,12 +76,16 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />  <!-- Main row -->
-                <RowDefinition Height="Auto" />  <!-- Strategy #1 -->
+                <RowDefinition Height="Auto" />
+                <!-- Main row -->
+                <RowDefinition Height="Auto" />
+                <!-- Strategy #1 -->
                 <RowDefinition Height="{StaticResource SeparatorWidth}" />
-                <RowDefinition Height="Auto" />  <!-- Strategy #2 + #3 -->
-                <RowDefinition />
-                <RowDefinition Height="Auto" />  <!-- Buttons -->
+                <RowDefinition Height="Auto" />
+                <!-- Strategies #2 + #3 -->
+                <RowDefinition />  <!-- Expand vertically -->
+                <RowDefinition Height="Auto" />
+                <!-- Buttons -->
             </Grid.RowDefinitions>
 
             <!-- The main header -->
@@ -133,7 +138,7 @@
                             </behaviors:EventTrigger>
                         </behaviors:Interaction.Triggers>
                     </RadioButton>
-                
+
                     <Label Grid.Column="1"
                            Grid.Row="1"
                            Content="{xaml:Static strategies:IncrementNumberViewModel.Prefix_Label}"
@@ -204,7 +209,8 @@
                     </TextBox>
                 </Grid>
             </Border>
-
+ 
+            <!-- Strategies #2 + #3 -->
             <Grid Grid.Column="0"
                   Grid.Row="3">
                 <Grid.ColumnDefinitions>
@@ -365,71 +371,109 @@
                 </Border>
             </Grid>
 
-            <!-- Global buttons -->
-            <Grid Grid.Column="1"
+            <!-- The bottom row -->
+            <Grid Grid.Column="0"
                   Grid.Row="4"
-                  HorizontalAlignment="Right"
                   VerticalAlignment="Bottom">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="{StaticResource SeparatorWidth}" />
                     <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="{StaticResource SeparatorWidth}" />
+                    <ColumnDefinition />  <!-- Expand horizontally -->
                     <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="{StaticResource SeparatorWidth}" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="{StaticResource SeparatorWidth}" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="{StaticResource SeparatorHeight}" />
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="{StaticResource SeparatorHeight}" />
                 </Grid.RowDefinitions>
 
-                <!-- Reset -->
-                <Button Grid.Column="1"
-                        Grid.Row="1"
-                        IsEnabled="{Binding CanReset, Mode=OneWay}"
-                        Content="{xaml:Static properties:Resources.Content_ResetButton}"
-                        Background="#FFDCB9B9"
-                        ToolTip="{xaml:Static properties:Resources.Tooltip_ResetButton}"
-                        Style="{StaticResource ButtonStyle}">
-                    <behaviors:Interaction.Triggers>
-                        <behaviors:EventTrigger EventName="Click">
-                            <behaviors:InvokeCommandAction Command="{Binding ResetCommand, Mode=OneWay}" />
-                        </behaviors:EventTrigger>
-                    </behaviors:Interaction.Triggers>
-                </Button>
+                <!-- Files counter -->
+                <Grid Grid.Column="0"
+                      Grid.Row="0"
+                      HorizontalAlignment="Left">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
 
-                <!-- Clear -->
-                <Button Grid.Column="3"
-                        Grid.Row="1"
-                        IsEnabled="{Binding CanClear, Mode=OneWay}"
-                        Content="{xaml:Static properties:Resources.Content_ClearButton}"
-                        Background="#FFDCB9B9"
-                        ToolTip="{xaml:Static properties:Resources.Tooltip_ClearButton}"
-                        Style="{StaticResource ButtonStyle}">
-                    <behaviors:Interaction.Triggers>
-                        <behaviors:EventTrigger EventName="Click">
-                            <behaviors:InvokeCommandAction Command="{Binding ClearCommand, Mode=OneWay}" />
-                        </behaviors:EventTrigger>
-                    </behaviors:Interaction.Triggers>
-                </Button>
+                    <Label Grid.Column="0"
+                           Grid.Row="0"
+                           Content="{xaml:Static root:MainWindowViewModel.FilesCounter_Label}"
+                           ToolTip="{xaml:Static root:MainWindowViewModel.FilesCounter_Tooltip}"
+                           Style="{StaticResource LabelStyle}" />
+                    <TextBox Grid.Column="1"
+                             Grid.Row="0"
+                             VerticalAlignment="Center"
+                             Text="{Binding Counter, Mode=OneWay}"
+                             IsEnabled="False" />
+                </Grid>
 
-                <!-- Process -->
-                <Button Grid.Column="5"
-                        Grid.Row="1"
-                        IsEnabled="{Binding CanProcess, Mode=OneWay}"
-                        Content="{xaml:Static properties:Resources.Content_ProcessButton}"
-                        Background="LightBlue"
-                        ToolTip="{xaml:Static properties:Resources.Tooltip_ProcessButton}"
-                        Style="{StaticResource ButtonStyle}">
-                    <behaviors:Interaction.Triggers>
-                        <behaviors:EventTrigger EventName="Click">
-                            <behaviors:InvokeCommandAction Command="{Binding ProcessCommand, Mode=OneWay}" />
-                        </behaviors:EventTrigger>
-                    </behaviors:Interaction.Triggers>
-                </Button>
+                <!-- Global buttons -->
+                <Grid Grid.Column="2"
+                      Grid.Row="0"
+                      HorizontalAlignment="Right">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="{StaticResource SeparatorWidth}" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="{StaticResource SeparatorWidth}" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="{StaticResource SeparatorWidth}" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="{StaticResource SeparatorWidth}" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="{StaticResource SeparatorHeight}" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="{StaticResource SeparatorHeight}" />
+                    </Grid.RowDefinitions>
+
+                    <!-- Reset -->
+                    <Button Grid.Column="1"
+                            Grid.Row="1"
+                            IsEnabled="{Binding CanReset, Mode=OneWay}"
+                            Content="{xaml:Static properties:Resources.Content_ResetButton}"
+                            Background="#FFDCB9B9"
+                            ToolTip="{xaml:Static properties:Resources.Tooltip_ResetButton}"
+                            Style="{StaticResource ButtonStyle}">
+                        <behaviors:Interaction.Triggers>
+                            <behaviors:EventTrigger EventName="Click">
+                                <behaviors:InvokeCommandAction Command="{Binding ResetCommand, Mode=OneWay}" />
+                            </behaviors:EventTrigger>
+                        </behaviors:Interaction.Triggers>
+                    </Button>
+
+                    <!-- Clear -->
+                    <Button Grid.Column="3"
+                            Grid.Row="1"
+                            IsEnabled="{Binding CanClear, Mode=OneWay}"
+                            Content="{xaml:Static properties:Resources.Content_ClearButton}"
+                            Background="#FFDCB9B9"
+                            ToolTip="{xaml:Static properties:Resources.Tooltip_ClearButton}"
+                            Style="{StaticResource ButtonStyle}">
+                        <behaviors:Interaction.Triggers>
+                            <behaviors:EventTrigger EventName="Click">
+                                <behaviors:InvokeCommandAction Command="{Binding ClearCommand, Mode=OneWay}" />
+                            </behaviors:EventTrigger>
+                        </behaviors:Interaction.Triggers>
+                    </Button>
+
+                    <!-- Process -->
+                    <Button Grid.Column="5"
+                            Grid.Row="1"
+                            IsEnabled="{Binding CanProcess, Mode=OneWay}"
+                            Content="{xaml:Static properties:Resources.Content_ProcessButton}"
+                            Background="LightBlue"
+                            ToolTip="{xaml:Static properties:Resources.Tooltip_ProcessButton}"
+                            Style="{StaticResource ButtonStyle}">
+                        <behaviors:Interaction.Triggers>
+                            <behaviors:EventTrigger EventName="Click">
+                                <behaviors:InvokeCommandAction Command="{Binding ProcessCommand, Mode=OneWay}" />
+                            </behaviors:EventTrigger>
+                        </behaviors:Interaction.Triggers>
+                    </Button>
+                </Grid>
             </Grid>
+
         </Grid>
     </Grid>
 </Window>
