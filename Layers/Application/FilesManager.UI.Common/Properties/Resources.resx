@@ -260,6 +260,7 @@ Mode OFF:   Clears zeros relatively, indenting them to the length of the longest
 The file "82c.jpg" has the longest non-zeroes file name (3 characters) so, shorter files will be indented
 to it. For example, file "1.jpg" is shorter by 2 characters from the longest non-zeroes file name. During
 zeros trimming (set: 0) the gap between files lenghts will be filled with 2 zeros.</value>
+    <comment>XAML</comment>
   </data>
   <data name="Tooltip_FilesCounter" xml:space="preserve">
     <value>The number of currently loaded files</value>
