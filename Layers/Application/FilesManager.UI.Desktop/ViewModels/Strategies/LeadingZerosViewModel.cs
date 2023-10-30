@@ -41,7 +41,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         #endregion
 
         #region Properties
-        internal int MaxDigitLength { get; set; }
+        internal int MaxDigitLength { private get; set; }
         #endregion
 
         #region Polymorphism
