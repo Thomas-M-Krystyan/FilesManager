@@ -39,5 +39,11 @@ namespace FilesManager.Core.Validation
         /// </summary>
         [GeneratedRegex($@"^(?<{ZerosGroup}>0*)(?<{DigitsGroup}>\d*)(?<{NameGroup}>.*)$", RegexOptions.Compiled)]
         internal static partial Regex DigitsNamePattern();
+
+        /// <summary>
+        /// Captures one or many white spaces.
+        /// </summary>
+        [GeneratedRegex(@"^\s+$", RegexOptions.Compiled)]
+        internal static partial Regex WhiteSpacePattern();
     }
 }

@@ -108,7 +108,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             for (ushort index = 0; index < loadedFiles.Count; index++)
             {
                 file = loadedFiles[index];
-                dto = FilePathConverter.GetPathNameExtension(file.Match);
+                dto = file.Match.GetPathNameExtensionDto();
                 result = WritingService.RenameFile(file.Path, GetNewFilePath(dto));
 
                 if (result.IsSuccess)
@@ -154,12 +154,10 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         /// <inheritdoc cref="StrategyBase{TFileDto}.GetNewFilePath(TFileDto)"/>
         protected internal override sealed string GetNewFilePath(BasePathDto fileDto)
         {
-            return FilePathConverter.GetFilePath(
-                path: fileDto.Path,
-                name: $"{this.NamePrefix.GetValueOrEmpty()}" +
-                      $"{this._currentStartingNumber++}" +      // NOTE: Very important! Keep incrementing the current number
-                      $"{this.NamePostfix.GetValueOrEmpty()}",
-                extension: fileDto.Extension);
+            return fileDto.GetFilePath(
+                name: $"{this.NamePrefix.TrimOnlyWhiteSpaces()}" +
+                      $"{this._currentStartingNumber++}" +  // NOTE: Very important! Keep incrementing the current number
+                      $"{this.NamePostfix.TrimOnlyWhiteSpaces()}");
         }
         #endregion
     }

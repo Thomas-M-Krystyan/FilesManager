@@ -8,8 +8,8 @@ namespace FilesManager.UI.Desktop.UnitTests._TestHelpers
     {
         internal static PathZerosDigitsExtensionDto GetMockedDto(string testPath, string testName, string testExtension)
         {
-            return FilePathConverter.GetPathZerosDigitsExtension(
-                RegexPatterns.FileComponentsPattern().Match($"{testPath}{testName}{testExtension}"));
+            return RegexPatterns.FileComponentsPattern().Match($"{testPath}{testName}{testExtension}")
+                                .GetPathZerosDigitsExtensionDto();
         }
     }
 }

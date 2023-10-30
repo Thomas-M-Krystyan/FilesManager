@@ -53,28 +53,5 @@ namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Strategies
             // Assert
             Assert.That(actualNewFilePath, Is.EqualTo(expectedNewFilePath));
         }
-
-        [TestCase("", "", "")]
-        [TestCase(" ", " ", " ")]
-        [TestCase("", "abc", ".jpg")]               // No path
-        [TestCase(@"C:\Drive\Folder\", "abc", "")]  // No extension
-        [TestCase("", "abc", "")]                   // No path and extension
-        public void GetNewFilePath_ForInvalidPath_WithOtherParameters_ReturnsEmptyString(string testPath, string testName, string testExtension)
-        {
-            // Arrange
-            PrependAppendViewModel strategy = new()
-            {
-                PrependName = "a",
-                AppendName = "z"
-            };
-
-            PathZerosDigitsExtensionDto dto = TestHelpers.GetMockedDto(testPath, testName, testExtension);
-
-            // Act
-            string actualResult = strategy.GetNewFilePath(dto);
-
-            // Assery
-            Assert.That(actualResult, Is.Empty);
-        }
     }
 }

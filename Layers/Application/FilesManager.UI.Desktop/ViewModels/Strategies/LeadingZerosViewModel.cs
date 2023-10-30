@@ -64,7 +64,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             PathZerosDigitsExtensionDto[] dtos = loadedFiles.Select(file =>  // NOTE: Executing both logics at once
             {
                 // Conversion to DTO
-                PathZerosDigitsExtensionDto dto = FilePathConverter.GetPathZerosDigitsExtension(file.Match);
+                PathZerosDigitsExtensionDto dto = file.Match.GetPathZerosDigitsExtensionDto();
                 
                 // Counting max length
                 this.MaxDigitLength = Math.Max(this.MaxDigitLength, dto.Digits.Length);
@@ -114,11 +114,9 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         /// <inheritdoc cref="StrategyBase{TFileDto}.GetNewFilePath(TFileDto)"/>
         protected internal override sealed string GetNewFilePath(PathZerosDigitsExtensionDto fileDto)
         {
-            return FilePathConverter.GetFilePath(
-                path: fileDto.Path,
+            return fileDto.GetFilePath(
                 name: $"{GetDigitsWithLeadingZeros(fileDto)}" +
-                      $"{fileDto.Name}",
-                extension: fileDto.Extension);
+                      $"{fileDto.Name}");
         }
         #endregion
 

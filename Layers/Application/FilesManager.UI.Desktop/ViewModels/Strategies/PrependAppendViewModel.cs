@@ -110,12 +110,10 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         /// <inheritdoc cref="StrategyBase{TFileDto}.GetNewFilePath(TFileDto)"/>
         protected internal override sealed string GetNewFilePath(PathNameExtensionDto fileDto)
         {
-            return FilePathConverter.GetFilePath(
-                path: fileDto.Path,
-                name: $"{this.PrependName.GetValueOrEmpty()}" +
+            return fileDto.GetFilePath(
+                name: $"{this.PrependName.TrimOnlyWhiteSpaces()}" +
                       $"{fileDto.Name}" +
-                      $"{this.AppendName.GetValueOrEmpty()}",
-                extension: fileDto.Extension);
+                      $"{this.AppendName.TrimOnlyWhiteSpaces()}");
         }
         #endregion
     }

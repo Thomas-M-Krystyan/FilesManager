@@ -1,5 +1,4 @@
-﻿using FilesManager.Core.Models.DTOs.Files;
-using FilesManager.Core.Models.DTOs.Files.Abstractions;
+﻿using FilesManager.Core.Models.DTOs.Files.Abstractions;
 using FilesManager.UI.Desktop.UnitTests._TestHelpers;
 using FilesManager.UI.Desktop.ViewModels.Strategies;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
@@ -76,29 +75,6 @@ namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Strategies
 
             // Assert
             Assert.That(actualNewFilePath, Is.EqualTo(expectedNewFilePath));
-        }
-
-        [TestCase("", "")]
-        [TestCase(" ", " ")]
-        [TestCase("", ".jpg")]                  // No path
-        [TestCase(@"C:\Drive\Folder\abc", "")]  // No extension
-        public void GetNewFilePath_ForInvalidPath_WithOtherParameters_ReturnsEmptyString(string testPath, string testExtension)
-        {
-            // Arrange
-            this._strategy = new IncrementNumberViewModel
-            {
-                NamePrefix = "a",
-                StartingNumber = "9",
-                NamePostfix = "z"
-            };
-
-            PathZerosDigitsExtensionDto dto = TestHelpers.GetMockedDto(testPath, "Test_#1", testExtension);
-
-            // Act
-            string actualResult = this._strategy.GetNewFilePath(dto);
-
-            // Assery
-            Assert.That(actualResult, Is.Empty);
         }
     }
 }

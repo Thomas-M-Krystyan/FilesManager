@@ -1,5 +1,6 @@
 ﻿using FilesManager.Core.Extensions;
 using FilesManager.Core.Models.DTOs.Files;
+using FilesManager.Core.Models.DTOs.Files.Abstractions;
 using FilesManager.Core.Validation;
 using System.Text.RegularExpressions;
 
@@ -18,7 +19,7 @@ namespace FilesManager.Core.Converters
         /// <returns>
         ///   Empty <see cref="PathNameExtensionDto"/> if the provided file path is invalid.
         /// </returns>
-        internal static PathNameExtensionDto GetPathNameExtension(Match filePathMatch)
+        internal static PathNameExtensionDto GetPathNameExtensionDto(this Match filePathMatch)
         {
             return new PathNameExtensionDto(path:      filePathMatch.Value(RegexPatterns.PathGroup),
                                             name:      filePathMatch.Value(RegexPatterns.NameGroup),
@@ -34,7 +35,7 @@ namespace FilesManager.Core.Converters
         /// <returns>
         ///   Empty <see cref="PathNameExtensionDto"/> if the provided file path is invalid.
         /// </returns>
-        internal static PathZerosDigitsExtensionDto GetPathZerosDigitsExtension(Match filePathMatch)
+        internal static PathZerosDigitsExtensionDto GetPathZerosDigitsExtensionDto(this Match filePathMatch)
         {
             // NOTE: Split the file name into dedicated zeros, digits, and name groups
             Match digitsNameMatch = RegexPatterns.DigitsNamePattern().Match(
@@ -51,11 +52,11 @@ namespace FilesManager.Core.Converters
         /// <summary>
         /// Converts path + name + extension back into a consolidated file's <see cref="Path"/>.
         /// </summary>
-        internal static string GetFilePath(string path, string name, string extension)
+        internal static string GetFilePath(this BasePathDto fileDto, string name)
         {
-            return string.IsNullOrEmpty(path) || string.IsNullOrEmpty(name) || string.IsNullOrEmpty(extension)
+            return name.IsEmptyOrWhiteSpaces()
                 ? string.Empty
-                : Path.Combine(path, name + extension);
+                : Path.Combine(fileDto.Path, name + fileDto.Extension);
         }
     }
 }
