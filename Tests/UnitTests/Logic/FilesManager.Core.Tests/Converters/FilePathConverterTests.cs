@@ -7,20 +7,27 @@ namespace FilesManager.Core.UnitTests.Converters
     [TestFixture]
     internal class FilePathConverterTests
     {
-        private BasePathDto? _testDto;
+        private readonly BasePathDto _testDto = new PathNameExtensionDto(@"C:\Drive\Folder\", "Test", ".csr");
 
         [TestCase("")]
         [TestCase(" ")]
-        public void GetNewFilePath_ForInvalidPath_WithOtherParameters_ReturnsEmptyString(string testName)
+        public void GetFilePath_ForInvalidPath_ReturnsEmptyString(string testName)
         {
-            // Arrange
-            this._testDto = new PathNameExtensionDto(@"C:\Drive\Folder\", "Test", ".csr");
-
             // Act
             string actualResult = this._testDto.GetFilePath(testName);
 
             // Assery
             Assert.That(actualResult, Is.Empty);
+        }
+
+        [Test]
+        public void GetFilePath_ForValidPath_ReturnsExpectedString()
+        {
+            // Act
+            string actualResult = this._testDto.GetFilePath("New test");
+
+            // Assery
+            Assert.That(actualResult, Is.EqualTo(@"C:\Drive\Folder\New test.csr"));
         }
     }
 }
