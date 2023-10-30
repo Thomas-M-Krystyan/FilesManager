@@ -22,6 +22,8 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
 
         public static readonly string Set_Label = Resources.Label_Set;
         public static readonly string Set_Tooltip = Resources.Tooltip_Set;
+
+        public static readonly string ClearZeros_Tooltip = Resources.Tooltip_ClearZeros;
         #endregion
 
         // NOTE: All binding elements should be public

@@ -319,6 +319,7 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -360,13 +361,20 @@
                                  Grid.Row="1"
                                  Text="{Binding LeadingZeros, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                  ToolTip="{xaml:Static strategies:LeadingZerosViewModel.Content_OnlyVerySmallPositives_Tooltip}"
-                                 Style="{StaticResource TextBoxStyle_60}">
+                                 Style="{StaticResource TextBoxStyle_45}">
                             <behaviors:Interaction.Triggers>
                                 <behaviors:EventTrigger EventName="GotFocus">
                                     <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
                                 </behaviors:EventTrigger>
                             </behaviors:Interaction.Triggers>
                         </TextBox>
+
+                        <CheckBox Grid.Column="3"
+                                  Grid.Row="1"
+                                  Margin="5, 0, 0, 0"
+                                  VerticalAlignment="Center"
+                                  ToolTip="{xaml:Static strategies:LeadingZerosViewModel.ClearZeros_Tooltip}">
+                        </CheckBox>
                     </Grid>
                 </Border>
             </Grid>

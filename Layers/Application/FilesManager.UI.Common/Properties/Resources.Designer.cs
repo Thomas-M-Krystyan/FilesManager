@@ -322,6 +322,36 @@ namespace FilesManager.UI.Common.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clear all possible zeros absolutely (ON) or relatively (OFF).
+        ///
+        ///INPUT:
+        ///- 00000.gif
+        ///- 00001.docx
+        ///- 0082c.jpg
+        ///
+        ///PARAMETERS:
+        ///- Set: 0
+        ///
+        ///RESULT (Modes):
+        ///
+        ///Absolute (ON):      Relative (OFF):
+        ///- 0.gif                     - 000.gif
+        ///- 1.docx                 - 001.docx
+        ///- 82c.jpg                - 82c.jpg
+        ///
+        ///
+        ///EXPLANATION:
+        ///
+        ///Mode ON:    Clears zeros absolutely, as much as possible. Do not clear the last 0 to avoid &quot;.gif&quot; case
+        ///Mode OFF:   Clears zeros relatively, indenting them to the length of the longest [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string Tooltip_ClearZeros {
+            get {
+                return ResourceManager.GetString("Tooltip_ClearZeros", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The number of currently loaded files.
         /// </summary>
         public static string Tooltip_FilesCounter {

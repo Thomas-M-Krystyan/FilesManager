@@ -233,6 +233,34 @@
     <value>INFO: Clears only the values from the methods (keeps the files)</value>
     <comment>XAML</comment>
   </data>
+  <data name="Tooltip_ClearZeros" xml:space="preserve">
+    <value>Clear all possible zeros absolutely (ON) or relatively (OFF).
+
+INPUT:
+- 00000.gif
+- 00001.docx
+- 0082c.jpg
+
+PARAMETERS:
+- Set: 0
+
+RESULT (Modes):
+
+Absolute (ON):      Relative (OFF):
+- 0.gif                     - 000.gif
+- 1.docx                 - 001.docx
+- 82c.jpg                - 82c.jpg
+
+
+EXPLANATION:
+
+Mode ON:    Clears zeros absolutely, as much as possible. Do not clear the last 0 to avoid ".gif" case
+Mode OFF:   Clears zeros relatively, indenting them to the length of the longest non-zeroes file name
+
+The file "82c.jpg" has the longest non-zeroes file name (3 characters) so, shorter files will be indented
+to it. For example, file "1.jpg" is shorter by 2 characters from the longest non-zeroes file name. During
+zeros trimming (set: 0) the gap between files lenghts will be filled with 2 zeros.</value>
+  </data>
   <data name="Tooltip_FilesCounter" xml:space="preserve">
     <value>The number of currently loaded files</value>
     <comment>XAML</comment>

@@ -86,6 +86,12 @@
         <Setter Property="Width" Value="60px" />
     </Style>
 
+    <Style xaml:Key="TextBoxStyle_45"
+           TargetType="{xaml:Type TextBox}"
+           BasedOn="{StaticResource TextBoxStyle}">
+        <Setter Property="Width" Value="45px" />
+    </Style>
+
     <!-- Buttons -->
     <Style xaml:Key="ButtonStyle"
            TargetType="{xaml:Type Button}"
