@@ -92,6 +92,14 @@
         <Setter Property="Width" Value="45px" />
     </Style>
 
+    <!-- Check Boxes -->
+    <Style xaml:Key="CheckboxStyle"
+           TargetType="{xaml:Type CheckBox}">
+        <Setter Property="Margin" Value="5, 0, 0, 0" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="BorderBrush" Value="Gray" />
+    </Style>
+
     <!-- Buttons -->
     <Style xaml:Key="ButtonStyle"
            TargetType="{xaml:Type Button}"
