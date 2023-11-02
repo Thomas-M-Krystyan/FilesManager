@@ -94,7 +94,8 @@
 
     <!-- Check Boxes -->
     <Style xaml:Key="CheckboxStyle"
-           TargetType="{xaml:Type CheckBox}">
+           TargetType="{xaml:Type CheckBox}"
+           BasedOn="{StaticResource ControlWithResponsiveToolTips}">
         <Setter Property="Margin" Value="5, 0, 0, 0" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="BorderBrush" Value="Gray" />

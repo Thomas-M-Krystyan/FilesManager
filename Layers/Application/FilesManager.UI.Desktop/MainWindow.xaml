@@ -371,8 +371,14 @@
 
                         <CheckBox Grid.Column="3"
                                   Grid.Row="1"
+                                  IsChecked="{Binding IsAbsoluteMode, Mode=OneWay}"
                                   ToolTip="{xaml:Static strategies:LeadingZerosViewModel.ClearZeros_Tooltip}"
                                   Style="{StaticResource CheckboxStyle}">
+                            <behaviors:Interaction.Triggers>
+                                <behaviors:EventTrigger EventName="GotFocus">
+                                    <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
+                                </behaviors:EventTrigger>
+                            </behaviors:Interaction.Triggers>
                         </CheckBox>
                     </Grid>
                 </Border>

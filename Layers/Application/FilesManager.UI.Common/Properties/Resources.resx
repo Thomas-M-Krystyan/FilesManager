@@ -174,7 +174,7 @@
     <comment>XAML</comment>
   </data>
   <data name="Header_Method_IncrementNumber" xml:space="preserve">
-    <value>"Replace name" ([old name] → prefix? + number + postfix?)</value>
+    <value>"Replace name" (NAME → prefix? + number* + postfix?)</value>
     <comment>XAML</comment>
   </data>
   <data name="Header_Method_LeadingZeros" xml:space="preserve">
@@ -182,7 +182,7 @@
     <comment>XAML</comment>
   </data>
   <data name="Header_Method_PrependAppend" xml:space="preserve">
-    <value>"Update name" (prepend? + [unchanged name] + append?)</value>
+    <value>"Update name" (prepend? + NAME + append?)</value>
     <comment>XAML</comment>
   </data>
   <data name="Label_Append" xml:space="preserve">

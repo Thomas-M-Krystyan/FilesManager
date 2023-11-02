@@ -187,7 +187,7 @@ namespace FilesManager.UI.Common.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;Replace name&quot; ([old name] → prefix? + number + postfix?).
+        ///   Looks up a localized string similar to &quot;Replace name&quot; (NAME → prefix? + number* + postfix?).
         /// </summary>
         public static string Header_Method_IncrementNumber {
             get {
@@ -205,7 +205,7 @@ namespace FilesManager.UI.Common.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;Update name&quot; (prepend? + [unchanged name] + append?).
+        ///   Looks up a localized string similar to &quot;Update name&quot; (prepend? + NAME + append?).
         /// </summary>
         public static string Header_Method_PrependAppend {
             get {

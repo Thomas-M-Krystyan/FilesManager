@@ -40,6 +40,17 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
                 OnPropertyChanged(nameof(this.LeadingZeros));
             }
         }
+
+        private bool _isAbsoluteMode;
+        public bool IsAbsoluteMode
+        {
+            get => this._isAbsoluteMode;
+            set
+            {
+                this._isAbsoluteMode = value;
+                OnPropertyChanged(nameof(this.IsAbsoluteMode));
+            }
+        }
         #endregion
 
         #region Properties
@@ -109,6 +120,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         protected override sealed void Reset()  // NOTE: Speficic behavior for this concrete strategy. Overloading restricted
         {
             this.LeadingZeros = DefaultStartingNumber;
+            this.IsAbsoluteMode = false;
 
             base.Reset();
         }
