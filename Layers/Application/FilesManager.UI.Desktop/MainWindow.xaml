@@ -371,7 +371,8 @@
 
                         <CheckBox Grid.Column="3"
                                   Grid.Row="1"
-                                  IsChecked="{Binding IsAbsoluteMode, Mode=OneWay}"
+                                  IsEnabled="{Binding IsAbsoluteModeEnabled, Mode=OneWay}"
+                                  IsChecked="{Binding IsAbsoluteModeOn, Mode=OneWay}"
                                   ToolTip="{xaml:Static strategies:LeadingZerosViewModel.ClearZeros_Tooltip}"
                                   Style="{StaticResource CheckboxStyle}">
                             <behaviors:Interaction.Triggers>

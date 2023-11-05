@@ -26,6 +26,11 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         public static readonly string ClearZeros_Tooltip = Resources.Tooltip_ClearZeros;
         #endregion
 
+        #region Const
+        private const bool DefaultAbsoluteModeOn = false;
+        private const bool DefaultAbsoluteModeEnabled = true;
+        #endregion
+
         // NOTE: All binding elements should be public
         #region Properties (binding)
         private ushort _currentLeadingZeros;                   // NOTE: Logic
@@ -38,23 +43,43 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
                 this._leadingZeros = value;
                 ValidateOnlyNumbers(nameof(this.LeadingZeros), value, out this._currentLeadingZeros, maxLimit: 7);
                 OnPropertyChanged(nameof(this.LeadingZeros));
+
+                // NOTE: The checkbox should be enabled only for 0 value
+                this.IsAbsoluteModeEnabled = this._currentLeadingZeros == ushort.MinValue;
             }
         }
 
-        private bool _isAbsoluteMode;
-        public bool IsAbsoluteMode
+        private bool _isAbsoluteModeOn = DefaultAbsoluteModeOn;
+        public bool IsAbsoluteModeOn
         {
-            get => this._isAbsoluteMode;
+            get => this._isAbsoluteModeOn;
             set
             {
-                this._isAbsoluteMode = value;
-                OnPropertyChanged(nameof(this.IsAbsoluteMode));
+                this._isAbsoluteModeOn = value;
+                OnPropertyChanged(nameof(this.IsAbsoluteModeOn));
+            }
+        }
+
+        private bool _isAbsoluteModeEnabled = DefaultAbsoluteModeEnabled;
+        public bool IsAbsoluteModeEnabled
+        {
+            get => this._isAbsoluteModeEnabled;
+            set
+            {
+                this._isAbsoluteModeEnabled = value;
+                OnPropertyChanged(nameof(this.IsAbsoluteModeEnabled));
+
+                // NOTE: The disabled checkbox should have false value
+                if (!this._isAbsoluteModeEnabled)
+                {
+                    this.IsAbsoluteModeOn = DefaultAbsoluteModeOn;
+                }
             }
         }
         #endregion
 
         #region Properties
-        internal int MaxDigitLength { private get; set; }
+        internal int MaxDigitsLength { private get; set; }
         #endregion
 
         #region Polymorphism
@@ -72,7 +97,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             // --------------------------------
             // 2. Preparing the processing data
             // --------------------------------
-            this.MaxDigitLength = default;  // Reset value
+            this.MaxDigitsLength = default;  // Reset value
 
             PathZerosDigitsExtensionDto[] dtos = loadedFiles.Select(file =>  // NOTE: Executing both logics at once
             {
@@ -80,7 +105,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
                 PathZerosDigitsExtensionDto dto = file.Match.GetPathZerosDigitsExtensionDto();
                 
                 // Counting max length
-                this.MaxDigitLength = Math.Max(this.MaxDigitLength, dto.Digits.Length);
+                this.MaxDigitsLength = Math.Max(this.MaxDigitsLength, dto.Digits.Length);
 
                 return dto;
             })
@@ -112,6 +137,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             // 4. Finalization of the process
             // ------------------------------
             this.LeadingZeros = DefaultStartingNumber;
+            this.IsAbsoluteModeOn = DefaultAbsoluteModeOn;
 
             return result;
         }
@@ -120,7 +146,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         protected override sealed void Reset()  // NOTE: Speficic behavior for this concrete strategy. Overloading restricted
         {
             this.LeadingZeros = DefaultStartingNumber;
-            this.IsAbsoluteMode = false;
+            this.IsAbsoluteModeOn = DefaultAbsoluteModeOn;
 
             base.Reset();
         }
@@ -164,11 +190,23 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
                             : fileDto.Zeros;         // Cases: "0.jpg" (if there is no name or digits but "no zeros" was requested. Prevent ".jpg")
             }
 
-            int zerosToAdd = fileDto.Digits.Length == this.MaxDigitLength  // For 2n => MIN: "1" (Length: 1), MAX: "10" (Length: 2)
-                ? this._currentLeadingZeros  // (Count: 1) => "0"
-                : this.MaxDigitLength + this._currentLeadingZeros - fileDto.Digits.Length;  // 2 (max len) + 1 (count) - 1 (min len) => "00" + "1"
+            return GetLeadingZeros(this._currentLeadingZeros, fileDto.Digits, this.MaxDigitsLength);
+        }
 
-            return $"{new string(char.Parse(DefaultStartingNumber), zerosToAdd)}{fileDto.Digits}";
+        //private string AddZeros(string value)
+        //{
+        //    return this.IsAbsoluteModeOn
+        //        ? value
+        //        : GetLeadingZeros();
+        //}
+
+        private static string GetLeadingZeros(ushort currentLeadingZeros, string digits, int maxDigitsLength)
+        {
+            int zerosToAdd = digits.Length == maxDigitsLength  // For 2n => MIN: "1" (Length: 1), MAX: "10" (Length: 2)
+                ? currentLeadingZeros  // (Count: 1) => "0"
+                : maxDigitsLength + currentLeadingZeros - digits.Length;  // 2 (max len) + 1 (count) - 1 (min len) => "00" + "1"
+
+            return $"{new string(char.Parse(DefaultStartingNumber), zerosToAdd)}{digits}";
         }
         #endregion
     }
