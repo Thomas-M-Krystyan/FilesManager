@@ -7,9 +7,9 @@ namespace FilesManager.Core.UnitTests.Validation
     {
         internal abstract class TestClass
         {
-            public abstract void SuccessAction();
+            internal abstract void SuccessAction();
 
-            public abstract void FailureAction();
+            internal abstract void FailureAction();
         }
 
         #region IsFilePathValid
@@ -212,87 +212,132 @@ namespace FilesManager.Core.UnitTests.Validation
         [TestCase(4, (sbyte)1, (int)2, true)]
         [TestCase(5, (sbyte)2, (int)2, true)]
         [TestCase(6, (sbyte)3, (int)2, false)]
+        // sbyte + long
+        [TestCase(7, (sbyte)1, (long)2, true)]
+        [TestCase(8, (sbyte)2, (long)2, true)]
+        [TestCase(9, (sbyte)3, (long)2, false)]
         // sbyte + float
-        [TestCase(7, (sbyte)1, (float)2, true)]
-        [TestCase(8, (sbyte)2, (float)2, true)]
-        [TestCase(9, (sbyte)3, (float)2, false)]
+        [TestCase(10, (sbyte)1, (float)2, true)]
+        [TestCase(11, (sbyte)2, (float)2, true)]
+        [TestCase(12, (sbyte)3, (float)2, false)]
         // sbyte + double
-        [TestCase(10, (sbyte)1, (double)2, true)]
-        [TestCase(11, (sbyte)2, (double)2, true)]
-        [TestCase(12, (sbyte)3, (double)2, false)]
+        [TestCase(13, (sbyte)1, (double)2, true)]
+        [TestCase(14, (sbyte)2, (double)2, true)]
+        [TestCase(15, (sbyte)3, (double)2, false)]
         // byte + short
-        [TestCase(13, (byte)1, (short)2, true)]
-        [TestCase(14, (byte)2, (short)2, true)]
-        [TestCase(15, (byte)3, (short)2, false)]
+        [TestCase(16, (byte)1, (short)2, true)]
+        [TestCase(17, (byte)2, (short)2, true)]
+        [TestCase(18, (byte)3, (short)2, false)]
         // byte + ushort
-        [TestCase(16, (byte)1, (ushort)2, true)]
-        [TestCase(17, (byte)2, (ushort)2, true)]
-        [TestCase(18, (byte)3, (ushort)2, false)]
+        [TestCase(19, (byte)1, (ushort)2, true)]
+        [TestCase(20, (byte)2, (ushort)2, true)]
+        [TestCase(21, (byte)3, (ushort)2, false)]
         // byte + int
-        [TestCase(19, (byte)1, (int)2, true)]
-        [TestCase(20, (byte)2, (int)2, true)]
-        [TestCase(21, (byte)3, (int)2, false)]
+        [TestCase(22, (byte)1, (int)2, true)]
+        [TestCase(23, (byte)2, (int)2, true)]
+        [TestCase(24, (byte)3, (int)2, false)]
         // byte + uint
-        [TestCase(22, (byte)1, (uint)2, true)]
-        [TestCase(23, (byte)2, (uint)2, true)]
-        [TestCase(24, (byte)3, (uint)2, false)]
+        [TestCase(25, (byte)1, (uint)2, true)]
+        [TestCase(26, (byte)2, (uint)2, true)]
+        [TestCase(27, (byte)3, (uint)2, false)]
+        // byte + long
+        [TestCase(28, (byte)1, (long)2, true)]
+        [TestCase(29, (byte)2, (long)2, true)]
+        [TestCase(30, (byte)3, (long)2, false)]
+        // byte + ulong
+        [TestCase(31, (byte)1, (ulong)2, true)]
+        [TestCase(32, (byte)2, (ulong)2, true)]
+        [TestCase(33, (byte)3, (ulong)2, false)]
         // byte + float
-        [TestCase(25, (byte)1, (float)2, true)]
-        [TestCase(26, (byte)2, (float)2, true)]
-        [TestCase(27, (byte)3, (float)2, false)]
+        [TestCase(34, (byte)1, (float)2, true)]
+        [TestCase(35, (byte)2, (float)2, true)]
+        [TestCase(36, (byte)3, (float)2, false)]
         // byte + double
-        [TestCase(28, (byte)1, (double)2, true)]
-        [TestCase(29, (byte)2, (double)2, true)]
-        [TestCase(30, (byte)3, (double)2, false)]
+        [TestCase(37, (byte)1, (double)2, true)]
+        [TestCase(38, (byte)2, (double)2, true)]
+        [TestCase(39, (byte)3, (double)2, false)]
         // short + int
-        [TestCase(31, (short)1, (int)2, true)]
-        [TestCase(32, (short)2, (int)2, true)]
-        [TestCase(33, (short)3, (int)2, false)]
+        [TestCase(40, (short)1, (int)2, true)]
+        [TestCase(41, (short)2, (int)2, true)]
+        [TestCase(42, (short)3, (int)2, false)]
+        // short + long
+        [TestCase(43, (short)1, (long)2, true)]
+        [TestCase(44, (short)2, (long)2, true)]
+        [TestCase(45, (short)3, (long)2, false)]
         // short + float
-        [TestCase(34, (short)1, (float)2, true)]
-        [TestCase(35, (short)2, (float)2, true)]
-        [TestCase(36, (short)3, (float)2, false)]
+        [TestCase(46, (short)1, (float)2, true)]
+        [TestCase(47, (short)2, (float)2, true)]
+        [TestCase(48, (short)3, (float)2, false)]
         // short + double
-        [TestCase(37, (short)1, (double)2, true)]
-        [TestCase(38, (short)2, (double)2, true)]
-        [TestCase(39, (short)3, (double)2, false)]
+        [TestCase(49, (short)1, (double)2, true)]
+        [TestCase(50, (short)2, (double)2, true)]
+        [TestCase(51, (short)3, (double)2, false)]
         // ushort + int
-        [TestCase(40, (ushort)1, (int)2, true)]
-        [TestCase(41, (ushort)2, (int)2, true)]
-        [TestCase(42, (ushort)3, (int)2, false)]
+        [TestCase(52, (ushort)1, (int)2, true)]
+        [TestCase(53, (ushort)2, (int)2, true)]
+        [TestCase(54, (ushort)3, (int)2, false)]
         // ushort + uint
-        [TestCase(43, (ushort)1, (uint)2, true)]
-        [TestCase(44, (ushort)2, (uint)2, true)]
-        [TestCase(45, (ushort)3, (uint)2, false)]
+        [TestCase(55, (ushort)1, (uint)2, true)]
+        [TestCase(56, (ushort)2, (uint)2, true)]
+        [TestCase(57, (ushort)3, (uint)2, false)]
+        // ushort + long
+        [TestCase(58, (ushort)1, (long)2, true)]
+        [TestCase(59, (ushort)2, (long)2, true)]
+        [TestCase(60, (ushort)3, (long)2, false)]
+        // ushort + ulong
+        [TestCase(61, (ushort)1, (ulong)2, true)]
+        [TestCase(62, (ushort)2, (ulong)2, true)]
+        [TestCase(63, (ushort)3, (ulong)2, false)]
         // ushort + float
-        [TestCase(46, (ushort)1, (float)2, true)]
-        [TestCase(47, (ushort)2, (float)2, true)]
-        [TestCase(48, (ushort)3, (float)2, false)]
+        [TestCase(64, (ushort)1, (float)2, true)]
+        [TestCase(65, (ushort)2, (float)2, true)]
+        [TestCase(66, (ushort)3, (float)2, false)]
         // ushort + double
-        [TestCase(49, (ushort)1, (double)2, true)]
-        [TestCase(50, (ushort)2, (double)2, true)]
-        [TestCase(51, (ushort)3, (double)2, false)]
+        [TestCase(67, (ushort)1, (double)2, true)]
+        [TestCase(68, (ushort)2, (double)2, true)]
+        [TestCase(69, (ushort)3, (double)2, false)]
+        // int + long
+        [TestCase(70, (int)1, (long)2, true)]
+        [TestCase(71, (int)2, (long)2, true)]
+        [TestCase(72, (int)3, (long)2, false)]
         // int + float
-        [TestCase(52, (int)1, (float)2, true)]
-        [TestCase(53, (int)2, (float)2, true)]
-        [TestCase(54, (int)3, (float)2, false)]
+        [TestCase(73, (int)1, (float)2, true)]
+        [TestCase(74, (int)2, (float)2, true)]
+        [TestCase(75, (int)3, (float)2, false)]
         // int + double
-        [TestCase(55, (int)1, (double)2, true)]
-        [TestCase(56, (int)2, (double)2, true)]
-        [TestCase(57, (int)3, (double)2, false)]
+        [TestCase(76, (int)1, (double)2, true)]
+        [TestCase(77, (int)2, (double)2, true)]
+        [TestCase(78, (int)3, (double)2, false)]
+        // uint + long
+        [TestCase(79, (uint)1, (long)2, true)]
+        [TestCase(80, (uint)2, (long)2, true)]
+        [TestCase(81, (uint)3, (long)2, false)]
+        // uint + ulong
+        [TestCase(82, (uint)1, (ulong)2, true)]
+        [TestCase(83, (uint)2, (ulong)2, true)]
+        [TestCase(84, (uint)3, (ulong)2, false)]
         // uint + float
-        [TestCase(58, (uint)1, (float)2, true)]
-        [TestCase(59, (uint)2, (float)2, true)]
-        [TestCase(60, (uint)3, (float)2, false)]
+        [TestCase(85, (uint)1, (float)2, true)]
+        [TestCase(86, (uint)2, (float)2, true)]
+        [TestCase(87, (uint)3, (float)2, false)]
         // uint + double
-        [TestCase(61, (uint)1, (double)2, true)]
-        [TestCase(62, (uint)2, (double)2, true)]
-        [TestCase(63, (uint)3, (double)2, false)]
+        [TestCase(88, (uint)1, (double)2, true)]
+        [TestCase(89, (uint)2, (double)2, true)]
+        [TestCase(90, (uint)3, (double)2, false)]
+        // long + float
+        [TestCase(91, (long)1, (float)2, true)]
+        [TestCase(92, (long)2, (float)2, true)]
+        [TestCase(93, (long)3, (float)2, false)]
+        // long + double
+        [TestCase(94, (long)1, (double)2, true)]
+        [TestCase(95, (long)2, (double)2, true)]
+        [TestCase(96, (long)3, (double)2, false)]
         // float + double
-        [TestCase(64, (float)1, (double)2, true)]
-        [TestCase(65, (float)2, (double)2, true)]
-        [TestCase(66, (float)3, (double)2, false)]
-        // Forbidden: sbyte + byte, sbyte + ushort, sbyte + uint, short + ushort, ushort + uint, int + uint, anything with decimal
+        [TestCase(97, (float)1, (double)2, true)]
+        [TestCase(98, (float)2, (double)2, true)]
+        [TestCase(99, (float)3, (double)2, false)]
+        // Forbidden: sbyte + byte, sbyte + ushort, sbyte + uint, sbyte + ulong, short + ushort, short + ulong,
+        //            ushort + uint, int + uint, int + ulong, long + ulong, anything with decimal
         public void WithinLimit_ForGivenValidNumbers_ReturnsTrue<TNumber>(int testId, TNumber testNumber1, TNumber testNumber2, bool expectedResult)
             where TNumber : struct, IComparable, IComparable<TNumber>, IConvertible, IEquatable<TNumber>, IFormattable  // NOTE: Numeric type
         {
