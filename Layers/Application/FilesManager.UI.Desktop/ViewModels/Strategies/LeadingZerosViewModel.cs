@@ -61,6 +61,10 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         }
 
         private bool _isAbsoluteModeEnabled = DefaultAbsoluteModeEnabled;
+
+        /// <summary>
+        /// Determines whether <see cref="IsAbsoluteModeOn"/> checkbox is enabled.
+        /// </summary>
         public bool IsAbsoluteModeEnabled
         {
             get => this._isAbsoluteModeEnabled;
@@ -79,7 +83,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         #endregion
 
         #region Properties
-        internal int MaxDigitsLength { private get; set; }
+        internal int MaxDigitsLength { get; set; }
         #endregion
 
         #region Polymorphism
@@ -170,41 +174,36 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         /// </returns>
         private string GetDigitsWithLeadingZeros(PathZerosDigitsExtensionDto fileDto)
         {
-            // There is no point to process further
+            // There is no point to process the DTO any further
             if (this.HasErrors)
             {
                 return fileDto.Zeros + fileDto.Digits;
             }
 
             // Removing zeros mode
-            if (this._currentLeadingZeros == 0)
+            if (this._currentLeadingZeros is 0)
             {
-                return fileDto.Digits.Length > 0
-                    ? fileDto.Digits                 // Cases: "01.jpg" => "1.jpg" or "01a.png" => "1a.png" (return trimmed digits without zeros)
-                    // There is no digits
-                    : fileDto.Name.Length > 0
-                        ? string.Empty               // Cases: "0test.jpg" => "test.jpg" (name will be added later so, for now return just empty)
-                        // There is no name
-                        : fileDto.Zeros.Length > 1
-                            ? DefaultStartingNumber  // Cases: "00.jpg" => "0.jpg" (try to reduce number of zeros to none, but prevent ".jpg")
-                            : fileDto.Zeros;         // Cases: "0.jpg" (if there is no name or digits but "no zeros" was requested. Prevent ".jpg")
+                if (fileDto.Digits.Length is 0 &&
+                    fileDto.Name.Length   is 0 &&
+                    (this.IsAbsoluteModeOn || this.MaxDigitsLength is 0))
+                {
+                    return DefaultStartingNumber;  // Cases: "00.jpg" => "0.jpg" (try to reduce number of zeros to none, but prevent ".jpg")
+                }
+
+                if (this.IsAbsoluteModeOn)
+                {
+                    return fileDto.Digits;  // Cases: "01.jpg" => "1.jpg" or "01a.png" => "1a.png" (trim zeros)
+                }
             }
 
-            return GetLeadingZeros(this._currentLeadingZeros, fileDto.Digits, this.MaxDigitsLength);
+            return GetLeadingZeros(fileDto.Digits);
         }
 
-        //private string AddZeros(string value)
-        //{
-        //    return this.IsAbsoluteModeOn
-        //        ? value
-        //        : GetLeadingZeros();
-        //}
-
-        private static string GetLeadingZeros(ushort currentLeadingZeros, string digits, int maxDigitsLength)
+        private string GetLeadingZeros(string digits)
         {
-            int zerosToAdd = digits.Length == maxDigitsLength  // For 2n => MIN: "1" (Length: 1), MAX: "10" (Length: 2)
-                ? currentLeadingZeros  // (Count: 1) => "0"
-                : maxDigitsLength + currentLeadingZeros - digits.Length;  // 2 (max len) + 1 (count) - 1 (min len) => "00" + "1"
+            int zerosToAdd = digits.Length == this.MaxDigitsLength  // For 2n => MIN: "1" (Length: 1), MAX: "10" (Length: 2)
+                ? this._currentLeadingZeros                         // (Count: 1) => "0"
+                : this.MaxDigitsLength + this._currentLeadingZeros - digits.Length;  // 2 (max len) + 1 (count) - 1 (min len) => "00" + "1"
 
             return $"{new string(char.Parse(DefaultStartingNumber), zerosToAdd)}{digits}";
         }
