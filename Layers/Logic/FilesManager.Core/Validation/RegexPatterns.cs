@@ -31,7 +31,7 @@ namespace FilesManager.Core.Validation
         /// <summary>
         /// Captures path, name, and extensions components of the file path.
         /// </summary>
-        [GeneratedRegex($@"^(?<{PathGroup}>[A-Z]{{1}}\:\\.+\\)(?<{NameGroup}>[a-zA-Z0-9 ._-]+)(?<{ExtensionGroup}>\.[aA-zZ0-9]{{1,6}})$", RegexOptions.Compiled)]
+        [GeneratedRegex($@"^(?<{PathGroup}>[A-Z]{{1}}\:\\.+\\)(?<{NameGroup}>.+)(?<{ExtensionGroup}>\.[aA-zZ0-9]{{1,6}})$", RegexOptions.Compiled)]
         internal static partial Regex FileComponentsPattern();
 
         /// <summary>
