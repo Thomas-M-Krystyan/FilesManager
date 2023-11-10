@@ -137,12 +137,6 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
                 }
             }
 
-            // ------------------------------
-            // 4. Finalization of the process
-            // ------------------------------
-            this.LeadingZeros = DefaultStartingNumber;
-            this.IsAbsoluteModeOn = DefaultAbsoluteModeOn;
-
             return result;
         }
 
