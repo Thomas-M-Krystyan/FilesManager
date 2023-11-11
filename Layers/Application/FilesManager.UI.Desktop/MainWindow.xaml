@@ -274,7 +274,7 @@
                         </Label>
                         <TextBox Grid.Column="2"
                                  Grid.Row="1"
-                                 Text="{Binding AppendName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                 Text="{Binding PrependName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                  ToolTip="{xaml:Static strategies:PrependAppendViewModel.Content_NonEmptyField_Tooltip}"
                                  Style="{StaticResource TextBoxStyle_120}">
                             <behaviors:Interaction.Triggers>
@@ -297,7 +297,7 @@
                         </Label>
                         <TextBox Grid.Column="4"
                                  Grid.Row="1"
-                                 Text="{Binding PrependName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                 Text="{Binding AppendName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                  ToolTip="{xaml:Static strategies:PrependAppendViewModel.Content_NonEmptyField_Tooltip}"
                                  Style="{StaticResource TextBoxStyle_120}">
                             <behaviors:Interaction.Triggers>

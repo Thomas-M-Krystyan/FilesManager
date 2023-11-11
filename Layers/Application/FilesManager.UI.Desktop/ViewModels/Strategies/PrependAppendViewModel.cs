@@ -3,6 +3,7 @@ using FilesManager.Core.Extensions;
 using FilesManager.Core.Models.DTOs.Files;
 using FilesManager.Core.Models.DTOs.Results;
 using FilesManager.Core.Models.POCOs;
+using FilesManager.Core.Services.Writing;
 using FilesManager.UI.Common.Properties;
 using FilesManager.UI.Desktop.ViewModels.Base;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
@@ -60,42 +61,57 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         {
         }
 
-        // PathNameExtensionDto fileDto = FilePathConverter.GetPathNameExtension(file.Match);
-
-        //private void RenameWithPrependAndAppendedText()
-        //{
-        //    // Validate strings which are going to be used in file name
-        //    RenamingResultDto result = ValidateIllegalCharacters(this.PrependName, this.AppendName);
-
-        //    if (result.IsSuccess)
-        //    {
-        //        // Process renaming of the file
-        //        foreach (ListBoxItem fileItem in this.FilesList.Items)
-        //        {
-        //            result = RenamingService.EnrichWithPrependAndAppend((string)fileItem.ToolTip, this.PrependName, this.AppendName);
-
-        //            // Validate renaming result
-        //            if (!result.IsSuccess)
-        //            {
-        //                break;
-        //            }
-
-        //            UpdateNameOnList(fileItem, result.NewFilePath);
-        //        }
-
-        //        // Reset input fields
-        //        this.PrependName = string.Empty;
-        //        this.AppendName = string.Empty;
-        //    }
-
-        //    DisplayPopup(result);
-        //}
-
         #region Polymorphism
         /// <inheritdoc cref="StrategyBase{TFileDto}.Process(ObservableCollection{FileData})"/>
         internal override sealed RenamingResultDto Process(ObservableCollection<FileData> loadedFiles)
         {
-            return RenamingResultDto.Success();
+            // -----------------------------------------
+            // 1. Validate if there are any input errors
+            // -----------------------------------------
+            if (this.HasErrors)
+            {
+                return RenamingResultDto.Failure(GetAllErrors());
+            }
+
+            // --------------------------------
+            // 2. Process renaming of the files
+            // --------------------------------
+            var result = RenamingResultDto.Failure();
+            FileData file;
+            PathNameExtensionDto dto;
+
+            for (ushort index = 0; index < loadedFiles.Count; index++)
+            {
+                file = loadedFiles[index];
+                dto = file.Match.GetPathNameExtensionDto();
+                result = WritingService.RenameFile(file.Path, GetNewFilePath(dto));
+
+                if (result.IsSuccess)
+                {
+                    UpdateFilesList(loadedFiles, index, () =>
+                    {
+                        file.Path = result.NewFilePath;
+
+                        return file;
+                    });
+                }
+                else
+                {
+                    loadedFiles.Clear();
+                    break;
+                }
+            }
+
+            // ------------------------------
+            // 3. Finalization of the process
+            // ------------------------------
+            if (result.IsSuccess)
+            {
+                this.PrependName = string.Empty;
+                this.AppendName = string.Empty;
+            }
+
+            return result;
         }
 
         /// <inheritdoc cref="StrategyBase{TFileDto}.Reset()"/>
