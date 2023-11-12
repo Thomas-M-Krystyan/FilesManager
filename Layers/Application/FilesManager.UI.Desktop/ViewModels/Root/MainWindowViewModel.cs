@@ -5,6 +5,7 @@ using FilesManager.UI.Common.Properties;
 using FilesManager.UI.Desktop.Utilities;
 using FilesManager.UI.Desktop.ViewModels.Base;
 using FilesManager.UI.Desktop.ViewModels.Strategies;
+using FilesManager.UI.Desktop.ViewModels.Strategies.Interfaces;
 using Microsoft.Xaml.Behaviors.Core;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -21,17 +22,33 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
     internal sealed class MainWindowViewModel : ViewModelBase
     {
         #region Texts
+        // Title
+        public static string WindowTitle = Resources.WindowTitle;
+
+        // General
         public static string GeneralSection_Header = Resources.Header_General;
         public static string GeneralSection_Tooltip = Resources.Tooltip_General;
 
+        // Files (list)
         public static string FilesList_Tooltip = Resources.Tooltip_FilesList;
 
+        // Files (counter)
         public static string FilesCounter_Label = Resources.Label_FilesCounter;
         public static string FilesCounter_Tooltip = Resources.Tooltip_FilesCounter;
+
+        // Buttons
+        public static string ResetButton_Content = Resources.Content_ResetButton;
+        public static string ResetButton_Tooltip = Resources.Tooltip_ResetButton;
+
+        public static string ClearButton_Content = Resources.Content_ClearButton;
+        public static string ClearButton_Tooltip = Resources.Tooltip_ClearButton;
+
+        public static string ProcessButton_Content = Resources.Content_ProcessButton;
+        public static string ProcessButton_Tooltip = Resources.Tooltip_ProcessButton;
         #endregion
 
         #region Fields
-        private dynamic? _activeStrategy;
+        private IRenamingStrategy? _activeStrategy;
         #endregion
 
         // NOTE: All binding elements should be public

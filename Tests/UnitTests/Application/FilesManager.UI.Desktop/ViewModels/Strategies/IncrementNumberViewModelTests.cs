@@ -1,4 +1,4 @@
-﻿using FilesManager.Core.Models.DTOs.Files.Abstractions;
+﻿using FilesManager.Core.Models.DTOs.Files;
 using FilesManager.UI.Desktop.UnitTests._TestHelpers;
 using FilesManager.UI.Desktop.ViewModels.Strategies;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
@@ -8,7 +8,7 @@ namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Strategies
     [TestFixture]
     internal sealed class IncrementNumberViewModelTests
     {
-        private StrategyBase<BasePathDto>? _strategy;
+        private StrategyBase<PathNameExtensionDto>? _strategy;
 
         [Test]
         public void GetNewFilePath_ForValidPath_WithNumber_ReturnsChangedFileName()
@@ -17,7 +17,7 @@ namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Strategies
             this._strategy = new IncrementNumberViewModel
             {
                 NamePrefix = string.Empty,
-                StartingNumber = "4",
+                StartingNumber = 4,
                 NamePostfix = string.Empty
             };
 
@@ -40,7 +40,7 @@ namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Strategies
             this._strategy = new IncrementNumberViewModel
             {
                 NamePrefix = testPrefix,
-                StartingNumber = "4",
+                StartingNumber = 4,
                 NamePostfix = string.Empty
             };
 
@@ -63,7 +63,7 @@ namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Strategies
             this._strategy = new IncrementNumberViewModel
             {
                 NamePrefix = string.Empty,
-                StartingNumber = "4",
+                StartingNumber = 4,
                 NamePostfix = testPostfix
             };
 

@@ -5,20 +5,23 @@
     /// </summary>
     internal sealed record RenamingResultDto
     {
+        #region Defaults
+        private static readonly RenamingResultDto DefaultFailure = new(isSuccess: false);
+        #endregion
+
         /// <summary>
         /// Gets the result of renaming operation.
         /// </summary>
         internal bool IsSuccess { get; }
 
         /// <summary>
-        /// Gets the renaming result message (information, warning, error).
+        /// Gets the result value:
+        /// <list type="bullet">
+        ///   <item>Success: New file path</item>
+        ///   <item>Failure: Error message(s)</item>
+        /// </list>
         /// </summary>
-        internal string Message { get; } = string.Empty;
-
-        /// <summary>
-        /// Gets new renamed file path.
-        /// </summary>
-        internal string NewFilePath { get; } = string.Empty;
+        internal string Value { get; } = string.Empty;
 
         #region Constructors
         /// <summary>
@@ -30,17 +33,10 @@
         }
 
         /// <inheritdoc cref="RenamingResultDto(bool)" />
-        private RenamingResultDto(bool isSuccess, string message)
+        private RenamingResultDto(bool isSuccess, string value)
             : this(isSuccess)
         {
-            this.Message = message;
-        }
-
-        /// <inheritdoc cref="RenamingResultDto(bool)" />
-        private RenamingResultDto(bool isSuccess, string message, string newFilePath)
-            : this(isSuccess, message)
-        {
-            this.NewFilePath = newFilePath;
+            this.Value = value;
         }
         #endregion
 
@@ -48,15 +44,9 @@
         /// <summary>
         /// Renaming operation was successful.
         /// </summary>
-        internal static RenamingResultDto Success()
-        {
-            return new RenamingResultDto(true);
-        }
-
-        /// <inheritdoc cref="Success" />
         internal static RenamingResultDto Success(string newFilePath)
         {
-            return new RenamingResultDto(true, "Success", newFilePath);
+            return new RenamingResultDto(isSuccess: true, value: newFilePath);
         }
 
         /// <summary>
@@ -64,13 +54,13 @@
         /// </summary>
         internal static RenamingResultDto Failure()
         {
-            return new RenamingResultDto(false, "Failure");
+            return DefaultFailure;
         }
 
         /// <inheritdoc cref="Failure" />
-        internal static RenamingResultDto Failure(string message)
+        internal static RenamingResultDto Failure(string errorMessage)
         {
-            return new RenamingResultDto(false, message);
+            return new RenamingResultDto(isSuccess: false, value: errorMessage);
         }
         #endregion
     }

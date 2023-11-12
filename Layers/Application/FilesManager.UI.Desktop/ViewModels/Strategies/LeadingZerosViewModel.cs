@@ -29,23 +29,23 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         #region Const
         private const bool DefaultAbsoluteModeOn = false;
         private const bool DefaultAbsoluteModeEnabled = true;
+        private const string Zero = "0";
         #endregion
 
         // NOTE: All binding elements should be public
         #region Properties (binding)
-        private ushort _currentLeadingZeros;                   // NOTE: Logic
-        private string _leadingZeros = DefaultStartingNumber;  // NOTE: UI
-        public string LeadingZeros
+        private byte _leadingZeros;
+        public byte LeadingZeros
         {
             get => this._leadingZeros;
             set
             {
                 this._leadingZeros = value;
-                ValidateOnlyNumbers(nameof(this.LeadingZeros), value, out this._currentLeadingZeros, maxLimit: 7);
+                ValidateNumMaxLimit(nameof(this.LeadingZeros), value, maxLimit: 7);
                 OnPropertyChanged(nameof(this.LeadingZeros));
 
                 // NOTE: The checkbox should be enabled only for 0 value
-                this.IsAbsoluteModeEnabled = this._currentLeadingZeros == ushort.MinValue;
+                this.IsAbsoluteModeEnabled = this._leadingZeros == ushort.MinValue;
             }
         }
 
@@ -120,20 +120,27 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             // --------------------------------
             var result = RenamingResultDto.Failure();
             FileData file;
+            PathZerosDigitsExtensionDto dto;
 
             for (ushort index = 0; index < loadedFiles.Count; index++)
             {
                 file = loadedFiles[index];
-                result = WritingService.RenameFile(file.Path, GetNewFilePath(dtos[index]));
+                dto = dtos[index];
+                result = WritingService.RenameFile(file.Path, GetNewFilePath(dto));
 
                 if (result.IsSuccess)
                 {
                     UpdateFilesList(loadedFiles, index, () =>
                     {
-                        file.Path = result.NewFilePath;
+                        file.Path = result.Value;
 
                         return file;
                     });
+                }
+                else
+                {
+                    loadedFiles.Clear();
+                    break;
                 }
             }
 
@@ -143,7 +150,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         /// <inheritdoc cref="StrategyBase{TFileDto}.Reset()"/>
         protected override sealed void Reset()  // NOTE: Speficic behavior for this concrete strategy. Overloading restricted
         {
-            this.LeadingZeros = DefaultStartingNumber;
+            this.LeadingZeros = default;
             this.IsAbsoluteModeOn = DefaultAbsoluteModeOn;
 
             base.Reset();
@@ -175,13 +182,13 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             }
 
             // Removing zeros mode
-            if (this._currentLeadingZeros is 0)
+            if (this.LeadingZeros is 0)
             {
                 if (fileDto.Digits.Length is 0 &&
                     fileDto.Name.Length   is 0 &&
                     (this.IsAbsoluteModeOn || this.MaxDigitsLength is 0))
                 {
-                    return DefaultStartingNumber;  // Cases: "00.jpg" => "0.jpg" (try to reduce number of zeros to none, but prevent ".jpg")
+                    return Zero;  // Cases: "00.jpg" => "0.jpg" (try to reduce number of zeros to none, but prevent ".jpg")
                 }
 
                 if (this.IsAbsoluteModeOn)
@@ -195,11 +202,11 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
 
         private string GetLeadingZeros(string digits)
         {
-            int zerosToAdd = digits.Length == this.MaxDigitsLength  // For 2n => MIN: "1" (Length: 1), MAX: "10" (Length: 2)
-                ? this._currentLeadingZeros                         // (Count: 1) => "0"
-                : this.MaxDigitsLength + this._currentLeadingZeros - digits.Length;  // 2 (max len) + 1 (count) - 1 (min len) => "00" + "1"
+            int zerosToAdd = digits.Length == this.MaxDigitsLength           // For 2n => MIN: "1" (Length: 1), MAX: "10" (Length: 2)
+                ? this.LeadingZeros                                          // (Count: 1) => "0"
+                : this.MaxDigitsLength + this.LeadingZeros - digits.Length;  // 2 (max len) + 1 (count) - 1 (min len) => "00" + "1"
 
-            return $"{new string(char.Parse(DefaultStartingNumber), zerosToAdd)}{digits}";
+            return $"{new string(char.Parse(Zero), zerosToAdd)}{digits}";
         }
         #endregion
     }

@@ -9,12 +9,12 @@
         /// <summary>
         /// Gets the zeros part of the name of the file.
         /// </summary>
-        internal string Zeros { get; } = string.Empty;
+        internal string Zeros { get; init; } = string.Empty;
 
         /// <summary>
         /// Gets the digits part of the name of the file.
         /// </summary>
-        internal string Digits { get; } = string.Empty;
+        internal string Digits { get; init; } = string.Empty;
 
         /// <summary>
         /// Gets the complete name of the file.
@@ -24,6 +24,11 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="PathZerosDigitsExtensionDto"/> record.
         /// </summary>
+        public PathZerosDigitsExtensionDto()  // NOTE: Required for "new TDto()"
+        {
+        }
+
+        /// <inheritdoc cref="PathZerosDigitsExtensionDto()"/>
         internal PathZerosDigitsExtensionDto(string path, string zeros, string digits, string name, string extension)
             : base(path, name, extension)
         {

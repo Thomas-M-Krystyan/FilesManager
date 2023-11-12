@@ -141,10 +141,6 @@
     <value>The given value contains illegal characters</value>
     <comment>UI message</comment>
   </data>
-  <data name="ERROR_Validation_Field_ContainsNotDigits" xml:space="preserve">
-    <value>The given value contains not a number (NaN)</value>
-    <comment>UI message</comment>
-  </data>
   <data name="ERROR_Validation_Field_ExceedsMaxLimit" xml:space="preserve">
     <value>The given number is larger than allowed maximum limit of</value>
     <comment>UI message</comment>
@@ -153,20 +149,12 @@
     <value>Some numbers would eventually exceed the max value for 'Start number' (65535) if the renaming continue.</value>
     <comment>UI message</comment>
   </data>
-  <data name="ERROR_Validation_FileName_HasNoPreceedingNumber" xml:space="preserve">
-    <value>The file name does not contain preceeding numeric part:</value>
-    <comment>UI message</comment>
-  </data>
   <data name="ERROR_Validation_Files_PathNotRecognized_Header" xml:space="preserve">
     <value>File loading error</value>
     <comment>UI message</comment>
   </data>
   <data name="ERROR_Validation_Files_PathNotRecognized_Text" xml:space="preserve">
     <value>Unrecognized type of file:</value>
-    <comment>UI message</comment>
-  </data>
-  <data name="ERROR_Validation_File_NotRenamed" xml:space="preserve">
-    <value>The given file couldn't be renamed:</value>
     <comment>UI message</comment>
   </data>
   <data name="Header_General" xml:space="preserve">
@@ -213,7 +201,7 @@
     <value>Start number:</value>
     <comment>XAML</comment>
   </data>
-  <data name="RESULT_Operation_Failure" xml:space="preserve">
+  <data name="RESULT_Operation_Failure_Header" xml:space="preserve">
     <value>Operation failed</value>
     <comment>UI message</comment>
   </data>
@@ -395,7 +383,7 @@ Invalid characters:  \ / : * ? " &lt; &gt; |</value>
     <comment>XAML</comment>
   </data>
   <data name="WindowTitle" xml:space="preserve">
-    <value>File Manager (v0.4.0-alpha)</value>
+    <value>File Manager (v0.4.1-alpha)</value>
     <comment>Application</comment>
   </data>
 </root>

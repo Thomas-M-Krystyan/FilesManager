@@ -4,19 +4,17 @@
         xmlns:xaml="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:markup="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:properties="clr-namespace:FilesManager.UI.Common.Properties;assembly=FilesManager.UI.Common"
         xmlns:customBehaviors="clr-namespace:FilesManager.UI.Desktop.Behaviors"
         xmlns:root="clr-namespace:FilesManager.UI.Desktop.ViewModels.Root"
         xmlns:strategies="clr-namespace:FilesManager.UI.Desktop.ViewModels.Strategies"
         data:DataContext="{data:DesignInstance Type=root:MainWindowViewModel}"
         markup:Ignorable="data"
         
-        Title="{xaml:Static properties:Resources.WindowTitle}"
+        Title="{xaml:Static root:MainWindowViewModel.WindowTitle}"
         
         Background="LightGray"
         WindowStyle="SingleBorderWindow"
-        ResizeMode="CanMinimize">
-    <!-- NOTE: Enable minimize / maximize buttons -->
+        ResizeMode="CanMinimize">  <!-- NOTE: Enable minimize / maximize buttons -->
 
     <!-- RESOURCES -->
     <Window.Resources>
@@ -445,9 +443,9 @@
                     <Button Grid.Column="1"
                             Grid.Row="1"
                             IsEnabled="{Binding CanReset, Mode=OneWay}"
-                            Content="{xaml:Static properties:Resources.Content_ResetButton}"
+                            Content="{xaml:Static root:MainWindowViewModel.ResetButton_Content}"
+                            ToolTip="{xaml:Static root:MainWindowViewModel.ResetButton_Tooltip}"
                             Background="#FFDCB9B9"
-                            ToolTip="{xaml:Static properties:Resources.Tooltip_ResetButton}"
                             Style="{StaticResource ButtonStyle}">
                         <behaviors:Interaction.Triggers>
                             <behaviors:EventTrigger EventName="Click">
@@ -460,9 +458,9 @@
                     <Button Grid.Column="3"
                             Grid.Row="1"
                             IsEnabled="{Binding CanClear, Mode=OneWay}"
-                            Content="{xaml:Static properties:Resources.Content_ClearButton}"
+                            Content="{xaml:Static root:MainWindowViewModel.ClearButton_Content}"
+                            ToolTip="{xaml:Static root:MainWindowViewModel.ClearButton_Tooltip}"
                             Background="#FFDCB9B9"
-                            ToolTip="{xaml:Static properties:Resources.Tooltip_ClearButton}"
                             Style="{StaticResource ButtonStyle}">
                         <behaviors:Interaction.Triggers>
                             <behaviors:EventTrigger EventName="Click">
@@ -475,9 +473,9 @@
                     <Button Grid.Column="5"
                             Grid.Row="1"
                             IsEnabled="{Binding CanProcess, Mode=OneWay}"
-                            Content="{xaml:Static properties:Resources.Content_ProcessButton}"
+                            Content="{xaml:Static root:MainWindowViewModel.ProcessButton_Content}"
+                            ToolTip="{xaml:Static root:MainWindowViewModel.ProcessButton_Tooltip}"
                             Background="LightBlue"
-                            ToolTip="{xaml:Static properties:Resources.Tooltip_ProcessButton}"
                             Style="{StaticResource ButtonStyle}">
                         <behaviors:Interaction.Triggers>
                             <behaviors:EventTrigger EventName="Click">

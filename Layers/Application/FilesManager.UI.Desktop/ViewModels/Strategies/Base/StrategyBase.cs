@@ -1,13 +1,15 @@
-﻿using FilesManager.Core.Models.DTOs.Files.Abstractions;
+﻿using FilesManager.Core.Converters;
+using FilesManager.Core.Models.DTOs.Files;
 using FilesManager.Core.Models.DTOs.Results;
 using FilesManager.Core.Models.POCOs;
+using FilesManager.Core.Services.Writing;
 using FilesManager.Core.Validation;
 using FilesManager.UI.Common.Properties;
 using FilesManager.UI.Desktop.Utilities;
 using FilesManager.UI.Desktop.ViewModels.Base;
+using FilesManager.UI.Desktop.ViewModels.Strategies.Interfaces;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
-using System.Windows;
 
 namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
 {
@@ -15,8 +17,8 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
     /// Base class for all file manipulation strategies.
     /// </summary>
     /// <seealso cref="ViewModelBase"/>
-    internal abstract class StrategyBase<TFileDto> : ViewModelBase
-        where TFileDto : BasePathDto
+    internal abstract class StrategyBase<TFileDto> : ViewModelBase, IRenamingStrategy
+        where TFileDto : PathNameExtensionDto, new()
     {
         #region Texts
         public static readonly string RadioButton_Tooltip = Resources.Tooltip_RadioButton;
@@ -24,10 +26,6 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         public static readonly string Content_NonEmptyField_Tooltip = Resources.Tooltip_Tip_Content_NonEmptyField;
         public static readonly string Content_OnlyPositives_Tooltip = Resources.Tooltip_Tip_Content_OnlyPositives;
         public static readonly string Content_OnlyVerySmallPositives_Tooltip = Resources.Tooltip_Tip_Content_OnlyVerySmallPositives;
-        #endregion
-
-        #region Const
-        protected const string DefaultStartingNumber = "0";
         #endregion
 
         // NOTE: All binding elements should be public
@@ -67,6 +65,22 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         {
         }
 
+        #region IRenamingStrategy
+        /// <inheritdoc cref="IRenamingStrategy.Process(ObservableCollection{FileData})"/>
+        RenamingResultDto IRenamingStrategy.Process(ObservableCollection<FileData> loadedFiles)
+        {
+            return Process(loadedFiles);
+        }
+
+        /// <inheritdoc cref="IRenamingStrategy.DisplayPopup(RenamingResultDto)"/>
+        void IRenamingStrategy.DisplayPopup(RenamingResultDto result)
+        {
+            _ = result.IsSuccess
+                ? Message.InfoOk(Resources.RESULT_Operation_Success_Header, Resources.RESULT_Operation_Success_Text)
+                : Message.ErrorOk(Resources.RESULT_Operation_Failure_Header, result.Value);
+        }
+        #endregion
+
         #region Polymorphism
         /// <inheritdoc cref="ViewModelBase.Select(object)"/>
         protected override sealed void Select(object parameter)  // NOTE: Default behavior for all strategies, no need to change it. Overloading restricted
@@ -97,18 +111,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         #endregion
 
         #region Abstract
-        /// <summary>
-        /// Executes logic related to this specific strategy.
-        /// </summary>
-        /// <param name="loadedFiles">
-        ///   The collection of loaded files, dragged and dropped into dedicated UI section.
-        ///   <para>
-        ///     It will never be null or empty.
-        ///   </para>
-        /// </param>
-        /// <returns>
-        ///   <inheritdoc cref="RenamingResultDto" path="/summary"/>
-        /// </returns>
+        /// <inheritdoc cref="IRenamingStrategy.Process(ObservableCollection{FileData})"/>
         internal abstract RenamingResultDto Process(ObservableCollection<FileData> loadedFiles);
 
         /// <summary>
@@ -119,19 +122,6 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         ///   The new file path (changed by the current renaming strategy).
         /// </returns>
         protected internal abstract string GetNewFilePath(TFileDto fileDto);
-        #endregion
-
-        #region Virtual
-        /// <summary>
-        /// Displays a proper <see cref="MessageBoxResult"/> popup with feedback information.
-        /// </summary>
-        /// <param name="result">The result of processing operation.</param>
-        internal virtual void DisplayPopup(RenamingResultDto result)
-        {
-            _ = result.IsSuccess
-                ? Message.InfoOk(Resources.RESULT_Operation_Success_Header, Resources.RESULT_Operation_Success_Text)
-                : Message.ErrorOk(Resources.RESULT_Operation_Failure, result.Message);
-        }
         #endregion
 
         #region Concrete (Validation)
@@ -157,26 +147,49 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         /// </para>
         /// </summary>
         /// <param name="propertyName">The name of the property.</param>
-        /// <param name="propertyValue">The value of the property.</param>
         /// <param name="number">The result of string to <paramref name="TNumber"/> conversion.</param>
         /// <param name="maxLimit">The maximum limit of the output number.</param>
-        protected void ValidateOnlyNumbers<TNumber>(string propertyName, string propertyValue, out TNumber number, TNumber? maxLimit = null)
+        protected void ValidateNumMaxLimit<TNumber>(string propertyName, TNumber number, TNumber maxLimit)
             where TNumber : struct, IComparable, IComparable<TNumber>, IConvertible, IEquatable<TNumber>, IFormattable  // NOTE: Numeric type
         {
-            bool isSuccess = Validate.Is(propertyValue, out number,
-                () => ClearErrors(propertyName),
-                () => AddError(propertyName, Resources.ERROR_Validation_Field_ContainsNotDigits, propertyValue));
-
-            if (isSuccess && maxLimit != null)
-            {
-                _ = Validate.WithinLimit(number, maxLimit.Value,
-                () => ClearErrors(propertyName),
-                () => AddError(propertyName, Resources.ERROR_Validation_Field_ExceedsMaxLimit, maxLimit));
-            }
+            _ = Validate.WithinLimit(number, maxLimit,
+            () => ClearErrors(propertyName),
+            () => AddError(propertyName, Resources.ERROR_Validation_Field_ExceedsMaxLimit, maxLimit));
         }
         #endregion
 
         #region Concrete (Logic)
+        protected internal  RenamingResultDto TryUpdatingFiles(ObservableCollection<FileData> loadedFiles)
+        {
+            var result = RenamingResultDto.Failure();
+            FileData file;
+            TFileDto dto;
+
+            for (ushort index = 0; index < loadedFiles.Count; index++)
+            {
+                file = loadedFiles[index];
+                dto = file.Match.GetPathNameExtensionDto<TFileDto>();
+                result = WritingService.RenameFile(file.Path, GetNewFilePath(dto));
+
+                if (result.IsSuccess)
+                {
+                    UpdateFilesList(loadedFiles, index, () =>
+                    {
+                        file.Path = result.Value;
+
+                        return file;
+                    });
+                }
+                else
+                {
+                    loadedFiles.Clear();
+                    break;
+                }
+            }
+
+            return result;
+        }
+
         /// <summary>
         /// Updates the <see cref="ObservableCollection{T}"/> of files.
         /// </summary>

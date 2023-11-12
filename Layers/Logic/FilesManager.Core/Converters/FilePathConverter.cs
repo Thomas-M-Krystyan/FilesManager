@@ -19,11 +19,15 @@ namespace FilesManager.Core.Converters
         /// <returns>
         ///   Empty <see cref="PathNameExtensionDto"/> if the provided file path is invalid.
         /// </returns>
-        internal static PathNameExtensionDto GetPathNameExtensionDto(this Match filePathMatch)
+        internal static TFileDto GetPathNameExtensionDto<TFileDto>(this Match filePathMatch)
+            where TFileDto : PathNameExtensionDto, new()
         {
-            return new PathNameExtensionDto(path:      filePathMatch.Value(RegexPatterns.PathGroup),
-                                            name:      filePathMatch.Value(RegexPatterns.NameGroup),
-                                            extension: filePathMatch.Value(RegexPatterns.ExtensionGroup));
+            return new TFileDto()
+            {
+                Path = filePathMatch.Value(RegexPatterns.PathGroup),
+                Name = filePathMatch.Value(RegexPatterns.NameGroup),
+                Extension = filePathMatch.Value(RegexPatterns.ExtensionGroup)
+            };
         }
         #endregion
 
@@ -33,7 +37,7 @@ namespace FilesManager.Core.Converters
         /// </summary>
         /// <param name="filePathMatch">The file path RegEx match.</param>
         /// <returns>
-        ///   Empty <see cref="PathNameExtensionDto"/> if the provided file path is invalid.
+        ///   Empty <see cref="PathZerosDigitsExtensionDto"/> if the provided file path is invalid.
         /// </returns>
         internal static PathZerosDigitsExtensionDto GetPathZerosDigitsExtensionDto(this Match filePathMatch)
         {

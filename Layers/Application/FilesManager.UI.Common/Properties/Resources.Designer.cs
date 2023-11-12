@@ -115,15 +115,6 @@ namespace FilesManager.UI.Common.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The given value contains not a number (NaN).
-        /// </summary>
-        public static string ERROR_Validation_Field_ContainsNotDigits {
-            get {
-                return ResourceManager.GetString("ERROR_Validation_Field_ContainsNotDigits", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The given number is larger than allowed maximum limit of.
         /// </summary>
         public static string ERROR_Validation_Field_ExceedsMaxLimit {
@@ -138,24 +129,6 @@ namespace FilesManager.UI.Common.Properties {
         public static string ERROR_Validation_Field_ValueWillExceedUshortMax {
             get {
                 return ResourceManager.GetString("ERROR_Validation_Field_ValueWillExceedUshortMax", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The given file couldn&apos;t be renamed:.
-        /// </summary>
-        public static string ERROR_Validation_File_NotRenamed {
-            get {
-                return ResourceManager.GetString("ERROR_Validation_File_NotRenamed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The file name does not contain preceeding numeric part:.
-        /// </summary>
-        public static string ERROR_Validation_FileName_HasNoPreceedingNumber {
-            get {
-                return ResourceManager.GetString("ERROR_Validation_FileName_HasNoPreceedingNumber", resourceCulture);
             }
         }
         
@@ -279,9 +252,9 @@ namespace FilesManager.UI.Common.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Operation failed.
         /// </summary>
-        public static string RESULT_Operation_Failure {
+        public static string RESULT_Operation_Failure_Header {
             get {
-                return ResourceManager.GetString("RESULT_Operation_Failure", resourceCulture);
+                return ResourceManager.GetString("RESULT_Operation_Failure_Header", resourceCulture);
             }
         }
         
@@ -565,7 +538,7 @@ namespace FilesManager.UI.Common.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to File Manager (v0.4.0-alpha).
+        ///   Looks up a localized string similar to File Manager (v0.4.1-alpha).
         /// </summary>
         public static string WindowTitle {
             get {

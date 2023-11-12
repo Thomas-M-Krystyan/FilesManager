@@ -3,7 +3,6 @@ using FilesManager.Core.Extensions;
 using FilesManager.Core.Models.DTOs.Files;
 using FilesManager.Core.Models.DTOs.Results;
 using FilesManager.Core.Models.POCOs;
-using FilesManager.Core.Services.Writing;
 using FilesManager.UI.Common.Properties;
 using FilesManager.UI.Desktop.ViewModels.Base;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
@@ -76,31 +75,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             // --------------------------------
             // 2. Process renaming of the files
             // --------------------------------
-            var result = RenamingResultDto.Failure();
-            FileData file;
-            PathNameExtensionDto dto;
-
-            for (ushort index = 0; index < loadedFiles.Count; index++)
-            {
-                file = loadedFiles[index];
-                dto = file.Match.GetPathNameExtensionDto();
-                result = WritingService.RenameFile(file.Path, GetNewFilePath(dto));
-
-                if (result.IsSuccess)
-                {
-                    UpdateFilesList(loadedFiles, index, () =>
-                    {
-                        file.Path = result.NewFilePath;
-
-                        return file;
-                    });
-                }
-                else
-                {
-                    loadedFiles.Clear();
-                    break;
-                }
-            }
+            RenamingResultDto result = TryUpdatingFiles(loadedFiles);
 
             // ------------------------------
             // 3. Finalization of the process

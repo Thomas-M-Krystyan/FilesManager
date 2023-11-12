@@ -6,7 +6,7 @@ namespace FilesManager.Core.Models.POCOs
     /// <summary>
     /// The POCO model representing <see cref="File"/> metadata.
     /// </summary>
-    internal record FileData
+    internal sealed record FileData
     {
         /// <summary>
         /// The full path to the file: <code>"C:\Users\JaneDoe\Desktop\Test.txt"</code>
