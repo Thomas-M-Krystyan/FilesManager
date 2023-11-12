@@ -17,6 +17,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
     /// Base class for all file manipulation strategies.
     /// </summary>
     /// <seealso cref="ViewModelBase"/>
+    /// <seealso cref="IRenamingStrategy"/>
     internal abstract class StrategyBase<TFileDto> : ViewModelBase, IRenamingStrategy
         where TFileDto : PathNameExtensionDto, new()
     {

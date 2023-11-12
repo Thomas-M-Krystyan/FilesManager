@@ -13,7 +13,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
     /// <summary>
     /// The strategy to update the file name by appending to it leading zeroes.
     /// </summary>
-    /// <seealso cref="StrategyBase"/>
+    /// <seealso cref="StrategyBase{TFileDto}"/>
     internal sealed class LeadingZerosViewModel : StrategyBase<PathZerosDigitsExtensionDto>
     {
         #region Texts

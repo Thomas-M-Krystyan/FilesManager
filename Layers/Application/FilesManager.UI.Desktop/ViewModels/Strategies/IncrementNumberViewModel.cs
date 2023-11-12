@@ -4,7 +4,6 @@ using FilesManager.Core.Models.DTOs.Files;
 using FilesManager.Core.Models.DTOs.Results;
 using FilesManager.Core.Models.POCOs;
 using FilesManager.UI.Common.Properties;
-using FilesManager.UI.Desktop.ViewModels.Base;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
 using System.Collections.ObjectModel;
 
@@ -13,7 +12,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
     /// <summary>
     /// The strategy to update the file name by using prefix, incremented number, and postfix.
     /// </summary>
-    /// <seealso cref="ViewModelBase"/>
+    /// <seealso cref="StrategyBase{TFileDto}"/>
     internal sealed class IncrementNumberViewModel : StrategyBase<PathNameExtensionDto>
     {
         #region Texts
