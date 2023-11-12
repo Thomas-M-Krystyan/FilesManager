@@ -106,7 +106,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             PathZerosDigitsExtensionDto[] dtos = loadedFiles.Select(file =>  // NOTE: Executing both logics at once
             {
                 // Conversion to DTO
-                PathZerosDigitsExtensionDto dto = file.Match.GetPathZerosDigitsExtensionDto();
+                PathZerosDigitsExtensionDto dto = file.Dto.GetPathZerosDigitsExtensionDto();
                 
                 // Counting max length
                 this.MaxDigitsLength = Math.Max(this.MaxDigitsLength, dto.Digits.Length);
@@ -126,16 +126,11 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             {
                 file = loadedFiles[index];
                 dto = dtos[index];
-                result = WritingService.RenameFile(file.Path, GetNewFilePath(dto));
+                result = WritingService.RenameFile(file.FullPath, GetNewFilePath(dto));
 
                 if (result.IsSuccess)
                 {
-                    UpdateFilesList(loadedFiles, index, () =>
-                    {
-                        file.Path = result.Value;
-
-                        return file;
-                    });
+                    UpdateFilesList(loadedFiles, index, result.Value);
                 }
                 else
                 {

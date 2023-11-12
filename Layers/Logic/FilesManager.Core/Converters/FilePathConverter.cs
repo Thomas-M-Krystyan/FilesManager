@@ -19,15 +19,11 @@ namespace FilesManager.Core.Converters
         /// <returns>
         ///   Empty <see cref="PathNameExtensionDto"/> if the provided file path is invalid.
         /// </returns>
-        internal static TFileDto GetPathNameExtensionDto<TFileDto>(this Match filePathMatch)
-            where TFileDto : PathNameExtensionDto, new()
+        internal static PathNameExtensionDto GetPathNameExtensionDto(this Match filePathMatch)
         {
-            return new TFileDto()
-            {
-                Path = filePathMatch.Value(RegexPatterns.PathGroup),
-                Name = filePathMatch.Value(RegexPatterns.NameGroup),
-                Extension = filePathMatch.Value(RegexPatterns.ExtensionGroup)
-            };
+            return new PathNameExtensionDto(path:      filePathMatch.Value(RegexPatterns.PathGroup),
+                                            name:      filePathMatch.Value(RegexPatterns.NameGroup),
+                                            extension: filePathMatch.Value(RegexPatterns.ExtensionGroup));
         }
         #endregion
 
@@ -35,21 +31,20 @@ namespace FilesManager.Core.Converters
         /// <summary>
         /// Converts file path into dedicated groups of values: path, zeros, digits, name, and extension.
         /// </summary>
-        /// <param name="filePathMatch">The file path RegEx match.</param>
+        /// <param name="dto">The DTO with basic file components.</param>
         /// <returns>
         ///   Empty <see cref="PathZerosDigitsExtensionDto"/> if the provided file path is invalid.
         /// </returns>
-        internal static PathZerosDigitsExtensionDto GetPathZerosDigitsExtensionDto(this Match filePathMatch)
+        internal static PathZerosDigitsExtensionDto GetPathZerosDigitsExtensionDto(this PathNameExtensionDto dto)
         {
             // NOTE: Split the file name into dedicated zeros, digits, and name groups
-            Match digitsNameMatch = RegexPatterns.DigitsNamePattern().Match(
-                filePathMatch.Value(RegexPatterns.NameGroup));
+            Match digitsNameMatch = RegexPatterns.DigitsNamePattern().Match(dto.Name);
 
-            return new PathZerosDigitsExtensionDto(path:      filePathMatch.Value(RegexPatterns.PathGroup),
+            return new PathZerosDigitsExtensionDto(path:      dto.Path,
                                                    zeros:     digitsNameMatch.Value(RegexPatterns.ZerosGroup),
                                                    digits:    digitsNameMatch.Value(RegexPatterns.DigitsGroup),
                                                    name:      digitsNameMatch.Value(RegexPatterns.NameGroup),
-                                                   extension: filePathMatch.Value(RegexPatterns.ExtensionGroup));
+                                                   extension: dto.Extension);
         }
         #endregion
 

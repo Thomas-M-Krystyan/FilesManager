@@ -3,7 +3,7 @@
 namespace FilesManager.Core.Models.DTOs.Files
 {
     /// <summary>
-    /// The basic components of a file path: path, name, and extension.
+    /// The basic file components: path, name, and extension.
     /// </summary>
     /// <seealso cref="BasePathDto"/>
     internal record PathNameExtensionDto : BasePathDto
@@ -16,11 +16,6 @@ namespace FilesManager.Core.Models.DTOs.Files
         /// <summary>
         /// Initializes a new instance of the <see cref="PathNameExtensionDto"/> record.
         /// </summary>
-        public PathNameExtensionDto() : base()  // NOTE: Required for "new TDto()"
-        {
-        }
-
-        /// <inheritdoc cref="PathNameExtensionDto()"/>
         internal PathNameExtensionDto(string path, string name, string extension)
             : base(path, extension)
         {

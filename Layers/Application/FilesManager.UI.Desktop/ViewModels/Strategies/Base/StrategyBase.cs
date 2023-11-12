@@ -1,5 +1,4 @@
-﻿using FilesManager.Core.Converters;
-using FilesManager.Core.Models.DTOs.Files;
+﻿using FilesManager.Core.Models.DTOs.Files;
 using FilesManager.Core.Models.DTOs.Results;
 using FilesManager.Core.Models.POCOs;
 using FilesManager.Core.Services.Writing;
@@ -19,7 +18,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
     /// <seealso cref="ViewModelBase"/>
     /// <seealso cref="IRenamingStrategy"/>
     internal abstract class StrategyBase<TFileDto> : ViewModelBase, IRenamingStrategy
-        where TFileDto : PathNameExtensionDto, new()
+        where TFileDto : PathNameExtensionDto
     {
         #region Texts
         public static readonly string RadioButton_Tooltip = Resources.Tooltip_RadioButton;
@@ -164,22 +163,15 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         {
             var result = RenamingResultDto.Failure();
             FileData file;
-            TFileDto dto;
 
             for (ushort index = 0; index < loadedFiles.Count; index++)
             {
                 file = loadedFiles[index];
-                dto = file.Match.GetPathNameExtensionDto<TFileDto>();
-                result = WritingService.RenameFile(file.Path, GetNewFilePath(dto));
+                result = WritingService.RenameFile(file.FullPath, GetNewFilePath((TFileDto)file.Dto));
 
                 if (result.IsSuccess)
                 {
-                    UpdateFilesList(loadedFiles, index, () =>
-                    {
-                        file.Path = result.Value;
-
-                        return file;
-                    });
+                    UpdateFilesList(loadedFiles, index, result.Value);
                 }
                 else
                 {
@@ -196,20 +188,17 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         /// </summary>
         /// <param name="loadedFiles">The list of files to by updated.</param>
         /// <param name="index">The index of the element to be modified.</param>
-        /// <param name="updateLogic">The specific logic how to update selected element.</param>
-        protected internal static void UpdateFilesList(ObservableCollection<FileData> loadedFiles, ushort index, Func<FileData> updateLogic)
+        /// <param name="newFilePath">The new file path.</param>
+        protected internal static void UpdateFilesList(ObservableCollection<FileData> loadedFiles, ushort index, string newFilePath)
         {
             if (index > loadedFiles.Count - 1)
             {
                 return;  // Index would be out of range
             }
 
-            loadedFiles.RemoveAt(index);  // NOTE: Triggers OnCollectionChanged event
-
-            // Update the file
-            FileData file = updateLogic.Invoke();
-
-            loadedFiles.Insert(index, file);  // NOTE: Triggers OnCollectionChanged event
+            // NOTE: Triggers OnCollectionChanged event
+            loadedFiles.RemoveAt(index);
+            loadedFiles.Insert(index, new FileData(newFilePath));
         }
         #endregion
     }

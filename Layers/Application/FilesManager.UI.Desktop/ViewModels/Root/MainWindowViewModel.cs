@@ -249,7 +249,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
                 {
                     if (Validate.IsFilePathValid(filePath, out Match filePathMatch))  // Ignore files that doesn't match the pattern "[name].[extension]"
                     {
-                        this.Files.Add(new FileData { Path = filePath, Match = filePathMatch });
+                        this.Files.Add(new FileData(filePathMatch));
                     }
                     else
                     {
