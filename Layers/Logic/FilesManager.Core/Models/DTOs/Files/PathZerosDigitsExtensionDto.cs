@@ -17,11 +17,6 @@
         internal string Digits { get; init; } = string.Empty;
 
         /// <summary>
-        /// Gets the complete name of the file.
-        /// </summary>
-        internal string FullName => $"{this.Zeros}{this.Digits}{this.Name}";
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="PathZerosDigitsExtensionDto"/> record.
         /// </summary>
         internal PathZerosDigitsExtensionDto(string path, string zeros, string digits, string name, string extension)

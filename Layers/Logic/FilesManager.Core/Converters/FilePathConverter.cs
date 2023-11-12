@@ -21,9 +21,10 @@ namespace FilesManager.Core.Converters
         /// </returns>
         internal static PathNameExtensionDto GetPathNameExtensionDto(this Match filePathMatch)
         {
-            return new PathNameExtensionDto(path:      filePathMatch.Value(RegexPatterns.PathGroup),
-                                            name:      filePathMatch.Value(RegexPatterns.NameGroup),
-                                            extension: filePathMatch.Value(RegexPatterns.ExtensionGroup));
+            return new PathNameExtensionDto(
+                path:      filePathMatch.Value(RegexPatterns.PathGroup),
+                name:      filePathMatch.Value(RegexPatterns.NameGroup),
+                extension: filePathMatch.Value(RegexPatterns.ExtensionGroup));
         }
         #endregion
 
@@ -40,11 +41,12 @@ namespace FilesManager.Core.Converters
             // NOTE: Split the file name into dedicated zeros, digits, and name groups
             Match digitsNameMatch = RegexPatterns.DigitsNamePattern().Match(dto.Name);
 
-            return new PathZerosDigitsExtensionDto(path:      dto.Path,
-                                                   zeros:     digitsNameMatch.Value(RegexPatterns.ZerosGroup),
-                                                   digits:    digitsNameMatch.Value(RegexPatterns.DigitsGroup),
-                                                   name:      digitsNameMatch.Value(RegexPatterns.NameGroup),
-                                                   extension: dto.Extension);
+            return new PathZerosDigitsExtensionDto(
+                path:      dto.Path,
+                zeros:     digitsNameMatch.Value(RegexPatterns.ZerosGroup),
+                digits:    digitsNameMatch.Value(RegexPatterns.DigitsGroup),
+                name:      digitsNameMatch.Value(RegexPatterns.NameGroup),
+                extension: dto.Extension);
         }
         #endregion
 

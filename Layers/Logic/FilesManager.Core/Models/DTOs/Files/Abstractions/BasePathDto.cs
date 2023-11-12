@@ -18,11 +18,6 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="BasePathDto"/> record.
         /// </summary>
-        protected BasePathDto()  // NOTE: Required for "new TDto()"
-        {
-        }
-
-        /// <inheritdoc cref="BasePathDto()"/>
         protected BasePathDto(string path, string extension)
         {
             this.Path = path;
