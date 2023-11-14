@@ -1,4 +1,5 @@
 ﻿using FilesManager.Core.Converters;
+using FilesManager.Core.Converters.Interfaces;
 using FilesManager.Core.Models.DTOs.Files;
 using FilesManager.Core.Models.DTOs.Results;
 using FilesManager.Core.Models.POCOs;
@@ -16,6 +17,8 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
     /// <seealso cref="StrategyBase{TFileDto}"/>
     internal sealed class LeadingZerosViewModel : StrategyBase<PathZerosDigitsExtensionDto>
     {
+        private readonly IFilePathConverter<PathNameExtensionDto, PathZerosDigitsExtensionDto> _converter;
+
         #region Texts
         public static readonly string Method_Header = Resources.Header_Method_LeadingZeros;
         public static readonly string Method_Tooltip = Resources.Tooltip_Method_LeadingZeros;
@@ -86,6 +89,14 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         internal int MaxDigitsLength { get; set; }
         #endregion
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LeadingZerosViewModel"/> class.
+        /// </summary>
+        internal LeadingZerosViewModel() : base()
+        {
+            this._converter = new PathZerosDigitsExtensionConverter();
+        }
+
         #region Polymorphism
         /// <inheritdoc cref="StrategyBase{TFileDto}.Process(ObservableCollection{FileData})"/>
         internal override sealed RenamingResultDto Process(ObservableCollection<FileData> loadedFiles)
@@ -106,7 +117,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             PathZerosDigitsExtensionDto[] dtos = loadedFiles.Select(file =>  // NOTE: Executing both logics at once
             {
                 // Conversion to DTO
-                PathZerosDigitsExtensionDto dto = file.Dto.GetPathZerosDigitsExtensionDto();
+                PathZerosDigitsExtensionDto dto = this._converter.ConvertToDto(file.Dto);
                 
                 // Counting max length
                 this.MaxDigitsLength = Math.Max(this.MaxDigitsLength, dto.Digits.Length);
@@ -152,11 +163,18 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         }
 
         /// <inheritdoc cref="StrategyBase{TFileDto}.GetNewFilePath(TFileDto)"/>
-        protected internal override sealed string GetNewFilePath(PathZerosDigitsExtensionDto fileDto)
+        protected internal override sealed string GetNewFilePath(PathZerosDigitsExtensionDto dto)
         {
-            return fileDto.GetFilePath(
-                name: $"{GetDigitsWithLeadingZeros(fileDto)}" +
-                      $"{fileDto.Name}");
+            (string zeros, string digits) = GetDigitsWithLeadingZeros(dto);
+
+            return this._converter.GetFilePath(new
+            (
+                path: dto.Path,
+                zeros: zeros,
+                digits: digits,
+                name: dto.Name,
+                extension: dto.Extension
+            ));
         }
         #endregion
 
@@ -168,12 +186,12 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         /// <returns>
         ///   The new file name preceeded by zeros.
         /// </returns>
-        private string GetDigitsWithLeadingZeros(PathZerosDigitsExtensionDto fileDto)
+        private (string Zeros, string Digits) GetDigitsWithLeadingZeros(PathZerosDigitsExtensionDto fileDto)
         {
             // There is no point to process the DTO any further
             if (this.HasErrors)
             {
-                return fileDto.Zeros + fileDto.Digits;
+                return (fileDto.Zeros, fileDto.Digits);
             }
 
             // Removing zeros mode
@@ -183,25 +201,25 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
                     fileDto.Name.Length   is 0 &&
                     (this.IsAbsoluteModeOn || this.MaxDigitsLength is 0))
                 {
-                    return Zero;  // Cases: "00.jpg" => "0.jpg" (try to reduce number of zeros to none, but prevent ".jpg")
+                    return (Zero, string.Empty);  // Cases: "00.jpg" => "0.jpg" (try to reduce number of zeros to none, but prevent ".jpg")
                 }
 
                 if (this.IsAbsoluteModeOn)
                 {
-                    return fileDto.Digits;  // Cases: "01.jpg" => "1.jpg" or "01a.png" => "1a.png" (trim zeros)
+                    return (string.Empty, fileDto.Digits);  // Cases: "01.jpg" => "1.jpg" or "01a.png" => "1a.png" (trim zeros)
                 }
             }
 
             return GetLeadingZeros(fileDto.Digits);
         }
 
-        private string GetLeadingZeros(string digits)
+        private (string Zeros, string Digits) GetLeadingZeros(string digits)
         {
             int zerosToAdd = digits.Length == this.MaxDigitsLength           // For 2n => MIN: "1" (Length: 1), MAX: "10" (Length: 2)
                 ? this.LeadingZeros                                          // (Count: 1) => "0"
                 : this.MaxDigitsLength + this.LeadingZeros - digits.Length;  // 2 (max len) + 1 (count) - 1 (min len) => "00" + "1"
 
-            return $"{new string(char.Parse(Zero), zerosToAdd)}{digits}";
+            return (new string(char.Parse(Zero), zerosToAdd), digits);
         }
         #endregion
     }

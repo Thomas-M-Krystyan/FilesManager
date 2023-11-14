@@ -159,7 +159,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         #endregion
 
         #region Concrete (Logic)
-        protected internal  RenamingResultDto TryUpdatingFiles(ObservableCollection<FileData> loadedFiles)
+        protected internal RenamingResultDto TryUpdatingFiles(ObservableCollection<FileData> loadedFiles)
         {
             var result = RenamingResultDto.Failure();
             FileData file;

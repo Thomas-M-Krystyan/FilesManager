@@ -32,7 +32,7 @@ namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Strategies
             // Act
             string[] actualPaths = data.TestNames.Select(name =>
                 this._strategy.GetNewFilePath(
-                    TestHelpers.GetMockedDto(@"C:\Drive\Folder\Subfolder\", name, ".jpg")))
+                    TestHelpers.GetTestDto(@"C:\Drive\Folder\Subfolder\", name, ".jpg")))
                     .ToArray();
 
             // Assert

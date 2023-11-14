@@ -1,14 +1,17 @@
 ﻿using FilesManager.Core.Converters;
+using FilesManager.Core.Converters.Interfaces;
 using FilesManager.Core.Models.DTOs.Files;
 
 namespace FilesManager.UI.Desktop.UnitTests._TestHelpers
 {
     internal static class TestHelpers
     {
-        internal static PathZerosDigitsExtensionDto GetMockedDto(string testPath, string testName, string testExtension)
+        private static readonly IFilePathConverter<PathNameExtensionDto, PathZerosDigitsExtensionDto> Converter
+            = new PathZerosDigitsExtensionConverter();
+
+        internal static PathZerosDigitsExtensionDto GetTestDto(string testPath, string testName, string testExtension)
         {
-            return new PathNameExtensionDto(testPath, testName, testExtension)
-                .GetPathZerosDigitsExtensionDto();
+            return Converter.ConvertToDto(new PathNameExtensionDto(testPath, testName, testExtension));
         }
     }
 }

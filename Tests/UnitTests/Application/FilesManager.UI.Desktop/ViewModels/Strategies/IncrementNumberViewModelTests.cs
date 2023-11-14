@@ -25,7 +25,7 @@ namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Strategies
             
             // Act
             string actualNewFilePath = this._strategy.GetNewFilePath(
-                TestHelpers.GetMockedDto(@$"C:\Drive\Folder\Subfolder\", "7", ".jpg"));
+                TestHelpers.GetTestDto(@$"C:\Drive\Folder\Subfolder\", "7", ".jpg"));
 
             // Assert
             Assert.That(actualNewFilePath, Is.EqualTo(ExpectedNewFilePath));
@@ -48,7 +48,7 @@ namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Strategies
 
             // Act
             string actualNewFilePath = this._strategy.GetNewFilePath(
-                TestHelpers.GetMockedDto(@"C:\Drive\Folder\Subfolder\", "4", ".jpg"));
+                TestHelpers.GetTestDto(@"C:\Drive\Folder\Subfolder\", "4", ".jpg"));
 
             // Assert
             Assert.That(actualNewFilePath, Is.EqualTo(expectedNewFilePath));
@@ -71,7 +71,7 @@ namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Strategies
 
             // Act
             string actualNewFilePath = this._strategy.GetNewFilePath(
-                TestHelpers.GetMockedDto(@"C:\Drive\Folder\Subfolder\", "ABC", ".jpg"));
+                TestHelpers.GetTestDto(@"C:\Drive\Folder\Subfolder\", "ABC", ".jpg"));
 
             // Assert
             Assert.That(actualNewFilePath, Is.EqualTo(expectedNewFilePath));

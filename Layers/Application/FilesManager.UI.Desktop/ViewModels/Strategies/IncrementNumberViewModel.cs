@@ -1,4 +1,5 @@
 ﻿using FilesManager.Core.Converters;
+using FilesManager.Core.Converters.Interfaces;
 using FilesManager.Core.Extensions;
 using FilesManager.Core.Models.DTOs.Files;
 using FilesManager.Core.Models.DTOs.Results;
@@ -6,6 +7,7 @@ using FilesManager.Core.Models.POCOs;
 using FilesManager.UI.Common.Properties;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
 using System.Collections.ObjectModel;
+using System.Text.RegularExpressions;
 
 namespace FilesManager.UI.Desktop.ViewModels.Strategies
 {
@@ -15,6 +17,8 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
     /// <seealso cref="StrategyBase{TFileDto}"/>
     internal sealed class IncrementNumberViewModel : StrategyBase<PathNameExtensionDto>
     {
+        private readonly IFilePathConverter<Match, PathNameExtensionDto> _converter;
+
         #region Texts
         public static readonly string Method_Header = Resources.Header_Method_IncrementNumber;
         public static readonly string Method_Tooltip = Resources.Tooltip_Method_IncrementNumber;
@@ -71,6 +75,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         /// </summary>
         internal IncrementNumberViewModel() : base()
         {
+            this._converter = new PathNameExtensionConverter();
         }
 
         #region Polymorphism
@@ -124,12 +129,16 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         }
 
         /// <inheritdoc cref="StrategyBase{TFileDto}.GetNewFilePath(TFileDto)"/>
-        protected internal override sealed string GetNewFilePath(PathNameExtensionDto fileDto)
+        protected internal override sealed string GetNewFilePath(PathNameExtensionDto dto)
         {
-            return fileDto.GetFilePath(
+            return this._converter.GetFilePath(new
+            (
+                path: dto.Path,
                 name: $"{this.NamePrefix.TrimOnlyWhiteSpaces()}" +
                       $"{this.StartingNumber++}" +  // NOTE: Very important! Keep incrementing the current number
-                      $"{this.NamePostfix.TrimOnlyWhiteSpaces()}");
+                      $"{this.NamePostfix.TrimOnlyWhiteSpaces()}",
+                extension: dto.Extension
+            ));
         }
         #endregion
     }
