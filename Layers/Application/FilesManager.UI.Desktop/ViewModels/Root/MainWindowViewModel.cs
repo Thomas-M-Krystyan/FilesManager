@@ -1,4 +1,7 @@
-﻿using FilesManager.Core.Models.DTOs.Results;
+﻿using FilesManager.Core.Converters;
+using FilesManager.Core.Converters.Interfaces;
+using FilesManager.Core.Models.DTOs.Files;
+using FilesManager.Core.Models.DTOs.Results;
 using FilesManager.Core.Models.POCOs;
 using FilesManager.Core.Validation;
 using FilesManager.UI.Common.Properties;
@@ -21,6 +24,8 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
     /// <seealso cref="ViewModelBase"/>
     internal sealed class MainWindowViewModel : ViewModelBase
     {
+        private readonly IFilePathConverter<Match, PathNameExtensionDto> _converter;
+
         #region Texts
         // Title
         public static string WindowTitle = Resources.WindowTitle;
@@ -164,6 +169,8 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         /// </summary>
         internal MainWindowViewModel() : base()
         {
+            this._converter = new PathNameExtensionConverter();
+
             this.IncrementNumberStrategy = new();
             this.PrependAppendStrategy = new();
             this.LeadingZerosStrategy = new();
@@ -249,7 +256,9 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
                 {
                     if (Validate.IsFilePathValid(filePath, out Match filePathMatch))  // Ignore files that doesn't match the pattern "[name].[extension]"
                     {
-                        this.Files.Add(new FileData(filePathMatch));
+                        this.Files.Add(
+                            new FileData(
+                                this._converter.ConvertToDto(filePathMatch)));
                     }
                     else
                     {

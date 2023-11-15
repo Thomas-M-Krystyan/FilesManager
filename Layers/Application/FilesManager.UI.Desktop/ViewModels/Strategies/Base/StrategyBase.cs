@@ -1,4 +1,6 @@
-﻿using FilesManager.Core.Models.DTOs.Files;
+﻿using FilesManager.Core.Converters;
+using FilesManager.Core.Converters.Interfaces;
+using FilesManager.Core.Models.DTOs.Files;
 using FilesManager.Core.Models.DTOs.Results;
 using FilesManager.Core.Models.POCOs;
 using FilesManager.Core.Services.Writing;
@@ -20,6 +22,8 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
     internal abstract class StrategyBase<TFileDto> : ViewModelBase, IRenamingStrategy
         where TFileDto : PathNameExtensionDto
     {
+        private readonly IFilePathConverter<Match, PathNameExtensionDto> _converter;
+
         #region Texts
         public static readonly string RadioButton_Tooltip = Resources.Tooltip_RadioButton;
 
@@ -63,6 +67,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         /// </summary>
         protected StrategyBase() : base()
         {
+            this._converter = new PathNameExtensionConverter();
         }
 
         #region IRenamingStrategy
@@ -189,7 +194,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         /// <param name="loadedFiles">The list of files to by updated.</param>
         /// <param name="index">The index of the element to be modified.</param>
         /// <param name="newFilePath">The new file path.</param>
-        protected internal static void UpdateFilesList(ObservableCollection<FileData> loadedFiles, ushort index, string newFilePath)
+        protected internal void UpdateFilesList(ObservableCollection<FileData> loadedFiles, ushort index, string newFilePath)
         {
             if (index > loadedFiles.Count - 1)
             {
@@ -198,7 +203,9 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
 
             // NOTE: Triggers OnCollectionChanged event
             loadedFiles.RemoveAt(index);
-            loadedFiles.Insert(index, new FileData(newFilePath));
+            loadedFiles.Insert(index, new FileData(
+                this._converter.ConvertToDto(
+                    RegexPatterns.FileComponentsPattern().Match(newFilePath))));
         }
         #endregion
     }

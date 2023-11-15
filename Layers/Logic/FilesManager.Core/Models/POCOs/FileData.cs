@@ -1,8 +1,4 @@
-﻿using FilesManager.Core.Converters;
-using FilesManager.Core.Converters.Interfaces;
-using FilesManager.Core.Models.DTOs.Files;
-using FilesManager.Core.Validation;
-using System.Text.RegularExpressions;
+﻿using FilesManager.Core.Models.DTOs.Files;
 
 namespace FilesManager.Core.Models.POCOs
 {
@@ -11,9 +7,6 @@ namespace FilesManager.Core.Models.POCOs
     /// </summary>
     internal sealed record FileData
     {
-        private static readonly IFilePathConverter<Match, PathNameExtensionDto> Converter
-            = new PathNameExtensionConverter();
-
         /// <inheritdoc cref="PathNameExtensionDto"/>
         internal PathNameExtensionDto Dto { get; }
 
@@ -25,20 +18,14 @@ namespace FilesManager.Core.Models.POCOs
         /// <summary>
         /// The file name with extension to be displayed on UI: <code>"Test.txt"</code>
         /// </summary>
-        public string DisplayName => $"{this.Dto.Name}{this.Dto.Extension}";  // Used in UI
+        public string DisplayName => $"{this.Dto.Name}{this.Dto.Extension}";  // Used on the UI
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FileData"/> class.
         /// </summary>
-        internal FileData(Match match)
+        internal FileData(PathNameExtensionDto dto)
         {
-            this.Dto = Converter.ConvertToDto(match);
-        }
-
-        /// <inheritdoc cref="FileData(Match)"/>
-        internal FileData(string newFilePath)
-            : this(RegexPatterns.FileComponentsPattern().Match(newFilePath))
-        {
+            this.Dto = dto;
         }
     }
 }
