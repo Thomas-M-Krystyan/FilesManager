@@ -1,6 +1,6 @@
 ﻿using FilesManager.Core.Helpers;
 using FilesManager.Core.Models.DTOs.Files;
-using FilesManager.UI.Desktop.UnitTests._TestHelpers;
+using FilesManager.Core.Models.POCOs;
 using FilesManager.UI.Desktop.ViewModels.Strategies;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
 using System.Text.RegularExpressions;
@@ -10,7 +10,7 @@ namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Strategies
     [TestFixture]
     internal sealed class LeadingZerosViewModelTests
     {
-        private StrategyBase<PathZerosDigitsExtensionDto>? _strategy;
+        private StrategyBase? _strategy;
 
         [TestCaseSource(nameof(GetAbsoluteTestCases))]
         [TestCaseSource(nameof(GetRelativeTestCases))]
@@ -32,7 +32,8 @@ namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Strategies
             // Act
             string[] actualPaths = data.TestNames.Select(name =>
                 this._strategy.GetNewFilePath(
-                    TestHelpers.GetTestDto(@"C:\Drive\Folder\Subfolder\", name, ".jpg")))
+                    new FileData(
+                        new FilePathNameDto(@"C:\Drive\Folder\Subfolder\", name, ".jpg"))))
                     .ToArray();
 
             // Assert

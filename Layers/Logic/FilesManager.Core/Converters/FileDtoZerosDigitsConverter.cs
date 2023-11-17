@@ -7,16 +7,16 @@ using System.Text.RegularExpressions;
 namespace FilesManager.Core.Converters
 {
     /// <inheritdoc cref="IFilePathConverter{TData, TFileDto}"/>
-    internal sealed class PathZerosDigitsExtensionConverter : IFilePathConverter<PathNameExtensionDto, PathZerosDigitsExtensionDto>
+    internal sealed class FileDtoZerosDigitsConverter : IFilePathConverter<FilePathNameDto, FileZerosDigitsDto>
     {
         /// <inheritdoc cref="IFilePathConverter{TData, TFileDto}.ConvertToDto(TData)"/>
-        PathZerosDigitsExtensionDto IFilePathConverter<PathNameExtensionDto, PathZerosDigitsExtensionDto>
-            .ConvertToDto(PathNameExtensionDto data)
+        FileZerosDigitsDto IFilePathConverter<FilePathNameDto, FileZerosDigitsDto>
+            .ConvertToDto(FilePathNameDto data)
         {
             // Split the file name into dedicated zeros, digits, and name groups
             Match digitsNameMatch = RegexPatterns.DigitsNamePattern().Match(data.Name);
 
-            return new PathZerosDigitsExtensionDto(
+            return new FileZerosDigitsDto(
                 path:      data.Path,
                 zeros:     digitsNameMatch.Value(RegexPatterns.ZerosGroup),
                 digits:    digitsNameMatch.Value(RegexPatterns.DigitsGroup),
@@ -25,7 +25,7 @@ namespace FilesManager.Core.Converters
         }
 
         /// <inheritdoc cref="IFilePathConverter{TData, TFileDto}.GetFilePath(TFileDto)"/>
-        string IFilePathConverter<PathNameExtensionDto, PathZerosDigitsExtensionDto>.GetFilePath(PathZerosDigitsExtensionDto dto)
+        string IFilePathConverter<FilePathNameDto, FileZerosDigitsDto>.GetFilePath(FileZerosDigitsDto dto)
         {
             return (dto.Zeros + dto.Digits + dto.Name).IsEmptyOrWhiteSpaces()
                 ? string.Empty

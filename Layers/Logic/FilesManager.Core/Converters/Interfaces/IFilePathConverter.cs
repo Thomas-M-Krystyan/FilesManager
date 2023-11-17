@@ -9,7 +9,7 @@ namespace FilesManager.Core.Converters.Interfaces
     /// <typeparam name="TFileDto">The type of the file DTO.</typeparam>
     internal interface IFilePathConverter<TData, TFileDto>
         where TData    : class
-        where TFileDto : PathNameExtensionDto
+        where TFileDto : FilePathNameDto
     {
         /// <summary>
         /// Converts the given data into a specific <typeparamref name="TFileDto"/>.

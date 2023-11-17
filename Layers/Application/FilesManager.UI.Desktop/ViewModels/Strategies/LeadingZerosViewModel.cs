@@ -3,21 +3,19 @@ using FilesManager.Core.Converters.Interfaces;
 using FilesManager.Core.Models.DTOs.Files;
 using FilesManager.Core.Models.DTOs.Results;
 using FilesManager.Core.Models.POCOs;
-using FilesManager.Core.Services.Writing;
 using FilesManager.UI.Common.Properties;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
 using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace FilesManager.UI.Desktop.ViewModels.Strategies
 {
     /// <summary>
     /// The strategy to update the file name by appending to it leading zeroes.
     /// </summary>
-    /// <seealso cref="StrategyBase{TFileDto}"/>
-    internal sealed class LeadingZerosViewModel : StrategyBase<PathZerosDigitsExtensionDto>
+    /// <seealso cref="StrategyBase"/>
+    internal sealed class LeadingZerosViewModel : StrategyBase
     {
-        private readonly IFilePathConverter<PathNameExtensionDto, PathZerosDigitsExtensionDto> _converter;
+        private readonly IFilePathConverter<FilePathNameDto, FileZerosDigitsDto> _converter;
 
         #region Texts
         public static readonly string Method_Header = Resources.Header_Method_LeadingZeros;
@@ -94,11 +92,11 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         /// </summary>
         internal LeadingZerosViewModel() : base()
         {
-            this._converter = new PathZerosDigitsExtensionConverter();
+            this._converter = new FileDtoZerosDigitsConverter();
         }
 
         #region Polymorphism
-        /// <inheritdoc cref="StrategyBase{TFileDto}.Process(ObservableCollection{FileData})"/>
+        /// <inheritdoc cref="StrategyBase.Process(ObservableCollection{FileData})"/>
         internal override sealed RenamingResultDto Process(ObservableCollection<FileData> loadedFiles)
         {
             // -----------------------------------------
@@ -112,48 +110,25 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             // --------------------------------
             // 2. Preparing the processing data
             // --------------------------------
-            this.MaxDigitsLength = default;  // Reset value
-
-            PathZerosDigitsExtensionDto[] dtos = loadedFiles.Select(file =>  // NOTE: Executing both logics at once
+            foreach (FileData file in loadedFiles)
             {
-                // Conversion to DTO
-                PathZerosDigitsExtensionDto dto = this._converter.ConvertToDto(file.Dto);
-                
+                FileZerosDigitsDto dto = this._converter.ConvertToDto(file.Dto);
+
                 // Counting max length
                 this.MaxDigitsLength = Math.Max(this.MaxDigitsLength, dto.Digits.Length);
-
-                return dto;
-            })
-            .ToArray();
+            }
 
             // --------------------------------
             // 3. Process renaming of the files
             // --------------------------------
-            var result = RenamingResultDto.Failure();
-            FileData file;
-            PathZerosDigitsExtensionDto dto;
+            this.MaxDigitsLength = default;  // Reset value
 
-            for (ushort index = 0; index < loadedFiles.Count; index++)
-            {
-                file = loadedFiles[index];
-                dto = dtos[index];
-                result = WritingService.RenameFile(file.FullPath, GetNewFilePath(dto));
-
-                if (result.IsSuccess)
-                {
-                    UpdateFilesList(loadedFiles, index, result.Value);
-                }
-                else
-                {
-                    loadedFiles.Clear();
-                    break;
-                }
-            }
+            RenamingResultDto result = TryUpdatingFiles(loadedFiles, GetNewFilePath);
 
             return result;
         }
 
-        /// <inheritdoc cref="StrategyBase{TFileDto}.Reset()"/>
+        /// <inheritdoc cref="StrategyBase.Reset()"/>
         protected override sealed void Reset()  // NOTE: Speficic behavior for this concrete strategy. Overloading restricted
         {
             this.LeadingZeros = default;
@@ -162,18 +137,18 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             base.Reset();
         }
 
-        /// <inheritdoc cref="StrategyBase{TFileDto}.GetNewFilePath(TFileDto)"/>
-        protected internal override sealed string GetNewFilePath(PathZerosDigitsExtensionDto dto)
+        /// <inheritdoc cref="StrategyBase.GetNewFilePath(FileData)"/>
+        protected internal override sealed string GetNewFilePath(FileData fileData)
         {
-            (string zeros, string digits) = GetDigitsWithLeadingZeros(dto);
+            (string zeros, string digits) = GetDigitsWithLeadingZeros(fileData.Dto);
 
             return this._converter.GetFilePath(new
             (
-                path: dto.Path,
+                path: fileData.Dto.Path,
                 zeros: zeros,
                 digits: digits,
-                name: dto.Name,
-                extension: dto.Extension
+                name: fileData.Dto.Name,
+                extension: fileData.Dto.Extension
             ));
         }
         #endregion
@@ -186,7 +161,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         /// <returns>
         ///   The new file name preceeded by zeros.
         /// </returns>
-        private (string Zeros, string Digits) GetDigitsWithLeadingZeros(PathZerosDigitsExtensionDto fileDto)
+        private (string Zeros, string Digits) GetDigitsWithLeadingZeros(FileZerosDigitsDto fileDto)
         {
             // There is no point to process the DTO any further
             if (this.HasErrors)

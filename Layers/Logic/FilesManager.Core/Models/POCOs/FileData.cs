@@ -1,4 +1,8 @@
-﻿using FilesManager.Core.Models.DTOs.Files;
+﻿using FilesManager.Core.Converters;
+using FilesManager.Core.Converters.Interfaces;
+using FilesManager.Core.Models.DTOs.Files;
+using FilesManager.Core.Validation;
+using System.Text.RegularExpressions;
 
 namespace FilesManager.Core.Models.POCOs
 {
@@ -7,8 +11,11 @@ namespace FilesManager.Core.Models.POCOs
     /// </summary>
     internal sealed record FileData
     {
-        /// <inheritdoc cref="PathNameExtensionDto"/>
-        internal PathNameExtensionDto Dto { get; }
+        private static readonly IFilePathConverter<Match, FilePathNameDto> PathNameConverter
+            = new FileDtoPathNameConverter();
+
+        /// <inheritdoc cref="FilePathNameDto"/>
+        internal FilePathNameDto Dto { get; }
 
         /// <summary>
         /// The full path to the file: <code>"C:\Users\JaneDoe\Desktop\Test.txt"</code>
@@ -23,9 +30,21 @@ namespace FilesManager.Core.Models.POCOs
         /// <summary>
         /// Initializes a new instance of the <see cref="FileData"/> class.
         /// </summary>
-        internal FileData(PathNameExtensionDto dto)
+        internal FileData(FilePathNameDto dto)
         {
             this.Dto = dto;
+        }
+
+        /// <inheritdoc cref="FileData(FilePathNameDto)"/>
+        internal FileData(Match match)
+            : this(PathNameConverter.ConvertToDto(match))
+        {
+        }
+
+        /// <inheritdoc cref="FileData(FilePathNameDto)"/>
+        internal FileData(string newFilePath)
+            : this(RegexPatterns.FileComponentsPattern().Match(newFilePath))
+        {
         }
     }
 }

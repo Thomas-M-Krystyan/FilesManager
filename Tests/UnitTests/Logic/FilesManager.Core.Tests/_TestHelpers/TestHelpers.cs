@@ -10,9 +10,9 @@ namespace FilesManager.Core.UnitTests._TestHelpers
             return RegexPatterns.FileComponentsPattern().Match(fullFilePath);
         }
 
-        internal static PathNameExtensionDto GetTestDto(string testPath, string testName, string testExtension)
+        internal static FilePathNameDto GetTestDto(string testPath, string testName, string testExtension)
         {
-            return new PathNameExtensionDto(testPath, testName, testExtension);
+            return new FilePathNameDto(testPath, testName, testExtension);
         }
     }
 }

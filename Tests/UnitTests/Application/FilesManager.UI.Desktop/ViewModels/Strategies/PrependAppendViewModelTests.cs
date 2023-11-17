@@ -1,5 +1,5 @@
 ﻿using FilesManager.Core.Models.DTOs.Files;
-using FilesManager.UI.Desktop.UnitTests._TestHelpers;
+using FilesManager.Core.Models.POCOs;
 using FilesManager.UI.Desktop.ViewModels.Strategies;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
 
@@ -8,7 +8,7 @@ namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Strategies
     [TestFixture]
     internal sealed class PrependAppendViewModelTests
     {
-        private StrategyBase<PathNameExtensionDto>? _strategy;
+        private StrategyBase? _strategy;
 
         [TestCase("", "")]
         [TestCase(" ", "")]
@@ -22,11 +22,13 @@ namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Strategies
                 AppendName = string.Empty
             };
 
+            FilePathNameDto dto = new(@"C:\Drive\Folder\Subfolder\", "Test", ".jpg");
+            FileData fileData = new(dto);
+
             string expectedNewFilePath = @$"C:\Drive\Folder\Subfolder\{expectedPrepend}Test.jpg";
 
             // Act
-            string actualNewFilePath = this._strategy.GetNewFilePath(
-                TestHelpers.GetTestDto(@"C:\Drive\Folder\Subfolder\", "Test", ".jpg"));
+            string actualNewFilePath = this._strategy.GetNewFilePath(fileData);
 
             // Assert
             Assert.That(actualNewFilePath, Is.EqualTo(expectedNewFilePath));
@@ -44,11 +46,13 @@ namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Strategies
                 AppendName = testAppend
             };
 
+            FilePathNameDto dto = new(@"C:\Drive\Folder\Subfolder\", "Test", ".jpg");
+            FileData fileData = new(dto);
+
             string expectedNewFilePath = @$"C:\Drive\Folder\Subfolder\Test{expectedAppend}.jpg";
 
             // Act
-            string actualNewFilePath = this._strategy.GetNewFilePath(
-                TestHelpers.GetTestDto(@"C:\Drive\Folder\Subfolder\", "Test", ".jpg"));
+            string actualNewFilePath = this._strategy.GetNewFilePath(fileData);
 
             // Assert
             Assert.That(actualNewFilePath, Is.EqualTo(expectedNewFilePath));

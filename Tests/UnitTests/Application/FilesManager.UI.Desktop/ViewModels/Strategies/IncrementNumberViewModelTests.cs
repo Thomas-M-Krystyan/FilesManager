@@ -1,5 +1,5 @@
 ﻿using FilesManager.Core.Models.DTOs.Files;
-using FilesManager.UI.Desktop.UnitTests._TestHelpers;
+using FilesManager.Core.Models.POCOs;
 using FilesManager.UI.Desktop.ViewModels.Strategies;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
 
@@ -8,7 +8,7 @@ namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Strategies
     [TestFixture]
     internal sealed class IncrementNumberViewModelTests
     {
-        private StrategyBase<PathNameExtensionDto>? _strategy;
+        private StrategyBase? _strategy;
 
         [Test]
         public void GetNewFilePath_ForValidPath_WithNumber_ReturnsChangedFileName()
@@ -21,11 +21,13 @@ namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Strategies
                 NamePostfix = string.Empty
             };
 
+            FilePathNameDto dto = new(@$"C:\Drive\Folder\Subfolder\", "7", ".jpg");
+            FileData fileData = new(dto);
+
             const string ExpectedNewFilePath = @"C:\Drive\Folder\Subfolder\4.jpg";
             
             // Act
-            string actualNewFilePath = this._strategy.GetNewFilePath(
-                TestHelpers.GetTestDto(@$"C:\Drive\Folder\Subfolder\", "7", ".jpg"));
+            string actualNewFilePath = this._strategy.GetNewFilePath(fileData);
 
             // Assert
             Assert.That(actualNewFilePath, Is.EqualTo(ExpectedNewFilePath));
@@ -44,11 +46,13 @@ namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Strategies
                 NamePostfix = string.Empty
             };
 
+            FilePathNameDto dto = new(@"C:\Drive\Folder\Subfolder\", "4", ".jpg");
+            FileData fileData = new(dto);
+
             string expectedNewFilePath = @$"C:\Drive\Folder\Subfolder\{expectedPrefix}4.jpg";
 
             // Act
-            string actualNewFilePath = this._strategy.GetNewFilePath(
-                TestHelpers.GetTestDto(@"C:\Drive\Folder\Subfolder\", "4", ".jpg"));
+            string actualNewFilePath = this._strategy.GetNewFilePath(fileData);
 
             // Assert
             Assert.That(actualNewFilePath, Is.EqualTo(expectedNewFilePath));
@@ -67,11 +71,13 @@ namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Strategies
                 NamePostfix = testPostfix
             };
 
+            FilePathNameDto dto = new(@"C:\Drive\Folder\Subfolder\", "ABC", ".jpg");
+            FileData fileData = new(dto);
+
             string expectedNewFilePath = @$"C:\Drive\Folder\Subfolder\4{expectedPostfix}.jpg";
 
             // Act
-            string actualNewFilePath = this._strategy.GetNewFilePath(
-                TestHelpers.GetTestDto(@"C:\Drive\Folder\Subfolder\", "ABC", ".jpg"));
+            string actualNewFilePath = this._strategy.GetNewFilePath(fileData);
 
             // Assert
             Assert.That(actualNewFilePath, Is.EqualTo(expectedNewFilePath));

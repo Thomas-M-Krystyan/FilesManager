@@ -14,10 +14,10 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
     /// <summary>
     /// The strategy to update the file name by using prefix, incremented number, and postfix.
     /// </summary>
-    /// <seealso cref="StrategyBase{TFileDto}"/>
-    internal sealed class IncrementNumberViewModel : StrategyBase<PathNameExtensionDto>
+    /// <seealso cref="StrategyBase"/>
+    internal sealed class IncrementNumberViewModel : StrategyBase
     {
-        private readonly IFilePathConverter<Match, PathNameExtensionDto> _converter;
+        private readonly IFilePathConverter<Match, FilePathNameDto> _converter;
 
         #region Texts
         public static readonly string Method_Header = Resources.Header_Method_IncrementNumber;
@@ -75,11 +75,11 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         /// </summary>
         internal IncrementNumberViewModel() : base()
         {
-            this._converter = new PathNameExtensionConverter();
+            this._converter = new FileDtoPathNameConverter();
         }
 
         #region Polymorphism
-        /// <inheritdoc cref="StrategyBase{TFileDto}.Process(ObservableCollection{FileData}))"/>
+        /// <inheritdoc cref="StrategyBase.Process(ObservableCollection{FileData}))"/>
         internal override sealed RenamingResultDto Process(ObservableCollection<FileData> loadedFiles)
         {
             // -----------------------------------------
@@ -102,7 +102,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             // --------------------------------
             // 3. Process renaming of the files
             // --------------------------------
-            RenamingResultDto result = TryUpdatingFiles(loadedFiles);
+            RenamingResultDto result = TryUpdatingFiles(loadedFiles, GetNewFilePath);
 
             // ------------------------------
             // 4. Finalization of the process
@@ -118,7 +118,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             return result;
         }
 
-        /// <inheritdoc cref="StrategyBase{TFileDto}.Reset()"/>
+        /// <inheritdoc cref="StrategyBase.Reset()"/>
         protected override sealed void Reset()  // NOTE: Speficic behavior for this concrete strategy. Overloading restricted
         {
             this.NamePrefix = string.Empty;
@@ -128,16 +128,16 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             base.Reset();
         }
 
-        /// <inheritdoc cref="StrategyBase{TFileDto}.GetNewFilePath(TFileDto)"/>
-        protected internal override sealed string GetNewFilePath(PathNameExtensionDto dto)
+        /// <inheritdoc cref="StrategyBase.GetNewFilePath(FileData)"/>
+        protected internal override sealed string GetNewFilePath(FileData fileData)
         {
             return this._converter.GetFilePath(new
             (
-                path: dto.Path,
+                path: fileData.Dto.Path,
                 name: $"{this.NamePrefix.TrimOnlyWhiteSpaces()}" +
                       $"{this.StartingNumber++}" +  // NOTE: Very important! Keep incrementing the current number
                       $"{this.NamePostfix.TrimOnlyWhiteSpaces()}",
-                extension: dto.Extension
+                extension: fileData.Dto.Extension
             ));
         }
         #endregion

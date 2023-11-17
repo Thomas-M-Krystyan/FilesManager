@@ -1,7 +1,4 @@
-﻿using FilesManager.Core.Converters;
-using FilesManager.Core.Converters.Interfaces;
-using FilesManager.Core.Models.DTOs.Files;
-using FilesManager.Core.Models.DTOs.Results;
+﻿using FilesManager.Core.Models.DTOs.Results;
 using FilesManager.Core.Models.POCOs;
 using FilesManager.Core.Services.Writing;
 using FilesManager.Core.Validation;
@@ -10,7 +7,6 @@ using FilesManager.UI.Desktop.Utilities;
 using FilesManager.UI.Desktop.ViewModels.Base;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Interfaces;
 using System.Collections.ObjectModel;
-using System.Text.RegularExpressions;
 
 namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
 {
@@ -19,11 +15,8 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
     /// </summary>
     /// <seealso cref="ViewModelBase"/>
     /// <seealso cref="IRenamingStrategy"/>
-    internal abstract class StrategyBase<TFileDto> : ViewModelBase, IRenamingStrategy
-        where TFileDto : PathNameExtensionDto
+    internal abstract class StrategyBase : ViewModelBase, IRenamingStrategy
     {
-        private readonly IFilePathConverter<Match, PathNameExtensionDto> _converter;
-
         #region Texts
         public static readonly string RadioButton_Tooltip = Resources.Tooltip_RadioButton;
 
@@ -67,7 +60,6 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         /// </summary>
         protected StrategyBase() : base()
         {
-            this._converter = new PathNameExtensionConverter();
         }
 
         #region IRenamingStrategy
@@ -122,11 +114,11 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         /// <summary>
         /// Gets the new file path for a file to be renamed.
         /// </summary>
-        /// <param name="fileDto">The file DTO composed from RegEx <see cref="Match"/>.</param>
+        /// <param name="fileData"><inheritdoc cref="FileData" path="/summary"/></param>
         /// <returns>
         ///   The new file path (changed by the current renaming strategy).
         /// </returns>
-        protected internal abstract string GetNewFilePath(TFileDto fileDto);
+        protected internal abstract string GetNewFilePath(FileData fileData);
         #endregion
 
         #region Concrete (Validation)
@@ -164,7 +156,8 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         #endregion
 
         #region Concrete (Logic)
-        protected internal RenamingResultDto TryUpdatingFiles(ObservableCollection<FileData> loadedFiles)
+        protected internal static RenamingResultDto TryUpdatingFiles(
+            ObservableCollection<FileData> loadedFiles, Func<FileData, string> getNewFilePath)
         {
             var result = RenamingResultDto.Failure();
             FileData file;
@@ -172,7 +165,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
             for (ushort index = 0; index < loadedFiles.Count; index++)
             {
                 file = loadedFiles[index];
-                result = WritingService.RenameFile(file.FullPath, GetNewFilePath((TFileDto)file.Dto));
+                result = WritingService.RenameFile(file.FullPath, getNewFilePath(file));
 
                 if (result.IsSuccess)
                 {
@@ -194,7 +187,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         /// <param name="loadedFiles">The list of files to by updated.</param>
         /// <param name="index">The index of the element to be modified.</param>
         /// <param name="newFilePath">The new file path.</param>
-        protected internal void UpdateFilesList(ObservableCollection<FileData> loadedFiles, ushort index, string newFilePath)
+        protected internal static void UpdateFilesList(ObservableCollection<FileData> loadedFiles, ushort index, string newFilePath)
         {
             if (index > loadedFiles.Count - 1)
             {
@@ -203,9 +196,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
 
             // NOTE: Triggers OnCollectionChanged event
             loadedFiles.RemoveAt(index);
-            loadedFiles.Insert(index, new FileData(
-                this._converter.ConvertToDto(
-                    RegexPatterns.FileComponentsPattern().Match(newFilePath))));
+            loadedFiles.Insert(index, new FileData(newFilePath));
         }
         #endregion
     }

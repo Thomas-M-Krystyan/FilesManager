@@ -6,7 +6,7 @@ namespace FilesManager.Core.Models.DTOs.Files
     /// The basic file components: path, name, and extension.
     /// </summary>
     /// <seealso cref="BasePathDto"/>
-    internal record PathNameExtensionDto : BasePathDto
+    internal record FilePathNameDto : BasePathDto
     {
         /// <summary>
         /// Gets the name of the file.
@@ -14,9 +14,9 @@ namespace FilesManager.Core.Models.DTOs.Files
         internal string Name { get; init; } = string.Empty;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PathNameExtensionDto"/> record.
+        /// Initializes a new instance of the <see cref="FilePathNameDto"/> record.
         /// </summary>
-        internal PathNameExtensionDto(string path, string name, string extension)
+        internal FilePathNameDto(string path, string name, string extension)
             : base(path, extension)
         {
             this.Name = name;

@@ -9,19 +9,19 @@ namespace FilesManager.Core.UnitTests.Converters
     [TestFixture]
     internal class PathZerosDigitsExtensionConverterTests
     {
-        private readonly IFilePathConverter<PathNameExtensionDto, PathZerosDigitsExtensionDto> _converter
-            = new PathZerosDigitsExtensionConverter();
+        private readonly IFilePathConverter<FilePathNameDto, FileZerosDigitsDto> _converter
+            = new FileDtoZerosDigitsConverter();
 
         #region ConvertToDto
         [Test]
         public void ConvertToDto_ForValidDto_ReturnsExpectedDto()
         {
             // Arrange
-            PathNameExtensionDto testDto = TestHelpers.GetTestDto(
+            FilePathNameDto testDto = TestHelpers.GetTestDto(
                 @"C:\Drive\Folder\", "01New test", ".csr");
 
             // Act
-            PathZerosDigitsExtensionDto actualDto = this._converter.ConvertToDto(testDto);
+            FileZerosDigitsDto actualDto = this._converter.ConvertToDto(testDto);
 
             // Assert
             Assert.Multiple(() =>
@@ -38,10 +38,10 @@ namespace FilesManager.Core.UnitTests.Converters
         public void ConvertToDto_ForEmptyDto_ReturnsExpectedDto()
         {
             // Arrange
-            PathNameExtensionDto testDto = new(string.Empty, string.Empty, string.Empty);
+            FilePathNameDto testDto = new(string.Empty, string.Empty, string.Empty);
 
             // Act
-            PathZerosDigitsExtensionDto actualDto = this._converter.ConvertToDto(testDto);
+            FileZerosDigitsDto actualDto = this._converter.ConvertToDto(testDto);
 
             // Assert
             Assert.Multiple(() =>
@@ -61,7 +61,7 @@ namespace FilesManager.Core.UnitTests.Converters
         public void GetFilePath_ForInvalidPath_ReturnsEmptyString(string testZeros, string testDigits, string testName)
         {
             // Arrange
-            PathZerosDigitsExtensionDto testDto
+            FileZerosDigitsDto testDto
                 = new(@"C:\Drive\Folder\", testZeros, testDigits, testName, ".csr");
 
             // Act
@@ -75,7 +75,7 @@ namespace FilesManager.Core.UnitTests.Converters
         public void GetFilePath_ForValidPath_ReturnsExpectedString()
         {
             // Arrange
-            PathZerosDigitsExtensionDto testDto
+            FileZerosDigitsDto testDto
                 = new(@"C:\Drive\Folder\", "0", "1", "New test", ".csr");
 
             // Act

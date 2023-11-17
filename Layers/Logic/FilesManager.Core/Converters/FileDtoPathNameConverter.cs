@@ -7,19 +7,19 @@ using System.Text.RegularExpressions;
 namespace FilesManager.Core.Converters
 {
     /// <inheritdoc cref="IFilePathConverter{TData, TFileDto}"/>
-    internal sealed class PathNameExtensionConverter : IFilePathConverter<Match, PathNameExtensionDto>
+    internal sealed class FileDtoPathNameConverter : IFilePathConverter<Match, FilePathNameDto>
     {
         /// <inheritdoc cref="IFilePathConverter{TData, TFileDto}.ConvertToDto(TData)"/>
-        PathNameExtensionDto IFilePathConverter<Match, PathNameExtensionDto>.ConvertToDto(Match data)
+        FilePathNameDto IFilePathConverter<Match, FilePathNameDto>.ConvertToDto(Match data)
         {
-            return new PathNameExtensionDto(
+            return new FilePathNameDto(
                 path:      data.Value(RegexPatterns.PathGroup),
                 name:      data.Value(RegexPatterns.NameGroup),
                 extension: data.Value(RegexPatterns.ExtensionGroup));
         }
 
         /// <inheritdoc cref="IFilePathConverter{TData, TFileDto}.GetFilePath(TFileDto)"/>
-        string IFilePathConverter<Match, PathNameExtensionDto>.GetFilePath(PathNameExtensionDto dto)
+        string IFilePathConverter<Match, FilePathNameDto>.GetFilePath(FilePathNameDto dto)
         {
             return dto.Name.IsEmptyOrWhiteSpaces()
                 ? string.Empty

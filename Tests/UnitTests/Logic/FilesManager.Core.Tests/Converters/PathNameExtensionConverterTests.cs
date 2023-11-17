@@ -9,7 +9,7 @@ namespace FilesManager.Core.UnitTests.Converters
     [TestFixture]
     internal class PathNameExtensionConverterTests
     {
-        private readonly IFilePathConverter<Match, PathNameExtensionDto> _converter = new PathNameExtensionConverter();
+        private readonly IFilePathConverter<Match, FilePathNameDto> _converter = new FileDtoPathNameConverter();
 
         #region ConvertToDto
         [Test]
@@ -19,7 +19,7 @@ namespace FilesManager.Core.UnitTests.Converters
             Match match = TestHelpers.GetTestMatch(@"C:\Drive\Folder\New test.csr");
 
             // Act
-            PathNameExtensionDto actualDto = this._converter.ConvertToDto(match);
+            FilePathNameDto actualDto = this._converter.ConvertToDto(match);
 
             // Assert
             Assert.Multiple(() =>
@@ -34,7 +34,7 @@ namespace FilesManager.Core.UnitTests.Converters
         public void ConvertToDto_ForEmptyMatch_ReturnsExpectedDto()
         {
             // Act
-            PathNameExtensionDto actualDto = this._converter.ConvertToDto(Match.Empty);
+            FilePathNameDto actualDto = this._converter.ConvertToDto(Match.Empty);
 
             // Assert
             Assert.Multiple(() =>
@@ -52,7 +52,7 @@ namespace FilesManager.Core.UnitTests.Converters
         public void GetFilePath_ForInvalidPath_ReturnsEmptyString(string testName)
         {
             // Arrange
-            PathNameExtensionDto testDto = new(@"C:\Drive\Folder\", testName, ".csr");
+            FilePathNameDto testDto = new(@"C:\Drive\Folder\", testName, ".csr");
 
             // Act
             string actualResult = this._converter.GetFilePath(testDto);
@@ -65,7 +65,7 @@ namespace FilesManager.Core.UnitTests.Converters
         public void GetFilePath_ForValidPath_ReturnsExpectedString()
         {
             // Arrange
-            PathNameExtensionDto testDto = new(@"C:\Drive\Folder\", "New test", ".csr");
+            FilePathNameDto testDto = new(@"C:\Drive\Folder\", "New test", ".csr");
 
             // Act
             string actualResult = this._converter.GetFilePath(testDto);

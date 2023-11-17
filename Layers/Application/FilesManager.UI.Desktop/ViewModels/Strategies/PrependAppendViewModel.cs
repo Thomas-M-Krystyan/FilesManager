@@ -14,10 +14,10 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
     /// <summary>
     /// The strategy to add text before and after the original file name.
     /// </summary>
-    /// <seealso cref="StrategyBase{TFileDto}"/>
-    internal sealed class PrependAppendViewModel : StrategyBase<PathNameExtensionDto>
+    /// <seealso cref="StrategyBase"/>
+    internal sealed class PrependAppendViewModel : StrategyBase
     {
-        private readonly IFilePathConverter<Match, PathNameExtensionDto> _converter;
+        private readonly IFilePathConverter<Match, FilePathNameDto> _converter;
 
         #region Texts
         public static readonly string Method_Header = Resources.Header_Method_PrependAppend;
@@ -61,11 +61,11 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         /// </summary>
         internal PrependAppendViewModel() : base()
         {
-            this._converter = new PathNameExtensionConverter();
+            this._converter = new FileDtoPathNameConverter();
         }
 
         #region Polymorphism
-        /// <inheritdoc cref="StrategyBase{TFileDto}.Process(ObservableCollection{FileData})"/>
+        /// <inheritdoc cref="StrategyBase.Process(ObservableCollection{FileData})"/>
         internal override sealed RenamingResultDto Process(ObservableCollection<FileData> loadedFiles)
         {
             // -----------------------------------------
@@ -79,7 +79,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             // --------------------------------
             // 2. Process renaming of the files
             // --------------------------------
-            RenamingResultDto result = TryUpdatingFiles(loadedFiles);
+            RenamingResultDto result = TryUpdatingFiles(loadedFiles, GetNewFilePath);
 
             // ------------------------------
             // 3. Finalization of the process
@@ -93,7 +93,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             return result;
         }
 
-        /// <inheritdoc cref="StrategyBase{TFileDto}.Reset()"/>
+        /// <inheritdoc cref="StrategyBase.Reset()"/>
         protected override sealed void Reset()  // NOTE: Speficic behavior for this concrete strategy. Overloading restricted
         {
             this.PrependName = string.Empty;
@@ -102,16 +102,16 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             base.Reset();
         }
 
-        /// <inheritdoc cref="StrategyBase{TFileDto}.GetNewFilePath(TFileDto)"/>
-        protected internal override sealed string GetNewFilePath(PathNameExtensionDto dto)
+        /// <inheritdoc cref="StrategyBase.GetNewFilePath(FileData)"/>
+        protected internal override sealed string GetNewFilePath(FileData fileData)
         {
             return this._converter.GetFilePath(new
             (
-                path: dto.Path,
+                path: fileData.Dto.Path,
                 name: $"{this.PrependName.TrimOnlyWhiteSpaces()}" +
-                      $"{dto.Name}" +
+                      $"{fileData.Dto.Name}" +
                       $"{this.AppendName.TrimOnlyWhiteSpaces()}",
-                extension: dto.Extension
+                extension: fileData.Dto.Extension
             ));
         }
         #endregion

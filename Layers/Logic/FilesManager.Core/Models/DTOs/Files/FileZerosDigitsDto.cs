@@ -3,8 +3,8 @@
     /// <summary>
     /// The extended file components: path, name (zeros + digits), and extension.
     /// </summary>
-    /// <seealso cref="PathNameExtensionDto"/>
-    internal sealed record PathZerosDigitsExtensionDto : PathNameExtensionDto
+    /// <seealso cref="FilePathNameDto"/>
+    internal sealed record FileZerosDigitsDto : FilePathNameDto
     {
         /// <summary>
         /// Gets the zeros part of the name of the file.
@@ -17,9 +17,9 @@
         internal string Digits { get; init; } = string.Empty;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PathZerosDigitsExtensionDto"/> record.
+        /// Initializes a new instance of the <see cref="FileZerosDigitsDto"/> record.
         /// </summary>
-        internal PathZerosDigitsExtensionDto(string path, string zeros, string digits, string name, string extension)
+        internal FileZerosDigitsDto(string path, string zeros, string digits, string name, string extension)
             : base(path, name, extension)
         {
             this.Zeros = zeros;

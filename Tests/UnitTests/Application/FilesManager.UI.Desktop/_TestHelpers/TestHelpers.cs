@@ -6,12 +6,12 @@ namespace FilesManager.UI.Desktop.UnitTests._TestHelpers
 {
     internal static class TestHelpers
     {
-        private static readonly IFilePathConverter<PathNameExtensionDto, PathZerosDigitsExtensionDto> Converter
-            = new PathZerosDigitsExtensionConverter();
+        private static readonly IFilePathConverter<FilePathNameDto, FileZerosDigitsDto> Converter
+            = new FileDtoZerosDigitsConverter();
 
-        internal static PathZerosDigitsExtensionDto GetTestDto(string testPath, string testName, string testExtension)
+        internal static FileZerosDigitsDto GetTestDto(string testPath, string testName, string testExtension)
         {
-            return Converter.ConvertToDto(new PathNameExtensionDto(testPath, testName, testExtension));
+            return Converter.ConvertToDto(new FilePathNameDto(testPath, testName, testExtension));
         }
     }
 }
