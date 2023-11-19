@@ -20,7 +20,7 @@ namespace FilesManager.Core.Models.POCOs
         /// <summary>
         /// The full path to the file: <code>"C:\Users\JaneDoe\Desktop\Test.txt"</code>
         /// </summary>
-        internal string FullPath => $"{this.Dto.Path}{this.Dto.Name}{this.Dto.Extension}";
+        internal string FullPathName => $"{this.Dto.Path}{this.Dto.Name}{this.Dto.Extension}";
 
         /// <summary>
         /// The file name with extension to be displayed on UI: <code>"Test.txt"</code>

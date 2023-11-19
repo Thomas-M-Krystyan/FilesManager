@@ -1,6 +1,6 @@
 ﻿using FilesManager.Core.Models.DTOs.Results;
 using FilesManager.Core.Models.POCOs;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 
 namespace FilesManager.UI.Desktop.ViewModels.Strategies.Interfaces
 {
@@ -18,7 +18,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Interfaces
         /// <returns>
         ///   <inheritdoc cref="RenamingResultDto" path="/summary"/>
         /// </returns>
-        internal RenamingResultDto Process(ObservableCollection<FileData> loadedFiles);
+        internal RenamingResultDto Process(IList<FileData> loadedFiles);
 
         /// <summary>
         /// Displays a proper <see cref="MessageBoxResult"/> popup with feedback information.

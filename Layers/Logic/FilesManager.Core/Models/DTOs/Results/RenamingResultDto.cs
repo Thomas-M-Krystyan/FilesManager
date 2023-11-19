@@ -1,8 +1,11 @@
-﻿namespace FilesManager.Core.Models.DTOs.Results
+﻿using System.Diagnostics;
+
+namespace FilesManager.Core.Models.DTOs.Results
 {
     /// <summary>
     /// The renaming operation result DTO.
     /// </summary>
+    [DebuggerDisplay("Success: {IsSuccess}, {ValueName,nq}: {Value}")]
     internal sealed record RenamingResultDto
     {
         #region Defaults
@@ -23,6 +26,8 @@
         /// </summary>
         internal string Value { get; } = string.Empty;
 
+        private string ValueName => this.IsSuccess ? "New path" : "Error";
+        
         #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="RenamingResultDto"/> record.

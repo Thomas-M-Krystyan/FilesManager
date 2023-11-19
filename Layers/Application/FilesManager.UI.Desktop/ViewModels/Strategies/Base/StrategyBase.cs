@@ -6,6 +6,7 @@ using FilesManager.UI.Common.Properties;
 using FilesManager.UI.Desktop.Utilities;
 using FilesManager.UI.Desktop.ViewModels.Base;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Interfaces;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
@@ -63,8 +64,8 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         }
 
         #region IRenamingStrategy
-        /// <inheritdoc cref="IRenamingStrategy.Process(ObservableCollection{FileData})"/>
-        RenamingResultDto IRenamingStrategy.Process(ObservableCollection<FileData> loadedFiles)
+        /// <inheritdoc cref="IRenamingStrategy.Process(IList{FileData})"/>
+        RenamingResultDto IRenamingStrategy.Process(IList<FileData> loadedFiles)
         {
             return Process(loadedFiles);
         }
@@ -108,8 +109,8 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         #endregion
 
         #region Abstract
-        /// <inheritdoc cref="IRenamingStrategy.Process(ObservableCollection{FileData})"/>
-        internal abstract RenamingResultDto Process(ObservableCollection<FileData> loadedFiles);
+        /// <inheritdoc cref="IRenamingStrategy.Process(IList{FileData})"/>
+        internal abstract RenamingResultDto Process(IList<FileData> loadedFiles);
 
         /// <summary>
         /// Gets the new file path for a file to be renamed.
@@ -157,7 +158,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
 
         #region Concrete (Logic)
         protected internal static RenamingResultDto TryUpdatingFiles(
-            ObservableCollection<FileData> loadedFiles, Func<FileData, string> getNewFilePath)
+            IList<FileData> loadedFiles, Func<FileData, string> getNewFilePath)
         {
             var result = RenamingResultDto.Failure();
             FileData file;
@@ -165,7 +166,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
             for (ushort index = 0; index < loadedFiles.Count; index++)
             {
                 file = loadedFiles[index];
-                result = WritingService.RenameFile(file.FullPath, getNewFilePath(file));
+                result = WritingService.RenameFile(file.FullPathName, getNewFilePath(file));
 
                 if (result.IsSuccess)
                 {
@@ -187,7 +188,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies.Base
         /// <param name="loadedFiles">The list of files to by updated.</param>
         /// <param name="index">The index of the element to be modified.</param>
         /// <param name="newFilePath">The new file path.</param>
-        protected internal static void UpdateFilesList(ObservableCollection<FileData> loadedFiles, ushort index, string newFilePath)
+        protected internal static void UpdateFilesList(IList<FileData> loadedFiles, ushort index, string newFilePath)
         {
             if (index > loadedFiles.Count - 1)
             {

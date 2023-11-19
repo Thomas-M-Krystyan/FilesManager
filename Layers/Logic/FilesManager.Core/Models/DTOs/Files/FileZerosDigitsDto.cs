@@ -1,9 +1,12 @@
-﻿namespace FilesManager.Core.Models.DTOs.Files
+﻿using System.Diagnostics;
+
+namespace FilesManager.Core.Models.DTOs.Files
 {
     /// <summary>
     /// The extended file components: path, name (zeros + digits), and extension.
     /// </summary>
     /// <seealso cref="FilePathNameDto"/>
+    [DebuggerDisplay("Path: {Path}, Zeros: {Zeros}, Digits: {Digits}, Name: {Name}, Extension: {Extension}")]
     internal sealed record FileZerosDigitsDto : FilePathNameDto
     {
         /// <summary>
@@ -24,6 +27,12 @@
         {
             this.Zeros = zeros;
             this.Digits = digits;
+        }
+
+        /// <inheritdoc cref="FileZerosDigitsDto(string, string, string, string, string)"/>
+        internal FileZerosDigitsDto(FileZerosDigitsDto dto, string zeros, string digits)
+            : this(dto.Path, zeros, digits, dto.Name, dto.Extension)
+        {
         }
     }
 }

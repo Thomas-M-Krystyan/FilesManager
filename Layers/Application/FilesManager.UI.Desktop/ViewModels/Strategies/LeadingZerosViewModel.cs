@@ -5,7 +5,8 @@ using FilesManager.Core.Models.DTOs.Results;
 using FilesManager.Core.Models.POCOs;
 using FilesManager.UI.Common.Properties;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace FilesManager.UI.Desktop.ViewModels.Strategies
 {
@@ -30,7 +31,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         #region Const
         private const bool DefaultAbsoluteModeOn = false;
         private const bool DefaultAbsoluteModeEnabled = true;
-        private const string Zero = "0";
+        private const string SingleZero = "0";
         #endregion
 
         // NOTE: All binding elements should be public
@@ -96,8 +97,8 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         }
 
         #region Polymorphism
-        /// <inheritdoc cref="StrategyBase.Process(ObservableCollection{FileData})"/>
-        internal override sealed RenamingResultDto Process(ObservableCollection<FileData> loadedFiles)
+        /// <inheritdoc cref="StrategyBase.Process(IList{FileData})"/>
+        internal override sealed RenamingResultDto Process(IList<FileData> loadedFiles)
         {
             // -----------------------------------------
             // 1. Validate if there are any input errors
@@ -110,22 +111,19 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
             // --------------------------------
             // 2. Preparing the processing data
             // --------------------------------
-            foreach (FileData file in loadedFiles)
-            {
-                FileZerosDigitsDto dto = this._converter.ConvertToDto(file.Dto);
+            this.MaxDigitsLength = default;  // Reset value
 
+            for (int index = 0; index < loadedFiles.Count; index++)
+            {
                 // Counting max length
-                this.MaxDigitsLength = Math.Max(this.MaxDigitsLength, dto.Digits.Length);
+                this.MaxDigitsLength = Math.Max(this.MaxDigitsLength,
+                    this._converter.ConvertToDto(loadedFiles[index].Dto).Digits.Length);
             }
 
             // --------------------------------
             // 3. Process renaming of the files
             // --------------------------------
-            this.MaxDigitsLength = default;  // Reset value
-
-            RenamingResultDto result = TryUpdatingFiles(loadedFiles, GetNewFilePath);
-
-            return result;
+            return TryUpdatingFiles(loadedFiles, GetNewFilePath);
         }
 
         /// <inheritdoc cref="StrategyBase.Reset()"/>
@@ -140,16 +138,14 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         /// <inheritdoc cref="StrategyBase.GetNewFilePath(FileData)"/>
         protected internal override sealed string GetNewFilePath(FileData fileData)
         {
-            (string zeros, string digits) = GetDigitsWithLeadingZeros(fileData.Dto);
+            // Conversion (split the "Name" into: "Zeros" + "Digits" + "Name")
+            FileZerosDigitsDto zerosFileDataDto = this._converter.ConvertToDto(fileData.Dto);
 
-            return this._converter.GetFilePath(new
-            (
-                path: fileData.Dto.Path,
-                zeros: zeros,
-                digits: digits,
-                name: fileData.Dto.Name,
-                extension: fileData.Dto.Extension
-            ));
+            // Regulate the amount of leading "Zeros" + unchanged "Digits"
+            zerosFileDataDto = GetDigitsWithLeadingZeros(zerosFileDataDto);
+
+            // Retrieve the full filename from DTO
+            return this._converter.GetFilePath(zerosFileDataDto);
         }
         #endregion
 
@@ -161,40 +157,43 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         /// <returns>
         ///   The new file name preceeded by zeros.
         /// </returns>
-        private (string Zeros, string Digits) GetDigitsWithLeadingZeros(FileZerosDigitsDto fileDto)
+        private FileZerosDigitsDto GetDigitsWithLeadingZeros(FileZerosDigitsDto fileDto)
         {
-            // There is no point to process the DTO any further
-            if (this.HasErrors)
-            {
-                return (fileDto.Zeros, fileDto.Digits);
-            }
-
-            // Removing zeros mode
+            // Removing "Zeros" mode
             if (this.LeadingZeros is 0)
             {
                 if (fileDto.Digits.Length is 0 &&
-                    fileDto.Name.Length   is 0 &&
+                    fileDto.Name.Length is 0 &&
                     (this.IsAbsoluteModeOn || this.MaxDigitsLength is 0))
                 {
-                    return (Zero, string.Empty);  // Cases: "00.jpg" => "0.jpg" (try to reduce number of zeros to none, but prevent ".jpg")
+                    // Cases: "00.jpg" => "0.jpg" (try to reduce number of "Zeros" to none, but prevent ".jpg")
+                    return new FileZerosDigitsDto(fileDto, SingleZero, string.Empty);
                 }
 
                 if (this.IsAbsoluteModeOn)
                 {
-                    return (string.Empty, fileDto.Digits);  // Cases: "01.jpg" => "1.jpg" or "01a.png" => "1a.png" (trim zeros)
+                    // Cases: "01.jpg" => "1.jpg" or "01a.png" => "1a.png" (trim "Zeros")
+                    return new FileZerosDigitsDto(fileDto, string.Empty, fileDto.Digits);
                 }
             }
 
-            return GetLeadingZeros(fileDto.Digits);
+            // Adding leading "Zeros" mode
+            return GetLeadingZeros(fileDto);
         }
 
-        private (string Zeros, string Digits) GetLeadingZeros(string digits)
+        private FileZerosDigitsDto GetLeadingZeros(FileZerosDigitsDto fileDto)
         {
-            int zerosToAdd = digits.Length == this.MaxDigitsLength           // For 2n => MIN: "1" (Length: 1), MAX: "10" (Length: 2)
-                ? this.LeadingZeros                                          // (Count: 1) => "0"
-                : this.MaxDigitsLength + this.LeadingZeros - digits.Length;  // 2 (max len) + 1 (count) - 1 (min len) => "00" + "1"
+            // For case "add one 0" where the shortest file name is "1" (min len) and the longest is "10" (max len)
+            int zerosToAdd = fileDto.Digits.Length == this.MaxDigitsLength // NOTE: digits length can be never greater than max digits length
+                // For the name "10" (from the above case): all additional zeros will be prepended => "010"
+                ? this.LeadingZeros
+                // For the name "1" (from the above case): first the zeros alignment should happen "1" => "01" (max len 2 from "10")
+                //                                         and only after that the additional zeros can be prepended => "001"
+                : this.MaxDigitsLength - fileDto.Digits.Length + this.LeadingZeros;
+            
+            string newZeros = new(char.Parse(SingleZero), zerosToAdd);
 
-            return (new string(char.Parse(Zero), zerosToAdd), digits);
+            return new FileZerosDigitsDto(fileDto, newZeros, fileDto.Digits);
         }
         #endregion
     }

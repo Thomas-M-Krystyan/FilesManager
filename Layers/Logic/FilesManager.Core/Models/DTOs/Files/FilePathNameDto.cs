@@ -1,4 +1,5 @@
 ﻿using FilesManager.Core.Models.DTOs.Files.Abstractions;
+using System.Diagnostics;
 
 namespace FilesManager.Core.Models.DTOs.Files
 {
@@ -6,6 +7,7 @@ namespace FilesManager.Core.Models.DTOs.Files
     /// The basic file components: path, name, and extension.
     /// </summary>
     /// <seealso cref="BasePathDto"/>
+    [DebuggerDisplay("Path: {Path}, Name: {Name}, Extension: {Extension}")]
     internal record FilePathNameDto : BasePathDto
     {
         /// <summary>
