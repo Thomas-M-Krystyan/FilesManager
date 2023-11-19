@@ -90,9 +90,11 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         /// <summary>
         /// Initializes a new instance of the <see cref="LeadingZerosViewModel"/> class.
         /// </summary>
-        internal LeadingZerosViewModel() : base()
+        public LeadingZerosViewModel(  // Used for Dependency Injection
+            IFilePathConverter<FilePathNameDto, FileZerosDigitsDto> converter)
+            : base()
         {
-            this._converter = new FileDtoZerosDigitsConverter();
+            this._converter = converter;
         }
 
         #region Polymorphism

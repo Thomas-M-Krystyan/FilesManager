@@ -12,7 +12,7 @@ namespace FilesManager.Core.Models.POCOs
     internal sealed record FileData
     {
         private static readonly IFilePathConverter<Match, FilePathNameDto> PathNameConverter
-            = new FileDtoPathNameConverter();
+            = new FilePathNameDtoConverter();
 
         /// <inheritdoc cref="FilePathNameDto"/>
         internal FilePathNameDto Dto { get; }

@@ -73,9 +73,11 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         /// <summary>
         /// Initializes a new instance of the <see cref="IncrementNumberViewModel"/> class.
         /// </summary>
-        internal IncrementNumberViewModel() : base()
+        public IncrementNumberViewModel(  // Used for Dependency Injection
+            IFilePathConverter<Match, FilePathNameDto> converter)
+            : base()
         {
-            this._converter = new FileDtoPathNameConverter();
+            this._converter = converter;
         }
 
         #region Polymorphism

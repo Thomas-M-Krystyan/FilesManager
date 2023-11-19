@@ -10,7 +10,7 @@ namespace FilesManager.Core.UnitTests.Converters
     internal class PathZerosDigitsExtensionConverterTests
     {
         private readonly IFilePathConverter<FilePathNameDto, FileZerosDigitsDto> _converter
-            = new FileDtoZerosDigitsConverter();
+            = new FileZerosDigitsDtoConverter();
 
         #region ConvertToDto
         [Test]

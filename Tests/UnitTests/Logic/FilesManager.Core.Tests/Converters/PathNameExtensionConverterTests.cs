@@ -9,7 +9,7 @@ namespace FilesManager.Core.UnitTests.Converters
     [TestFixture]
     internal class PathNameExtensionConverterTests
     {
-        private readonly IFilePathConverter<Match, FilePathNameDto> _converter = new FileDtoPathNameConverter();
+        private readonly IFilePathConverter<Match, FilePathNameDto> _converter = new FilePathNameDtoConverter();
 
         #region ConvertToDto
         [Test]

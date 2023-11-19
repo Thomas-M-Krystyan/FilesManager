@@ -1,4 +1,6 @@
-﻿using FilesManager.Core.Models.DTOs.Results;
+﻿using FilesManager.Core.Converters.Interfaces;
+using FilesManager.Core.Models.DTOs.Files;
+using FilesManager.Core.Models.DTOs.Results;
 using FilesManager.Core.Models.POCOs;
 using FilesManager.Core.Validation;
 using FilesManager.UI.Common.Properties;
@@ -163,11 +165,15 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindowViewModel"/> class.
         /// </summary>
-        internal MainWindowViewModel() : base()
+        public MainWindowViewModel(  // NOTE: Used for Dependency Injection
+            IncrementNumberViewModel incrementViewModel,
+            PrependAppendViewModel prependViewModel,
+            LeadingZerosViewModel zerosViewModel)
+            : base()
         {
-            this.IncrementNumberStrategy = new();
-            this.PrependAppendStrategy = new();
-            this.LeadingZerosStrategy = new();
+            this.IncrementNumberStrategy = incrementViewModel;
+            this.PrependAppendStrategy = prependViewModel;
+            this.LeadingZerosStrategy = zerosViewModel;
 
             SubscribeEvents();
         }

@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 namespace FilesManager.Core.Converters
 {
     /// <inheritdoc cref="IFilePathConverter{TData, TFileDto}"/>
-    internal sealed class FileDtoZerosDigitsConverter : IFilePathConverter<FilePathNameDto, FileZerosDigitsDto>
+    internal sealed class FileZerosDigitsDtoConverter : IFilePathConverter<FilePathNameDto, FileZerosDigitsDto>
     {
         /// <inheritdoc cref="IFilePathConverter{TData, TFileDto}.ConvertToDto(TData)"/>
         FileZerosDigitsDto IFilePathConverter<FilePathNameDto, FileZerosDigitsDto>

@@ -1,4 +1,6 @@
-﻿using FilesManager.Core.Helpers;
+﻿using FilesManager.Core.Converters;
+using FilesManager.Core.Converters.Interfaces;
+using FilesManager.Core.Helpers;
 using FilesManager.Core.Models.DTOs.Files;
 using FilesManager.Core.Models.POCOs;
 using FilesManager.UI.Desktop.ViewModels.Strategies;
@@ -10,15 +12,18 @@ namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Strategies
     [TestFixture]
     internal sealed class LeadingZerosViewModelTests
     {
+        private static readonly IFilePathConverter<FilePathNameDto, FileZerosDigitsDto> Converter = new FileZerosDigitsDtoConverter();
+
         private StrategyBase? _strategy;
 
+        #region GetNewFilePath()
         [TestCaseSource(nameof(GetAbsoluteTestCases))]
         [TestCaseSource(nameof(GetRelativeTestCases))]
         public void GetNewFilePath_ForGivenInput_ReturnsExpectedFileName(
             (int Id, string[] TestNames, byte LeadingZeros, bool IsAbsoluteModeOn, string[] ExpectedPaths) data)
         {
             // Arrange
-            this._strategy = new LeadingZerosViewModel
+            this._strategy = new LeadingZerosViewModel(Converter)
             {
                 LeadingZeros = data.LeadingZeros,
                 IsAbsoluteModeOn = data.IsAbsoluteModeOn,
@@ -49,13 +54,13 @@ namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Strategies
             yield return (1, new[] { "1",   "2" }, 0, true, new[] { @"C:\Drive\Folder\Subfolder\1.jpg",  @"C:\Drive\Folder\Subfolder\2.jpg" });
             yield return (2, new[] { "01",  "2" }, 0, true, new[] { @"C:\Drive\Folder\Subfolder\1.jpg",  @"C:\Drive\Folder\Subfolder\2.jpg" });
             yield return (3, new[] { "012", "2" }, 0, true, new[] { @"C:\Drive\Folder\Subfolder\12.jpg", @"C:\Drive\Folder\Subfolder\2.jpg" });
-            
+
             // No zeros: Digits + Name
             yield return (4, new[] { "1a",     "2" }, 0, true, new[] { @"C:\Drive\Folder\Subfolder\1a.jpg",    @"C:\Drive\Folder\Subfolder\2.jpg" });
             yield return (5, new[] { "01a",    "2" }, 0, true, new[] { @"C:\Drive\Folder\Subfolder\1a.jpg",    @"C:\Drive\Folder\Subfolder\2.jpg" });
             yield return (6, new[] { "012a",   "2" }, 0, true, new[] { @"C:\Drive\Folder\Subfolder\12a.jpg",   @"C:\Drive\Folder\Subfolder\2.jpg" });
             yield return (7, new[] { "012abc", "2" }, 0, true, new[] { @"C:\Drive\Folder\Subfolder\12abc.jpg", @"C:\Drive\Folder\Subfolder\2.jpg" });
-            
+
             // No zeros: Name
             yield return (8, new[] { "0a", "2" }, 0, true, new[] { @"C:\Drive\Folder\Subfolder\a.jpg", @"C:\Drive\Folder\Subfolder\2.jpg" });
             
@@ -230,5 +235,6 @@ namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Strategies
             yield return (131, new[] { "01", "test" }, 0, false, new[] { @"C:\Drive\Folder\Subfolder\1.jpg", @"C:\Drive\Folder\Subfolder\0test.jpg" });
             yield return (132, new[] { "1", "0test" }, 0, false, new[] { @"C:\Drive\Folder\Subfolder\1.jpg", @"C:\Drive\Folder\Subfolder\0test.jpg" });
         }
+        #endregion
     }
 }

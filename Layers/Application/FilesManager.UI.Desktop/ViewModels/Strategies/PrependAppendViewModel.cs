@@ -59,9 +59,11 @@ namespace FilesManager.UI.Desktop.ViewModels.Strategies
         /// <summary>
         /// Initializes a new instance of the <see cref="PrependAppendViewModel"/> class.
         /// </summary>
-        internal PrependAppendViewModel() : base()
+        public PrependAppendViewModel(  // Used for Dependency Injection
+            IFilePathConverter<Match, FilePathNameDto> converter)
+            : base()
         {
-            this._converter = new FileDtoPathNameConverter();
+            this._converter = converter;
         }
 
         #region Polymorphism
