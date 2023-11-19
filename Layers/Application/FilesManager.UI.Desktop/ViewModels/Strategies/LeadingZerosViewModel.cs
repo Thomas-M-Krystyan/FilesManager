@@ -6,7 +6,6 @@ using FilesManager.Core.Models.POCOs;
 using FilesManager.UI.Common.Properties;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace FilesManager.UI.Desktop.ViewModels.Strategies
 {

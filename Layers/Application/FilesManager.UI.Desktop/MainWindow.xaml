@@ -9,9 +9,9 @@
         xmlns:strategies="clr-namespace:FilesManager.UI.Desktop.ViewModels.Strategies"
         data:DataContext="{data:DesignInstance Type=root:MainWindowViewModel}"
         markup:Ignorable="data"
-        
+
         Title="{xaml:Static root:MainWindowViewModel.WindowTitle}"
-        
+
         Background="LightGray"
         WindowStyle="SingleBorderWindow"
         ResizeMode="CanMinimize">  <!-- NOTE: Enable minimize / maximize buttons -->

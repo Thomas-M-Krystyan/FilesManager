@@ -26,6 +26,7 @@ namespace FilesManager.Core.Models.DTOs.Results
         /// </summary>
         internal string Value { get; } = string.Empty;
 
+        // NOTE: Used implicitly by [DebuggerDisplay]
         private string ValueName => this.IsSuccess ? "New path" : "Error";
         
         #region Constructors
