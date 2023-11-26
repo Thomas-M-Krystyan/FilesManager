@@ -1,6 +1,4 @@
-﻿using FilesManager.Core.Converters.Interfaces;
-using FilesManager.Core.Models.DTOs.Files;
-using FilesManager.Core.Models.DTOs.Results;
+﻿using FilesManager.Core.Models.DTOs.Results;
 using FilesManager.Core.Models.POCOs;
 using FilesManager.Core.Validation;
 using FilesManager.UI.Common.Properties;
@@ -9,7 +7,6 @@ using FilesManager.UI.Desktop.ViewModels.Base;
 using FilesManager.UI.Desktop.ViewModels.Strategies;
 using FilesManager.UI.Desktop.ViewModels.Strategies.Interfaces;
 using Microsoft.Xaml.Behaviors.Core;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -68,7 +65,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         /// <summary>
         /// A collection of files that were dragged and dropped on the specific UI section in the <see cref="MainWindow"/>.
         /// </summary>
-        public IList<FileData> Files { get; } = new ObservableCollection<FileData>();
+        public ObservableCollection<FileData> Files { get; } = new();
 
         private int _counter;
 
