@@ -112,7 +112,7 @@
     </Style>
 
     <!-- Buttons -->
-    <Style xaml:Key="LayerButtonStyle"
+    <Style xaml:Key="LeftLayerButtonStyle"
            TargetType="{xaml:Type Button}"
            BasedOn="{StaticResource ControlWithResponsiveToolTips}">
         <Setter Property="Margin" Value="0,10,0,5"/>
@@ -131,7 +131,7 @@
                             Background="{StaticResource DarkWhite}"
                             BorderBrush="{StaticResource DarkerGray}"
                             BorderThickness="1,1,2,2"
-                            CornerRadius="5"> <!-- Round corners -->
+                            CornerRadius="5,0,0,0"> <!-- Round corners -->
                         <!-- NOTE: BorderThickness is with shadow effect -->
                         <ContentPresenter HorizontalAlignment="Center"
                                           VerticalAlignment="Center" />

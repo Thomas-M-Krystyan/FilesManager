@@ -91,7 +91,7 @@
                     Grid.Row="0"
                     Content="{xaml:Static root:MainWindowViewModel.GeneralSection_Header}"
                     ToolTip="{xaml:Static root:MainWindowViewModel.GeneralSection_Tooltip}"
-                    Style="{StaticResource LayerButtonStyle}">
+                    Style="{StaticResource LeftLayerButtonStyle}">
             </Button>
             
             <!-- Strategy #1: Increment number -->
