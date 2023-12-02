@@ -87,7 +87,17 @@
             </Grid.RowDefinitions>
 
             <!-- The main header -->
-            <Label Grid.Column="0"
+            <Button Grid.Column="0"
+                    Grid.Row="0"
+                    Margin="0,5,0,2"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Content="{xaml:Static root:MainWindowViewModel.GeneralSection_Header}"
+                    ToolTip="{xaml:Static root:MainWindowViewModel.GeneralSection_Tooltip}"
+                    BorderBrush="{StaticResource GrayOutlineBrush}">
+            </Button>
+            
+            <!--<Label Grid.Column="0"
                    Grid.Row="0"
                    Margin="0,5,0,0"
                    HorizontalAlignment="Left"
@@ -95,7 +105,7 @@
                    Content="{xaml:Static root:MainWindowViewModel.GeneralSection_Header}"
                    FontWeight="ExtraBold"
                    ToolTip="{xaml:Static root:MainWindowViewModel.GeneralSection_Tooltip}"
-                   Style="{StaticResource ControlWithResponsiveToolTips}" />
+                   Style="{StaticResource ControlWithResponsiveToolTips}" />-->
 
             <!-- Strategy #1: Increment number -->
             <Border Grid.Column="0" Grid.ColumnSpan="2"
@@ -152,7 +162,7 @@
                              Grid.Row="1"
                              Text="{Binding NamePrefix, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                              ToolTip="{xaml:Static strategies:IncrementNumberViewModel.Content_NonEmptyField_Tooltip}"
-                             Style="{StaticResource TextBoxStyle_130}">
+                             Style="{StaticResource TextBoxStyle_140}">
                         <behaviors:Interaction.Triggers>
                             <behaviors:EventTrigger EventName="GotFocus">
                                 <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
@@ -175,7 +185,7 @@
                              Grid.Row="1"
                              Text="{Binding StartingNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                              ToolTip="{xaml:Static strategies:IncrementNumberViewModel.Content_OnlyPositives_Tooltip}"
-                             Style="{StaticResource TextBoxStyle_70}">
+                             Style="{StaticResource TextBoxStyle_80}">
                         <behaviors:Interaction.Triggers>
                             <behaviors:EventTrigger EventName="GotFocus">
                                 <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
@@ -198,7 +208,7 @@
                              Grid.Row="1"
                              Text="{Binding NamePostfix, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                              ToolTip="{xaml:Static strategies:IncrementNumberViewModel.Content_NonEmptyField_Tooltip}"
-                             Style="{StaticResource TextBoxStyle_130}">
+                             Style="{StaticResource TextBoxStyle_140}">
                         <behaviors:Interaction.Triggers>
                             <behaviors:EventTrigger EventName="GotFocus">
                                 <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
@@ -274,7 +284,7 @@
                                  Grid.Row="1"
                                  Text="{Binding PrependName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                  ToolTip="{xaml:Static strategies:PrependAppendViewModel.Content_NonEmptyField_Tooltip}"
-                                 Style="{StaticResource TextBoxStyle_130}">
+                                 Style="{StaticResource TextBoxStyle_140}">
                             <behaviors:Interaction.Triggers>
                                 <behaviors:EventTrigger EventName="GotFocus">
                                     <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
@@ -297,7 +307,7 @@
                                  Grid.Row="1"
                                  Text="{Binding AppendName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                  ToolTip="{xaml:Static strategies:PrependAppendViewModel.Content_NonEmptyField_Tooltip}"
-                                 Style="{StaticResource TextBoxStyle_130}">
+                                 Style="{StaticResource TextBoxStyle_140}">
                             <behaviors:Interaction.Triggers>
                                 <behaviors:EventTrigger EventName="GotFocus">
                                     <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
@@ -325,7 +335,7 @@
                         </Grid.RowDefinitions>
 
                         <!-- Header -->
-                        <Label Grid.Column="0" Grid.ColumnSpan="3"
+                        <Label Grid.Column="0" Grid.ColumnSpan="4"
                                Grid.Row="0"
                                Content="{xaml:Static strategies:LeadingZerosViewModel.Method_Header}"
                                ToolTip="{xaml:Static strategies:LeadingZerosViewModel.Method_Tooltip}"
@@ -359,7 +369,7 @@
                                  Grid.Row="1"
                                  Text="{Binding LeadingZeros, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                  ToolTip="{xaml:Static strategies:LeadingZerosViewModel.Content_OnlyVerySmallPositives_Tooltip}"
-                                 Style="{StaticResource TextBoxStyle_45}">
+                                 Style="{StaticResource TextBoxStyle_60}">
                             <behaviors:Interaction.Triggers>
                                 <behaviors:EventTrigger EventName="GotFocus">
                                     <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />

@@ -166,7 +166,7 @@
     <comment>XAML</comment>
   </data>
   <data name="Header_Method_LeadingZeros" xml:space="preserve">
-    <value>"Leading zeros" (0...)</value>
+    <value>"Leading zeros" (0 + NAME)</value>
     <comment>XAML</comment>
   </data>
   <data name="Header_Method_PrependAppend" xml:space="preserve">

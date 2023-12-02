@@ -12,6 +12,10 @@
     <GridLength xaml:Key="SeparatorWidth">5.0</GridLength>
     <system:Double xaml:Key="TextBoxHeight">20.0</system:Double>
     <system:Double xaml:Key="ButtonWidth">50.0</system:Double>
+    
+    <!-- Colors -->
+    <Color xaml:Key="GrayOutline">#999090</Color>
+    <SolidColorBrush xaml:Key="GrayOutlineBrush" Color="{StaticResource GrayOutline}" />
 
     <!-- ################# -->
     <!-- ###  STYLES:  ### -->
@@ -74,22 +78,22 @@
         <Setter Property="TextWrapping" Value="Wrap" />
     </Style>
 
-    <Style xaml:Key="TextBoxStyle_130"
+    <Style xaml:Key="TextBoxStyle_140"
            TargetType="{xaml:Type TextBox}"
            BasedOn="{StaticResource TextBoxStyle}">
-        <Setter Property="Width" Value="130px" />
+        <Setter Property="Width" Value="140px" />
     </Style>
 
-    <Style xaml:Key="TextBoxStyle_70"
+    <Style xaml:Key="TextBoxStyle_80"
            TargetType="{xaml:Type TextBox}"
            BasedOn="{StaticResource TextBoxStyle}">
-        <Setter Property="Width" Value="70px" />
+        <Setter Property="Width" Value="80px" />
     </Style>
 
-    <Style xaml:Key="TextBoxStyle_45"
+    <Style xaml:Key="TextBoxStyle_60"
            TargetType="{xaml:Type TextBox}"
            BasedOn="{StaticResource TextBoxStyle}">
-        <Setter Property="Width" Value="45px" />
+        <Setter Property="Width" Value="60px" />
     </Style>
 
     <!-- Check Boxes -->
