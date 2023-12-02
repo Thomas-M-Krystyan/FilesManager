@@ -149,4 +149,16 @@
         <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
 
+    <Style xaml:Key="WarningButtonStyle"
+           TargetType="{xaml:Type Button}"
+           BasedOn="{StaticResource ActionButtonStyle}">
+        <Setter Property="Background" Value="{StaticResource WarningColor}" />
+    </Style>
+
+    <Style xaml:Key="ContinueButtonStyle"
+           TargetType="{xaml:Type Button}"
+           BasedOn="{StaticResource ActionButtonStyle}">
+        <Setter Property="Background" Value="{StaticResource ContinueColor}" />
+    </Style>
+
 </ResourceDictionary>
