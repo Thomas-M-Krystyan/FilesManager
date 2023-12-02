@@ -456,7 +456,7 @@
                             Content="{xaml:Static root:MainWindowViewModel.ResetButton_Content}"
                             ToolTip="{xaml:Static root:MainWindowViewModel.ResetButton_Tooltip}"
                             Background="#FFDCB9B9"
-                            Style="{StaticResource ButtonStyle}">
+                            Style="{StaticResource ActionButtonStyle}">
                         <behaviors:Interaction.Triggers>
                             <behaviors:EventTrigger EventName="Click">
                                 <behaviors:InvokeCommandAction Command="{Binding ResetCommand, Mode=OneWay}" />
@@ -471,7 +471,7 @@
                             Content="{xaml:Static root:MainWindowViewModel.ClearButton_Content}"
                             ToolTip="{xaml:Static root:MainWindowViewModel.ClearButton_Tooltip}"
                             Background="#FFDCB9B9"
-                            Style="{StaticResource ButtonStyle}">
+                            Style="{StaticResource ActionButtonStyle}">
                         <behaviors:Interaction.Triggers>
                             <behaviors:EventTrigger EventName="Click">
                                 <behaviors:InvokeCommandAction Command="{Binding ClearCommand, Mode=OneWay}" />
@@ -486,7 +486,7 @@
                             Content="{xaml:Static root:MainWindowViewModel.ProcessButton_Content}"
                             ToolTip="{xaml:Static root:MainWindowViewModel.ProcessButton_Tooltip}"
                             Background="LightBlue"
-                            Style="{StaticResource ButtonStyle}">
+                            Style="{StaticResource ActionButtonStyle}">
                         <behaviors:Interaction.Triggers>
                             <behaviors:EventTrigger EventName="Click">
                                 <behaviors:InvokeCommandAction Command="{Binding ProcessCommand, Mode=OneWay}" />

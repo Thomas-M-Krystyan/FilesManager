@@ -106,7 +106,7 @@
     </Style>
 
     <!-- Buttons -->
-    <Style xaml:Key="ButtonStyle"
+    <Style xaml:Key="ActionButtonStyle"
            TargetType="{xaml:Type Button}"
            BasedOn="{StaticResource ControlWithResponsiveToolTips}">
         <Setter Property="Width" Value="{StaticResource ButtonWidth}" />
