@@ -14,11 +14,12 @@
     <system:Double xaml:Key="ButtonWidth">50.0</system:Double>
 
     <!-- Colors -->
-    <SolidColorBrush xaml:Key="DarkWhite" Color="WhiteSmoke" />
-    <SolidColorBrush xaml:Key="DarkGray" Color="DarkGray" />
-    <SolidColorBrush xaml:Key="DarkerGray" Color="Gray" />
-    <SolidColorBrush xaml:Key="DarkestGray" Color="#5d5555" />
-    <SolidColorBrush xaml:Key="WarningColor" Color="#FFDCB9B9" />
+    <SolidColorBrush xaml:Key="LightGray"     Color="WhiteSmoke" />
+    <SolidColorBrush xaml:Key="NormalGray"    Color="LightGray" />
+    <SolidColorBrush xaml:Key="DarkGray"      Color="DarkGray" />
+    <SolidColorBrush xaml:Key="DarkerGray"    Color="Gray" />
+    <SolidColorBrush xaml:Key="DarkestGray"   Color="#5d5555" />
+    <SolidColorBrush xaml:Key="WarningColor"  Color="#FFDCB9B9" />
     <SolidColorBrush xaml:Key="ContinueColor" Color="LightBlue" />
 
     <!-- ################# -->
@@ -127,15 +128,28 @@
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <!-- NOTE: Padding leaves more inner spaces on the left and right of the button -->
-                    <Border Padding="3,0,3,0"
-                            Background="{StaticResource DarkWhite}"
-                            BorderBrush="{StaticResource DarkerGray}"
+                    <Border xaml:Name="ButtonBorder"
+                            Padding="3,0,3,0"
+                            Background="{StaticResource LightGray}"
+                            BorderBrush="{StaticResource DarkestGray}"
                             BorderThickness="1,1,2,2"
                             CornerRadius="5,0,0,0"> <!-- Round corners -->
                         <!-- NOTE: BorderThickness is with shadow effect -->
                         <ContentPresenter HorizontalAlignment="Center"
                                           VerticalAlignment="Center" />
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="ButtonBorder"
+                                    Property="Background"
+                                    Value="{StaticResource NormalGray}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="ButtonBorder"
+                                    Property="Background"
+                                    Value="{StaticResource DarkGray}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

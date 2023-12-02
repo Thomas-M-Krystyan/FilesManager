@@ -538,7 +538,7 @@ namespace FilesManager.UI.Common.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to File Manager (v0.4.1-alpha).
+        ///   Looks up a localized string similar to File Manager (v0.4.2-alpha).
         /// </summary>
         public static string WindowTitle {
             get {

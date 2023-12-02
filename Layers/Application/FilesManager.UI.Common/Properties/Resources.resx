@@ -383,7 +383,7 @@ Invalid characters:  \ / : * ? " &lt; &gt; |</value>
     <comment>XAML</comment>
   </data>
   <data name="WindowTitle" xml:space="preserve">
-    <value>File Manager (v0.4.1-alpha)</value>
+    <value>File Manager (v0.4.2-alpha)</value>
     <comment>Application</comment>
   </data>
 </root>
