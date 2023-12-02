@@ -89,24 +89,11 @@
             <!-- The main header -->
             <Button Grid.Column="0"
                     Grid.Row="0"
-                    Margin="0,5,0,2"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
                     Content="{xaml:Static root:MainWindowViewModel.GeneralSection_Header}"
                     ToolTip="{xaml:Static root:MainWindowViewModel.GeneralSection_Tooltip}"
-                    BorderBrush="{StaticResource GrayOutlineBrush}">
+                    Style="{StaticResource LayerButtonStyle}">
             </Button>
             
-            <!--<Label Grid.Column="0"
-                   Grid.Row="0"
-                   Margin="0,5,0,0"
-                   HorizontalAlignment="Left"
-                   VerticalAlignment="Top"
-                   Content="{xaml:Static root:MainWindowViewModel.GeneralSection_Header}"
-                   FontWeight="ExtraBold"
-                   ToolTip="{xaml:Static root:MainWindowViewModel.GeneralSection_Tooltip}"
-                   Style="{StaticResource ControlWithResponsiveToolTips}" />-->
-
             <!-- Strategy #1: Increment number -->
             <Border Grid.Column="0" Grid.ColumnSpan="2"
                     Grid.Row="1"
@@ -369,7 +356,7 @@
                                  Grid.Row="1"
                                  Text="{Binding LeadingZeros, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                  ToolTip="{xaml:Static strategies:LeadingZerosViewModel.Content_OnlyVerySmallPositives_Tooltip}"
-                                 Style="{StaticResource TextBoxStyle_60}">
+                                 Style="{StaticResource TextBoxStyle_62}">
                             <behaviors:Interaction.Triggers>
                                 <behaviors:EventTrigger EventName="GotFocus">
                                     <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
@@ -455,7 +442,7 @@
                             IsEnabled="{Binding CanReset, Mode=OneWay}"
                             Content="{xaml:Static root:MainWindowViewModel.ResetButton_Content}"
                             ToolTip="{xaml:Static root:MainWindowViewModel.ResetButton_Tooltip}"
-                            Background="#FFDCB9B9"
+                            Background="{StaticResource WarningColor}"
                             Style="{StaticResource ActionButtonStyle}">
                         <behaviors:Interaction.Triggers>
                             <behaviors:EventTrigger EventName="Click">
@@ -470,7 +457,7 @@
                             IsEnabled="{Binding CanClear, Mode=OneWay}"
                             Content="{xaml:Static root:MainWindowViewModel.ClearButton_Content}"
                             ToolTip="{xaml:Static root:MainWindowViewModel.ClearButton_Tooltip}"
-                            Background="#FFDCB9B9"
+                            Background="{StaticResource WarningColor}"
                             Style="{StaticResource ActionButtonStyle}">
                         <behaviors:Interaction.Triggers>
                             <behaviors:EventTrigger EventName="Click">
@@ -485,7 +472,7 @@
                             IsEnabled="{Binding CanProcess, Mode=OneWay}"
                             Content="{xaml:Static root:MainWindowViewModel.ProcessButton_Content}"
                             ToolTip="{xaml:Static root:MainWindowViewModel.ProcessButton_Tooltip}"
-                            Background="LightBlue"
+                            Background="{StaticResource ContinueColor}"
                             Style="{StaticResource ActionButtonStyle}">
                         <behaviors:Interaction.Triggers>
                             <behaviors:EventTrigger EventName="Click">

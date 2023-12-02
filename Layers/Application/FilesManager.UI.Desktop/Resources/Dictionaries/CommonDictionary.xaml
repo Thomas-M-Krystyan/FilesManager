@@ -12,10 +12,14 @@
     <GridLength xaml:Key="SeparatorWidth">5.0</GridLength>
     <system:Double xaml:Key="TextBoxHeight">20.0</system:Double>
     <system:Double xaml:Key="ButtonWidth">50.0</system:Double>
-    
+
     <!-- Colors -->
-    <Color xaml:Key="GrayOutline">#999090</Color>
-    <SolidColorBrush xaml:Key="GrayOutlineBrush" Color="{StaticResource GrayOutline}" />
+    <SolidColorBrush xaml:Key="DarkWhite" Color="WhiteSmoke" />
+    <SolidColorBrush xaml:Key="DarkGray" Color="DarkGray" />
+    <SolidColorBrush xaml:Key="DarkerGray" Color="Gray" />
+    <SolidColorBrush xaml:Key="DarkestGray" Color="#5d5555" />
+    <SolidColorBrush xaml:Key="WarningColor" Color="#FFDCB9B9" />
+    <SolidColorBrush xaml:Key="ContinueColor" Color="LightBlue" />
 
     <!-- ################# -->
     <!-- ###  STYLES:  ### -->
@@ -25,7 +29,7 @@
     <Style xaml:Key="ControlWithResponsiveToolTips"
            TargetType="{xaml:Type Control}">
         <Setter Property="ToolTipService.IsEnabled" Value="True" />
-        <Setter Property="ToolTipService.InitialShowDelay" Value="250" />  <!-- Much more responsive tooltips -->
+        <Setter Property="ToolTipService.InitialShowDelay" Value="250" />  <!-- NOTE: Much more responsive tooltips -->
         <Setter Property="ToolTipService.ShowDuration" Value="20000" />
         <Setter Property="ToolTipService.ShowOnDisabled" Value="True" />
     </Style>
@@ -37,7 +41,7 @@
         <Setter Property="HorizontalAlignment" Value="Right" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="BorderThickness" Value="1px" />
-        <Setter Property="BorderBrush" Value="DarkGray" />
+        <Setter Property="BorderBrush" Value="{StaticResource DarkGray}" />
     </Style>
 
     <!-- Headers -->
@@ -90,22 +94,53 @@
         <Setter Property="Width" Value="80px" />
     </Style>
 
-    <Style xaml:Key="TextBoxStyle_60"
+    <Style xaml:Key="TextBoxStyle_62"
            TargetType="{xaml:Type TextBox}"
            BasedOn="{StaticResource TextBoxStyle}">
-        <Setter Property="Width" Value="60px" />
+        <Setter Property="Width" Value="62px" />
     </Style>
 
     <!-- Check Boxes -->
     <Style xaml:Key="CheckboxStyle"
            TargetType="{xaml:Type CheckBox}"
            BasedOn="{StaticResource ControlWithResponsiveToolTips}">
-        <Setter Property="Margin" Value="5, 0, 0, 0" />
+        <Setter Property="Margin" Value="6,0,0,0" />
         <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="BorderBrush" Value="Gray" />
+        <!-- Border -->
+        <Setter Property="BorderBrush" Value="{StaticResource DarkerGray}" />
+        <Setter Property="BorderThickness" Value="1" />
     </Style>
 
     <!-- Buttons -->
+    <Style xaml:Key="LayerButtonStyle"
+           TargetType="{xaml:Type Button}"
+           BasedOn="{StaticResource ControlWithResponsiveToolTips}">
+        <Setter Property="Margin" Value="0,10,0,5"/>
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <!-- Font -->
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="FontWeight" Value="DemiBold" />
+        <Setter Property="Foreground" Value="{StaticResource DarkestGray}" />
+        <!-- Border -->
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <!-- NOTE: Padding leaves more inner spaces on the left and right of the button -->
+                    <Border Padding="3,0,3,0"
+                            Background="{StaticResource DarkWhite}"
+                            BorderBrush="{StaticResource DarkerGray}"
+                            BorderThickness="1,1,2,2"
+                            CornerRadius="5"> <!-- Round corners -->
+                        <!-- NOTE: BorderThickness is with shadow effect -->
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style xaml:Key="ActionButtonStyle"
            TargetType="{xaml:Type Button}"
            BasedOn="{StaticResource ControlWithResponsiveToolTips}">
