@@ -74,16 +74,16 @@
         <Setter Property="TextWrapping" Value="Wrap" />
     </Style>
 
-    <Style xaml:Key="TextBoxStyle_120"
+    <Style xaml:Key="TextBoxStyle_130"
            TargetType="{xaml:Type TextBox}"
            BasedOn="{StaticResource TextBoxStyle}">
-        <Setter Property="Width" Value="120px" />
+        <Setter Property="Width" Value="130px" />
     </Style>
 
-    <Style xaml:Key="TextBoxStyle_60"
+    <Style xaml:Key="TextBoxStyle_70"
            TargetType="{xaml:Type TextBox}"
            BasedOn="{StaticResource TextBoxStyle}">
-        <Setter Property="Width" Value="60px" />
+        <Setter Property="Width" Value="70px" />
     </Style>
 
     <Style xaml:Key="TextBoxStyle_45"

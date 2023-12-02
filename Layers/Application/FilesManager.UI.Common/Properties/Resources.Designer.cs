@@ -169,7 +169,7 @@ namespace FilesManager.UI.Common.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;Leading zeros&quot;.
+        ///   Looks up a localized string similar to &quot;Leading zeros&quot; (0...).
         /// </summary>
         public static string Header_Method_LeadingZeros {
             get {
