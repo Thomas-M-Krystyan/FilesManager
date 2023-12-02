@@ -121,6 +121,10 @@
     <value>Clear</value>
     <comment>XAML</comment>
   </data>
+  <data name="Content_Layer_RenameButton" xml:space="preserve">
+    <value>RENAMING</value>
+    <comment>XAML</comment>
+  </data>
   <data name="Content_ProcessButton" xml:space="preserve">
     <value>Process</value>
     <comment>XAML</comment>
@@ -156,10 +160,6 @@
   <data name="ERROR_Validation_Files_PathNotRecognized_Text" xml:space="preserve">
     <value>Unrecognized type of file:</value>
     <comment>UI message</comment>
-  </data>
-  <data name="Header_General" xml:space="preserve">
-    <value>OPTIONS</value>
-    <comment>XAML</comment>
   </data>
   <data name="Header_Method_IncrementNumber" xml:space="preserve">
     <value>"Replace name" (NAME → prefix? + number* + postfix?)</value>
@@ -258,8 +258,8 @@ zeros trimming (set: 0) the gap between files lenghts will be filled with 2 zero
     <value>INFO: Drag and drop files here</value>
     <comment>XAML</comment>
   </data>
-  <data name="Tooltip_General" xml:space="preserve">
-    <value>INFO: The operations on files that can be performed</value>
+  <data name="Tooltip_Layer_RenameButton" xml:space="preserve">
+    <value>INFO: Switches to mode with operations renaming files</value>
     <comment>XAML</comment>
   </data>
   <data name="Tooltip_Method_IncrementNumber" xml:space="preserve">

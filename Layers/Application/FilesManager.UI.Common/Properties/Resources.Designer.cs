@@ -70,6 +70,15 @@ namespace FilesManager.UI.Common.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to RENAMING.
+        /// </summary>
+        public static string Content_Layer_RenameButton {
+            get {
+                return ResourceManager.GetString("Content_Layer_RenameButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Process.
         /// </summary>
         public static string Content_ProcessButton {
@@ -147,15 +156,6 @@ namespace FilesManager.UI.Common.Properties {
         public static string ERROR_Validation_Files_PathNotRecognized_Text {
             get {
                 return ResourceManager.GetString("ERROR_Validation_Files_PathNotRecognized_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to OPTIONS.
-        /// </summary>
-        public static string Header_General {
-            get {
-                return ResourceManager.GetString("Header_General", resourceCulture);
             }
         }
         
@@ -344,11 +344,11 @@ namespace FilesManager.UI.Common.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to INFO: The operations on files that can be performed.
+        ///   Looks up a localized string similar to INFO: Switches to mode with operations renaming files.
         /// </summary>
-        public static string Tooltip_General {
+        public static string Tooltip_Layer_RenameButton {
             get {
-                return ResourceManager.GetString("Tooltip_General", resourceCulture);
+                return ResourceManager.GetString("Tooltip_Layer_RenameButton", resourceCulture);
             }
         }
         

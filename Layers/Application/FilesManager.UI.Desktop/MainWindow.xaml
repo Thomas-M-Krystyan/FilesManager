@@ -89,8 +89,8 @@
             <!-- The main header -->
             <Button Grid.Column="0"
                     Grid.Row="0"
-                    Content="{xaml:Static root:MainWindowViewModel.GeneralSection_Header}"
-                    ToolTip="{xaml:Static root:MainWindowViewModel.GeneralSection_Tooltip}"
+                    Content="{xaml:Static root:MainWindowViewModel.Layer_RenameButton_Header}"
+                    ToolTip="{xaml:Static root:MainWindowViewModel.Layer_RenameButton_Tooltip}"
                     Style="{StaticResource LeftLayerButtonStyle}">
             </Button>
             
