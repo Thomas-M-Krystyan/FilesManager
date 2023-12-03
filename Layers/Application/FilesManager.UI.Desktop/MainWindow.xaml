@@ -76,7 +76,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="{StaticResource SeparatorWidth}" />
                 <!-- Controls -->
-                <RowDefinition Height="Auto" />
+                <RowDefinition />  <!-- Fill to the bottom of the window -->
             </Grid.RowDefinitions>
 
             <!-- Layer buttons (controlling layers) -->
@@ -86,6 +86,7 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />  <!-- Fill to the end of the nav bar -->
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -130,8 +131,8 @@
                     <!-- Strategies #2 + #3 -->
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="{StaticResource SeparatorWidth}" />
-                    <RowDefinition />  <!-- Expand vertically -->
                     <!-- Buttons -->
+                    <RowDefinition />  <!-- Push action buttons to the bottom -->
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
