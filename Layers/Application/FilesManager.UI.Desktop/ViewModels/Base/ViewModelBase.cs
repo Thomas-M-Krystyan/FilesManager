@@ -11,8 +11,8 @@ namespace FilesManager.UI.Desktop.ViewModels.Base
     /// <summary>
     /// Base class for all view models in MVVM architecture.
     /// </summary>
-    /// <seealso cref="INotifyPropertyChanged"/>
-    /// <seealso cref="INotifyDataErrorInfo"/>
+    /// <seealso cref="INotifyPropertyChanged"/>   => Updates
+    /// <seealso cref="INotifyDataErrorInfo"/>     => Validation
     internal abstract class ViewModelBase : INotifyPropertyChanged, INotifyDataErrorInfo
     {
         // NOTE: All binding elements should be public
