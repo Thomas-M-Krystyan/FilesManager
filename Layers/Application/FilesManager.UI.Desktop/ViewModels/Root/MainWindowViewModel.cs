@@ -4,6 +4,7 @@ using FilesManager.Core.Validation;
 using FilesManager.UI.Common.Properties;
 using FilesManager.UI.Desktop.Utilities;
 using FilesManager.UI.Desktop.ViewModels.Base;
+using FilesManager.UI.Desktop.ViewModels.Layers;
 using FilesManager.UI.Desktop.ViewModels.Layers.Renaming;
 using FilesManager.UI.Desktop.ViewModels.Layers.Renaming.Interfaces;
 using Microsoft.Xaml.Behaviors.Core;
@@ -59,6 +60,9 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
 
         // NOTE: All binding elements should be public
         #region Properties (binding)
+        /// <inheritdoc cref="LayerViewModel"/>
+        public LayerViewModel Layer { get; }
+
         /// <inheritdoc cref="IncrementNumberViewModel"/>
         public IncrementNumberViewModel IncrementNumberStrategy { get; }
 
@@ -169,11 +173,13 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         /// Initializes a new instance of the <see cref="MainWindowViewModel"/> class.
         /// </summary>
         public MainWindowViewModel(  // NOTE: Used for Dependency Injection
+            LayerViewModel layerViewModel,
             IncrementNumberViewModel incrementViewModel,
             PrependAppendViewModel prependViewModel,
             LeadingZerosViewModel zerosViewModel)
             : base()
         {
+            this.Layer = layerViewModel;
             this.IncrementNumberStrategy = incrementViewModel;
             this.PrependAppendStrategy = prependViewModel;
             this.LeadingZerosStrategy = zerosViewModel;

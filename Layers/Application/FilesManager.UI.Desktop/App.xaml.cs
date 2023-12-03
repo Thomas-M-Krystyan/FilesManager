@@ -6,6 +6,7 @@ using FilesManager.UI.Desktop.ViewModels.Layers.Renaming;
 using Microsoft.Extensions.DependencyInjection;
 using System.Text.RegularExpressions;
 using System.Windows;
+using FilesManager.UI.Desktop.ViewModels.Layers;
 
 namespace FilesManager.UI.Desktop
 {
@@ -25,8 +26,11 @@ namespace FilesManager.UI.Desktop
 
         private static IServiceCollection ConfigureServices(IServiceCollection services)
         {
-            // ViewModels
+            // ViewModels: General
             _ = services.AddSingleton<MainWindowViewModel>();
+            _ = services.AddSingleton<LayerViewModel>();
+
+            // ViewModels: Renaming
             _ = services.AddSingleton<IncrementNumberViewModel>();
             _ = services.AddSingleton<PrependAppendViewModel>();
             _ = services.AddSingleton<LeadingZerosViewModel>();
