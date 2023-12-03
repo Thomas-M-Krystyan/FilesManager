@@ -11,8 +11,8 @@ namespace FilesManager.UI.Desktop.ViewModels.Layers.Renaming
     /// <summary>
     /// The strategy to update the file name by appending to it leading zeroes.
     /// </summary>
-    /// <seealso cref="StrategyBase"/>
-    internal sealed class LeadingZerosViewModel : StrategyBase
+    /// <seealso cref="RenamingBase"/>
+    internal sealed class LeadingZerosViewModel : RenamingBase
     {
         private readonly IFilePathConverter<FilePathNameDto, FileZerosDigitsDto> _converter;
 
@@ -97,7 +97,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Layers.Renaming
         }
 
         #region Polymorphism
-        /// <inheritdoc cref="StrategyBase.Process(IList{FileData})"/>
+        /// <inheritdoc cref="RenamingBase.Process(IList{FileData})"/>
         internal override sealed RenamingResultDto Process(IList<FileData> loadedFiles)
         {
             // -----------------------------------------
@@ -126,7 +126,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Layers.Renaming
             return TryUpdatingFiles(loadedFiles, GetNewFilePath);
         }
 
-        /// <inheritdoc cref="StrategyBase.Reset()"/>
+        /// <inheritdoc cref="RenamingBase.Reset()"/>
         protected override sealed void Reset()  // NOTE: Speficic behavior for this concrete strategy. Overloading restricted
         {
             this.LeadingZeros = default;
@@ -135,7 +135,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Layers.Renaming
             base.Reset();
         }
 
-        /// <inheritdoc cref="StrategyBase.GetNewFilePath(FileData)"/>
+        /// <inheritdoc cref="RenamingBase.GetNewFilePath(FileData)"/>
         protected internal override sealed string GetNewFilePath(FileData fileData)
         {
             // Conversion (split the "Name" into: "Zeros" + "Digits" + "Name")

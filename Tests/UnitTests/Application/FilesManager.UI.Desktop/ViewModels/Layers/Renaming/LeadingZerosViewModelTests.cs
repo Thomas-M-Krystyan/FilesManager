@@ -14,7 +14,7 @@ namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Layers.Renaming
     {
         private static readonly IFilePathConverter<FilePathNameDto, FileZerosDigitsDto> Converter = new FileZerosDigitsDtoConverter();
 
-        private StrategyBase? _strategy;
+        private RenamingBase? _strategy;
 
         #region GetNewFilePath()
         [TestCaseSource(nameof(GetAbsoluteTestCases))]

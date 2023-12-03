@@ -12,7 +12,7 @@ namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Layers.Renaming
     {
         private static readonly IFilePathConverter<Match, FilePathNameDto> Converter = new FilePathNameDtoConverter();
 
-        private StrategyBase? _strategy;
+        private RenamingBase? _strategy;
 
         #region GetNewFilePath()
         [TestCase("", "")]

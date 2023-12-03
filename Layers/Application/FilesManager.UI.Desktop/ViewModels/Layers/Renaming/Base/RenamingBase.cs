@@ -16,7 +16,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Layers.Renaming.Base
     /// </summary>
     /// <seealso cref="ViewModelBase"/>
     /// <seealso cref="IRenamingStrategy"/>
-    internal abstract class StrategyBase : ViewModelBase, IRenamingStrategy
+    internal abstract class RenamingBase : ViewModelBase, IRenamingStrategy
     {
         #region Texts
         public static readonly string RadioButton_Tooltip = Resources.Tooltip_RadioButton;
@@ -57,9 +57,9 @@ namespace FilesManager.UI.Desktop.ViewModels.Layers.Renaming.Base
         #endregion
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="StrategyBase"/> class.
+        /// Initializes a new instance of the <see cref="RenamingBase"/> class.
         /// </summary>
-        protected StrategyBase() : base()
+        protected RenamingBase() : base()
         {
         }
 

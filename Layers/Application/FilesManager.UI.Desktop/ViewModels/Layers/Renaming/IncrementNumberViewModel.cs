@@ -13,8 +13,8 @@ namespace FilesManager.UI.Desktop.ViewModels.Layers.Renaming
     /// <summary>
     /// The strategy to update the file name by using prefix, incremented number, and postfix.
     /// </summary>
-    /// <seealso cref="StrategyBase"/>
-    internal sealed class IncrementNumberViewModel : StrategyBase
+    /// <seealso cref="RenamingBase"/>
+    internal sealed class IncrementNumberViewModel : RenamingBase
     {
         private readonly IFilePathConverter<Match, FilePathNameDto> _converter;
 
@@ -80,7 +80,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Layers.Renaming
         }
 
         #region Polymorphism
-        /// <inheritdoc cref="StrategyBase.Process(IList{FileData}))"/>
+        /// <inheritdoc cref="RenamingBase.Process(IList{FileData}))"/>
         internal override sealed RenamingResultDto Process(IList<FileData> loadedFiles)
         {
             // -----------------------------------------
@@ -119,7 +119,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Layers.Renaming
             return result;
         }
 
-        /// <inheritdoc cref="StrategyBase.Reset()"/>
+        /// <inheritdoc cref="RenamingBase.Reset()"/>
         protected override sealed void Reset()  // NOTE: Speficic behavior for this concrete strategy. Overloading restricted
         {
             this.NamePrefix = string.Empty;
@@ -129,7 +129,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Layers.Renaming
             base.Reset();
         }
 
-        /// <inheritdoc cref="StrategyBase.GetNewFilePath(FileData)"/>
+        /// <inheritdoc cref="RenamingBase.GetNewFilePath(FileData)"/>
         protected internal override sealed string GetNewFilePath(FileData fileData)
         {
             return this._converter.GetFilePath(new
