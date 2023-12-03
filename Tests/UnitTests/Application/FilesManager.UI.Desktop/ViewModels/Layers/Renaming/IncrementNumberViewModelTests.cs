@@ -2,8 +2,8 @@
 using FilesManager.Core.Converters.Interfaces;
 using FilesManager.Core.Models.DTOs.Files;
 using FilesManager.Core.Models.POCOs;
-using FilesManager.UI.Desktop.ViewModels.Layers.Renaming;
-using FilesManager.UI.Desktop.ViewModels.Layers.Renaming.Base;
+using FilesManager.UI.Desktop.ViewModels.Layers.Specific.Renaming;
+using FilesManager.UI.Desktop.ViewModels.Layers.Specific.Renaming.Base;
 
 namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Layers.Renaming
 {

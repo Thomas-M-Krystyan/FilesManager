@@ -1,12 +1,12 @@
 ﻿using FilesManager.Core.Converters;
 using FilesManager.Core.Converters.Interfaces;
 using FilesManager.Core.Models.DTOs.Files;
-using FilesManager.UI.Desktop.ViewModels.Root;
-using FilesManager.UI.Desktop.ViewModels.Layers.Renaming;
 using Microsoft.Extensions.DependencyInjection;
 using System.Text.RegularExpressions;
 using System.Windows;
 using FilesManager.UI.Desktop.ViewModels.Layers;
+using FilesManager.UI.Desktop.ViewModels.Layers.Specific.Renaming;
+using FilesManager.UI.Desktop.ViewModels.Layers.Root;
 
 namespace FilesManager.UI.Desktop
 {

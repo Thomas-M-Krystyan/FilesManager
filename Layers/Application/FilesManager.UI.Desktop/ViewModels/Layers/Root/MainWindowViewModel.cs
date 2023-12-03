@@ -3,10 +3,9 @@ using FilesManager.Core.Models.POCOs;
 using FilesManager.Core.Validation;
 using FilesManager.UI.Common.Properties;
 using FilesManager.UI.Desktop.Utilities;
-using FilesManager.UI.Desktop.ViewModels.Base;
-using FilesManager.UI.Desktop.ViewModels.Layers;
-using FilesManager.UI.Desktop.ViewModels.Layers.Renaming;
-using FilesManager.UI.Desktop.ViewModels.Layers.Renaming.Interfaces;
+using FilesManager.UI.Desktop.ViewModels.Layers.Base;
+using FilesManager.UI.Desktop.ViewModels.Layers.Specific.Renaming;
+using FilesManager.UI.Desktop.ViewModels.Layers.Specific.Renaming.Interfaces;
 using Microsoft.Xaml.Behaviors.Core;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -14,13 +13,13 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
 
-namespace FilesManager.UI.Desktop.ViewModels.Root
+namespace FilesManager.UI.Desktop.ViewModels.Layers.Root
 {
     /// <summary>
     /// View model for the main window of the application.
     /// </summary>
-    /// <seealso cref="ViewModelBase"/>
-    internal sealed class MainWindowViewModel : ViewModelBase
+    /// <seealso cref="NotifyLayerBase"/>
+    internal sealed class MainWindowViewModel : NotifyLayerBase
     {
         #region Texts
         // Title
@@ -55,7 +54,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         #endregion
 
         #region Fields
-        private IRenamingStrategy? _activeStrategy;
+        private IRenaming? _activeStrategy;
         #endregion
 
         // NOTE: All binding elements should be public
@@ -123,7 +122,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         }
 
         private bool _canProcess;
-        
+
         /// <summary>
         /// Determines whether the "Process" button is enabled on the UI.
         /// </summary>
@@ -213,8 +212,8 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
 
             // Check which strategy is active
             this._activeStrategy = this.IncrementNumberStrategy.IsEnabled ? this.IncrementNumberStrategy :
-                                   this.PrependAppendStrategy.IsEnabled   ? this.PrependAppendStrategy   :
-                                   this.LeadingZerosStrategy.IsEnabled    ? this.LeadingZerosStrategy    :
+                                   this.PrependAppendStrategy.IsEnabled ? this.PrependAppendStrategy :
+                                   this.LeadingZerosStrategy.IsEnabled ? this.LeadingZerosStrategy :
                                    null;
 
             UpdateMainButtons();

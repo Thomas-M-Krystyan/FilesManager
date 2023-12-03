@@ -5,9 +5,9 @@
         xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:markup="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:customBehaviors="clr-namespace:FilesManager.UI.Desktop.Behaviors"
-        xmlns:root="clr-namespace:FilesManager.UI.Desktop.ViewModels.Root"
         xmlns:layer="clr-namespace:FilesManager.UI.Desktop.ViewModels.Layers"
-        xmlns:strategies="clr-namespace:FilesManager.UI.Desktop.ViewModels.Layers.Renaming"
+        xmlns:root="clr-namespace:FilesManager.UI.Desktop.ViewModels.Layers.Root"
+        xmlns:renaming="clr-namespace:FilesManager.UI.Desktop.ViewModels.Layers.Specific.Renaming"
         data:DataContext="{data:DesignInstance Type=root:MainWindowViewModel}"
         markup:Ignorable="data"
 
@@ -160,15 +160,15 @@
                         <!-- Header -->
                         <Label Grid.Column="0" Grid.ColumnSpan="5"
                                Grid.Row="0"
-                               Content="{xaml:Static strategies:IncrementNumberViewModel.Method_Header}"
-                               ToolTip="{xaml:Static strategies:IncrementNumberViewModel.Method_Tooltip}"
+                               Content="{xaml:Static renaming:IncrementNumberViewModel.Method_Header}"
+                               ToolTip="{xaml:Static renaming:IncrementNumberViewModel.Method_Tooltip}"
                                Style="{StaticResource HeaderStyle}" />
 
                         <!-- Controls -->
                         <RadioButton Grid.Column="0"
                                      Grid.Row="1"
                                      IsChecked="{Binding IsEnabled, Mode=OneWay}"
-                                     ToolTip="{xaml:Static strategies:IncrementNumberViewModel.RadioButton_Tooltip}"
+                                     ToolTip="{xaml:Static renaming:IncrementNumberViewModel.RadioButton_Tooltip}"
                                      Style="{StaticResource RadioButtonStyle}">
                             <behaviors:Interaction.Triggers>
                                 <behaviors:EventTrigger EventName="Checked">
@@ -179,8 +179,8 @@
 
                         <Label Grid.Column="1"
                                Grid.Row="1"
-                               Content="{xaml:Static strategies:IncrementNumberViewModel.Prefix_Label}"
-                               ToolTip="{xaml:Static strategies:IncrementNumberViewModel.Prefix_Tooltip}"
+                               Content="{xaml:Static renaming:IncrementNumberViewModel.Prefix_Label}"
+                               ToolTip="{xaml:Static renaming:IncrementNumberViewModel.Prefix_Tooltip}"
                                Style="{StaticResource LabelStyle}">
                             <behaviors:Interaction.Triggers>
                                 <behaviors:EventTrigger EventName="MouseLeftButtonDown">
@@ -191,7 +191,7 @@
                         <TextBox Grid.Column="2"
                                  Grid.Row="1"
                                  Text="{Binding NamePrefix, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                 ToolTip="{xaml:Static strategies:IncrementNumberViewModel.Content_NonEmptyField_Tooltip}"
+                                 ToolTip="{xaml:Static renaming:IncrementNumberViewModel.Content_NonEmptyField_Tooltip}"
                                  Style="{StaticResource TextBoxStyle_140}">
                             <behaviors:Interaction.Triggers>
                                 <behaviors:EventTrigger EventName="GotFocus">
@@ -202,8 +202,8 @@
 
                         <Label Grid.Column="3"
                                Grid.Row="1"
-                               Content="{xaml:Static strategies:IncrementNumberViewModel.StartNumber_Label}"
-                               ToolTip="{xaml:Static strategies:IncrementNumberViewModel.StartNumber_Tooltip}"
+                               Content="{xaml:Static renaming:IncrementNumberViewModel.StartNumber_Label}"
+                               ToolTip="{xaml:Static renaming:IncrementNumberViewModel.StartNumber_Tooltip}"
                                Style="{StaticResource LabelStyle}">
                             <behaviors:Interaction.Triggers>
                                 <behaviors:EventTrigger EventName="MouseLeftButtonDown">
@@ -214,7 +214,7 @@
                         <TextBox Grid.Column="4"
                                  Grid.Row="1"
                                  Text="{Binding StartingNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                 ToolTip="{xaml:Static strategies:IncrementNumberViewModel.Content_OnlyPositives_Tooltip}"
+                                 ToolTip="{xaml:Static renaming:IncrementNumberViewModel.Content_OnlyPositives_Tooltip}"
                                  Style="{StaticResource TextBoxStyle_80}">
                             <behaviors:Interaction.Triggers>
                                 <behaviors:EventTrigger EventName="GotFocus">
@@ -225,8 +225,8 @@
 
                         <Label Grid.Column="5"
                                Grid.Row="1"
-                               Content="{xaml:Static strategies:IncrementNumberViewModel.Postfix_Label}"
-                               ToolTip="{xaml:Static strategies:IncrementNumberViewModel.Postfix_Tooltip}"
+                               Content="{xaml:Static renaming:IncrementNumberViewModel.Postfix_Label}"
+                               ToolTip="{xaml:Static renaming:IncrementNumberViewModel.Postfix_Tooltip}"
                                Style="{StaticResource LabelStyle}">
                             <behaviors:Interaction.Triggers>
                                 <behaviors:EventTrigger EventName="MouseLeftButtonDown">
@@ -237,7 +237,7 @@
                         <TextBox Grid.Column="6"
                                  Grid.Row="1"
                                  Text="{Binding NamePostfix, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                 ToolTip="{xaml:Static strategies:IncrementNumberViewModel.Content_NonEmptyField_Tooltip}"
+                                 ToolTip="{xaml:Static renaming:IncrementNumberViewModel.Content_NonEmptyField_Tooltip}"
                                  Style="{StaticResource TextBoxStyle_140}">
                             <behaviors:Interaction.Triggers>
                                 <behaviors:EventTrigger EventName="GotFocus">
@@ -282,15 +282,15 @@
                             <!-- Header -->
                             <Label Grid.Column="0" Grid.ColumnSpan="5"
                                    Grid.Row="0"
-                                   Content="{xaml:Static strategies:PrependAppendViewModel.Method_Header}"
-                                   ToolTip="{xaml:Static strategies:PrependAppendViewModel.Method_Tooltip}"
+                                   Content="{xaml:Static renaming:PrependAppendViewModel.Method_Header}"
+                                   ToolTip="{xaml:Static renaming:PrependAppendViewModel.Method_Tooltip}"
                                    Style="{StaticResource HeaderStyle}" />
 
                             <!-- Controls -->
                             <RadioButton Grid.Column="0"
                                          Grid.Row="1"
                                          IsChecked="{Binding IsEnabled, Mode=OneWay}"
-                                         ToolTip="{xaml:Static strategies:PrependAppendViewModel.RadioButton_Tooltip}"
+                                         ToolTip="{xaml:Static renaming:PrependAppendViewModel.RadioButton_Tooltip}"
                                          Style="{StaticResource RadioButtonStyle}">
                                 <behaviors:Interaction.Triggers>
                                     <behaviors:EventTrigger EventName="Checked">
@@ -301,8 +301,8 @@
 
                             <Label Grid.Column="1"
                                    Grid.Row="1"
-                                   Content="{xaml:Static strategies:PrependAppendViewModel.Prepend_Label}"
-                                   ToolTip="{xaml:Static strategies:PrependAppendViewModel.Prepend_Tooltip}"
+                                   Content="{xaml:Static renaming:PrependAppendViewModel.Prepend_Label}"
+                                   ToolTip="{xaml:Static renaming:PrependAppendViewModel.Prepend_Tooltip}"
                                    Style="{StaticResource LabelStyle}">
                                 <behaviors:Interaction.Triggers>
                                     <behaviors:EventTrigger EventName="MouseLeftButtonDown">
@@ -313,7 +313,7 @@
                             <TextBox Grid.Column="2"
                                      Grid.Row="1"
                                      Text="{Binding PrependName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                     ToolTip="{xaml:Static strategies:PrependAppendViewModel.Content_NonEmptyField_Tooltip}"
+                                     ToolTip="{xaml:Static renaming:PrependAppendViewModel.Content_NonEmptyField_Tooltip}"
                                      Style="{StaticResource TextBoxStyle_140}">
                                 <behaviors:Interaction.Triggers>
                                     <behaviors:EventTrigger EventName="GotFocus">
@@ -324,8 +324,8 @@
 
                             <Label Grid.Column="3"
                                    Grid.Row="1"
-                                   Content="{xaml:Static strategies:PrependAppendViewModel.Append_Label}"
-                                   ToolTip="{xaml:Static strategies:PrependAppendViewModel.Append_Tooltip}"
+                                   Content="{xaml:Static renaming:PrependAppendViewModel.Append_Label}"
+                                   ToolTip="{xaml:Static renaming:PrependAppendViewModel.Append_Tooltip}"
                                    Style="{StaticResource LabelStyle}">
                                 <behaviors:Interaction.Triggers>
                                     <behaviors:EventTrigger EventName="MouseLeftButtonDown">
@@ -336,7 +336,7 @@
                             <TextBox Grid.Column="4"
                                      Grid.Row="1"
                                      Text="{Binding AppendName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                     ToolTip="{xaml:Static strategies:PrependAppendViewModel.Content_NonEmptyField_Tooltip}"
+                                     ToolTip="{xaml:Static renaming:PrependAppendViewModel.Content_NonEmptyField_Tooltip}"
                                      Style="{StaticResource TextBoxStyle_140}">
                                 <behaviors:Interaction.Triggers>
                                     <behaviors:EventTrigger EventName="GotFocus">
@@ -367,15 +367,15 @@
                             <!-- Header -->
                             <Label Grid.Column="0" Grid.ColumnSpan="4"
                                    Grid.Row="0"
-                                   Content="{xaml:Static strategies:LeadingZerosViewModel.Method_Header}"
-                                   ToolTip="{xaml:Static strategies:LeadingZerosViewModel.Method_Tooltip}"
+                                   Content="{xaml:Static renaming:LeadingZerosViewModel.Method_Header}"
+                                   ToolTip="{xaml:Static renaming:LeadingZerosViewModel.Method_Tooltip}"
                                    Style="{StaticResource HeaderStyle}" />
 
                             <!-- Controls -->
                             <RadioButton Grid.Column="0"
                                          Grid.Row="1"
                                          IsChecked="{Binding IsEnabled, Mode=OneWay}"
-                                         ToolTip="{xaml:Static strategies:LeadingZerosViewModel.RadioButton_Tooltip}"
+                                         ToolTip="{xaml:Static renaming:LeadingZerosViewModel.RadioButton_Tooltip}"
                                          Style="{StaticResource RadioButtonStyle}">
                                 <behaviors:Interaction.Triggers>
                                     <behaviors:EventTrigger EventName="Checked">
@@ -386,8 +386,8 @@
 
                             <Label Grid.Column="1"
                                    Grid.Row="1"
-                                   Content="{xaml:Static strategies:LeadingZerosViewModel.Set_Label}"
-                                   ToolTip="{xaml:Static strategies:LeadingZerosViewModel.Set_Tooltip}"
+                                   Content="{xaml:Static renaming:LeadingZerosViewModel.Set_Label}"
+                                   ToolTip="{xaml:Static renaming:LeadingZerosViewModel.Set_Tooltip}"
                                    Style="{StaticResource LabelStyle}">
                                 <behaviors:Interaction.Triggers>
                                     <behaviors:EventTrigger EventName="MouseLeftButtonDown">
@@ -398,7 +398,7 @@
                             <TextBox Grid.Column="2"
                                      Grid.Row="1"
                                      Text="{Binding LeadingZeros, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                     ToolTip="{xaml:Static strategies:LeadingZerosViewModel.Content_OnlyVerySmallPositives_Tooltip}"
+                                     ToolTip="{xaml:Static renaming:LeadingZerosViewModel.Content_OnlyVerySmallPositives_Tooltip}"
                                      Style="{StaticResource TextBoxStyle_62}">
                                 <behaviors:Interaction.Triggers>
                                     <behaviors:EventTrigger EventName="GotFocus">
@@ -411,7 +411,7 @@
                                       Grid.Row="1"
                                       IsEnabled="{Binding IsAbsoluteModeEnabled, Mode=OneWay}"
                                       IsChecked="{Binding IsAbsoluteModeOn, Mode=TwoWay}"
-                                      ToolTip="{xaml:Static strategies:LeadingZerosViewModel.ClearZeros_Tooltip}"
+                                      ToolTip="{xaml:Static renaming:LeadingZerosViewModel.ClearZeros_Tooltip}"
                                       Style="{StaticResource CheckboxStyle}">
                                 <behaviors:Interaction.Triggers>
                                     <behaviors:EventTrigger EventName="GotFocus">

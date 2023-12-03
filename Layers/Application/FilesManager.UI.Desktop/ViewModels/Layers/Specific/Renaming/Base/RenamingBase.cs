@@ -4,19 +4,19 @@ using FilesManager.Core.Services.Writing;
 using FilesManager.Core.Validation;
 using FilesManager.UI.Common.Properties;
 using FilesManager.UI.Desktop.Utilities;
-using FilesManager.UI.Desktop.ViewModels.Base;
-using FilesManager.UI.Desktop.ViewModels.Layers.Renaming.Interfaces;
+using FilesManager.UI.Desktop.ViewModels.Layers.Base;
+using FilesManager.UI.Desktop.ViewModels.Layers.Specific.Renaming.Interfaces;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace FilesManager.UI.Desktop.ViewModels.Layers.Renaming.Base
+namespace FilesManager.UI.Desktop.ViewModels.Layers.Specific.Renaming.Base
 {
     /// <summary>
-    /// Base class for all file manipulation strategies.
+    /// Base class for all file renaming strategies.
     /// </summary>
-    /// <seealso cref="ViewModelBase"/>
-    /// <seealso cref="IRenamingStrategy"/>
-    internal abstract class RenamingBase : ViewModelBase, IRenamingStrategy
+    /// <seealso cref="ValidateLayerBase"/>
+    /// <seealso cref="IRenaming"/>
+    internal abstract class RenamingBase : ValidateLayerBase, IRenaming
     {
         #region Texts
         public static readonly string RadioButton_Tooltip = Resources.Tooltip_RadioButton;
@@ -64,14 +64,14 @@ namespace FilesManager.UI.Desktop.ViewModels.Layers.Renaming.Base
         }
 
         #region IRenamingStrategy
-        /// <inheritdoc cref="IRenamingStrategy.Process(IList{FileData})"/>
-        RenamingResultDto IRenamingStrategy.Process(IList<FileData> loadedFiles)
+        /// <inheritdoc cref="IRenaming.Process(IList{FileData})"/>
+        RenamingResultDto IRenaming.Process(IList<FileData> loadedFiles)
         {
             return Process(loadedFiles);
         }
 
-        /// <inheritdoc cref="IRenamingStrategy.DisplayPopup(RenamingResultDto)"/>
-        void IRenamingStrategy.DisplayPopup(RenamingResultDto result)
+        /// <inheritdoc cref="IRenaming.DisplayPopup(RenamingResultDto)"/>
+        void IRenaming.DisplayPopup(RenamingResultDto result)
         {
             _ = result.IsSuccess
                 ? Message.InfoOk(Resources.RESULT_Operation_Success_Header, Resources.RESULT_Operation_Success_Text)
@@ -80,7 +80,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Layers.Renaming.Base
         #endregion
 
         #region Polymorphism
-        /// <inheritdoc cref="ViewModelBase.Select(object)"/>
+        /// <inheritdoc cref="IViewModel.Select(object)"/>
         protected override sealed void Select(object parameter)  // NOTE: Default behavior for all strategies, no need to change it. Overloading restricted
         {
             if (!this.IsEnabled)
@@ -91,7 +91,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Layers.Renaming.Base
             }
         }
 
-        /// <inheritdoc cref="ViewModelBase.Deselect()"/>
+        /// <inheritdoc cref="IViewModel.Deselect()"/>
         protected override sealed void Deselect()  // NOTE: Default behavior for all strategies, no need to change it. Overloading restricted
         {
             if (this.IsEnabled)
@@ -100,7 +100,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Layers.Renaming.Base
             }
         }
 
-        /// <inheritdoc cref="ViewModelBase.Reset()"/>
+        /// <inheritdoc cref="IViewModel.Reset()"/>
         protected override void Reset()
         {
             Deselect();
@@ -109,7 +109,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Layers.Renaming.Base
         #endregion
 
         #region Abstract
-        /// <inheritdoc cref="IRenamingStrategy.Process(IList{FileData})"/>
+        /// <inheritdoc cref="IRenaming.Process(IList{FileData})"/>
         internal abstract RenamingResultDto Process(IList<FileData> loadedFiles);
 
         /// <summary>

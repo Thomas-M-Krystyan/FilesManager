@@ -2,9 +2,12 @@
 using FilesManager.Core.Models.POCOs;
 using System.Collections.Generic;
 
-namespace FilesManager.UI.Desktop.ViewModels.Layers.Renaming.Interfaces
+namespace FilesManager.UI.Desktop.ViewModels.Layers.Specific.Renaming.Interfaces
 {
-    internal interface IRenamingStrategy
+    /// <summary>
+    /// The common interface for all renaming strategies.
+    /// </summary>
+    internal interface IRenaming
     {
         /// <summary>
         /// Executes logic related to this specific strategy.

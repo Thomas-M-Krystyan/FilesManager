@@ -3,10 +3,10 @@ using FilesManager.Core.Models.DTOs.Files;
 using FilesManager.Core.Models.DTOs.Results;
 using FilesManager.Core.Models.POCOs;
 using FilesManager.UI.Common.Properties;
-using FilesManager.UI.Desktop.ViewModels.Layers.Renaming.Base;
+using FilesManager.UI.Desktop.ViewModels.Layers.Specific.Renaming.Base;
 using System.Collections.Generic;
 
-namespace FilesManager.UI.Desktop.ViewModels.Layers.Renaming
+namespace FilesManager.UI.Desktop.ViewModels.Layers.Specific.Renaming
 {
     /// <summary>
     /// The strategy to update the file name by appending to it leading zeroes.
@@ -185,12 +185,12 @@ namespace FilesManager.UI.Desktop.ViewModels.Layers.Renaming
         {
             // For case "add one 0" where the shortest file name is "1" (min len) and the longest is "10" (max len)
             int zerosToAdd = fileDto.Digits.Length == this.MaxDigitsLength // NOTE: digits length can be never greater than max digits length
-                // For the name "10" (from the above case): all additional zeros will be prepended => "010"
+                                                                           // For the name "10" (from the above case): all additional zeros will be prepended => "010"
                 ? this.LeadingZeros
                 // For the name "1" (from the above case): first the zeros alignment should happen "1" => "01" (max len 2 from "10")
                 //                                         and only after that the additional zeros can be prepended => "001"
                 : this.MaxDigitsLength - fileDto.Digits.Length + this.LeadingZeros;
-            
+
             string newZeros = new(char.Parse(SingleZero), zerosToAdd);
 
             return new FileZerosDigitsDto(fileDto, newZeros, fileDto.Digits);
