@@ -113,10 +113,9 @@
     </Style>
 
     <!-- Buttons -->
-    <Style xaml:Key="LeftLayerButtonStyle"
+    <Style xaml:Key="MiddleLayerButtonStyle"
            TargetType="{xaml:Type Button}"
            BasedOn="{StaticResource ControlWithResponsiveToolTips}">
-        <Setter Property="Margin" Value="0,10,0,5"/>
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="VerticalAlignment" Value="Top" />
         <!-- Font -->
@@ -132,8 +131,8 @@
                             Padding="3,0,3,0"
                             Background="{StaticResource LightGray}"
                             BorderBrush="{StaticResource DarkestGray}"
-                            BorderThickness="1,1,2,2"
-                            CornerRadius="5,0,0,0"> <!-- Round corners -->
+                            BorderThickness="1,1,1,2"
+                            CornerRadius="0,0,0,0">  <!-- Square corners -->
                         <!-- NOTE: BorderThickness is with shadow effect -->
                         <ContentPresenter HorizontalAlignment="Center"
                                           VerticalAlignment="Center" />
@@ -148,6 +147,91 @@
                             <Setter TargetName="ButtonBorder"
                                     Property="Background"
                                     Value="{StaticResource DarkGray}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="ButtonBorder"
+                                    Property="Background"
+                                    Value="{StaticResource DarkerGray}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style xaml:Key="LeftLayerButtonStyle"
+           TargetType="{xaml:Type Button}"
+           BasedOn="{StaticResource MiddleLayerButtonStyle}">
+        <!-- Border -->
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <!-- NOTE: Padding leaves more inner spaces on the left and right of the button -->
+                    <Border xaml:Name="ButtonBorder"
+                            Padding="3,0,3,0"
+                            Background="{StaticResource LightGray}"
+                            BorderBrush="{StaticResource DarkestGray}"
+                            BorderThickness="1,1,1,2"
+                            CornerRadius="5,0,0,0">  <!-- Round (top left) corner -->
+                        <!-- NOTE: BorderThickness is with shadow effect -->
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="ButtonBorder"
+                                    Property="Background"
+                                    Value="{StaticResource NormalGray}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="ButtonBorder"
+                                    Property="Background"
+                                    Value="{StaticResource DarkGray}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="ButtonBorder"
+                                    Property="Background"
+                                    Value="{StaticResource DarkerGray}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style xaml:Key="RightLayerButtonStyle"
+           TargetType="{xaml:Type Button}"
+           BasedOn="{StaticResource MiddleLayerButtonStyle}">
+        <!-- Border -->
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <!-- NOTE: Padding leaves more inner spaces on the left and right of the button -->
+                    <Border xaml:Name="ButtonBorder"
+                            Padding="3,0,3,0"
+                            Background="{StaticResource LightGray}"
+                            BorderBrush="{StaticResource DarkestGray}"
+                            BorderThickness="1,1,2,2"
+                            CornerRadius="0,5,0,0">  <!-- Round (top right) corner -->
+                        <!-- NOTE: BorderThickness is with shadow effect -->
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="ButtonBorder"
+                                    Property="Background"
+                                    Value="{StaticResource NormalGray}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="ButtonBorder"
+                                    Property="Background"
+                                    Value="{StaticResource DarkGray}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="ButtonBorder"
+                                    Property="Background"
+                                    Value="{StaticResource DarkerGray}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

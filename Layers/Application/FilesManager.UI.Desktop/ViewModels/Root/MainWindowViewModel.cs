@@ -26,8 +26,14 @@ namespace FilesManager.UI.Desktop.ViewModels.Root
         public static string WindowTitle = Resources.WindowTitle;
 
         // Layers
-        public static string Layer_RenameButton_Header = Resources.Content_Layer_RenameButton;
-        public static string Layer_RenameButton_Tooltip = Resources.Tooltip_Layer_RenameButton;
+        public static string Layer_RenamingButton_Header = Resources.Content_Layer_RenamingButton;
+        public static string Layer_RenamingButton_Tooltip = Resources.Tooltip_Layer_RenamingButton;
+
+        public static string Layer_ConvertingButton_Header = Resources.Content_Layer_ConvertingButton;
+        public static string Layer_ConvertingButton_Tooltip = Resources.Tooltip_Layer_ConvertingButton;
+
+        public static string Layer_ValidatingButton_Header = Resources.Content_Layer_ValidatingButton;
+        public static string Layer_ValidatingButton_Tooltip = Resources.Tooltip_Layer_ValidatingButton;
 
         // Files (list)
         public static string FilesList_Tooltip = Resources.Tooltip_FilesList;

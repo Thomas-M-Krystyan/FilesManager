@@ -46,12 +46,10 @@
                  Height="400"
                  Width="300"
                  Margin="{StaticResource LeftPartMargin}"
-                 HorizontalAlignment="Left"
-                 VerticalAlignment="Top"
-                 AllowDrop="True"
                  ItemsSource="{Binding Files, Mode=OneWay}"
                  ToolTip="{xaml:Static root:MainWindowViewModel.FilesList_Tooltip}"
-                 Style="{StaticResource ControlWithResponsiveToolTips}">
+                 Style="{StaticResource ControlWithResponsiveToolTips}"
+                 AllowDrop="True">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding DisplayName, Mode=OneWay}" />
@@ -69,162 +67,83 @@
         <!-- ################################## -->
         <Grid Grid.Column="2"
               Grid.Row="0"
-              Margin="{StaticResource RightPartMargin}">
+              Margin="0,10,10,10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <!-- Layer buttons -->
                 <RowDefinition Height="Auto" />
-                <!-- Main row -->
-                <RowDefinition Height="Auto" />
-                <!-- Strategy #1 -->
                 <RowDefinition Height="{StaticResource SeparatorWidth}" />
+                <!-- Controls -->
                 <RowDefinition Height="Auto" />
-                <!-- Strategies #2 + #3 -->
-                <RowDefinition />  <!-- Expand vertically -->
-                <RowDefinition Height="Auto" />
-                <!-- Buttons -->
             </Grid.RowDefinitions>
 
-            <!-- The main header -->
-            <Button Grid.Column="0"
-                    Grid.Row="0"
-                    Content="{xaml:Static root:MainWindowViewModel.Layer_RenameButton_Header}"
-                    ToolTip="{xaml:Static root:MainWindowViewModel.Layer_RenameButton_Tooltip}"
-                    Style="{StaticResource LeftLayerButtonStyle}">
-            </Button>
-            
-            <!-- Strategy #1: Increment number -->
-            <Border Grid.Column="0" Grid.ColumnSpan="2"
-                    Grid.Row="1"
-                    DataContext="{Binding IncrementNumberStrategy, Mode=OneTime}"
-                    Style="{StaticResource BorderStyle}">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-
-                    <!-- Header -->
-                    <Label Grid.Column="0" Grid.ColumnSpan="5"
-                           Grid.Row="0"
-                           Content="{xaml:Static strategies:IncrementNumberViewModel.Method_Header}"
-                           ToolTip="{xaml:Static strategies:IncrementNumberViewModel.Method_Tooltip}"
-                           Style="{StaticResource HeaderStyle}" />
-
-                    <!-- Controls -->
-                    <RadioButton Grid.Column="0"
-                                 Grid.Row="1"
-                                 IsChecked="{Binding IsEnabled, Mode=OneWay}"
-                                 ToolTip="{xaml:Static strategies:IncrementNumberViewModel.RadioButton_Tooltip}"
-                                 Style="{StaticResource RadioButtonStyle}">
-                        <behaviors:Interaction.Triggers>
-                            <behaviors:EventTrigger EventName="Checked">
-                                <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
-                            </behaviors:EventTrigger>
-                        </behaviors:Interaction.Triggers>
-                    </RadioButton>
-
-                    <Label Grid.Column="1"
-                           Grid.Row="1"
-                           Content="{xaml:Static strategies:IncrementNumberViewModel.Prefix_Label}"
-                           ToolTip="{xaml:Static strategies:IncrementNumberViewModel.Prefix_Tooltip}"
-                           Style="{StaticResource LabelStyle}">
-                        <behaviors:Interaction.Triggers>
-                            <behaviors:EventTrigger EventName="MouseLeftButtonDown">
-                                <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
-                            </behaviors:EventTrigger>
-                        </behaviors:Interaction.Triggers>
-                    </Label>
-                    <TextBox Grid.Column="2"
-                             Grid.Row="1"
-                             Text="{Binding NamePrefix, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                             ToolTip="{xaml:Static strategies:IncrementNumberViewModel.Content_NonEmptyField_Tooltip}"
-                             Style="{StaticResource TextBoxStyle_140}">
-                        <behaviors:Interaction.Triggers>
-                            <behaviors:EventTrigger EventName="GotFocus">
-                                <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
-                            </behaviors:EventTrigger>
-                        </behaviors:Interaction.Triggers>
-                    </TextBox>
-
-                    <Label Grid.Column="3"
-                           Grid.Row="1"
-                           Content="{xaml:Static strategies:IncrementNumberViewModel.StartNumber_Label}"
-                           ToolTip="{xaml:Static strategies:IncrementNumberViewModel.StartNumber_Tooltip}"
-                           Style="{StaticResource LabelStyle}">
-                        <behaviors:Interaction.Triggers>
-                            <behaviors:EventTrigger EventName="MouseLeftButtonDown">
-                                <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
-                            </behaviors:EventTrigger>
-                        </behaviors:Interaction.Triggers>
-                    </Label>
-                    <TextBox Grid.Column="4"
-                             Grid.Row="1"
-                             Text="{Binding StartingNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                             ToolTip="{xaml:Static strategies:IncrementNumberViewModel.Content_OnlyPositives_Tooltip}"
-                             Style="{StaticResource TextBoxStyle_80}">
-                        <behaviors:Interaction.Triggers>
-                            <behaviors:EventTrigger EventName="GotFocus">
-                                <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
-                            </behaviors:EventTrigger>
-                        </behaviors:Interaction.Triggers>
-                    </TextBox>
-
-                    <Label Grid.Column="5"
-                           Grid.Row="1"
-                           Content="{xaml:Static strategies:IncrementNumberViewModel.Postfix_Label}"
-                           ToolTip="{xaml:Static strategies:IncrementNumberViewModel.Postfix_Tooltip}"
-                           Style="{StaticResource LabelStyle}">
-                        <behaviors:Interaction.Triggers>
-                            <behaviors:EventTrigger EventName="MouseLeftButtonDown">
-                                <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
-                            </behaviors:EventTrigger>
-                        </behaviors:Interaction.Triggers>
-                    </Label>
-                    <TextBox Grid.Column="6"
-                             Grid.Row="1"
-                             Text="{Binding NamePostfix, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                             ToolTip="{xaml:Static strategies:IncrementNumberViewModel.Content_NonEmptyField_Tooltip}"
-                             Style="{StaticResource TextBoxStyle_140}">
-                        <behaviors:Interaction.Triggers>
-                            <behaviors:EventTrigger EventName="GotFocus">
-                                <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
-                            </behaviors:EventTrigger>
-                        </behaviors:Interaction.Triggers>
-                    </TextBox>
-                </Grid>
-            </Border>
- 
-            <!-- Strategies #2 + #3 -->
+            <!-- Layer buttons (controlling layers) -->
             <Grid Grid.Column="0"
-                  Grid.Row="3">
+                  Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="{StaticResource SeparatorWidth}" />
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <!-- Strategy #2: Prepend / appended -->
+                <!-- Renaming mode -->
+                <Button Grid.Column="0"
+                        Grid.Row="0"
+                        Content="{xaml:Static root:MainWindowViewModel.Layer_RenamingButton_Header}"
+                        ToolTip="{xaml:Static root:MainWindowViewModel.Layer_RenamingButton_Tooltip}"
+                        Style="{StaticResource LeftLayerButtonStyle}">
+                </Button>
+
+                <!-- Converting mode -->
+                <Button Grid.Column="1"
+                        Grid.Row="0"
+                        Content="{xaml:Static root:MainWindowViewModel.Layer_ConvertingButton_Header}"
+                        ToolTip="{xaml:Static root:MainWindowViewModel.Layer_ConvertingButton_Tooltip}"
+                        Style="{StaticResource MiddleLayerButtonStyle}">
+                </Button>
+
+                <!-- Validating mode -->
+                <Button Grid.Column="2"
+                        Grid.Row="0"
+                        Content="{xaml:Static root:MainWindowViewModel.Layer_ValidatingButton_Header}"
+                        ToolTip="{xaml:Static root:MainWindowViewModel.Layer_ValidatingButton_Tooltip}"
+                        Style="{StaticResource RightLayerButtonStyle}">
+                </Button>
+            </Grid>
+
+            <!-- Controls (depends on the layer) -->
+            <Grid Grid.Column="0"
+                  Grid.Row="2"
+                  Visibility="Visible">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <!-- Strategy #1 -->
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="{StaticResource SeparatorWidth}" />
+                    <!-- Strategies #2 + #3 -->
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="{StaticResource SeparatorWidth}" />
+                    <RowDefinition />  <!-- Expand vertically -->
+                    <!-- Buttons -->
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <!-- Strategy #1: Increment number -->
                 <Border Grid.Column="0"
                         Grid.Row="0"
-                        DataContext="{Binding PrependAppendStrategy, Mode=OneTime}"
+                        DataContext="{Binding IncrementNumberStrategy, Mode=OneTime}"
                         Style="{StaticResource BorderStyle}">
                     <Grid>
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
@@ -239,15 +158,15 @@
                         <!-- Header -->
                         <Label Grid.Column="0" Grid.ColumnSpan="5"
                                Grid.Row="0"
-                               Content="{xaml:Static strategies:PrependAppendViewModel.Method_Header}"
-                               ToolTip="{xaml:Static strategies:PrependAppendViewModel.Method_Tooltip}"
+                               Content="{xaml:Static strategies:IncrementNumberViewModel.Method_Header}"
+                               ToolTip="{xaml:Static strategies:IncrementNumberViewModel.Method_Tooltip}"
                                Style="{StaticResource HeaderStyle}" />
 
                         <!-- Controls -->
                         <RadioButton Grid.Column="0"
                                      Grid.Row="1"
                                      IsChecked="{Binding IsEnabled, Mode=OneWay}"
-                                     ToolTip="{xaml:Static strategies:PrependAppendViewModel.RadioButton_Tooltip}"
+                                     ToolTip="{xaml:Static strategies:IncrementNumberViewModel.RadioButton_Tooltip}"
                                      Style="{StaticResource RadioButtonStyle}">
                             <behaviors:Interaction.Triggers>
                                 <behaviors:EventTrigger EventName="Checked">
@@ -258,8 +177,8 @@
 
                         <Label Grid.Column="1"
                                Grid.Row="1"
-                               Content="{xaml:Static strategies:PrependAppendViewModel.Prepend_Label}"
-                               ToolTip="{xaml:Static strategies:PrependAppendViewModel.Prepend_Tooltip}"
+                               Content="{xaml:Static strategies:IncrementNumberViewModel.Prefix_Label}"
+                               ToolTip="{xaml:Static strategies:IncrementNumberViewModel.Prefix_Tooltip}"
                                Style="{StaticResource LabelStyle}">
                             <behaviors:Interaction.Triggers>
                                 <behaviors:EventTrigger EventName="MouseLeftButtonDown">
@@ -269,8 +188,8 @@
                         </Label>
                         <TextBox Grid.Column="2"
                                  Grid.Row="1"
-                                 Text="{Binding PrependName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                 ToolTip="{xaml:Static strategies:PrependAppendViewModel.Content_NonEmptyField_Tooltip}"
+                                 Text="{Binding NamePrefix, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                 ToolTip="{xaml:Static strategies:IncrementNumberViewModel.Content_NonEmptyField_Tooltip}"
                                  Style="{StaticResource TextBoxStyle_140}">
                             <behaviors:Interaction.Triggers>
                                 <behaviors:EventTrigger EventName="GotFocus">
@@ -281,8 +200,8 @@
 
                         <Label Grid.Column="3"
                                Grid.Row="1"
-                               Content="{xaml:Static strategies:PrependAppendViewModel.Append_Label}"
-                               ToolTip="{xaml:Static strategies:PrependAppendViewModel.Append_Tooltip}"
+                               Content="{xaml:Static strategies:IncrementNumberViewModel.StartNumber_Label}"
+                               ToolTip="{xaml:Static strategies:IncrementNumberViewModel.StartNumber_Tooltip}"
                                Style="{StaticResource LabelStyle}">
                             <behaviors:Interaction.Triggers>
                                 <behaviors:EventTrigger EventName="MouseLeftButtonDown">
@@ -292,8 +211,31 @@
                         </Label>
                         <TextBox Grid.Column="4"
                                  Grid.Row="1"
-                                 Text="{Binding AppendName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                 ToolTip="{xaml:Static strategies:PrependAppendViewModel.Content_NonEmptyField_Tooltip}"
+                                 Text="{Binding StartingNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                 ToolTip="{xaml:Static strategies:IncrementNumberViewModel.Content_OnlyPositives_Tooltip}"
+                                 Style="{StaticResource TextBoxStyle_80}">
+                            <behaviors:Interaction.Triggers>
+                                <behaviors:EventTrigger EventName="GotFocus">
+                                    <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
+                                </behaviors:EventTrigger>
+                            </behaviors:Interaction.Triggers>
+                        </TextBox>
+
+                        <Label Grid.Column="5"
+                               Grid.Row="1"
+                               Content="{xaml:Static strategies:IncrementNumberViewModel.Postfix_Label}"
+                               ToolTip="{xaml:Static strategies:IncrementNumberViewModel.Postfix_Tooltip}"
+                               Style="{StaticResource LabelStyle}">
+                            <behaviors:Interaction.Triggers>
+                                <behaviors:EventTrigger EventName="MouseLeftButtonDown">
+                                    <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
+                                </behaviors:EventTrigger>
+                            </behaviors:Interaction.Triggers>
+                        </Label>
+                        <TextBox Grid.Column="6"
+                                 Grid.Row="1"
+                                 Text="{Binding NamePostfix, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                 ToolTip="{xaml:Static strategies:IncrementNumberViewModel.Content_NonEmptyField_Tooltip}"
                                  Style="{StaticResource TextBoxStyle_140}">
                             <behaviors:Interaction.Triggers>
                                 <behaviors:EventTrigger EventName="GotFocus">
@@ -304,182 +246,281 @@
                     </Grid>
                 </Border>
 
-                <!-- Strategy #3: Leading zeros -->
-                <Border Grid.Column="2"
-                        Grid.Row="0"
-                        DataContext="{Binding LeadingZerosStrategy, Mode=OneTime}"
-                        Style="{StaticResource BorderStyle}">
-                    <Grid>
+                <!-- Strategies #2 + #3 -->
+                <Grid Grid.Column="0"
+                      Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="{StaticResource SeparatorWidth}" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <!-- Strategy #2: Prepend / appended -->
+                    <Border Grid.Column="0"
+                            Grid.Row="0"
+                            DataContext="{Binding PrependAppendStrategy, Mode=OneTime}"
+                            Style="{StaticResource BorderStyle}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <!-- Header -->
+                            <Label Grid.Column="0" Grid.ColumnSpan="5"
+                                   Grid.Row="0"
+                                   Content="{xaml:Static strategies:PrependAppendViewModel.Method_Header}"
+                                   ToolTip="{xaml:Static strategies:PrependAppendViewModel.Method_Tooltip}"
+                                   Style="{StaticResource HeaderStyle}" />
+
+                            <!-- Controls -->
+                            <RadioButton Grid.Column="0"
+                                         Grid.Row="1"
+                                         IsChecked="{Binding IsEnabled, Mode=OneWay}"
+                                         ToolTip="{xaml:Static strategies:PrependAppendViewModel.RadioButton_Tooltip}"
+                                         Style="{StaticResource RadioButtonStyle}">
+                                <behaviors:Interaction.Triggers>
+                                    <behaviors:EventTrigger EventName="Checked">
+                                        <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
+                                    </behaviors:EventTrigger>
+                                </behaviors:Interaction.Triggers>
+                            </RadioButton>
+
+                            <Label Grid.Column="1"
+                                   Grid.Row="1"
+                                   Content="{xaml:Static strategies:PrependAppendViewModel.Prepend_Label}"
+                                   ToolTip="{xaml:Static strategies:PrependAppendViewModel.Prepend_Tooltip}"
+                                   Style="{StaticResource LabelStyle}">
+                                <behaviors:Interaction.Triggers>
+                                    <behaviors:EventTrigger EventName="MouseLeftButtonDown">
+                                        <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
+                                    </behaviors:EventTrigger>
+                                </behaviors:Interaction.Triggers>
+                            </Label>
+                            <TextBox Grid.Column="2"
+                                     Grid.Row="1"
+                                     Text="{Binding PrependName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                     ToolTip="{xaml:Static strategies:PrependAppendViewModel.Content_NonEmptyField_Tooltip}"
+                                     Style="{StaticResource TextBoxStyle_140}">
+                                <behaviors:Interaction.Triggers>
+                                    <behaviors:EventTrigger EventName="GotFocus">
+                                        <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
+                                    </behaviors:EventTrigger>
+                                </behaviors:Interaction.Triggers>
+                            </TextBox>
+
+                            <Label Grid.Column="3"
+                                   Grid.Row="1"
+                                   Content="{xaml:Static strategies:PrependAppendViewModel.Append_Label}"
+                                   ToolTip="{xaml:Static strategies:PrependAppendViewModel.Append_Tooltip}"
+                                   Style="{StaticResource LabelStyle}">
+                                <behaviors:Interaction.Triggers>
+                                    <behaviors:EventTrigger EventName="MouseLeftButtonDown">
+                                        <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
+                                    </behaviors:EventTrigger>
+                                </behaviors:Interaction.Triggers>
+                            </Label>
+                            <TextBox Grid.Column="4"
+                                     Grid.Row="1"
+                                     Text="{Binding AppendName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                     ToolTip="{xaml:Static strategies:PrependAppendViewModel.Content_NonEmptyField_Tooltip}"
+                                     Style="{StaticResource TextBoxStyle_140}">
+                                <behaviors:Interaction.Triggers>
+                                    <behaviors:EventTrigger EventName="GotFocus">
+                                        <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
+                                    </behaviors:EventTrigger>
+                                </behaviors:Interaction.Triggers>
+                            </TextBox>
+                        </Grid>
+                    </Border>
+
+                    <!-- Strategy #3: Leading zeros -->
+                    <Border Grid.Column="2"
+                            Grid.Row="0"
+                            DataContext="{Binding LeadingZerosStrategy, Mode=OneTime}"
+                            Style="{StaticResource BorderStyle}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <!-- Header -->
+                            <Label Grid.Column="0" Grid.ColumnSpan="4"
+                                   Grid.Row="0"
+                                   Content="{xaml:Static strategies:LeadingZerosViewModel.Method_Header}"
+                                   ToolTip="{xaml:Static strategies:LeadingZerosViewModel.Method_Tooltip}"
+                                   Style="{StaticResource HeaderStyle}" />
+
+                            <!-- Controls -->
+                            <RadioButton Grid.Column="0"
+                                         Grid.Row="1"
+                                         IsChecked="{Binding IsEnabled, Mode=OneWay}"
+                                         ToolTip="{xaml:Static strategies:LeadingZerosViewModel.RadioButton_Tooltip}"
+                                         Style="{StaticResource RadioButtonStyle}">
+                                <behaviors:Interaction.Triggers>
+                                    <behaviors:EventTrigger EventName="Checked">
+                                        <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
+                                    </behaviors:EventTrigger>
+                                </behaviors:Interaction.Triggers>
+                            </RadioButton>
+
+                            <Label Grid.Column="1"
+                                   Grid.Row="1"
+                                   Content="{xaml:Static strategies:LeadingZerosViewModel.Set_Label}"
+                                   ToolTip="{xaml:Static strategies:LeadingZerosViewModel.Set_Tooltip}"
+                                   Style="{StaticResource LabelStyle}">
+                                <behaviors:Interaction.Triggers>
+                                    <behaviors:EventTrigger EventName="MouseLeftButtonDown">
+                                        <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
+                                    </behaviors:EventTrigger>
+                                </behaviors:Interaction.Triggers>
+                            </Label>
+                            <TextBox Grid.Column="2"
+                                     Grid.Row="1"
+                                     Text="{Binding LeadingZeros, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                     ToolTip="{xaml:Static strategies:LeadingZerosViewModel.Content_OnlyVerySmallPositives_Tooltip}"
+                                     Style="{StaticResource TextBoxStyle_62}">
+                                <behaviors:Interaction.Triggers>
+                                    <behaviors:EventTrigger EventName="GotFocus">
+                                        <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
+                                    </behaviors:EventTrigger>
+                                </behaviors:Interaction.Triggers>
+                            </TextBox>
+
+                            <CheckBox Grid.Column="3"
+                                      Grid.Row="1"
+                                      IsEnabled="{Binding IsAbsoluteModeEnabled, Mode=OneWay}"
+                                      IsChecked="{Binding IsAbsoluteModeOn, Mode=TwoWay}"
+                                      ToolTip="{xaml:Static strategies:LeadingZerosViewModel.ClearZeros_Tooltip}"
+                                      Style="{StaticResource CheckboxStyle}">
+                                <behaviors:Interaction.Triggers>
+                                    <behaviors:EventTrigger EventName="GotFocus">
+                                        <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
+                                    </behaviors:EventTrigger>
+                                </behaviors:Interaction.Triggers>
+                            </CheckBox>
+                        </Grid>
+                    </Border>
+                </Grid>
+
+                <!-- The bottom row -->
+                <Grid Grid.Column="0"
+                      Grid.Row="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />  <!-- Expand horizontally -->
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <!-- Files counter -->
+                    <Grid Grid.Column="0"
+                          Grid.Row="0"
+                          HorizontalAlignment="Left">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <!-- Header -->
-                        <Label Grid.Column="0" Grid.ColumnSpan="4"
+                        <Label Grid.Column="0"
                                Grid.Row="0"
-                               Content="{xaml:Static strategies:LeadingZerosViewModel.Method_Header}"
-                               ToolTip="{xaml:Static strategies:LeadingZerosViewModel.Method_Tooltip}"
-                               Style="{StaticResource HeaderStyle}" />
-
-                        <!-- Controls -->
-                        <RadioButton Grid.Column="0"
-                                     Grid.Row="1"
-                                     IsChecked="{Binding IsEnabled, Mode=OneWay}"
-                                     ToolTip="{xaml:Static strategies:LeadingZerosViewModel.RadioButton_Tooltip}"
-                                     Style="{StaticResource RadioButtonStyle}">
-                            <behaviors:Interaction.Triggers>
-                                <behaviors:EventTrigger EventName="Checked">
-                                    <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
-                                </behaviors:EventTrigger>
-                            </behaviors:Interaction.Triggers>
-                        </RadioButton>
-
-                        <Label Grid.Column="1"
-                               Grid.Row="1"
-                               Content="{xaml:Static strategies:LeadingZerosViewModel.Set_Label}"
-                               ToolTip="{xaml:Static strategies:LeadingZerosViewModel.Set_Tooltip}"
-                               Style="{StaticResource LabelStyle}">
-                            <behaviors:Interaction.Triggers>
-                                <behaviors:EventTrigger EventName="MouseLeftButtonDown">
-                                    <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
-                                </behaviors:EventTrigger>
-                            </behaviors:Interaction.Triggers>
-                        </Label>
-                        <TextBox Grid.Column="2"
-                                 Grid.Row="1"
-                                 Text="{Binding LeadingZeros, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                 ToolTip="{xaml:Static strategies:LeadingZerosViewModel.Content_OnlyVerySmallPositives_Tooltip}"
-                                 Style="{StaticResource TextBoxStyle_62}">
-                            <behaviors:Interaction.Triggers>
-                                <behaviors:EventTrigger EventName="GotFocus">
-                                    <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
-                                </behaviors:EventTrigger>
-                            </behaviors:Interaction.Triggers>
-                        </TextBox>
-
-                        <CheckBox Grid.Column="3"
-                                  Grid.Row="1"
-                                  IsEnabled="{Binding IsAbsoluteModeEnabled, Mode=OneWay}"
-                                  IsChecked="{Binding IsAbsoluteModeOn, Mode=TwoWay}"
-                                  ToolTip="{xaml:Static strategies:LeadingZerosViewModel.ClearZeros_Tooltip}"
-                                  Style="{StaticResource CheckboxStyle}">
-                            <behaviors:Interaction.Triggers>
-                                <behaviors:EventTrigger EventName="GotFocus">
-                                    <customBehaviors:InvokeCommandAction Command="{Binding SelectCommand, Mode=OneWay}" />
-                                </behaviors:EventTrigger>
-                            </behaviors:Interaction.Triggers>
-                        </CheckBox>
+                               Content="{xaml:Static root:MainWindowViewModel.FilesCounter_Label}"
+                               ToolTip="{xaml:Static root:MainWindowViewModel.FilesCounter_Tooltip}"
+                               Style="{StaticResource LabelStyle}" />
+                        <TextBox Grid.Column="1"
+                                 Grid.Row="0"
+                                 VerticalAlignment="Center"
+                                 Text="{Binding Counter, Mode=OneWay}"
+                                 IsEnabled="False" />
                     </Grid>
-                </Border>
-            </Grid>
 
-            <!-- The bottom row -->
-            <Grid Grid.Column="0"
-                  Grid.Row="4"
-                  VerticalAlignment="Bottom">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition />  <!-- Expand horizontally -->
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
+                    <!-- Global buttons -->
+                    <Grid Grid.Column="2"
+                          Grid.Row="0"
+                          HorizontalAlignment="Right">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="{StaticResource SeparatorWidth}" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="{StaticResource SeparatorWidth}" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="{StaticResource SeparatorWidth}" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="{StaticResource SeparatorWidth}" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="{StaticResource SeparatorHeight}" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="{StaticResource SeparatorHeight}" />
+                        </Grid.RowDefinitions>
 
-                <!-- Files counter -->
-                <Grid Grid.Column="0"
-                      Grid.Row="0"
-                      HorizontalAlignment="Left">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
+                        <!-- Reset -->
+                        <Button Grid.Column="1"
+                                Grid.Row="1"
+                                IsEnabled="{Binding CanReset, Mode=OneWay}"
+                                Content="{xaml:Static root:MainWindowViewModel.ResetButton_Content}"
+                                ToolTip="{xaml:Static root:MainWindowViewModel.ResetButton_Tooltip}"
+                                Style="{StaticResource WarningButtonStyle}">
+                            <behaviors:Interaction.Triggers>
+                                <behaviors:EventTrigger EventName="Click">
+                                    <behaviors:InvokeCommandAction Command="{Binding ResetCommand, Mode=OneWay}" />
+                                </behaviors:EventTrigger>
+                            </behaviors:Interaction.Triggers>
+                        </Button>
 
-                    <Label Grid.Column="0"
-                           Grid.Row="0"
-                           Content="{xaml:Static root:MainWindowViewModel.FilesCounter_Label}"
-                           ToolTip="{xaml:Static root:MainWindowViewModel.FilesCounter_Tooltip}"
-                           Style="{StaticResource LabelStyle}" />
-                    <TextBox Grid.Column="1"
-                             Grid.Row="0"
-                             VerticalAlignment="Center"
-                             Text="{Binding Counter, Mode=OneWay}"
-                             IsEnabled="False" />
+                        <!-- Clear -->
+                        <Button Grid.Column="3"
+                                Grid.Row="1"
+                                IsEnabled="{Binding CanClear, Mode=OneWay}"
+                                Content="{xaml:Static root:MainWindowViewModel.ClearButton_Content}"
+                                ToolTip="{xaml:Static root:MainWindowViewModel.ClearButton_Tooltip}"
+                                Style="{StaticResource WarningButtonStyle}">
+                            <behaviors:Interaction.Triggers>
+                                <behaviors:EventTrigger EventName="Click">
+                                    <behaviors:InvokeCommandAction Command="{Binding ClearCommand, Mode=OneWay}" />
+                                </behaviors:EventTrigger>
+                            </behaviors:Interaction.Triggers>
+                        </Button>
+
+                        <!-- Process -->
+                        <Button Grid.Column="5"
+                                Grid.Row="1"
+                                IsEnabled="{Binding CanProcess, Mode=OneWay}"
+                                Content="{xaml:Static root:MainWindowViewModel.ProcessButton_Content}"
+                                ToolTip="{xaml:Static root:MainWindowViewModel.ProcessButton_Tooltip}"
+                                Style="{StaticResource ContinueButtonStyle}">
+                            <behaviors:Interaction.Triggers>
+                                <behaviors:EventTrigger EventName="Click">
+                                    <behaviors:InvokeCommandAction Command="{Binding ProcessCommand, Mode=OneWay}" />
+                                </behaviors:EventTrigger>
+                            </behaviors:Interaction.Triggers>
+                        </Button>
+                    </Grid>
                 </Grid>
 
-                <!-- Global buttons -->
-                <Grid Grid.Column="2"
-                      Grid.Row="0"
-                      HorizontalAlignment="Right">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="{StaticResource SeparatorWidth}" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="{StaticResource SeparatorWidth}" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="{StaticResource SeparatorWidth}" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="{StaticResource SeparatorWidth}" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="{StaticResource SeparatorHeight}" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="{StaticResource SeparatorHeight}" />
-                    </Grid.RowDefinitions>
-
-                    <!-- Reset -->
-                    <Button Grid.Column="1"
-                            Grid.Row="1"
-                            IsEnabled="{Binding CanReset, Mode=OneWay}"
-                            Content="{xaml:Static root:MainWindowViewModel.ResetButton_Content}"
-                            ToolTip="{xaml:Static root:MainWindowViewModel.ResetButton_Tooltip}"
-                            Style="{StaticResource WarningButtonStyle}">
-                        <behaviors:Interaction.Triggers>
-                            <behaviors:EventTrigger EventName="Click">
-                                <behaviors:InvokeCommandAction Command="{Binding ResetCommand, Mode=OneWay}" />
-                            </behaviors:EventTrigger>
-                        </behaviors:Interaction.Triggers>
-                    </Button>
-
-                    <!-- Clear -->
-                    <Button Grid.Column="3"
-                            Grid.Row="1"
-                            IsEnabled="{Binding CanClear, Mode=OneWay}"
-                            Content="{xaml:Static root:MainWindowViewModel.ClearButton_Content}"
-                            ToolTip="{xaml:Static root:MainWindowViewModel.ClearButton_Tooltip}"
-                            Style="{StaticResource WarningButtonStyle}">
-                        <behaviors:Interaction.Triggers>
-                            <behaviors:EventTrigger EventName="Click">
-                                <behaviors:InvokeCommandAction Command="{Binding ClearCommand, Mode=OneWay}" />
-                            </behaviors:EventTrigger>
-                        </behaviors:Interaction.Triggers>
-                    </Button>
-
-                    <!-- Process -->
-                    <Button Grid.Column="5"
-                            Grid.Row="1"
-                            IsEnabled="{Binding CanProcess, Mode=OneWay}"
-                            Content="{xaml:Static root:MainWindowViewModel.ProcessButton_Content}"
-                            ToolTip="{xaml:Static root:MainWindowViewModel.ProcessButton_Tooltip}"
-                            Style="{StaticResource ContinueButtonStyle}">
-                        <behaviors:Interaction.Triggers>
-                            <behaviors:EventTrigger EventName="Click">
-                                <behaviors:InvokeCommandAction Command="{Binding ProcessCommand, Mode=OneWay}" />
-                            </behaviors:EventTrigger>
-                        </behaviors:Interaction.Triggers>
-                    </Button>
-                </Grid>
             </Grid>
-
         </Grid>
     </Grid>
 </Window>

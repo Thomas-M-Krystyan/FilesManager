@@ -70,11 +70,29 @@ namespace FilesManager.UI.Common.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CONVERTING.
+        /// </summary>
+        public static string Content_Layer_ConvertingButton {
+            get {
+                return ResourceManager.GetString("Content_Layer_ConvertingButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to RENAMING.
         /// </summary>
-        public static string Content_Layer_RenameButton {
+        public static string Content_Layer_RenamingButton {
             get {
-                return ResourceManager.GetString("Content_Layer_RenameButton", resourceCulture);
+                return ResourceManager.GetString("Content_Layer_RenamingButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VALIDATING.
+        /// </summary>
+        public static string Content_Layer_ValidatingButton {
+            get {
+                return ResourceManager.GetString("Content_Layer_ValidatingButton", resourceCulture);
             }
         }
         
@@ -344,11 +362,29 @@ namespace FilesManager.UI.Common.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to INFO: Switches to mode with operations converting files.
+        /// </summary>
+        public static string Tooltip_Layer_ConvertingButton {
+            get {
+                return ResourceManager.GetString("Tooltip_Layer_ConvertingButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to INFO: Switches to mode with operations renaming files.
         /// </summary>
-        public static string Tooltip_Layer_RenameButton {
+        public static string Tooltip_Layer_RenamingButton {
             get {
-                return ResourceManager.GetString("Tooltip_Layer_RenameButton", resourceCulture);
+                return ResourceManager.GetString("Tooltip_Layer_RenamingButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to INFO: Switches to mode with operations validating files.
+        /// </summary>
+        public static string Tooltip_Layer_ValidatingButton {
+            get {
+                return ResourceManager.GetString("Tooltip_Layer_ValidatingButton", resourceCulture);
             }
         }
         

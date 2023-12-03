@@ -121,8 +121,16 @@
     <value>Clear</value>
     <comment>XAML</comment>
   </data>
-  <data name="Content_Layer_RenameButton" xml:space="preserve">
+  <data name="Content_Layer_ConvertingButton" xml:space="preserve">
+    <value>CONVERTING</value>
+    <comment>XAML</comment>
+  </data>
+  <data name="Content_Layer_RenamingButton" xml:space="preserve">
     <value>RENAMING</value>
+    <comment>XAML</comment>
+  </data>
+  <data name="Content_Layer_ValidatingButton" xml:space="preserve">
+    <value>VALIDATING</value>
     <comment>XAML</comment>
   </data>
   <data name="Content_ProcessButton" xml:space="preserve">
@@ -258,8 +266,16 @@ zeros trimming (set: 0) the gap between files lenghts will be filled with 2 zero
     <value>INFO: Drag and drop files here</value>
     <comment>XAML</comment>
   </data>
-  <data name="Tooltip_Layer_RenameButton" xml:space="preserve">
+  <data name="Tooltip_Layer_ConvertingButton" xml:space="preserve">
+    <value>INFO: Switches to mode with operations converting files</value>
+    <comment>XAML</comment>
+  </data>
+  <data name="Tooltip_Layer_RenamingButton" xml:space="preserve">
     <value>INFO: Switches to mode with operations renaming files</value>
+    <comment>XAML</comment>
+  </data>
+  <data name="Tooltip_Layer_ValidatingButton" xml:space="preserve">
+    <value>INFO: Switches to mode with operations validating files</value>
     <comment>XAML</comment>
   </data>
   <data name="Tooltip_Method_IncrementNumber" xml:space="preserve">
