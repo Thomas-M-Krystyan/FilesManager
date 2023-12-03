@@ -1,6 +1,6 @@
 ﻿using FilesManager.Core.Converters;
 using FilesManager.Core.Converters.Interfaces;
-using FilesManager.Core.Helpers;
+using FilesManager.Core.Extensions;
 using FilesManager.Core.Models.DTOs.Files;
 using FilesManager.Core.Models.POCOs;
 using FilesManager.UI.Desktop.ViewModels.Layers.Renaming;

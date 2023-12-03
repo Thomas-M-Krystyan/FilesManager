@@ -1,4 +1,4 @@
-﻿using FilesManager.Core.Helpers;
+﻿using FilesManager.Core.Extensions;
 
 namespace FilesManager.Core.UnitTests.Helpers
 {
