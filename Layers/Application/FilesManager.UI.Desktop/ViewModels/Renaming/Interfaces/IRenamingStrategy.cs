@@ -2,7 +2,7 @@
 using FilesManager.Core.Models.POCOs;
 using System.Collections.Generic;
 
-namespace FilesManager.UI.Desktop.ViewModels.Strategies.Interfaces
+namespace FilesManager.UI.Desktop.ViewModels.Renaming.Interfaces
 {
     internal interface IRenamingStrategy
     {

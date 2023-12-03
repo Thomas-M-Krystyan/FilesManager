@@ -1,15 +1,14 @@
-﻿using FilesManager.Core.Converters;
-using FilesManager.Core.Converters.Interfaces;
+﻿using FilesManager.Core.Converters.Interfaces;
 using FilesManager.Core.Extensions;
 using FilesManager.Core.Models.DTOs.Files;
 using FilesManager.Core.Models.DTOs.Results;
 using FilesManager.Core.Models.POCOs;
 using FilesManager.UI.Common.Properties;
-using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
+using FilesManager.UI.Desktop.ViewModels.Renaming.Base;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace FilesManager.UI.Desktop.ViewModels.Strategies
+namespace FilesManager.UI.Desktop.ViewModels.Renaming
 {
     /// <summary>
     /// The strategy to update the file name by using prefix, incremented number, and postfix.

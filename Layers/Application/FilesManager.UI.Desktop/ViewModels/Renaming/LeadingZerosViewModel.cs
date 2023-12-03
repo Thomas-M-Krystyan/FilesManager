@@ -1,13 +1,12 @@
-﻿using FilesManager.Core.Converters;
-using FilesManager.Core.Converters.Interfaces;
+﻿using FilesManager.Core.Converters.Interfaces;
 using FilesManager.Core.Models.DTOs.Files;
 using FilesManager.Core.Models.DTOs.Results;
 using FilesManager.Core.Models.POCOs;
 using FilesManager.UI.Common.Properties;
-using FilesManager.UI.Desktop.ViewModels.Strategies.Base;
+using FilesManager.UI.Desktop.ViewModels.Renaming.Base;
 using System.Collections.Generic;
 
-namespace FilesManager.UI.Desktop.ViewModels.Strategies
+namespace FilesManager.UI.Desktop.ViewModels.Renaming
 {
     /// <summary>
     /// The strategy to update the file name by appending to it leading zeroes.
