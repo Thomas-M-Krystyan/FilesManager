@@ -89,7 +89,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Base
                 throw new InvalidOperationException(Resources.ERROR_Internal_PropertyOrMessageAreEmpty);
             }
 
-            if (!this._propertyErrors.ContainsKey(propertyName))
+            if (!this._propertyErrors.TryGetValue(propertyName, out _))
             {
                 this._propertyErrors.Add(propertyName, new List<string>());
             }
