@@ -1,8 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <Copyright>Thomas M. Krystyan © 2022</Copyright>
+
     <TargetFramework>net7.0</TargetFramework>
-    
+
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 
