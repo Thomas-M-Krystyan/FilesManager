@@ -54,7 +54,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Base
 
         #region INotifyDataErrorInfo
         private readonly Dictionary<string /* Property name */, ICollection<string> /* Errors */> _propertyErrors = new();
-        
+
         /// <inheritdoc cref="INotifyDataErrorInfo.ErrorsChanged"/>
         public event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;
 
