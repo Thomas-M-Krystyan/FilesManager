@@ -29,8 +29,5 @@
   <ItemGroup>
     <InternalsVisibleTo Include="FilesManager.UI.Desktop.UnitTests" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\Layers\" />
-  </ItemGroup>
   
 </Project>

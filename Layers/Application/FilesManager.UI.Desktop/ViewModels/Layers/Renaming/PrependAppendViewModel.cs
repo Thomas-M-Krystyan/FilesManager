@@ -4,11 +4,11 @@ using FilesManager.Core.Models.DTOs.Files;
 using FilesManager.Core.Models.DTOs.Results;
 using FilesManager.Core.Models.POCOs;
 using FilesManager.UI.Common.Properties;
-using FilesManager.UI.Desktop.ViewModels.Renaming.Base;
+using FilesManager.UI.Desktop.ViewModels.Layers.Renaming.Base;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace FilesManager.UI.Desktop.ViewModels.Renaming
+namespace FilesManager.UI.Desktop.ViewModels.Layers.Renaming
 {
     /// <summary>
     /// The strategy to add text before and after the original file name.

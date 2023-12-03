@@ -5,11 +5,11 @@ using FilesManager.Core.Validation;
 using FilesManager.UI.Common.Properties;
 using FilesManager.UI.Desktop.Utilities;
 using FilesManager.UI.Desktop.ViewModels.Base;
-using FilesManager.UI.Desktop.ViewModels.Renaming.Interfaces;
+using FilesManager.UI.Desktop.ViewModels.Layers.Renaming.Interfaces;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace FilesManager.UI.Desktop.ViewModels.Renaming.Base
+namespace FilesManager.UI.Desktop.ViewModels.Layers.Renaming.Base
 {
     /// <summary>
     /// Base class for all file manipulation strategies.

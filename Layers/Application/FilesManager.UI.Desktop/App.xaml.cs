@@ -2,7 +2,7 @@
 using FilesManager.Core.Converters.Interfaces;
 using FilesManager.Core.Models.DTOs.Files;
 using FilesManager.UI.Desktop.ViewModels.Root;
-using FilesManager.UI.Desktop.ViewModels.Renaming;
+using FilesManager.UI.Desktop.ViewModels.Layers.Renaming;
 using Microsoft.Extensions.DependencyInjection;
 using System.Text.RegularExpressions;
 using System.Windows;

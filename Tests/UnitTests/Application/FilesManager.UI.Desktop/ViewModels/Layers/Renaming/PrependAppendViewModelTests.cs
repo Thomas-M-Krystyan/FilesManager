@@ -2,10 +2,10 @@
 using FilesManager.Core.Converters.Interfaces;
 using FilesManager.Core.Models.DTOs.Files;
 using FilesManager.Core.Models.POCOs;
-using FilesManager.UI.Desktop.ViewModels.Renaming;
-using FilesManager.UI.Desktop.ViewModels.Renaming.Base;
+using FilesManager.UI.Desktop.ViewModels.Layers.Renaming;
+using FilesManager.UI.Desktop.ViewModels.Layers.Renaming.Base;
 
-namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Renaming
+namespace FilesManager.UI.Desktop.UnitTests.ViewModels.Layers.Renaming
 {
     [TestFixture]
     internal sealed class PrependAppendViewModelTests
