@@ -1,4 +1,5 @@
 ﻿using FilesManager.UI.Common.Properties;
+using FilesManager.UI.Desktop.ViewModels.Layers.Base;
 
 namespace FilesManager.UI.Desktop.ViewModels.Layers
 {
@@ -8,7 +9,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Layers
     ///   Layers can be seen as application modes (e.g., Renaming, Converting, Validating).
     /// </para>
     /// </summary>
-    internal sealed class LayerViewModel
+    internal sealed class LayerViewModel : NotificateBase
     {
         #region Texts
         // Layers
@@ -21,5 +22,13 @@ namespace FilesManager.UI.Desktop.ViewModels.Layers
         public static string Layer_ValidatingButton_Header = Resources.Content_Layer_ValidatingButton;
         public static string Layer_ValidatingButton_Tooltip = Resources.Tooltip_Layer_ValidatingButton;
         #endregion
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LayerViewModel"/> class.
+        /// </summary>
+        public LayerViewModel()  // NOTE: Used for Dependency Injection
+            : base()
+        {
+        }
     }
 }

@@ -18,8 +18,8 @@ namespace FilesManager.UI.Desktop.ViewModels.Layers.Root
     /// <summary>
     /// View model for the main window of the application.
     /// </summary>
-    /// <seealso cref="NotifyLayerBase"/>
-    internal sealed class MainWindowViewModel : NotifyLayerBase
+    /// <seealso cref="NotificateLayerBase"/>
+    internal sealed class MainWindowViewModel : NotificateLayerBase
     {
         #region Texts
         // Title

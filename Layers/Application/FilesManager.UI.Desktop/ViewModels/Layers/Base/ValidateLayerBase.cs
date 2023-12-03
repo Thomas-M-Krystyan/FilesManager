@@ -9,7 +9,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Layers.Base
     /// <inheritdoc cref="INotifyDataErrorInfo"/>   => Validation
     /// <seealso cref="INotifyPropertyChanged"/>    => Notification
     /// <seealso cref="LayerBase"/>                 => Layer operations
-    internal abstract class ValidateLayerBase : NotifyLayerBase, INotifyDataErrorInfo
+    internal abstract class ValidateLayerBase : NotificateLayerBase, INotifyDataErrorInfo
     {
         #region Fields
         private readonly Dictionary<string /* Property name */, ICollection<string> /* Errors */> _propertyErrors = new();
