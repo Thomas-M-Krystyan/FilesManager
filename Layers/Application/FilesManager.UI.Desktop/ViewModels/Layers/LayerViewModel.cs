@@ -23,6 +23,9 @@ namespace FilesManager.UI.Desktop.ViewModels.Layers
         public static string Layer_ValidatingButton_Tooltip = Resources.Tooltip_Layer_ValidatingButton;
         #endregion
 
+        #region Properties (binding)
+        #endregion
+
         /// <summary>
         /// Initializes a new instance of the <see cref="LayerViewModel"/> class.
         /// </summary>
