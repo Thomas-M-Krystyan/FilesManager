@@ -14,9 +14,9 @@ namespace FilesManager.UI.Desktop.ViewModels.Layers.Specific.Renaming.Base
     /// <summary>
     /// Base class for all file renaming strategies.
     /// </summary>
-    /// <seealso cref="ValidateLayerBase"/>
+    /// <seealso cref="NotificateValidateLayerBase"/>
     /// <seealso cref="IRenaming"/>
-    internal abstract class RenamingBase : ValidateLayerBase, IRenaming
+    internal abstract class RenamingBase : NotificateValidateLayerBase, IRenaming
     {
         #region Texts
         public static readonly string RadioButton_Tooltip = Resources.Tooltip_RadioButton;
