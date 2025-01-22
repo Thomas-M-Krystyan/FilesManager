@@ -50,7 +50,7 @@
                  ItemsSource="{Binding Files, Mode=OneWay}"
                  ToolTip="{xaml:Static root:MainWindowViewModel.FilesList_Tooltip}"
                  Style="{StaticResource ControlWithResponsiveToolTips}"
-                 AllowDrop="True">
+                 AllowDrop="True" data:ItemsSource="{data:SampleData ItemCount=5}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding DisplayName, Mode=OneWay}" />
