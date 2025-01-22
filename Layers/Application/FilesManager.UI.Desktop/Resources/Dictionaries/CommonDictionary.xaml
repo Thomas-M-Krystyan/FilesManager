@@ -115,7 +115,7 @@
     <!-- Buttons -->
     <Style xaml:Key="MiddleLayerButtonStyle"
            TargetType="{xaml:Type Button}"
-           BasedOn="{StaticResource ControlWithResponsiveToolTips}">
+           BasedOn="{StaticResource ControlWithResponsiveToolTips}"> <!-- NOTE: Middle button has to be defined first, since it's reference to the Left and Right buttons -->
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="VerticalAlignment" Value="Top" />
         <!-- Font -->
