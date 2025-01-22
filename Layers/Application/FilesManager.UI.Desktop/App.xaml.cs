@@ -36,7 +36,7 @@ namespace FilesManager.UI.Desktop
             _ = services.AddSingleton<LeadingZerosViewModel>();
 
             // Converters
-            _ = services.AddSingleton<IFilePathConverter<Match,           FilePathNameDto>,    FilePathNameDtoConverter>();
+            _ = services.AddSingleton<IFilePathConverter<Match, FilePathNameDto>, FilePathNameDtoConverter>();
             _ = services.AddSingleton<IFilePathConverter<FilePathNameDto, FileZerosDigitsDto>, FileZerosDigitsDtoConverter>();
 
             return services;
