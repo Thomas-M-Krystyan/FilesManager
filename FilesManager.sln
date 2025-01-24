@@ -37,6 +37,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilesManager.UI.Common", "L
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilesManager.UI.Desktop.UnitTests", "Tests\UnitTests\Application\FilesManager.UI.Desktop\FilesManager.UI.Desktop.UnitTests.csproj", "{DAE230FC-79A7-4413-A74C-7A7148915EF9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{64E9229D-625F-497D-9D87-6C5041D50901}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
