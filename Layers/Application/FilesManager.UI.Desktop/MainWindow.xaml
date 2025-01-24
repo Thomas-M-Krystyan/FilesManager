@@ -5,7 +5,7 @@
         xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:markup="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:customBehaviors="clr-namespace:FilesManager.UI.Desktop.Behaviors"
-        xmlns:layer="clr-namespace:FilesManager.UI.Desktop.ViewModels.Layers"
+        xmlns:layer="clr-namespace:FilesManager.UI.Desktop.ViewModels.Layers.Specific"
         xmlns:root="clr-namespace:FilesManager.UI.Desktop.ViewModels.Layers.Root"
         xmlns:renaming="clr-namespace:FilesManager.UI.Desktop.ViewModels.Layers.Specific.Renaming"
         data:DataContext="{data:DesignInstance Type=root:MainWindowViewModel}"

@@ -1,7 +1,7 @@
 ﻿using FilesManager.UI.Common.Properties;
 using FilesManager.UI.Desktop.ViewModels.Layers.Base;
 
-namespace FilesManager.UI.Desktop.ViewModels.Layers
+namespace FilesManager.UI.Desktop.ViewModels.Layers.Specific
 {
     /// <summary>
     /// Containst information about the active layers of the application.

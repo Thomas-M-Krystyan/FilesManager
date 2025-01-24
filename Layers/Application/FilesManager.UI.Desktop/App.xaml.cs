@@ -4,9 +4,9 @@ using FilesManager.Core.Models.DTOs.Files;
 using Microsoft.Extensions.DependencyInjection;
 using System.Text.RegularExpressions;
 using System.Windows;
-using FilesManager.UI.Desktop.ViewModels.Layers;
 using FilesManager.UI.Desktop.ViewModels.Layers.Specific.Renaming;
 using FilesManager.UI.Desktop.ViewModels.Layers.Root;
+using FilesManager.UI.Desktop.ViewModels.Layers.Specific;
 
 namespace FilesManager.UI.Desktop
 {

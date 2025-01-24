@@ -4,6 +4,7 @@ using FilesManager.Core.Validation;
 using FilesManager.UI.Common.Properties;
 using FilesManager.UI.Desktop.Utilities;
 using FilesManager.UI.Desktop.ViewModels.Layers.Base;
+using FilesManager.UI.Desktop.ViewModels.Layers.Specific;
 using FilesManager.UI.Desktop.ViewModels.Layers.Specific.Renaming;
 using FilesManager.UI.Desktop.ViewModels.Layers.Specific.Renaming.Interfaces;
 using Microsoft.Xaml.Behaviors.Core;
