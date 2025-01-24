@@ -2,8 +2,8 @@
 
 namespace FilesManager.UI.Desktop.ViewModels.Layers.Base
 {
-    /// <inheritdoc cref="INotifyPropertyChanged"/>   => Notification
-    internal abstract class NotificateBase : INotifyPropertyChanged
+    /// <inheritdoc cref="INotifyPropertyChanged"/>
+    internal abstract class Observable : INotifyPropertyChanged
     {
         #region Events
         /// <inheritdoc cref="INotifyPropertyChanged.PropertyChanged"/>
@@ -11,9 +11,9 @@ namespace FilesManager.UI.Desktop.ViewModels.Layers.Base
         #endregion
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NotificateBase"/> class.
+        /// Initializes a new instance of the <see cref="Observable"/> class.
         /// </summary>
-        protected NotificateBase() : base()
+        protected Observable()
         {
         }
 

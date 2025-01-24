@@ -9,7 +9,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Layers
     ///   Layers can be seen as application modes (e.g., Renaming, Converting, Validating).
     /// </para>
     /// </summary>
-    internal sealed class ActiveLayerViewModel : NotificateBase
+    internal sealed class ActiveLayerViewModel : Observable
     {
         #region Texts
         // Layers
