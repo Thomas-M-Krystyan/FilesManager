@@ -74,7 +74,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Layers.Root
         /// <summary>
         /// A collection of files that were dragged and dropped on the specific UI section in the <see cref="MainWindow"/>.
         /// </summary>
-        public ObservableCollection<FileData> Files { get; } = new();
+        public ObservableCollection<FileData> Files { get; } = [];
 
         private int _counter;
 
