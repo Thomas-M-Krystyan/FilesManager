@@ -12,7 +12,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Layers.Base
     internal abstract class NotificateValidateLayerBase : NotificateLayerBase, INotifyDataErrorInfo
     {
         #region Fields
-        private readonly Dictionary<string /* Property name */, ICollection<string> /* Errors */> _propertyErrors = new();
+        private readonly Dictionary<string /* Property name */, ICollection<string> /* Errors */> _propertyErrors = [];
         #endregion
 
         #region Properties
@@ -65,7 +65,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Layers.Base
 
             if (!this._propertyErrors.TryGetValue(propertyName, out _))
             {
-                this._propertyErrors.Add(propertyName, new List<string>());
+                this._propertyErrors.Add(propertyName, []);
             }
 
             this._propertyErrors[propertyName].Add($"{propertyName} | {errorMessage}: \"{value}\".");
