@@ -59,8 +59,8 @@ namespace FilesManager.UI.Desktop.ViewModels.Layers.Root
 
         // NOTE: All binding elements should be public
         #region Properties (binding)
-        /// <inheritdoc cref="LayerViewModel"/>
-        public LayerViewModel Layer { get; }
+        /// <inheritdoc cref="ActiveLayerViewModel"/>
+        public ActiveLayerViewModel Layer { get; }
 
         /// <inheritdoc cref="IncrementNumberViewModel"/>
         public IncrementNumberViewModel IncrementNumberStrategy { get; }
@@ -172,7 +172,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Layers.Root
         /// Initializes a new instance of the <see cref="MainWindowViewModel"/> class.
         /// </summary>
         public MainWindowViewModel(  // NOTE: Used for Dependency Injection
-            LayerViewModel layerViewModel,
+            ActiveLayerViewModel layerViewModel,
             IncrementNumberViewModel incrementViewModel,
             PrependAppendViewModel prependViewModel,
             LeadingZerosViewModel zerosViewModel)

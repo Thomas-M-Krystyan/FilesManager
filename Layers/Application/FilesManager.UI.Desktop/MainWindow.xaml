@@ -96,24 +96,24 @@
                 <!-- Renaming mode -->
                 <Button Grid.Column="0"
                         Grid.Row="0"
-                        Content="{xaml:Static layer:LayerViewModel.Layer_RenamingButton_Header}"
-                        ToolTip="{xaml:Static layer:LayerViewModel.Layer_RenamingButton_Tooltip}"
+                        Content="{xaml:Static layer:ActiveLayerViewModel.Layer_RenamingButton_Header}"
+                        ToolTip="{xaml:Static layer:ActiveLayerViewModel.Layer_RenamingButton_Tooltip}"
                         Style="{StaticResource LeftLayerButtonStyle}">
                 </Button>
 
                 <!-- Converting mode -->
                 <Button Grid.Column="1"
                         Grid.Row="0"
-                        Content="{xaml:Static layer:LayerViewModel.Layer_ConvertingButton_Header}"
-                        ToolTip="{xaml:Static layer:LayerViewModel.Layer_ConvertingButton_Tooltip}"
+                        Content="{xaml:Static layer:ActiveLayerViewModel.Layer_ConvertingButton_Header}"
+                        ToolTip="{xaml:Static layer:ActiveLayerViewModel.Layer_ConvertingButton_Tooltip}"
                         Style="{StaticResource MiddleLayerButtonStyle}">
                 </Button>
 
                 <!-- Validating mode -->
                 <Button Grid.Column="2"
                         Grid.Row="0"
-                        Content="{xaml:Static layer:LayerViewModel.Layer_ValidatingButton_Header}"
-                        ToolTip="{xaml:Static layer:LayerViewModel.Layer_ValidatingButton_Tooltip}"
+                        Content="{xaml:Static layer:ActiveLayerViewModel.Layer_ValidatingButton_Header}"
+                        ToolTip="{xaml:Static layer:ActiveLayerViewModel.Layer_ValidatingButton_Tooltip}"
                         Style="{StaticResource RightLayerButtonStyle}">
                 </Button>
             </Grid>

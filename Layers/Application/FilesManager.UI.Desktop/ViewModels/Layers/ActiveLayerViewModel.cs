@@ -9,7 +9,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Layers
     ///   Layers can be seen as application modes (e.g., Renaming, Converting, Validating).
     /// </para>
     /// </summary>
-    internal sealed class LayerViewModel : NotificateBase
+    internal sealed class ActiveLayerViewModel : NotificateBase
     {
         #region Texts
         // Layers
@@ -27,9 +27,9 @@ namespace FilesManager.UI.Desktop.ViewModels.Layers
         #endregion
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LayerViewModel"/> class.
+        /// Initializes a new instance of the <see cref="ActiveLayerViewModel"/> class.
         /// </summary>
-        public LayerViewModel()  // NOTE: Used for Dependency Injection
+        public ActiveLayerViewModel()  // NOTE: Used for Dependency Injection
             : base()
         {
         }

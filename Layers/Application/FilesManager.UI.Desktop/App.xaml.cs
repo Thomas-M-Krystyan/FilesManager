@@ -28,7 +28,7 @@ namespace FilesManager.UI.Desktop
         {
             // ViewModels: General
             _ = services.AddSingleton<MainWindowViewModel>();
-            _ = services.AddSingleton<LayerViewModel>();
+            _ = services.AddSingleton<ActiveLayerViewModel>();
 
             // ViewModels: Renaming
             _ = services.AddSingleton<IncrementNumberViewModel>();
