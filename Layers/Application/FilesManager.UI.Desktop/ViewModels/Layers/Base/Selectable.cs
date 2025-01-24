@@ -4,9 +4,9 @@ using System.Windows.Input;
 namespace FilesManager.UI.Desktop.ViewModels.Layers.Base
 {
     /// <summary>
-    /// The main base view model defining basic layer operations.
+    /// The basic "select" and "deselect" operations used by view models.
     /// </summary>
-    internal abstract class LayerBase
+    internal abstract class Selectable
     {
         // NOTE: All binding elements should be public
         #region Commands (binding)
@@ -16,20 +16,22 @@ namespace FilesManager.UI.Desktop.ViewModels.Layers.Base
         public ICommand SelectCommand => new ActionCommand(Select);
 
         /// <summary>
-        /// Handles subscribed <see cref="Deselect()"/> action.
-        /// </summary>
-        internal ICommand DeselectCommand => new ActionCommand(Deselect);  // NOTE: This command doesn't need to have binding
-
-        /// <summary>
         /// Handles subscribed <see cref="Reset()"/> action.
         /// </summary>
         public ICommand ResetCommand => new ActionCommand(Reset);
         #endregion
 
+        #region Commands (non-binding)
         /// <summary>
-        /// Initializes a new instance of the <see cref="LayerBase"/> class.
+        /// Handles subscribed <see cref="Deselect()"/> action.
         /// </summary>
-        protected LayerBase()
+        internal ICommand DeselectCommand => new ActionCommand(Deselect);
+        #endregion
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Selectable"/> class.
+        /// </summary>
+        protected Selectable()
         {
         }
 

@@ -3,8 +3,8 @@
 namespace FilesManager.UI.Desktop.ViewModels.Layers.Base
 {
     /// <inheritdoc cref="INotifyPropertyChanged"/>   => Notification
-    /// <seealso cref="LayerBase"/>                   => Layer operations
-    internal abstract class NotificateLayerBase : LayerBase, INotifyPropertyChanged
+    /// <seealso cref="Selectable"/>                   => Layer operations
+    internal abstract class NotificateLayerBase : Selectable, INotifyPropertyChanged
     {
         #region Events
         /// <inheritdoc cref="INotifyPropertyChanged.PropertyChanged"/>
