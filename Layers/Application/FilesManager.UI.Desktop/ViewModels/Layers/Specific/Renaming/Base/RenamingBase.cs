@@ -4,7 +4,7 @@ using FilesManager.Core.Services.Writing;
 using FilesManager.Core.Validation;
 using FilesManager.UI.Common.Properties;
 using FilesManager.UI.Desktop.Utilities;
-using FilesManager.UI.Desktop.ViewModels.Layers.Base;
+using FilesManager.UI.Desktop.ViewModels.Layers.Common;
 using FilesManager.UI.Desktop.ViewModels.Layers.Specific.Renaming.Interfaces;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,7 +12,7 @@ using System.Collections.ObjectModel;
 namespace FilesManager.UI.Desktop.ViewModels.Layers.Specific.Renaming.Base
 {
     /// <summary>
-    /// Base class for all file renaming strategies.
+    /// Common class for all file renaming strategies.
     /// </summary>
     /// <seealso cref="NotificateValidateLayerBase"/>
     /// <seealso cref="IRenaming"/>

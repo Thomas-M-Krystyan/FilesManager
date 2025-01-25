@@ -1,15 +1,16 @@
 ﻿using FilesManager.UI.Common.Properties;
+using FilesManager.UI.Desktop.ViewModels.Layers.Common.Facades;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 
-namespace FilesManager.UI.Desktop.ViewModels.Layers.Base
+namespace FilesManager.UI.Desktop.ViewModels.Layers.Common
 {
     /// <inheritdoc cref="INotifyDataErrorInfo"/>   => Validation
     /// <seealso cref="INotifyPropertyChanged"/>    => Notification
     /// <seealso cref="Selectable"/>                 => Layer operations
-    internal abstract class NotificateValidateLayerBase : NotificateLayerBase, INotifyDataErrorInfo
+    internal abstract class NotificateValidateLayerBase : BasicViewModelFacade, INotifyDataErrorInfo
     {
         #region Fields
         private readonly Dictionary<string /* Property name */, ICollection<string> /* Errors */> _propertyErrors = [];

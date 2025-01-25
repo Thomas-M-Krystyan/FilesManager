@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xaml.Behaviors.Core;
 using System.Windows.Input;
 
-namespace FilesManager.UI.Desktop.ViewModels.Layers.Base
+namespace FilesManager.UI.Desktop.ViewModels.Layers.Common
 {
     /// <summary>
     /// The basic "select" and "deselect" operations used by view models.

@@ -3,7 +3,7 @@ using FilesManager.Core.Models.POCOs;
 using FilesManager.Core.Validation;
 using FilesManager.UI.Common.Properties;
 using FilesManager.UI.Desktop.Utilities;
-using FilesManager.UI.Desktop.ViewModels.Layers.Base;
+using FilesManager.UI.Desktop.ViewModels.Layers.Common.Facades;
 using FilesManager.UI.Desktop.ViewModels.Layers.Specific;
 using FilesManager.UI.Desktop.ViewModels.Layers.Specific.Renaming;
 using FilesManager.UI.Desktop.ViewModels.Layers.Specific.Renaming.Interfaces;
@@ -19,8 +19,8 @@ namespace FilesManager.UI.Desktop.ViewModels.Layers.Root
     /// <summary>
     /// View model for the main window of the application.
     /// </summary>
-    /// <seealso cref="NotificateLayerBase"/>
-    internal sealed class MainWindowViewModel : NotificateLayerBase
+    /// <seealso cref="BasicViewModelFacade"/>
+    internal sealed class MainWindowViewModel : BasicViewModelFacade
     {
         #region Texts
         // Title
@@ -173,13 +173,14 @@ namespace FilesManager.UI.Desktop.ViewModels.Layers.Root
         /// Initializes a new instance of the <see cref="MainWindowViewModel"/> class.
         /// </summary>
         public MainWindowViewModel(  // NOTE: Used for Dependency Injection
-            ActiveLayerViewModel layerViewModel,
+            ActiveLayerViewModel activeLayerViewModel,
             IncrementNumberViewModel incrementViewModel,
             PrependAppendViewModel prependViewModel,
             LeadingZerosViewModel zerosViewModel)
             : base()
         {
-            this.Layer = layerViewModel;
+            this.Layer = activeLayerViewModel;
+
             this.IncrementNumberStrategy = incrementViewModel;
             this.PrependAppendStrategy = prependViewModel;
             this.LeadingZerosStrategy = zerosViewModel;

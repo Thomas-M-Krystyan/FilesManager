@@ -1,15 +1,16 @@
 ﻿using FilesManager.UI.Common.Properties;
-using FilesManager.UI.Desktop.ViewModels.Layers.Base;
+using FilesManager.UI.Desktop.ViewModels.Layers.Common.Base;
 
 namespace FilesManager.UI.Desktop.ViewModels.Layers.Specific
 {
     /// <summary>
-    /// Containst information about the active layers of the application.
+    /// View model that contains information about the active layers of the application.
     /// <para>
     ///   Layers can be seen as application modes (e.g., Renaming, Converting, Validating).
     /// </para>
     /// </summary>
-    internal sealed class ActiveLayerViewModel : Observable
+    /// <seealso cref="ObservableViewModel"/>
+    internal sealed class ActiveLayerViewModel : ObservableViewModel
     {
         #region Texts
         // Layers
