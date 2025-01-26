@@ -9,7 +9,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Layers.Common
 {
     /// <inheritdoc cref="INotifyDataErrorInfo"/>   => Validation
     /// <seealso cref="INotifyPropertyChanged"/>    => Notification
-    /// <seealso cref="Selectable"/>                 => Layer operations
+    /// <seealso cref="ISelectableViewModel"/>                 => Layer operations
     internal abstract class NotificateValidateLayerBase : BasicViewModelFacade, INotifyDataErrorInfo
     {
         #region Fields

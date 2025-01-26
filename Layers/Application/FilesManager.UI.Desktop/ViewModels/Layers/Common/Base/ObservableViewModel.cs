@@ -3,7 +3,13 @@ using System.ComponentModel;
 
 namespace FilesManager.UI.Desktop.ViewModels.Layers.Common.Base
 {
+    /// <summary>
     /// <inheritdoc cref="IObservableViewModel"/>
+    /// </summary>
+    /// <remarks>
+    /// NOTE: Interfaces cannot access their own events from implemented
+    /// methods, so this class was introduced to omit such restriction.
+    /// </remarks>
     internal abstract class ObservableViewModel : IObservableViewModel
     {
         /// <inheritdoc cref="IObservableViewModel.PropertyChanged"/>

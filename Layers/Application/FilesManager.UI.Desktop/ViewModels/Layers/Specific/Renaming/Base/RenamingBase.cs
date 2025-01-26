@@ -81,7 +81,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Layers.Specific.Renaming.Base
 
         #region Polymorphism
         /// <inheritdoc cref="IViewModel.Select(object)"/>
-        protected override sealed void Select(object parameter)  // NOTE: Default behavior for all strategies, no need to change it. Overloading restricted
+        public override sealed void Select(object parameter)  // NOTE: Default behavior for all strategies, no need to change it. Overloading restricted
         {
             if (!this.IsEnabled)
             {
@@ -92,7 +92,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Layers.Specific.Renaming.Base
         }
 
         /// <inheritdoc cref="IViewModel.Deselect()"/>
-        protected override sealed void Deselect()  // NOTE: Default behavior for all strategies, no need to change it. Overloading restricted
+        public override sealed void Deselect()  // NOTE: Default behavior for all strategies, no need to change it. Overloading restricted
         {
             if (this.IsEnabled)
             {
@@ -101,7 +101,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Layers.Specific.Renaming.Base
         }
 
         /// <inheritdoc cref="IViewModel.Reset()"/>
-        protected override void Reset()
+        public override void Reset()
         {
             Deselect();
             ClearAllErrors();
@@ -160,7 +160,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Layers.Specific.Renaming.Base
         protected internal static RenamingResultDto TryUpdatingFiles(
             IList<FileData> loadedFiles, Func<FileData, string> getNewFilePath)
         {
-            var result = RenamingResultDto.Failure();
+            RenamingResultDto result = RenamingResultDto.Failure();
             FileData file;
 
             for (ushort index = 0; index < loadedFiles.Count; index++)

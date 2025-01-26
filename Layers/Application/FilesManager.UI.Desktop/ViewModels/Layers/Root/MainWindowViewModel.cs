@@ -204,7 +204,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Layers.Root
         ///   The event's argument (<see cref="MouseButtonEventArgs"/>) passed
         ///   when the specific trigger was activated on the XAML side.
         /// </param>
-        protected override sealed void Select(object parameter)
+        public override sealed void Select(object parameter)
         {
             // When any "Label" is clicked ("MouseLeftButtonDown" event) remove focus from all "TextBox" controls
             if (parameter is MouseButtonEventArgs)
@@ -214,8 +214,8 @@ namespace FilesManager.UI.Desktop.ViewModels.Layers.Root
 
             // Check which strategy is active
             this._activeStrategy = this.IncrementNumberStrategy.IsEnabled ? this.IncrementNumberStrategy :
-                                   this.PrependAppendStrategy.IsEnabled ? this.PrependAppendStrategy :
-                                   this.LeadingZerosStrategy.IsEnabled ? this.LeadingZerosStrategy :
+                                   this.PrependAppendStrategy.IsEnabled   ? this.PrependAppendStrategy   :
+                                   this.LeadingZerosStrategy.IsEnabled    ? this.LeadingZerosStrategy    :
                                    null;
 
             UpdateMainButtons();
@@ -224,7 +224,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Layers.Root
         /// <summary>
         /// Deselects all strategies.
         /// </summary>
-        protected override sealed void Deselect()  // NOTE: Specific behavior for the hub of other view models. Overloading restricted
+        public override sealed void Deselect()  // NOTE: Specific behavior for the hub of other view models. Overloading restricted
         {
             this.IncrementNumberStrategy.DeselectCommand.Execute(null);
             this.PrependAppendStrategy.DeselectCommand.Execute(null);
@@ -234,7 +234,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Layers.Root
         /// <summary>
         /// Clears the list of files and resets all of the strategies.
         /// </summary>
-        protected override sealed void Reset()  // NOTE: Specific behavior for the hub of other view models. Overloading restricted
+        public override sealed void Reset()  // NOTE: Specific behavior for the hub of other view models. Overloading restricted
         {
             ClearFiles();
             ClearStrategies();
@@ -319,6 +319,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Layers.Root
             this.IncrementNumberStrategy.ResetCommand.Execute(null);
             this.PrependAppendStrategy.ResetCommand.Execute(null);
             this.LeadingZerosStrategy.ResetCommand.Execute(null);
+
             this._activeStrategy = null;
 
             UpdateMainButtons();

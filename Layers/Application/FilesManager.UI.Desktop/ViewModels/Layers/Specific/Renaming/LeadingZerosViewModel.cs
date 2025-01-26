@@ -127,7 +127,7 @@ namespace FilesManager.UI.Desktop.ViewModels.Layers.Specific.Renaming
         }
 
         /// <inheritdoc cref="RenamingBase.Reset()"/>
-        protected override sealed void Reset()  // NOTE: Speficic behavior for this concrete strategy. Overloading restricted
+        public override sealed void Reset()  // NOTE: Speficic behavior for this concrete strategy. Overloading restricted
         {
             this.LeadingZeros = default;
             this.IsAbsoluteModeOn = DefaultAbsoluteModeOn;
